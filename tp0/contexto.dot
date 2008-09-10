@@ -1,0 +1,122 @@
+digraph g{
+
+
+maquina [shape=record,label="<f0>|<f1> sistema|<f2>"];
+node[shape=box]
+node[color=coral,style=filled]
+cliente
+node[color=darkgoldenrod,style=filled]
+mozo
+node[color=chartreuse,style=filled]
+cajero
+node[color=cornflowerblue,style=filled]
+"encargado-dueno"
+node[color=paleturquoise,style=filled]
+"sistema de facturacion"
+node[color=orange,style=filled]
+"encargado de stock"
+node[color=plum,style=filled]
+"maestro"
+node[color=purple,style=filled]
+"delivery"
+node[color=red,style=filled]
+"encargado de pedidos"
+
+edge[color=black,fontcolor=black]
+maquina->maestro[label="informa proximo pedido a preparar"]
+maquina->maestro[label="informa proximo pedido a cocinar"]
+
+edge[color=plum,fontcolor=plum]
+maestro->maquina[label="ingresa cambios en estado de pedidos"]
+maestro->maquina[label="ingresa pedidos preparados de antemano"]
+
+edge[color=cornflowerblue,fontcolor=cornflowerblue]
+"encargado-dueno"->maquina[label="modifica precios"]
+
+edge[color=black,fontcolor=black]
+maquina->"encargado-dueno"[label="brinda datos estadisticos"]
+
+edge[color=orange,fontcolor=orange]
+"encargado de stock"->maquina[label="actualiza stock"]
+
+edge[color=black,fontcolor=black]
+maquina->"encargado de stock"[label="notifica stock critico"]
+maquina->"encargado de stock"[label="brinda informacion sobre el stock"]
+
+edge[color=chartreuse,fontcolor=chartreuse]
+cajero->maquina[label="pidiendo registro de cobro"]
+
+edge[color=black,fontcolor=black]
+maquina->"sistema de facturacion"[label="informa sobre pedido de factura"]
+
+edge[color=coral,fontcolor=coral]
+cliente->maquina[label="haciendo pedido sms"]
+cliente->maquina[label="haciendo pedido web"]
+cliente->maquina[label="consultando estado del pedido"]
+cliente->maquina[label="haciendo feedback"]
+
+edge[color=red,fontcolor=red]
+"encargado de pedidos"->maquina[label="modifica cola de pedidos"]
+"encargado de pedidos"->maquina[label="ingresa pedido"]
+"encargado de pedidos"->maquina[label="notifica salida de pedido"]
+"encargado de pedidos"->maquina[label="registra usuario"]
+
+edge[color=black,fontcolor=black]
+maquina->"encargado de pedidos"[label="brinda informacion sobre pedidos"]
+
+edge[color=purple,fontcolor=purple]
+delivery->maquina[label="informa entrega"]
+
+edge[color=black,fontcolor=black]
+maquina->"sistema de facturacion"[label="ordena facturar"]
+
+edge [color=darkgoldenrod,fontcolor=darkgoldenrod];
+mozo->maquina[label="ingresa pedido de mesa"]
+
+edge[color=black,fontcolor=black]
+maquina->mozo[label="notifica pedido posible"]
+
+edge [color=darkgoldenrod,fontcolor=darkgoldenrod];
+mozo->cliente[label="informando sobre pedido posible"];
+mozo->cliente[label="llevando pedido"]
+mozo->cliente[label="llevando factura"]
+
+edge [color=coral,fontcolor=coral];
+cliente->mozo[label="pagandole"]
+cliente->mozo[label="dictando pedido"]
+
+edge[color=chartreuse,fontcolor=chartreuse]
+cajero->mozo[label="entregando factura"]
+
+edge [color=darkgoldenrod,fontcolor=darkgoldenrod];
+mozo->cajero[label="pidiendo factura"]
+mozo->cajero[label="entregando pago"]
+
+
+cliente->"encargado de pedidos"[label="pedido telefonico"]
+cliente->"encargado de pedidos"[label="pedido de registro"]
+
+edge[color=red,fontcolor=red]
+"encargado de pedidos"->cliente[label="informando pedido poible"]
+
+edge[color=purple,fontcolor=purple]
+delivery->cliente[label="llevando pedido"]
+
+edge[color=red,fontcolor=red]
+cliente->delivery[label="pagando"]
+
+edge[color=red,fontcolor=red]
+"encargado de pedidos"->delivery[label="ordenar llevar pedido"]
+
+
+edge[color=paleturquoise,fontcolor=paleturquoise]
+"sistema de facturacion"->cajero[label="brinda factura"]
+
+edge[color=purple,fontcolor=purple]
+delivery->cajero[label="engtrega dinero"]
+
+
+
+
+
+}
