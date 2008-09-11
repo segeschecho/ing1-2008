@@ -15,7 +15,10 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    sodipodi:docname="ContextoNormal.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoNormal.png"
+   inkscape:export-xdpi="27"
+   inkscape:export-ydpi="27">
   <metadata
      id="metadata320">
     <rdf:RDF>
@@ -41,8 +44,8 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.27017811"
-     inkscape:cx="104.071"
-     inkscape:cy="85.227313"
+     inkscape:cx="-201.19014"
+     inkscape:cy="-358.92414"
      inkscape:window-x="0"
      inkscape:window-y="22"
      inkscape:current-layer="svg2"
@@ -1375,4 +1378,42 @@
        id="tspan13069"
        x="-207.27068"
        y="1574.5369">Entrega dinero</tspan></text>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#a3a3a3;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+     d="M -1330.1657,1392.6408 C 569.959,2391.6061 251.4076,1621.9098 607.05429,1389.6639"
+     id="path2829"
+     inkscape:connector-type="polyline"
+     sodipodi:nodetypes="cc"
+     inkscape:connection-start="#rect11234"
+     inkscape:connection-end="#rect10661" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-220.89069"
+     y="1869.8041"
+     id="text2831"
+     transform="matrix(0.9279179,0.3727846,-0.3727846,0.9279179,0,0)"><tspan
+       sodipodi:role="line"
+       id="tspan2833"
+       x="-220.89069"
+       y="1869.8041">Da la factura para entrega</tspan></text>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#a3a3a3;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+     d="M -1330.1657,1331.7587 C 1631.7499,2751.1639 114.90445,919.6668 367.5816,372.57515"
+     id="path2842"
+     inkscape:connector-type="polyline"
+     sodipodi:nodetypes="cc"
+     inkscape:connection-start="#rect11234"
+     inkscape:connection-end="#g4825" />
+  <text
+     xml:space="preserve"
+     style="font-size:40.00000381px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-193.02014"
+     y="1789.134"
+     id="text2844"
+     transform="matrix(0.9377902,0.3472025,-0.3472025,0.9377902,0,0)"><tspan
+       sodipodi:role="line"
+       id="tspan2846"
+       x="-193.02014"
+       y="1789.134">Solicita factura</tspan></text>
 </svg>
