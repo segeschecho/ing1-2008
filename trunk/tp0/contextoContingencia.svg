@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2663"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="contextoContingencia.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs2665">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path3515"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective2671" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="476.86075"
+     inkscape:cy="126.01438"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="968"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4" />
+  <metadata
+     id="metadata2668">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       transform="matrix(1.25,0,0,1.25,-171.40094,1222.2846)"
+       id="g4825">
+      <rect
+         y="277.42813"
+         x="353.35001"
+         height="92.125"
+         width="33.5"
+         id="rect3467"
+         style="opacity:1;fill:none;fill-opacity:0.67839194;stroke:#000000;stroke-width:6.04400015;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="277.39624"
+         x="387.86499"
+         height="92.18882"
+         width="116.26694"
+         id="rect3469"
+         style="opacity:1;fill:none;fill-opacity:0.67839194;stroke:#000000;stroke-width:5.98017883;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="277.42813"
+         x="504.53436"
+         height="92.125"
+         width="33.5"
+         id="rect3471"
+         style="opacity:1;fill:none;fill-opacity:0.67839194;stroke:#000000;stroke-width:6.04400015;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text3473"
+         y="333.95938"
+         x="388.94376"
+         style="font-size:31.20000076px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="333.95938"
+           x="388.94376"
+           id="tspan3475"
+           sodipodi:role="line">Sistema</tspan></text>
+    </g>
+    <g
+       id="g6411"
+       transform="matrix(1.25,0,0,1.25,198.11883,-138.32519)">
+      <rect
+         y="208.82886"
+         x="64.816269"
+         height="93.156357"
+         width="184.23448"
+         id="rect6403"
+         style="opacity:1;fill:#e497ae;fill-opacity:1;stroke:#9e0021;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text6405"
+         y="245.67216"
+         x="79.727806"
+         style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="245.67216"
+           x="79.727806"
+           id="tspan6407"
+           sodipodi:role="line">Encargado</tspan><tspan
+           id="tspan6409"
+           y="285.67218"
+           x="79.727806"
+           sodipodi:role="line">de pedidos</tspan></text>
+    </g>
+    <g
+       id="g7982"
+       transform="matrix(1.25,0,0,1.25,-781.41515,148.31504)">
+      <rect
+         y="54.945251"
+         x="57.585876"
+         height="93.156357"
+         width="184.23448"
+         id="rect3477"
+         style="opacity:1;fill:#cbb0c9;fill-opacity:1;stroke:#90009e;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text3489"
+         y="112.51563"
+         x="98.40625"
+         style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="112.51563"
+           x="98.40625"
+           id="tspan3491"
+           sodipodi:role="line">Cliente</tspan></text>
+    </g>
+    <rect
+       style="opacity:1;fill:#90dca6;fill-opacity:1;stroke:#389a2e;stroke-width:7.57438946;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect11242"
+       width="230.29311"
+       height="116.44545"
+       x="-709.4328"
+       y="748.42517" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-641.29419"
+       y="825.58417"
+       id="text11362"><tspan
+         sodipodi:role="line"
+         x="-641.29419"
+         y="825.58417"
+         id="tspan11366">Mozo</tspan></text>
+    <rect
+       style="opacity:1;fill:#e4e7a6;fill-opacity:1;stroke:#e9ef00;stroke-width:7.57438946;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5878"
+       width="230.29311"
+       height="116.44545"
+       x="1473.425"
+       y="76.996597" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="1508.7473"
+       y="143.7252"
+       id="text5880"><tspan
+         sodipodi:role="line"
+         id="tspan5882"
+         x="1508.7473"
+         y="143.7252">Maestro</tspan></text>
+    <g
+       id="g9558"
+       transform="matrix(1.25,0,0,1.25,986.61831,98.358286)">
+      <rect
+         y="572.62494"
+         x="389.44525"
+         height="93.156357"
+         width="184.23448"
+         id="rect9033"
+         style="opacity:1;fill:#e7bc94;fill-opacity:1;stroke:#ff7115;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text9035"
+         y="610.30469"
+         x="406.1875"
+         style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="610.30469"
+           x="406.1875"
+           id="tspan9037"
+           sodipodi:role="line">    Jefe /</tspan><tspan
+           id="tspan9556"
+           y="650.30469"
+           x="406.1875"
+           sodipodi:role="line">Encargado</tspan></text>
+    </g>
+    <rect
+       style="opacity:1;fill:#c1f0f1;fill-opacity:1;stroke:#00b7cd;stroke-width:7.57438946;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10661"
+       width="230.29311"
+       height="116.44545"
+       x="-709.43231"
+       y="-271.57486" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-668.87555"
+       y="-199.61197"
+       id="text10663"><tspan
+         sodipodi:role="line"
+         id="tspan10665"
+         x="-668.87555"
+         y="-199.61197">Delivery</tspan></text>
+    <g
+       id="g4819"
+       transform="matrix(1.25,0,0,1.25,-271.76059,-1226.3097)">
+      <rect
+         y="544.35931"
+         x="740.14838"
+         height="93.156357"
+         width="184.23448"
+         id="rect3493"
+         style="opacity:1;fill:#a19ede;fill-opacity:1;stroke:#0051cb;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text3495"
+         y="582.03906"
+         x="757.9375"
+         style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="582.03906"
+           x="757.9375"
+           id="tspan3497"
+           sodipodi:role="line">Encargado </tspan><tspan
+           id="tspan3499"
+           y="622.03906"
+           x="757.9375"
+           sodipodi:role="line"> de Stock</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#a81b9f;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M -475.35251,263.87594 L 275.35197,192.27699"
+       id="path11196"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-start="#g7982"
+       inkscape:connection-end="#g6411" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-375.58368"
+       y="207.63187"
+       id="text2710"
+       transform="matrix(0.9947828,-0.1020157,0.1020157,0.9947828,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2712"
+         x="-375.58368"
+         y="207.63187">Hace pedido</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#cf2241;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 275.35197,133.4976 L -475.35201,-165.91613"
+       id="path10095"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-start="#g6411"
+       inkscape:connection-end="#rect10661" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-315.09616"
+       y="6.412693"
+       id="text2717"
+       transform="matrix(0.9199325,0.3920767,-0.3920767,0.9199325,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2719"
+         x="-315.09616"
+         y="6.412693">Ordena entregar pedido</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#4cc9c3;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M -594.28582,-151.34222 L -594.28619,213.20941"
+       id="path11354"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-start="#rect10661"
+       inkscape:connection-end="#g7982" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-121.2355"
+       y="633.30676"
+       id="text2724"
+       transform="matrix(-2.5630856e-2,0.9996715,-0.9996715,-2.5630856e-2,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2726"
+         x="-121.2355"
+         y="633.30676">Entrega pedido</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#a81b9f;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M -594.28619,213.20941 C -322.74743,10.23061 -594.28594,-29.82501 -594.28582,-151.34222"
+       id="path2728"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-start="#g7982"
+       inkscape:connection-end="#rect10661" />
+    <text
+       xml:space="preserve"
+       style="font-size:40.00000381px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-341.33981"
+       y="392.15582"
+       id="text2730"
+       transform="matrix(0.5606399,0.8280597,-0.8280597,0.5606399,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2732"
+         x="-341.33981"
+         y="392.15582">Paga</tspan></text>
+    <rect
+       style="opacity:1;fill:#bfbec9;fill-opacity:1;stroke:#545d5d;stroke-width:7.57438946;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect11234"
+       width="230.29311"
+       height="116.44545"
+       x="-112.57655"
+       y="-636.45642" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-57.849838"
+       y="-568.1947"
+       id="text11236"><tspan
+         sodipodi:role="line"
+         id="tspan11238"
+         x="-57.849838"
+         y="-568.1947">Cajero</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#4cc9c3;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M -492.85291,-275.36205 L -98.862853,-516.22378"
+       id="path2740"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-end="#rect11234"
+       inkscape:connection-start="#rect10661" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-249.9222"
+       y="-497.58173"
+       id="text2746"
+       transform="matrix(0.8616878,-0.5074389,0.5074389,0.8616878,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2748"
+         x="-249.9222"
+         y="-497.58173">Entrega dinero</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#4cc9c3;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M -475.35201,-165.91613 C -252.15054,-124.94849 -69.192557,-171.56963 275.35197,133.4976"
+       id="path2750"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-start="#rect10661"
+       inkscape:connection-end="#g6411" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-137.98213"
+       y="-59.972988"
+       id="text2752"
+       transform="matrix(0.8840813,0.4673332,-0.4673332,0.8840813,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2754"
+         x="-137.98213"
+         y="-59.972988">Notifica entrega</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#a81b9f;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M -594.28625,337.22925 L -594.28625,744.63798"
+       id="path2756"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-end="#rect11242"
+       inkscape:connection-start="#g7982" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-607.21863"
+       y="-614.83734"
+       id="text2758"
+       transform="matrix(-8.3081539e-3,-0.9999655,0.9999655,-8.3081539e-3,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2760"
+         x="-607.21863"
+         y="-614.83734">Hace pedido</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#48a62c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M -496.31618,744.63798 L 296.31566,242.94352"
+       id="path11947"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-start="#rect11242"
+       inkscape:connection-end="#g6411" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-647.64429"
+       y="348.33536"
+       id="text2767"
+       transform="matrix(0.8399811,-0.5426157,0.5426157,0.8399811,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2769"
+         x="-647.64429"
+         y="348.33536">Comunica pedido</tspan></text>
+    <rect
+       style="opacity:1;fill:#e6afe2;fill-opacity:1;stroke:#ea00c4;stroke-width:7.57438946;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect11198"
+       width="230.29311"
+       height="116.44545"
+       x="433.42487"
+       y="-840.14624" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="440.57538"
+       y="-791.73798"
+       id="text11200"><tspan
+         sodipodi:role="line"
+         x="440.57538"
+         y="-791.73798"
+         id="tspan11204">Sistema de </tspan><tspan
+         sodipodi:role="line"
+         x="440.57538"
+         y="-741.73798"
+         id="tspan11208"> facturación</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#cf2241;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 393.91807,242.94352 L 386.07806,1565.2923"
+       id="path2776"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-start="#g6411"
+       inkscape:connection-end="#g4825" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="502.51291"
+       y="-363.47577"
+       id="text2778"
+       transform="matrix(-9.0355234e-3,0.9999592,-0.9999592,-9.0355234e-3,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2780"
+         x="502.51291"
+         y="-363.47577">Ingresa pedido</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#cf2241;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 513.21946,176.38112 L 1469.6379,139.77181"
+       id="path2782"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-end="#rect5878"
+       inkscape:connection-start="#g6411" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="591.42859"
+       y="98.076477"
+       id="text2786"><tspan
+         sodipodi:role="line"
+         id="tspan2788"
+         x="591.42859"
+         y="98.076477">Comunica proximo pedido</tspan><tspan
+         sodipodi:role="line"
+         x="591.42859"
+         y="148.07648"
+         id="tspan2790">a preparar/horno</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#bdc231;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 1469.6379,139.77181 C 1132.164,245.31365 812.6012,261.30003 513.21946,176.38112"
+       id="path13055"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-end="#g6411"
+       inkscape:connection-start="#rect5878" />
+    <text
+       xml:space="preserve"
+       style="font-size:40.00000381px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="726.51917"
+       y="246.04976"
+       id="text2795"
+       transform="matrix(0.9993695,-3.5506357e-2,3.5506357e-2,0.9993695,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2797"
+         x="726.51917"
+         y="246.04976">Solicita proximo pedido</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#bdc231;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 1469.6379,139.77181 C 806.96692,553.15055 811.12531,188.5617 513.21946,176.38112"
+       id="path2799"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-end="#g6411"
+       inkscape:connection-start="#rect5878" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="811.49969"
+       y="521.25928"
+       id="text2803"
+       transform="matrix(0.9757809,-0.2187501,0.2187501,0.9757809,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2805"
+         x="811.49969"
+         y="521.25928">Notifica cambio de estado</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#cf2241;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 393.91807,242.94352 C 567.63623,813.03621 388.6914,1124.5094 386.07806,1565.2923"
+       id="path2807"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-end="#g4825"
+       inkscape:connection-start="#g6411" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="535.12189"
+       y="-424.85822"
+       id="text2809"
+       transform="matrix(1.1300986e-2,0.9999361,-0.9999361,1.1300986e-2,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2811"
+         x="535.12189"
+         y="-424.85822">Pide proximo pedido</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#cf2241;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M 393.91807,242.94352 C 497.7916,497.37443 662.1121,646.02314 386.07806,1565.2923"
+       id="path2813"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-end="#g4825"
+       inkscape:connection-start="#g6411" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="557.875"
+       y="-490.29874"
+       id="text2815"
+       transform="matrix(2.193418e-3,0.9999976,-0.9999976,2.193418e-3,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2817"
+         x="557.875"
+         y="-490.29874">Actualiza estado de pedido</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="486.42856"
+       y="1071.6479"
+       id="text2819"><tspan
+         sodipodi:role="line"
+         id="tspan2821"
+         x="486.42856"
+         y="1071.6479"
+         style="font-size:72px" /><tspan
+         sodipodi:role="line"
+         x="486.42856"
+         y="1071.6479"
+         style="font-size:72px"
+         id="tspan2823" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="483.57144"
+       y="1090.9336"
+       id="text2825"><tspan
+         sodipodi:role="line"
+         id="tspan2827"
+         x="483.57144"
+         y="1090.9336"
+         style="font-size:72px">*</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#a3a3a3;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+       d="M -98.862853,-516.22378 C -180.87341,-300.30801 -357.29788,-344.03052 -492.85291,-275.36205"
+       id="path2829"
+       inkscape:connector-type="polyline"
+       sodipodi:nodetypes="cc"
+       inkscape:connection-end="#rect10661"
+       inkscape:connection-start="#rect11234" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-193.31036"
+       y="-386.66205"
+       id="text2838"
+       transform="matrix(0.8716232,-0.4901765,0.4901765,0.8716232,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2840"
+         x="-193.31036"
+         y="-386.66205">Da factura para entrega</tspan></text>
+  </g>
+</svg>
