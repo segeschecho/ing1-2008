@@ -1,0 +1,10 @@
+Contexto simplificado
+Contexto de contingencia
+Contexto de contingencia simplificado
+Casos de uso contingencia
+Embonitar el de objetivos
+Revisar coherencia y consistencia de los diagramas
+Describir casos de uso (vincular con objetivos y contexto)
+Describir estadisticas
+Describir casos de uso contingencia
+
