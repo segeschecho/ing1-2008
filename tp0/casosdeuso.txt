@@ -1,0 +1,33 @@
+Casos de uso
+
+Encargado ingresa pedido (telefono / mozo)
+Encargado ingresa pedidos diferidos
+Encargado registra usuario
+Encargado cancela pedido (mozo / telefono)
+Encargado cambia política de cola
+Encargado modifica estado de pedido
+Encargado consulta estado de pedido
+Encargado ingresa productos preparados de antemano
+
+Delivery notifica pedido entregado
+
+Cliente consulta estado de pedido
+Cliente ingresa feedback
+Cliente hace pedido (web / sms)
+Cliente paga pedido (web)
+
+Encargado de stock ingresa cambios al stock
+Encargado de stock consulta el estado del stock
+
+El sistema notifica stock critico al encargado de stock
+
+El dueño/encargado modifica precios
+El dueño/encargado consulta estadísticas
+
+El maestro solicita próximo pedido
+El maestro modifica estado del pedido
+
+Mozo ingresa pedido con PDA
+
+El cajero solicita factura
+El cajero registra cobro
