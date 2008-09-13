@@ -31,8 +31,8 @@
     </rdf:RDF>
   </metadata>
   <sodipodi:namedview
-     inkscape:window-height="722"
-     inkscape:window-width="1023"
+     inkscape:window-height="938"
+     inkscape:window-width="1280"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      guidetolerance="10.0"
@@ -44,10 +44,10 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.08"
-     inkscape:cx="5700.0837"
-     inkscape:cy="-642.63034"
-     inkscape:window-x="1"
-     inkscape:window-y="20"
+     inkscape:cx="-1449.9163"
+     inkscape:cy="1532.3697"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
      inkscape:current-layer="svg2"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -483,10 +483,9 @@
   </g>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#df974b;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M 1617.5405,371.91173 C 1284.192,261.70795 953.18872,142.60879 541.05636,331.2405"
+     d="M 1619.6333,331.46667 C 1234.8713,168.8301 817.97649,223.19236 541.05636,324.13857"
      id="path9566"
      inkscape:connector-type="polyline"
-     inkscape:connection-start="#g9558"
      inkscape:connection-end="#g4825"
      sodipodi:nodetypes="cc" />
   <path
@@ -749,15 +748,15 @@
        style="font-size:40px">Ingresa pedido</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:31.99999809px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="991.13995"
-     y="167.72777"
+     style="font-size:31.99999619px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="994.05365"
+     y="207.77074"
      id="text11270"
-     transform="matrix(0.9942589,0.1070008,-0.1070008,0.9942589,0,0)"><tspan
+     transform="matrix(0.9987286,5.0409857e-2,-5.0409857e-2,0.9987286,0,0)"><tspan
        sodipodi:role="line"
        id="tspan11272"
-       x="991.13995"
-       y="167.72777"
+       x="994.05365"
+       y="207.77074"
        style="font-size:40px">Modifica precios</tspan></text>
   <text
      xml:space="preserve"
@@ -826,7 +825,7 @@
        style="font-size:40px">Avisa pedido no posible</tspan></text>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M 392.85426,372.57515 C -5.1155999,497.0697 -275.09553,749.55418 -484.11983,1062.9943"
+     d="M 392.85426,372.57515 C -50.910864,502.15806 -366.72436,759.73516 -484.11983,1062.9943"
      id="path11314"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
@@ -835,14 +834,14 @@
   <text
      xml:space="preserve"
      style="font-size:28px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-781.87909"
-     y="446.84271"
+     x="-790.26917"
+     y="416.24329"
      id="text11316"
      transform="matrix(0.7549751,-0.6557535,0.6557535,0.7549751,0,0)"><tspan
        sodipodi:role="line"
        id="tspan11318"
-       x="-781.87909"
-       y="446.84271"
+       x="-790.26917"
+       y="416.24329"
        style="font-size:40px">Avisa pedido no posible</tspan></text>
   <text
      xml:space="preserve"
@@ -1019,23 +1018,22 @@
        y="370.70584">Registra usuario</tspan></text>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#df974b;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M 1617.5405,371.91173 C 1258.7125,483.26761 899.88441,394.24119 541.05636,331.2405"
+     d="M 1625.5,413.6 C 1217.0137,563.9343 830.09284,474.01617 541.05636,330.7742"
      id="path11398"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:connection-start="#g9558"
      inkscape:connection-end="#g4825" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="912.63538"
-     y="300.8558"
+     x="939.69305"
+     y="381.07666"
      id="text11400"
      transform="matrix(0.9967754,8.0242125e-2,-8.0242125e-2,0.9967754,0,0)"><tspan
        sodipodi:role="line"
        id="tspan11402"
-       x="912.63538"
-       y="300.8558">Consulta estadisticas</tspan></text>
+       x="939.69305"
+       y="381.07666">Consulta estadisticas</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1360,14 +1358,14 @@
   <text
      xml:space="preserve"
      style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-852.80377"
-     y="-1090.2828"
+     x="-784.38733"
+     y="-1090.3496"
      id="text3725"
      transform="matrix(0.5153327,-0.8569902,0.8569902,0.5153327,0,0)"><tspan
        sodipodi:role="line"
        id="tspan3727"
-       x="-852.80377"
-       y="-1090.2828"
+       x="-784.38733"
+       y="-1090.3496"
        style="font-size:40px">Realiza Pedido</tspan></text>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#a81b9f;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
@@ -1447,4 +1445,56 @@
        x="-483.05185"
        y="2218.4912"
        style="font-size:40px">Ingresa productos preparados de antemano</tspan></text>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+     d="M 385.37273,372.57515 C 77.99574,576.64858 -230.16011,779.77008 -468.9,1067.7333"
+     id="path2631"
+     inkscape:connector-type="polyline"
+     sodipodi:nodetypes="cc"
+     inkscape:connection-start="#g4825" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-820.5564"
+     y="517.35455"
+     id="text2633"
+     transform="matrix(0.7749443,-0.6320295,0.6320295,0.7749443,0,0)"><tspan
+       sodipodi:role="line"
+       id="tspan2635"
+       x="-820.5564"
+       y="517.35455">Informa estado de pedidos</tspan></text>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+     d="M 541.05636,327.46465 C 736.81871,403.51866 1139.9046,327.05413 1622.5667,372.53333"
+     id="path2638"
+     inkscape:connector-type="polyline"
+     sodipodi:nodetypes="cc"
+     inkscape:connection-start="#g4825" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="944.96667"
+     y="354.93332"
+     id="text2640"><tspan
+       sodipodi:role="line"
+       id="tspan2642"
+       x="944.96667"
+       y="354.93332">Informa estadisticas</tspan></text>
+  <path
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#a81b9f;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+     d="M -694.76667,-469.33333 C -2080.5499,39.543894 -1377.0639,571.13056 -653.7,1102.9333"
+     id="path2646"
+     inkscape:connector-type="polyline"
+     sodipodi:nodetypes="cc" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-953.76245"
+     y="-1172.4518"
+     id="text2648"
+     transform="matrix(0.5926905,-0.8054303,0.8054303,0.5926905,0,0)"><tspan
+       sodipodi:role="line"
+       id="tspan2650"
+       x="-953.76245"
+       y="-1172.4518">Requiere registro</tspan></text>
 </svg>
