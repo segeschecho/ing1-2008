@@ -1,0 +1,106 @@
+1) 
+Registra usuarios
+Ingresa pedidos (diferidos y comunes)
+Cambia politica de colas
+Notifica pedido saliendo
+Consulta estado de pedido
+Cambia estado de pedido
+Modifica precios
+Consulta estadisticas
+Ingresa cambios al stock
+Registra Cobro
+Solicita factura
+
+2)
+Avisa pedido no posible
+Informa estado pedidos
+Informa estadisticas
+Notifica stock critico
+Informa prox pedido a preparar/cocinar
+
+3)
+Notifica pedidos hechos
+Indica cancelacion
+
+4)
+Avisa pedido listo para entregar
+Avisa pedido no posible
+
+5)
+Ordena proximo pedido a preparar/cocinar
+
+6)
+Notifica estado de pedidos
+Entrega pedido preparado
+Ingresa productos preparados de antemano
+
+7)
+Informa estadisticas
+
+8)
+Ordena modificar precios
+Pide informe de estadisticas
+
+9)
+Informa cambios de stock
+
+10)
+Informa stock critico
+
+11)
+Notifica pedido entregado y pagado
+
+12)
+Ordena llevar pedido
+
+13)
+Entrega dinero
+
+14)
+Da la factura para la entrega
+
+15)
+Entrega factura
+
+16)
+Entrega pago
+
+17)
+Factura
+
+18)
+Realiza pedido por telefono
+Cancela pedido por telefono
+Requiere registro
+
+19)
+Informa pedido no posible
+
+20)
+Hace pedido
+Paga
+Cancela pedido
+
+21)
+Informa pedido no posible
+Entrega factura
+Entrega pedido
+
+22)
+Ordena facturar
+
+23)
+Ingresa pago tarjeta
+
+24)
+Entrega pedido
+
+25)
+Paga
+
+26)
+Informa ingredientes de nuevo producto
+
+27)
+Avisa registrar cobro
+Avisa solicita factura
