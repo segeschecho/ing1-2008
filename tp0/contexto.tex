@@ -15,9 +15,157 @@ El siguiente es el diagrama de contexto de la situacion normal,  a continuación 
 \begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.09]{ContextoNormal.png}
+\includegraphics[scale=0.06]{ContextoNormalSimplificado.png}
 \end{figure}
 \end{landscape}
+
+\begin{minipage}{8cm}
+\begin{enumerate}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Sistema}
+\begin{itemize}
+\item Registra usuarios
+\item Ingresa pedidos (diferidos y comunes)
+\item Cambia politica de colas
+\item Cancela pedidos
+\item Notifica pedidos saliendo
+\item Consulta estado de pedidos
+\end{itemize}
+\item \textbf{\textcolor{Black}{Sistema $\rightarrow$ Encargado de pedidos}}
+\begin{itemize}
+\item Avisa pedido no posible
+\item Informa estado de pedidos
+\end{itemize}
+\item \textcolor{ProcessBlue}{Delivery $\rightarrow$ Sistema}
+\begin{itemize}
+\item Notifica pedido entregado
+\end{itemize}
+\item \textbf{\textcolor{Black}Sistema $\rightarrow$ Encargado de stock}
+\begin{itemize}
+\item Notifica stock critico
+\end{itemize}
+\item \textcolor{Blue}{Encargado de stock $\rightarrow$ Sistema}
+\begin{itemize}
+\item Ingresa cambios al stock
+\end{itemize}
+\item \textcolor{Peach}{Jefe/encargado $\rightarrow$ Sistema}
+\begin{itemize}
+\item Modifica precios
+\item Consulta estadisticas
+\end{itemize}
+\item \textbf{\textcolor{Black}{Sistema $\rightarrow$ Jefe/encargado}}
+\begin{itemize}
+\item Informa estadisticas
+\end{itemize}
+\item \textcolor{Goldenrod}{Maestro $\rightarrow$ Sistema}
+\begin{itemize}
+\item Cambia estado de pedidos
+\item Solicita proximo pedido
+\end{itemize}
+\item \textbf{\textcolor{Black}Sistema $\rightarrow$ Maestro}
+\begin{itemize}
+\item Informa proximo pedido a preparar/cocinar
+\end{itemize}
+\item \textbf{\textcolor{Black}Sistema $\rightarrow$ Sistema de facturacion}
+\begin{itemize}
+\item Ordena facturar
+\end{itemize}
+\item \textcolor{Purple}{Cliente $\rightarrow$ Sistema}
+\begin{itemize}
+\item Ingresa comentarios
+\item Ingresa pedidos via web/sms
+\item Consulta estado de pedidos
+\item Paga pedido
+\end{itemize}
+\item \textbf{\textcolor{Black}Sistema $\rightarrow$ Cliente}
+\begin{itemize}
+\item Avisa pedido no posible
+\end{itemize}
+\item \textcolor{ForestGreen}{Mozo $\rightarrow$ Sistema}
+\begin{itemize}
+\item Ingresa pedidos
+\end{itemize}
+\item \textbf{\textcolor{Black}Sistema $\rightarrow$ Mozo}
+\begin{itemize}
+\item Avisa pedido no posible
+\end{itemize}
+\end{enumerate}
+\end{minipage}
+\ \
+\hfill \begin{minipage}{8cm}
+\begin{enumerate}
+\setcounter{enumi}{14}
+\item \textcolor{ForestGreen}{Mozo $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Indica cancelacion de pedidos
+\end{itemize}
+\item \textcolor{Gray}{Cajero $\rightarrow$ Delivery}
+\begin{itemize}
+\item Entrega Dinero
+\end{itemize}
+\item \textcolor{ProcessBlue}{Delivery $\rightarrow$ Cajero}
+\begin{itemize}
+\item Entrega Dinero
+\end{itemize}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Delivery}
+\begin{itemize}
+\item Ordena llevar pedido
+\end{itemize}
+\item \textcolor{Goldenrod}{Maestro $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Ingresa productos preparados de antemano
+\end{itemize}
+\item \textcolor{Goldenrod}{Maestro $\rightarrow$ Encargado de Stock}
+\begin{itemize}
+\item Informa ingredientes de producto nuevo
+\end{itemize}
+\item \textcolor{Rhodamine}{Sistema de facturación $\rightarrow$ Sistema bancario}
+\begin{itemize}
+\item Ingresa pago tarjeta
+\end{itemize}
+\item \textcolor{Rhodamine}{Sistema de facturación $\rightarrow$ Cajero}
+\begin{itemize}
+\item Factura
+\end{itemize}
+\item \textcolor{ForestGreen}{Mozo $\rightarrow$ Cliente}
+\begin{itemize}
+\item Entrega pedido
+\item Informa pedido no posible
+\item Entrega factura
+\end{itemize}
+\item \textcolor{Purple}{Cliente $\rightarrow$ Mozo}
+\begin{itemize}
+\item Cancela pedido
+\item Hace pedido
+\item Paga
+\end{itemize}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Cliente}
+\begin{itemize}
+\item Informa pedido no posible
+\end{itemize}
+\item \textcolor{Purple}{Cliente $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Realiza pedido
+\item Cancela pedido
+\item Requiere registro
+\end{itemize}
+\item \textcolor{ForestGreen}{Mozo $\rightarrow$ Cajero}
+\begin{itemize}
+\item Entrega pago
+\end{itemize}
+\item \textcolor{Gray}{Cajero $\rightarrow$ Mozo}
+\begin{itemize}
+\item Entrega factura
+\end{itemize}
+\item \textcolor{Purple}{Cliente $\rightarrow$ Delivery}
+\begin{itemize}
+\item Paga
+\end{itemize}
+\item \textcolor{ProcessBlue}{Delivery $\rightarrow$ Cliente}
+\begin{itemize}
+\item Entrega pedido
+\end{itemize}
+\end{enumerate}
+\end{minipage}
 
 \begin{landscape}
 \begin{figure}[H]
