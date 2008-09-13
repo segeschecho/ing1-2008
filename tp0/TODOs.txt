@@ -1,12 +1,5 @@
-Contexto simplificado
-Contexto de contingencia simplificado
+
 Embonitar el de objetivos
 Revisar coherencia y consistencia de los diagramas
 Describir casos de uso (vincular con objetivos y contexto) Done (revisar)
 Describir estadisticas Done
-
-Agregar flecha sistema -> encargado de pedidos que diga: "informa estado de pedido"
-Agregar flecha sistema -> encargado/jefe que diga: "informa estadisticas"
-Agregar flecha encargado de pedidos -> mozo que diga: "avisa pedido listo para entregar" ???
-Agregar flecha cliente -> encargado de pedidos: "requiere registro"
-Aclarar flechas de cliente -> encargado de pedidos: "realiza pedido por tel", "cancela pedido por tel"
