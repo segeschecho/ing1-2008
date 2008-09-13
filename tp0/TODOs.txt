@@ -2,8 +2,8 @@ Contexto simplificado
 Contexto de contingencia simplificado
 Embonitar el de objetivos
 Revisar coherencia y consistencia de los diagramas
-Describir casos de uso (vincular con objetivos y contexto)
-Describir estadisticas
+Describir casos de uso (vincular con objetivos y contexto) Done (revisar)
+Describir estadisticas Done
 
 Agregar flecha sistema -> encargado de pedidos que diga: "informa estado de pedido"
 Agregar flecha sistema -> encargado/jefe que diga: "informa estadisticas"

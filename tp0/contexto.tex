@@ -1,0 +1,175 @@
+\chapter{Diagrama de contexto}
+Dado que uno de los requerimientos hechos al sistema es que en caso de contingencia, se pueda operar desde el puesto del 
+encargado de pedidos, decidimos, por consejo docente, separar el diagrama de contexto en un contexto normal y el contexto de
+contingencia. %FIXME: consejo docente?
+\section{Diagrama de contexto normal}
+El siguiente es el diagrama de contexto de la situacion normal, y a continuación una version del mismo diagrama, pero simplificado en la cantidad de flechas.
+
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.1]{ContextoNormal.png}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.1]{ContextoNormal.png}
+\end{figure}
+\end{landscape}
+\section{Diagrama de contexto de contingencia}
+\begin{minipage}{8cm}
+\begin{enumerate}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Sistema}
+\begin{itemize}
+\item Registra usuarios
+\item Ingresa pedidos (diferidos y comunes)
+\item Cambia politica de colas
+\item Notifica pedido saliendo
+\item Consulta estado de pedido
+\item Cambia estado de pedido
+\item Modifica precios
+\item Consulta estadisticas
+\item Ingresa cambios al stock
+\item Registra Cobro
+\item Solicita factura
+\end{itemize}
+\item \textbf{\textcolor{Black}{Sistema $\rightarrow$ Encargado de pedidos}}
+\begin{itemize}
+\item Avisa pedido no posible
+\item Informa estado pedidos
+\item Informa estadisticas
+\item Notifica stock critico
+\item Informa prox pedido a preparar/cocinar
+\end{itemize}
+\item \textcolor{ForestGreen}{Mozo $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Notifica pedidos hechos
+\item Indica cancelacion
+\end{itemize}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Mozo}
+\begin{itemize}
+\item Avisa pedido listo para entregar
+\item Avisa pedido no posible
+\end{itemize}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Maestro}
+\begin{itemize}
+\item Ordena proximo pedido a preparar/cocinar
+\end{itemize}
+\item \textcolor{Goldenrod}{Maestro $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Notifica estado de pedidos
+\item Entrega pedido preparado
+\item Ingresa productos preparados de antemano
+\end{itemize}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Jefe/encargado}
+\begin{itemize}
+\item Informa estadisticas
+\end{itemize}
+\item \textcolor{Peach}{Jefe/encargado $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Ordena modificar precios
+\item Pide informe de estadisticas
+\end{itemize}
+\item \textcolor{Blue}{Encargado de stock $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Informa cambios de stock
+\end{itemize}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Encargado de stock}
+\begin{itemize}
+\item Informa stock critico
+\end{itemize}
+\item \textcolor{ProcessBlue}{Delivery $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Notifica pedido entregado y pagado
+\end{itemize}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Delivery}
+\begin{itemize}
+\item Ordena llevar pedido
+\end{itemize}
+\end{enumerate}
+\end{minipage}
+\ \
+\hfill \begin{minipage}{8cm}
+\begin{enumerate}
+\setcounter{enumi}{12}
+\item \textcolor{ProcessBlue}{Delivery $\rightarrow$ Cajero}
+\begin{itemize}
+\item Entrega dinero
+\end{itemize}
+\item \textcolor{Gray}{Cajero $\rightarrow$ Delivery}
+\begin{itemize}
+\item Da la factura para la entrega
+\end{itemize}
+\item \textcolor{Gray}{Cajero $\rightarrow$ Delivery}
+\begin{itemize}
+\item Entrega factura
+\end{itemize}
+\item \textcolor{ForestGreen}{Mozo $\rightarrow$ Cajero}
+\begin{itemize}
+\item Entrega pago
+\end{itemize}
+\item \textcolor{Rhodamine}{Sistema de facturación $\rightarrow$ Cajero}
+\begin{itemize}
+\item Factura
+\end{itemize}
+\item \textcolor{Purple}{Cliente $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Realiza pedido por telefono
+\item Cancela pedido por telefono
+\item Requiere registro
+\item Consulta estado de pedido
+\end{itemize}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Cliente}
+\begin{itemize}
+\item Informa pedido no posible
+\item Informa estado de pedido
+\end{itemize}
+\item \textcolor{Purple}{Cliente $\rightarrow$ Mozo}
+\begin{itemize}
+\item Hace pedido
+\item Paga
+\item Cancela pedido
+\end{itemize}
+\item \textcolor{ForestGreen}{Mozo $\rightarrow$ Cliente}
+\begin{itemize}
+\item Informa pedido no posible
+\item Entrega factura
+\item Entrega pedido
+\end{itemize}
+\item \textbf{Sistema $\rightarrow$ Sistema de facturación}
+\begin{itemize}
+\item Ordena facturar
+\end{itemize}
+\item \textcolor{Rhodamine}{Sistema de facturación $\rightarrow$ Sistema bancario}
+\begin{itemize}
+\item Ingresa pago tarjeta
+\end{itemize}
+\item \textcolor{ProcessBlue}{Delivery $\rightarrow$ Cajero}
+\begin{itemize}
+\item Entrega pedido
+\end{itemize}
+\item \textcolor{Purple}{Cliente $\rightarrow$ Mozo}
+\begin{itemize}
+\item Paga
+\end{itemize}
+\item \textcolor{Goldenrod}{Maestro $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Informa ingredientes de nuevo producto
+\item Entrega pedido preparado
+\item Ingresa productos preparados de antemano
+\end{itemize}
+\item \textcolor{Gray}{Cajero $\rightarrow$ Encargado de pedidos}
+\begin{itemize}
+\item Avisa registrar cobro
+\item Avisa solicita factura
+\end{itemize}
+\end{enumerate}
+\end{minipage}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{ContextoContingencia.png}
+\end{figure}
+\end{landscape}
