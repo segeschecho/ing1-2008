@@ -1,0 +1,13 @@
+\chapter{Alcance de la solución} 
+
+El sistema se encarga de monitorear el ciclo de vida de los pedidos que se realizan a la pizzería y el stock de las materias primas. Es responsable también de la optimización del uso del horno, la estimación de lapsos de producción y entrega, y por último de conservar un registro de los eventos de interés con fines estadísticos. 
+
+En el caso de los pedidos realizados remotamente (vía Web o SMS), el sistema se encarga también de su ingreso. Para los pedidos realizados de forma directa (ya sea a un mesero o llamando por teléfono) existirá un inviduo responsable de su ingreso.
+
+Desde el momento del ingreso de los pedidos, el sistema verifica su factibilidad en función del stock de insumos y de disponibilidad de productos preparados con antelación. Una vez ingresados los pedidos, el sistema actualiza la información de stock inmediatamente (y atómicamente junto con la inserción del pedido). A continuación se inserta el pedido en la cola (según una política predefinida por el encargado) y se presenta a quien ingresó el pedido (usuario o encargado) una estimación de la demora en la preparación del pedido.
+
+Dentro de la cocina, los maestros pizzero y empanadero tienen acceso al sistema en el cual pueden observar los pedidos que deben preparar e indicar su estado de preparación (en espera, preparado, en el horno, listo). El sistema les indica también qué sector del horno corresponde para la cocción del pedido. Tras la preparación, si el pedido debe ser entregado el sistema continúa monitoreando su estado y la demora en la entrega, tras la cual se recibe una notificación por parte del delivery. Cuando corresponda, el sistema podrá (mediante una interfaz con el sistema de facturación) realizar el cobro del pedido y registrar su pago.
+
+En todo momento el encargado puede reordenar la cola de pedidos, o cancelar alguno de ellos, así como los usuarios pueden consultar el estado de los mismos (vía Web o SMS). También se puede actualizar el stock de insumos y consultar las estadísticas y algunos índices del rendimiento del proceso de producción y entrega.
+
+El sistema no es responsable de la logística de la distribución ni de la interacción directa con los clientes que no utilizan los medios Web o SMS. Tampoco existen operaciones automatizadas que afecten al negocio: todo lo que el sistema hace es coordinar a los actores que participan. El proceso de preparación y cocción de los alimentos es totalmente manual, así como lo es la reposición del stock y el armado de los pedidos para su posterior entrega.
