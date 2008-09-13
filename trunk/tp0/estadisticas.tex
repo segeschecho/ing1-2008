@@ -1,0 +1,47 @@
+\chapter{Propuestas de mejora al proceso de producción y atención}
+
+La implementación de un sistema informático para la gestión del negocio incluye una serie de mejoras inherentes que contribuyen a mejorar el rendimiento del negocio:
+\begin{itemize}
+\item El control sistemático del stock
+\item	El seguimiento individual de cada pedido
+\item	La planificación algorítmica del uso del horno
+\item	La posibilidad de tomar pedidos remotamente
+\item	La posibilidad de consultar el estado de pedidos remotamente
+\item	La posibilidad de pagar los pedidos remotamente
+\end{itemize}
+
+Además de éstas, proponemos algunas opciones de índole tecnológica para mejorar la eficiencia en algunos aspectos:
+
+\begin{itemize}
+\item Los pedidos se envían a la cocina mediante el sistema. Los cocineros reciben los pedidos en una interfaz touchscreen e indican cuando los están preparando así como cuando los ingresaron al horno. Esto permite hacer un seguimiento fino de los pedidos.
+\item Los meseros registran los pedidos en computadoras de mano y los pedidos se transfieren automáticamente al sistema mediante un sistema inalámbrico, eliminando así el paso intermedio (y potencial cuello de botella) del encargado de pedidos. Así, la tarea del encargado deja de ser funcionar como interfase entre el local  y la cocina, para pasar a ser inferfase entre los clientes que llaman por teléfono y el sistema.
+\end{itemize}
+
+\section{Indicadores de rendimiento, estadísticas y mejoras asociadas}
+
+Con el fin de comprender más profundamente el comportamiento del negocio, desarrollamos para la pizzería un conjunto de indicadores que permitan analizar su rendimiento y predecir algunos de los parámetros que afectan su comportamiento, así como optimizar algunas estrategias de venta y producción.
+
+Los indicadores de rendimiento tienen por objetivo caracterizar el funcionamiento de la pizzería en un período dado. Mediante el monitoreo de las modificaciones de estados en el sistema es posible realizar un seguimiento. Algunos parámetros interesantes pueden ser:
+\begin{itemize}
+\item Tasa de producción de la cocina
+\item Tasa de ingreso de pedidos (global, y discriminados por origen del pedido)
+\item Tiempo medio de espera por un pedido (discriminado según local o delivery)
+\item Tiempo medio de delivery (cuando corresponda)
+\item Productos más populares
+\item ``Combos'' más populares
+\item  ``Perfiles'' de cliente
+\end{itemize}
+
+En particular, el conocimiento sobre la demanda permite mantener un menor stock de productos, disminuyendo así el costo financiero y manteniendo una mayor eficiencia en la administración de los recursos. A su vez, determinar los productos y combinaciones más populares puede conducir a promociones más efectivas, así como a disminuciones de costos por un mejor conocimiento de los insumos necesarios para su producción. Por último, los perfiles de cliente permiten ejecutar estrategias de fidelización: al conocer en detalle y de forma individual las compras que realiza cada cliente se puede determinar cuales son los clientes más importantes y en función de eso ofrecerles algún tipo de beneficio.
+
+Existen otros elementos que son indicativos de la satisfacción de los clientes. Es interesante también medir la cantidad de cancelaciones que se producen y a qué tipos de productos afectan, en un intento de minimizarlas ya que representan un problema para la dinámica del negocio.
+
+Todos los indicadores propuestos pueden computarse a partir de un registro histórico de los eventos y cambios de estado que se producen en el sistema. Siempre con el espíritu de obtener información sobre el rendimiento, ideamos algunos complementos que permiten conocer algunos detalles importantes:
+
+\begin{itemize}
+\item Confirmación de entrega por SMS
+Los responsables de delivery envían un mensaje de texto con un código de confirmación para indicar que la entrega de un pedido fue exitosa. Esto permite conocer con más detalle el tiempo necesario para entregarle a un cliente dado, así como el promedio de demora por entrega.
+\item Mecanismo de feedback por Internet
+El pedido incluye un código identificador que le permite al usuario, si así lo deseara, indicar en la página Web de la pizzería si hubo algún problema con su pedido (se demoró mucho, la estimación de tiempo fue errónea, la comida estaba fría). Esto permite no solo detectar problemas con el servicio de distribución (al que es importante controlar, ya que se trata de un proveedor externo) sino también ofrecer compensaciones a los clientes damnificados.
+\item Preparación adelantada de productos
+Al disponer de estadísticas precisas sobre la demanda que recibe el local, es posible, en función de las predicciones hechas por el sistema, preparar con antelación (durante momentos ociosos) los productos que se sabe que se venderán (por ejemplo, pizzas o empanadas). Esto permite disminuir la carga de la cocina durante picos de demanda, disminuyendo así el tamaño del staff de la pizzería y a su vez los costos fijos.
