@@ -7,153 +7,157 @@
 \end{figure}
 
 \section{Breve descripción}
-A continuacion daremos a modo ilustrativo una breve descripción de los casos de uso 
+A continuación daremos a modo ilustrativo una breve descripción de los casos de uso 
 considerados en el diagrama. La misma no pretende ser exahustiva, sino simplemente presentar 
-un panorama de a que se refiere cada caso de uso.
+un panorama de a qué se refiere cada caso de uso.
 
 \setcounter{subsection}{0}
 \subsection{Autenticando usuario}
 
 \textit{Agente: Cliente}
 
-Para poder acceder a los distintos servicios via web que ofrece la pizzería, es necesario 
-que el usuario se identifique. Para obtener una cuenta de usuario, el mismo tuvo que 
-registrarse ya sea personal o telefonicamente.
+Para poder acceder a los distintos servicios vía Web que ofrece la pizzería, es necesario 
+que el usuario se identifique. Para obtener una cuenta de usuario, el mismo tendrá que 
+registrarse personal o telefónicamente.
 
-Este caso de uso esta relacionado con el objetivo de lograr ampliar la forma de registro de 
-pedidos, asi como también ayuda a poder lograr que los usuarios cancelen pedidos, consulten 
-el estado de los mismo y lo paguen via internet.
+Este caso de uso está relacionado con el objetivo de lograr ampliar la forma de registro de 
+pedidos, así como también ayuda a poder lograr que los usuarios cancelen pedidos, consulten 
+el estado de los mismos y lo paguen vía Internet.
 
-\subsection{Realizando pedido via web}
+\subsection{Realizando pedido vía Web}
 
 \textit{Agente: Cliente}
 
-El usuario, una vez autenticado, puede armar un pedido a traves de la pagina web de la 
-pizzería. Una vez elegidos los productos que desea pedir, podrá optar por pagarlo en 
-efectivo al delivery o pagar a traves de tarjeta de credito. Ademas el sistema le dará algún 
+El usuario, una vez autenticado, puede armar un pedido a través de la página Web de la 
+pizzería. Una vez elegidos los productos que desea ordenar, podrá optar por pagarlo en 
+efectivo al \textit{delivery} o pagar por Internet con su tarjeta de crédito. Además, el sistema le dará algún 
 identificador de pedido que le permita consultar el estado del mismo. Si el pedido no se 
-puede armar, porque no hay productos para hacerlo, el sistema muestra un mensaje al usuario.
+puede armar porque no hay productos para hacerlo, el sistema mostrará un mensaje al usuario.
 
 Este caso de uso sirve para poder lograr ampliar la forma de hacer pedidos por parte de los 
 clientes.
 
-\subsection{Pagando via web}
+\subsection{Pagando vía web}
 
 \textit{Agente: Cliente}
 
-El usuario, al realizar un pedido puede elegir hacer un pago via web utilizando la tarjeta 
-de credito.
+El usuario al realizar un pedido puede elegir hacer un pago vía Web utilizando su tarjeta 
+de crédito.
 
 Este caso de uso es también necesario para poder lograr que los usuarios hagan pedidos de 
-varias formas
+varias formas.
 
-\subsection{Cancelando pedido} % TODO: hasta cuando puede cancelar? Que objetivos cumple
-
+\subsection{Cancelando pedido}
+% FIXME: actualizar contexto y casos de uso para que refleje esto
 \textit{Agentes: Cliente, encargado de pedidos}
 
-Este caso de uso permite que en cualquier momento el usuario pueda cancelar un pedido que 
-realizo. Para poder hacerlo debe loguearse en el sistema y utilizar el identificador de 
-pedido que se le brindo al momento de realizar el pedido. Ademas el cliente podria 
-comunicarse telefonicamente, de modo que el encargado de pedidos es el que realiza la 
-cancelacion del pedido.
+Este caso de uso permite que en cualquier momento el encargado pueda cancelar un pedido
+que fue ingresado previamente al sistema, sin importar su estado. La cancelación puede
+tener motivos varios, aunque lo más común sea hacerlo a pedido del cliente.
 
-Este caso de uso es util para permitir que los usuarios tengan una interaccion mas fluida 
-con la pizzeria.
+Este caso de uso es útil para permitir que los usuarios tengan una interaccion más fluida 
+con la pizzería, así como facilitar la integración del sistema con el modelo de producción.
 
-\subsection{Realizando pedido via sms}
+\subsection{Realizando pedido vía SMS}
 
 \textit{Agente: Cliente}
 
-Como alternativa al pedido telefonico, web o personal, es posible hacer un pedido mediante 
-sms, para esto el usuario tiene que haberse registrado anteriormente. Para hacerlo, se utilizan codigos que permiten identificar que quiere el usuario. Si no se puede hacer el pedido, se enviara un mensaje al usuario notificandolo de la situación.
+Como alternativa al pedido telefónico, Web o personal, es posible hacer un pedido mediante 
+SMS. Para esto el usuario tiene que haberse registrado anteriormente. Para hacerlo, se 
+utilizan códigos que permiten identificar qué quiere el usuario. Si no se puede hacer el 
+pedido, se enviará un mensaje al usuario notificándolo de la situación.
 
 Este caso de uso ayuda a lograr nuevas formas de registrar pedidos por parte de los usuarios.
 
 \subsection{Ingresando feedback}
 
 \textit{Agente: Cliente}
+% FIXME: no es necesario loguearse para el feedback, actualizar diagramas
+Una vez realizada la entrega de un pedido por \textit{delivery}, el usuario tiene la posibilidad de 
+opinar sobre el servicio mediante Internet. Para esto no es necesario que el usuario se
+loguee ya que utiliza para ello un código único que recibe al momento de entrega del
+pedido.
 
-Una vez realizada la entrega de un pedido por delivery, el usuario tiene la posibilidad de 
-opinar sobre el servicio mediante internet. Para esto es necesario que el usuario se logue.
-
-Esta información u opiniones sobre el servicio ayudan a lograr información estadistica sobre 
-el funcionamiento de la pizzeria, la cual podria usarse para identificar posibles conflictos 
+Esta información u opiniones sobre el servicio ayudan a lograr información estadística sobre 
+el funcionamiento de la pizzería, que podría usarse para identificar posibles conflictos 
 en la misma o para generar promociones.
 
 \subsection{Consultando estado de pedido}
 
 \textit{Agentes: Cliente, encargado de pedidos}
 
-El cliente, via web, o el encargado de pedidos en su computadora, pueden consultar el estado 
+El cliente, vía web, o el encargado de pedidos en su computadora, pueden consultar el estado 
 de un pedido. El cliente tiene que loguearse previamente.
 
-Este caso de uso ayuda a lograr que los usuarios puedan conocer el estado de su pedido, asi 
-como tambien a conocer informacion de seguimiento y control de los pedidos
+Este caso de uso ayuda a lograr que los usuarios puedan conocer el estado de su pedido, así
+como también a conocer información de seguimiento y control de los pedidos.
 
 \subsection{Ingresando pedidos diferidos}
 
 \textit{Agente: Encargado de pedidos}
 
-Luego de una caida del sistema, cuando este vuelve a levantarse, el encargado de pedidos 
+Luego de una caída del sistema, cuando éste vuelve a levantarse, el encargado de pedidos 
 puede ingresar los pedidos que se tomaron mientras el sistema no estuvo disponible. Este 
-caso de uso es diferente del ingreso de pedidos normales, porque por ejemplo un pedido 
-diferido pudo haber sido entregado al momento de registrarse, de modo que esto debe poder 
+caso de uso es diferente del ingreso de pedidos normales, porque un pedido 
+diferido puede ya haber sido entregado al momento de registrarse, de modo que esto debe poder 
 diferenciarse.
 
-El ingreso de pedidos diferidos permite mantener la informacion sobre los pedidos, a fin de 
-poder lograr informacion estadistica
+El ingreso de pedidos diferidos permite mantener la información sobre los pedidos, a fin de 
+poder lograr información estadística precisa.
 
 \subsection{Ingresando producto preparado de antemano}
 \textit{Agente: Encargado de pedidos}
 
-El maestro de cocina podria en momentos donde el trabajo de la pizzería es bajo, preparar 
-algun producto para luego en caso de un futuro pedido no ya tenerlo preparado.
+El maestro de cocina podría en momentos donde el trabajo de la pizzería es bajo, preparar 
+algún producto para luego en caso de un futuro pedido no ya tenerlo preparado.
 
-Este caso de uso ayuda a lograr mejor atencion a los clientes, y es una propuesta nuestra 
+Este caso de uso ayuda a lograr mejor atención a los clientes, y es una propuesta nuestra 
 para mejorar la operatoria actual.
 
-\subsection{Estableciendo politica de colas}
+\subsection{Estableciendo política de colas}
 \textit{Agente: Encargado de pedidos}
 
-El encargado de pedidos puede modificar la politica de cola de pedidos, asi como también 
-modificar el orden en el que seran preparados los pedidos.
+El encargado de pedidos puede modificar la política de cola de pedidos, así como también 
+modificar el orden en el que serán preparados los pedidos.
 
-Este caso de uso, ayuda a satisfacer el objetvio de controlar la politica de cola de pedidos.
+Este caso de uso ayuda a satisfacer el objetivo de controlar la política de cola de pedidos.
 
 \subsection{Registrando pedido}
 
 \textit{Agente: Encargado de pedidos}
 
-El encargado de pedidos ingresa un nuevo pedido de un llamado telefonico. El software le 
-informa la planificacion existente y los tiempos estimados de coccion. %esta en el enunciado aunque queda de los pelos no lo nombramos en ningun otra parte.
+El encargado de pedidos ingresa un nuevo pedido de un llamado telefónico. El software le 
+informa la planificación existente y los tiempos estimados de cocción. 
+%esta en el enunciado aunque queda de los pelos no lo nombramos en ningun otra parte.
 
-Este caso de uso, esta relacionado con lograr automatizar la operatoria, ademas al ingresar 
-los pedidos se hace posible lograr informacion estadistica.
+Este caso de uso está relacionado con lograr automatizar la operatoria. Además, al ingresar 
+los pedidos se hace posible lograr información estadística.
 
 \subsection{Registrando cliente}
 \textit{Agente: Encargado de pedidos}
 
 El encargado de pedidos ingresa un nuevo cliente al sistema, el cual se comunica con el 
-encargado via telefono o personalmente. Para hacerlo toma los datos del mismo.
+encargado vía teléfono o personalmente. Para hacerlo, toma los datos del mismo.
 
-Este caso de uso permite que posteriormente se realicen pedidos via web o via sms.
+Este caso de uso permite que posteriormente se realicen pedidos vía Web o vía SMS.
 
-\subsection{Informando proximo pedido}
+\subsection{Informando próximo pedido}
 
 \textit{Agente: Maestro}
 
-El maestro pide al sistema el proximo pedido a preparar, asi como también el proximo pedido 
+El maestro pide al sistema el próximo pedido a preparar, así como también el proximo pedido 
 a ingresar al horno.
 
-Este caso de uso ayuda a automatizar la operatoria de la pizzería, automtizar la asignacion 
+Este caso de uso ayuda a automatizar la operatoria de la pizzería y automatizar la asignación 
 de horno.
 
-\subsection{Modificando estado de pedido} %TODO: verificar cuando el maestro actualiza el estado del pedido
+\subsection{Modificando estado de pedido} 
+%TODO: verificar cuando el maestro actualiza el estado del pedido
 \textit{Agentes: Maestro, Encargado de pedidos}
 
-Este caso de uso permite actualizar en que etapa del ciclo de pedidos se encuentra un 
+Este caso de uso permite actualizar en qué etapa del ciclo de pedidos se encuentra un 
 pedido. El maestro actualiza el estado del pedido cuando lo comienza a preparar, cuando 
-termina de preparlo, al cocinarlo y cuando esta listo. El encargado de pedidos actualiza el 
+termina de prepararlo, al ingresarlo al horno y cuando está listo. El encargado de pedidos actualiza el 
 estado cuando el pedido se despacha para su entrega.
 
 Este caso de uso permite tener información de seguimiento y control de los pedidos 
@@ -162,77 +166,82 @@ Este caso de uso permite tener información de seguimiento y control de los pedid
 
 \textit{Agente: Mozo}
 
-El mozo cuenta con una PDA a fin de ingresar los pedidos que le hacen en las mesas, al 
+El mozo cuenta con una PDA a fin de ingresar los pedidos que le hacen en las mesas al 
 sistema.
 
 Este caso de uso permite ampliar el acceso al software, automatizar la operatoria y lograr 
-un mejor servicio a los clientes y es un agregado que proponemos para mejorar la operatoria 
+un mejor servicio a los clientes, y es un agregado que proponemos para mejorar la operatoria 
 de la pizzería.
 
 \subsection{Notificando pedido entregado}
 
 \textit{Agente: Delivery}
 
-El delivery debera informar mediantes SMS cuando realiza una entrega, de modo que el sistema 
+El \textit{delivery} deberá informar mediante SMS cuando realiza una entrega, de modo que el sistema 
 actualice el estado del pedido a entregado.
 
 Este caso de uso es también un agregado que proponemos para mejorar la operatoria de la
-pizzeria, y permite lograr información estadistica (por ejemplo demora de la entrega) asi
-como también informacion de seguimiento y control de los pedidos
+pizzería, y permite lograr información estadística (por ejemplo demora de la entrega) así
+como también informacion de seguimiento y control de los pedidos.
 
 \subsection{Haciendo ABM de stock}
 
 \textit{Agente: Encargado de stock}
 
 El responsable de controlar el stock de las materias primas y kits en la pizzería tendra la capacidad
-de actualizar el stock ya sea, por ejemplo, dando de alta productos comprados asi como también dando de baja
-productos caducados.Por otro lado, podrá en cualquier momento consultar el stock de los productos y kits.
+de actualizar el stock ya sea dando de alta productos comprados así como también dando de baja
+productos caducados. Por otro lado, podrá en cualquier momento consultar el stock de los productos y kits.
 
-El caso de uso ayuda a lograr controlar el stock de la pizzeria
+El caso de uso ayuda a lograr controlar el stock de la pizzería.
 
-\subsection{Notificando stock critico}
+\subsection{Notificando stock crítico}
 
 \textit{Agente: Encargado de stock}
 
-En caso de que el stock de algun producto quede por debajo de un nivel critico, el sistema avisara al encargado de stock
-de esta situación.
+En caso de que el stock de algun producto quede por debajo de un nivel crítico, 
+el sistema avisará al encargado de stock de esta situación.
 
-Esta funcionalidad permite controlar el stock, ademas satisface el pedido explicito de que el sistema avise en caso de stock inferior al nivel critico.
+Esta funcionalidad permite controlar el stock, y además satisface el pedido explícito de 
+que el sistema avise en caso de stock inferior al nivel crítico.
 
 \subsection{Actualizando precios}
 
 \textit{Agente: Encargado/dueño}
 
-Tanto el dueño como el encargado pueden modificar los precios de los distintos productos en cualquier momento. %fixme: cuando se ven dichos cambios.
+Tanto el dueño como el encargado pueden modificar los precios de los distintos productos 
+en cualquier momento. 
+%fixme: cuando se ven dichos cambios.
 
-El caso de uso satisface el requerimiento explicito de poder modificar precios, permite ademas poder lograr promociones y precios competitivos.
+El caso de uso satisface el requerimiento explícito de poder modificar precios y permite 
+además poder lograr promociones y precios competitivos.
 
 \subsection{Consultando información estadistica}
 
 \textit{Agente: Encargado/dueño}
 
-Tanto el dueño como el encargado pueden consultar la información estadistica sobre los pedidos y el funcionamiento de la pizzería.
+Tanto el dueño como el encargado pueden consultar la información estadistica sobre los 
+pedidos y el funcionamiento de la pizzería.
 
-El caso de uso satisface el requerimiento explicito de poder consultar informacion estadistica a fin de lograr precios competitivos y promociones.
+El caso de uso satisface el requerimiento explícito de poder consultar informacion estadística 
+a fin de lograr precios competitivos y promociones.
 
 \subsection{Registrando cobro}
 
 \textit{Agente: Cajero}
 
-Cuando se cobra un pedido, o el delivery entrega el dinero, se registra el pago del pedido. Este registro es ingresado
-por el cajero.
+Cuando se cobra un pedido o el \textit{delivery} entrega el dinero, se registra el pago del pedido. 
+Este registro es ingresado manualmente por el cajero.
 
-Esta funcionalidad permite manterner informacion sobre el estado de los pedidos.
+Esta funcionalidad permite manterner información sobre el estado de los pedidos.
 
 \subsection{Requiriendo facturar}
 
 \textit{Agentes: Cajero, sistema de facturación}
 
-El cajero debe requerir que se emita factura cuando se paga un pedido o cuando este sale para ser entregado por el delivery. El sistema interactua con el software de facturación por medio de la interfaz que este presenta para lograr la facturación.
+El cajero debe requerir que se emita factura cuando se paga un pedido o cuando este sale 
+para ser entregado por el \textit{delivery}. El sistema interactúa con el software de 
+facturación por medio de la interfaz que este presenta para lograr la facturación.
 
-Este caso de uso permite interactuar con el sistema de facturacion sin tener que ingresar nuevamente los datos del pedido.
-
-
-
-
+Este caso de uso permite interactuar con el sistema de facturación sin tener que 
+ingresar nuevamente los datos del pedido.
 
