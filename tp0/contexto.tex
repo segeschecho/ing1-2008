@@ -47,12 +47,12 @@ El siguiente es el diagrama de contexto de la situacion normal,  a continuación 
 \begin{itemize}
 \item Ingresa cambios al stock
 \end{itemize}
-\item \textcolor{Peach}{Jefe/encargado $\rightarrow$ Sistema}
+\item \textcolor{Peach}{Dueño $\rightarrow$ Sistema}
 \begin{itemize}
 \item Modifica precios
 \item Consulta estadisticas
 \end{itemize}
-\item \textbf{\textcolor{Black}{Sistema $\rightarrow$ Jefe/encargado}}
+\item \textbf{\textcolor{Black}{Sistema $\rightarrow$ Dueño}}
 \begin{itemize}
 \item Informa estadisticas
 \end{itemize}
@@ -164,6 +164,12 @@ El siguiente es el diagrama de contexto de la situacion normal,  a continuación 
 \begin{itemize}
 \item Entrega pedido
 \end{itemize}
+\item \textcolor{Gray}{Cajero $\rightarrow$ Sistema}
+\begin{itemize}
+\item Registra cobro
+\item Modifica precios
+\item Solicita factura
+\end{itemize}
 \end{enumerate}
 \end{minipage}
 
@@ -218,11 +224,11 @@ El siguiente es el diagrama de contexto de la situacion normal,  a continuación 
 \item Entrega pedido preparado
 \item Ingresa productos preparados de antemano
 \end{itemize}
-\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Jefe/encargado}
+\item \textcolor{RubineRed}{Encargado de pedidos $\rightarrow$ Dueño}
 \begin{itemize}
 \item Informa estadisticas
 \end{itemize}
-\item \textcolor{Peach}{Jefe/encargado $\rightarrow$ Encargado de pedidos}
+\item \textcolor{Peach}{Dueño $\rightarrow$ Encargado de pedidos}
 \begin{itemize}
 \item Ordena modificar precios
 \item Pide informe de estadisticas
@@ -257,7 +263,7 @@ El siguiente es el diagrama de contexto de la situacion normal,  a continuación 
 \begin{itemize}
 \item Da la factura para la entrega
 \end{itemize}
-\item \textcolor{Gray}{Cajero $\rightarrow$ Delivery}
+\item \textcolor{Gray}{Cajero $\rightarrow$ Mozo}
 \begin{itemize}
 \item Entrega factura
 \end{itemize}
@@ -319,6 +325,7 @@ El siguiente es el diagrama de contexto de la situacion normal,  a continuación 
 \begin{itemize}
 \item Avisa registrar cobro
 \item Avisa solicita factura
+\item Modifica precios
 \end{itemize}
 \end{enumerate}
 \end{minipage}

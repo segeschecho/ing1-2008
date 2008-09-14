@@ -44,10 +44,10 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.08"
-     inkscape:cx="-1449.9163"
-     inkscape:cy="1532.3697"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4"
+     inkscape:cx="1893.2715"
+     inkscape:cy="-2350.1303"
+     inkscape:window-x="0"
+     inkscape:window-y="52"
      inkscape:current-layer="svg2"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -456,31 +456,23 @@
      sodipodi:nodetypes="cc"
      inkscape:connection-end="#g4825"
      inkscape:connection-start="#g6411" />
-  <g
-     id="g9558"
-     transform="translate(1231.125,-250.20312)">
-    <rect
-       y="572.62494"
-       x="389.44525"
-       height="93.156357"
-       width="184.23448"
-       id="rect9033"
-       style="opacity:1;fill:#e7bc94;fill-opacity:1;stroke:#ff7115;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <text
-       id="text9035"
-       y="610.30469"
-       x="406.1875"
-       style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       xml:space="preserve"><tspan
-         y="610.30469"
-         x="406.1875"
-         id="tspan9037"
-         sodipodi:role="line">    Jefe /</tspan><tspan
-         id="tspan9556"
-         y="650.30469"
-         x="406.1875"
-         sodipodi:role="line">Encargado</tspan></text>
-  </g>
+  <rect
+     style="fill:#e7bc94;fill-opacity:1;stroke:#ff7115;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect9033"
+     width="184.23448"
+     height="93.156357"
+     x="1620.5703"
+     y="322.42181" />
+  <text
+     xml:space="preserve"
+     style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="1637.3125"
+     y="380.63489"
+     id="text9035"><tspan
+       sodipodi:role="line"
+       x="1637.3125"
+       y="380.63489"
+       id="tspan9556">    Dueño</tspan></text>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#df974b;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 1619.6333,331.46667 C 1234.8713,168.8301 817.97649,223.19236 541.05636,324.13857"
@@ -1295,19 +1287,19 @@
      id="path2829"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:connection-start="#rect11234"
-     inkscape:connection-end="#rect10661" />
+     inkscape:connection-end="#rect10661"
+     inkscape:connection-start="#rect11234" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-220.89069"
-     y="1869.8041"
+     x="-148.30692"
+     y="1933.9609"
      id="text2831"
-     transform="matrix(0.9279179,0.3727846,-0.3727846,0.9279179,0,0)"><tspan
+     transform="matrix(0.9909955,0.1338955,-0.1338955,0.9909955,0,0)"><tspan
        sodipodi:role="line"
        id="tspan2833"
-       x="-220.89069"
-       y="1869.8041">Da la factura para entrega</tspan></text>
+       x="-148.30692"
+       y="1933.9609">Da la factura para entrega</tspan></text>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#a3a3a3;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -1330.1657,1331.7587 C 1631.7499,2751.1639 114.90445,919.6668 367.5816,372.57515"
@@ -1497,4 +1489,23 @@
        id="tspan2650"
        x="-953.76245"
        y="-1172.4518">Requiere registro</tspan></text>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#a3a3a3;stroke-width:2.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
+     d="M -1330.1657,1378.5132 C 2214.7083,3662.3795 338.04984,85.881863 464.95608,366.70848"
+     id="path2647"
+     inkscape:connector-type="polyline"
+     inkscape:connection-start="#rect11234"
+     inkscape:connection-end="#g4825"
+     sodipodi:nodetypes="cc" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-538.73572"
+     y="2106.2698"
+     id="text2651"
+     transform="matrix(0.8837924,-0.4678792,0.4678792,0.8837924,0,0)"><tspan
+       sodipodi:role="line"
+       id="tspan2653"
+       x="-538.73572"
+       y="2106.2698">Modifica precios</tspan></text>
 </svg>
