@@ -45,8 +45,8 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.0864"
-     inkscape:cx="879.16847"
-     inkscape:cy="-564.72738"
+     inkscape:cx="5908.5566"
+     inkscape:cy="1287.1245"
      inkscape:window-x="0"
      inkscape:window-y="52"
      inkscape:current-layer="svg2"
@@ -711,7 +711,10 @@
        gradientUnits="userSpaceOnUse" />
   </defs>
   <g
-     id="g4825">
+     id="g4825"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <rect
        y="277.42813"
        x="353.35001"
@@ -746,7 +749,10 @@
   </g>
   <g
      id="g7982"
-     transform="translate(-756.89064,-613.46875)">
+     transform="translate(-756.89064,-613.46875)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <rect
        y="54.945251"
        x="57.585876"
@@ -767,7 +773,10 @@
   </g>
   <g
      id="g4819"
-     transform="translate(531.8125,547.51563)">
+     transform="translate(531.8125,547.51563)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <rect
        y="544.35931"
        x="740.14838"
@@ -796,20 +805,29 @@
      width="184.23448"
      height="93.156357"
      x="1327.4453"
-     y="-505.65631" />
+     y="-505.65631"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="1355.7031"
      y="-452.27344"
-     id="text5880"><tspan
+     id="text5880"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan5882"
        x="1355.7031"
        y="-452.27344">Maestro</tspan></text>
   <g
      id="g6411"
-     transform="translate(-561.78294,783.97917)">
+     transform="translate(-561.78294,783.97917)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <g
        id="g7445">
       <rect
@@ -835,44 +853,48 @@
            id="tspan6409">de pedidos</tspan></text>
     </g>
   </g>
-  <g
-     id="g9558"
-     transform="translate(1231.125,-250.20312)">
-    <rect
-       y="572.62494"
-       x="389.44525"
-       height="93.156357"
-       width="184.23448"
-       id="rect9033"
-       style="opacity:1;fill:#e7bc94;fill-opacity:1;stroke:#ff7115;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <text
-       id="text9035"
-       y="610.30469"
-       x="406.1875"
-       style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       xml:space="preserve"><tspan
-         y="610.30469"
-         x="406.1875"
-         id="tspan9037"
-         sodipodi:role="line">    Jefe /</tspan><tspan
-         id="tspan9556"
-         y="650.30469"
-         x="406.1875"
-         sodipodi:role="line">Encargado</tspan></text>
-  </g>
+  <rect
+     style="fill:#e7bc94;fill-opacity:1;stroke:#ff7115;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect9033"
+     width="184.23448"
+     height="93.156357"
+     x="1620.5703"
+     y="322.42181"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="1629.1643"
+     y="376.39786"
+     id="text9035"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       x="1629.1643"
+       y="376.39786"
+       id="tspan9556">    Dueño</tspan></text>
   <rect
      style="opacity:1;fill:#c1f0f1;fill-opacity:1;stroke:#00b7cd;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      id="rect10661"
      width="184.23448"
      height="93.156357"
      x="610.08405"
-     y="1329.8026" />
+     y="1329.8026"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="642.52942"
      y="1387.3729"
-     id="text10663"><tspan
+     id="text10663"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan10665"
        x="642.52942"
@@ -883,13 +905,19 @@
      width="184.23448"
      height="93.156357"
      x="707.69525"
-     y="-552.76569" />
+     y="-552.76569"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="713.41565"
      y="-514.03906"
-     id="text11200"><tspan
+     id="text11200"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        x="713.41565"
        y="-514.03906"
@@ -899,7 +927,10 @@
        y="-474.03906"
        id="tspan11208"> facturación</tspan></text>
   <g
-     id="g7638">
+     id="g7638"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <rect
        y="-750.75299"
        x="185.27008"
@@ -928,13 +959,19 @@
      width="184.23448"
      height="93.156357"
      x="-1517.4299"
-     y="1331.9351" />
+     y="1331.9351"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-1473.6486"
      y="1386.5444"
-     id="text11236"><tspan
+     id="text11236"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan11238"
        x="-1473.6486"
@@ -944,7 +981,10 @@
      style="font-size:28px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-5.9220195"
      y="431.5871"
-     id="text11298"><tspan
+     id="text11298"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan11300"
        x="-5.9220195"
@@ -952,7 +992,10 @@
   <flowRoot
      xml:space="preserve"
      id="flowRoot11334"
-     style="font-size:36px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"><flowRegion
+     style="font-size:36px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><flowRegion
        id="flowRegion11336"><rect
          id="rect11338"
          width="38.493126"
@@ -960,7 +1003,10 @@
          x="-864.61481"
          y="-548.50708" /></flowRegion><flowPara
        id="flowPara11340" /></flowRoot>  <g
-     id="g7425">
+     id="g7425"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <rect
        y="290.25662"
        x="-485.93155"
@@ -985,29 +1031,44 @@
      id="path2667"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:connection-end="#g7425" />
+     inkscape:connection-end="#g7425"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#389a2e;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -343.09259,283.01235 C -324.77761,9.5298592 -334.91924,-254.80586 -516.91975,-463.90123"
      id="path5848"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#389a2e;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -419.14198,378.07407 C -481.79413,556.45309 -548.58682,733.20546 -413.70988,989.18519"
      id="path7443"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -386.54938,997.33333 C -322.12712,802.89789 -253.13578,609.09267 -393.26866,386.44273"
      id="path7461"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:connection-end="#g7425" />
+     inkscape:connection-end="#g7425"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <g
      id="g7475"
-     transform="translate(103.20988,-16.296296)">
+     transform="translate(103.20988,-16.296296)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <path
        transform="translate(-150.92303,765.06982)"
        d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
@@ -1034,28 +1095,43 @@
      d="M -476.17901,1086.963 C -551.8835,1561.6174 163.15192,1355.6349 609.40159,1381.0123"
      id="path7498"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#00b7cd;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 686.39515,1327.9133 C 271.46958,1292.124 -353.33718,1495.5993 -443.58642,1089.679"
      id="path7502"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -357.0003,990.73463 C -180.43741,757.67891 4.5357707,525.94546 352.21605,331.90123"
      id="path7535"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 379.37654,367.20988 C 189.82381,674.58833 -49.176679,845.98542 -295.93644,996.04453"
      id="path7547"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <g
      id="g7580"
-     transform="translate(-90.268309,-111.50791)">
+     transform="translate(-90.268309,-111.50791)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <path
        transform="translate(515.30924,915.3299)"
        d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
@@ -1082,7 +1158,10 @@
      d="M 627.8067,1426.458 C -262.84389,1802.9278 -663.36861,1378.0299 -1330.995,1378.1464"
      id="path7587"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.51999998000000010;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -1423.449,1428.1212 C -922.29949,2173.4296 356.40993,1659.1919 697.30474,1425.9887"
@@ -1090,19 +1169,28 @@
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
      inkscape:connection-end="#rect10661"
-     inkscape:connection-start="#rect11234" />
+     inkscape:connection-start="#rect11234"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -1434.9101,1333.2232 C -1462.8426,860.73296 -1345.0575,698.98836 -487.04321,315.60494"
      id="path7617"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#ea00c4;stroke-width:3.51999998000000010;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 707.484,-508.75733 C -556.25282,-673.73482 -1604.3781,-1007.7676 -1492.7507,1327.2747"
      id="path7654"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 505.76317,274.40613 C 990.85174,83.207823 723.93148,-212.70057 830.67691,-456.57957"
@@ -1110,7 +1198,10 @@
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
      inkscape:connection-start="#g4825"
-     inkscape:connection-end="#rect11198" />
+     inkscape:connection-end="#rect11198"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#ea00c4;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 808.86857,-555.79544 L 372.53432,-747.31904"
@@ -1118,64 +1209,93 @@
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
      inkscape:connection-start="#rect11198"
-     inkscape:connection-end="#g7638" />
+     inkscape:connection-end="#g7638"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#90009e;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -573.95679,-463.90123 C -753.95786,87.897028 -674.49911,556.66814 -494.00933,993.10933"
      id="path7660"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -497.764,1045.6747 C -754.12083,632.17538 -948.29441,192.24817 -633.70988,-463.90123"
      id="path7662"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -287.97159,1011.9742 C 555.42691,873.49049 886.88774,149.93515 1361.9798,-409.4702"
      id="path7664"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:connection-end="#rect5878" />
+     inkscape:connection-end="#rect5878"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#e9ef00;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 1409.6067,-411.136 C 905.64739,198.59883 492.1895,995.80088 -290.62654,1027.9039"
      id="path7668"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -291.48765,1057.0864 C 527.40248,1141.2575 1065.9521,760.65347 1617.5405,401.66648"
      id="path7672"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:connection-end="#g9558" />
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#ff7115;stroke-width:3.51999998000000010;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 1689.9663,414.61042 C 1041.5989,935.02987 384.53298,1335.8458 -319.831,1086.3128"
      id="path7674"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#0051cb;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 1268.9311,1135.6546 C 734.5185,1231.3726 197.58213,1310.8665 -386.54938,1086.963"
      id="path7676"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:connection-start="#g4819" />
+     inkscape:connection-start="#g4819"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="693.43201"
      y="882.60992"
-     id="text7733"><tspan
+     id="text7733"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan7735"
        x="693.43201"
        y="882.60992" /></text>
   <g
-     id="g7891">
+     id="g7891"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
     <path
        transform="translate(1170.0939,35.052245)"
        d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
@@ -1206,13 +1326,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(127.13089,746.65718)" />
+     transform="translate(127.13089,746.65718)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-289.24094"
      y="681.29523"
-     id="text7939"><tspan
+     id="text7939"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan7941"
        x="-289.24094"
@@ -1226,13 +1352,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(292.8099,716.78067)" />
+     transform="translate(292.8099,716.78067)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-123.56197"
      y="651.41864"
-     id="text7947"><tspan
+     id="text7947"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan7949"
        x="-123.56197"
@@ -1246,13 +1378,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(836.01978,719.49668)" />
+     transform="translate(836.01978,719.49668)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="419.64792"
      y="654.1347"
-     id="text7955"><tspan
+     id="text7955"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan7957"
        x="419.64792"
@@ -1266,13 +1404,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(1085.8963,961.22509)" />
+     transform="translate(1085.8963,961.22509)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="669.52441"
      y="895.86316"
-     id="text7963"><tspan
+     id="text7963"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        x="669.52441"
        y="895.86316"
@@ -1286,13 +1430,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(86.390147,1409.3732)" />
+     transform="translate(86.390147,1409.3732)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-342.18439"
      y="1344.4806"
-     id="text7975"><tspan
+     id="text7975"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan7977"
        x="-342.18439"
@@ -1306,13 +1456,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-432.37527,396.2868)" />
+     transform="translate(-432.37527,396.2868)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-862.82794"
      y="330.92484"
-     id="text7983"><tspan
+     id="text7983"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan7985"
        x="-862.82794"
@@ -1326,13 +1482,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-307.43701,388.13866)" />
+     transform="translate(-307.43701,388.13866)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-736.95093"
      y="323.98325"
-     id="text8003"><tspan
+     id="text8003"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8005"
        x="-736.95093"
@@ -1346,13 +1508,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-84.720959,5.1757007)" />
+     transform="translate(-84.720959,5.1757007)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-514.2348"
      y="-58.979691"
-     id="text8033"><tspan
+     id="text8033"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8035"
        x="-514.2348"
@@ -1366,13 +1534,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(13.056818,-5.6884974)" />
+     transform="translate(13.056818,-5.6884974)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-417.19504"
      y="-71.221573"
-     id="text8063"><tspan
+     id="text8063"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8065"
        x="-417.19504"
@@ -1386,13 +1560,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(936.51356,798.26211)" />
+     transform="translate(936.51356,798.26211)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="520.61108"
      y="732.6687"
-     id="text8079"><tspan
+     id="text8079"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8081"
        x="520.61108"
@@ -1406,13 +1586,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(1118.4889,1069.8671)" />
+     transform="translate(1118.4889,1069.8671)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="702.58636"
      y="1003.7042"
-     id="text8091"><tspan
+     id="text8091"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8093"
        x="702.58636"
@@ -1426,13 +1612,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(1175.526,1249.1262)" />
+     transform="translate(1175.526,1249.1262)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="928.01849"
      y="1108.6914"
-     id="text8107"><tspan
+     id="text8107"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8109"
        x="928.01849"
@@ -1442,7 +1634,10 @@
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="759.25421"
      y="1183.6954"
-     id="text8119"><tspan
+     id="text8119"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8121"
        x="759.25421"
@@ -1456,13 +1651,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(205.89634,1363.2003)" />
+     transform="translate(205.89634,1363.2003)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-223.41689"
      y="1298.9773"
-     id="text8137"><tspan
+     id="text8137"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8139"
        x="-223.41689"
@@ -1476,13 +1677,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-101.01726,1561.472)" />
+     transform="translate(-101.01726,1561.472)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-530.33044"
      y="1497.2489"
-     id="text8147"><tspan
+     id="text8147"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8149"
        x="-530.33044"
@@ -1496,13 +1703,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-133.60985,1854.8053)" />
+     transform="translate(-133.60985,1854.8053)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-562.92297"
      y="1790.5823"
-     id="text8155"><tspan
+     id="text8155"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8157"
        x="-562.92297"
@@ -1516,13 +1729,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-565.46169,586.41026)" />
+     transform="translate(-565.46169,586.41026)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-994.77478"
      y="522.18719"
-     id="text8183"><tspan
+     id="text8183"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8185"
        x="-994.77478"
@@ -1536,13 +1755,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-755.58515,-176.79961)" />
+     transform="translate(-755.58515,-176.79961)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-1184.8983"
      y="-241.02263"
-     id="text8191"><tspan
+     id="text8191"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8193"
        x="-1184.8983"
@@ -1556,13 +1781,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(1034.2914,-611.36751)" />
+     transform="translate(1034.2914,-611.36751)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="607.32501"
      y="-675.59058"
-     id="text8207"><tspan
+     id="text8207"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan8209"
        x="607.32501"
@@ -1572,7 +1803,10 @@
      d="M -487.04321,383.50617 C -1204.9763,658.26333 -1416.5157,981.7122 -1383.3395,1328.6914"
      id="path2637"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      sodipodi:type="arc"
      style="fill:url(#linearGradient2645);fill-opacity:1;stroke:#389a2e;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -1582,13 +1816,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-516.57281,722.21271)" />
+     transform="translate(-516.57281,722.21271)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-946.82471"
      y="656.67963"
-     id="text2641"><tspan
+     id="text2641"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan2643"
        x="-946.82471"
@@ -1598,13 +1838,19 @@
      d="M 610.24074,1418.3209 C -1540.6886,1718.5087 -1600.0157,633.32234 -698.89506,-515.50617"
      id="path2647"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#90009e;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -696.17901,-466.61728 C -1795.5653,1074.6284 -695.46616,1622.3646 610.24074,1402.0247"
      id="path2649"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      sodipodi:type="arc"
      style="fill:url(#linearGradient2665);fill-opacity:1;stroke:#00b7cd;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -1614,13 +1860,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-570.8938,1276.2869)" />
+     transform="translate(-570.8938,1276.2869)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-1000.207"
      y="1212.0637"
-     id="text2661"><tspan
+     id="text2661"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan2663"
        x="-1000.207"
@@ -1634,13 +1886,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-473.11602,1202.9535)" />
+     transform="translate(-473.11602,1202.9535)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-902.62994"
      y="1138.7981"
-     id="text2670"><tspan
+     id="text2670"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan2672"
        x="-902.62994"
@@ -1652,7 +1910,10 @@
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
      inkscape:connection-start="#rect5878"
-     inkscape:connection-end="#g4819" />
+     inkscape:connection-end="#g4819"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      sodipodi:type="arc"
      style="fill:url(#linearGradient2684);fill-opacity:1;stroke:#e9ef00;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -1662,13 +1923,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(2378.7358,339.24977)" />
+     transform="translate(2378.7358,339.24977)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="1950.63"
      y="273.65637"
-     id="text2680"><tspan
+     id="text2680"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan2682"
        x="1950.63"
@@ -1678,7 +1945,10 @@
      d="M -419.14198,1086.963 C -147.16537,1279.6347 860.81252,1433.0177 1272.9568,1171.1605"
      id="path2688"
      inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc" />
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      sodipodi:type="arc"
      style="fill:url(#linearGradient2712);fill-opacity:1;stroke:#9e0021;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78431373"
@@ -1688,13 +1958,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(1189.1062,1346.9041)" />
+     transform="translate(1189.1062,1346.9041)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="758.65442"
      y="1281.5422"
-     id="text2708"><tspan
+     id="text2708"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        x="758.65442"
        y="1281.5422"
@@ -1705,7 +1981,10 @@
      id="path2714"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:connection-end="#g6411" />
+     inkscape:connection-end="#g6411"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <path
      sodipodi:type="arc"
      style="fill:url(#linearGradient2724);fill-opacity:1;stroke:#7c8185;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -1715,13 +1994,19 @@
      sodipodi:rx="31.112698"
      sodipodi:ry="31.112698"
      d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
-     transform="translate(-277.56047,1281.7189)" />
+     transform="translate(-277.56047,1281.7189)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-706.8736"
      y="1217.4958"
-     id="text2720"><tspan
+     id="text2720"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
        sodipodi:role="line"
        id="tspan2722"
        x="-706.8736"

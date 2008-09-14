@@ -776,33 +776,25 @@
      inkscape:export-filename="D:\Facultad\Ingenieria de Software I\TP Entrega 0\ContextoNormalSimplificado.png"
      inkscape:export-xdpi="5.5615478"
      inkscape:export-ydpi="5.5615478" />
+  <rect
+     style="fill:#e7bc94;fill-opacity:1;stroke:#ff7115;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect9033"
+     width="184.23448"
+     height="93.156357"
+     x="1620.5703"
+     y="322.42181" />
   <g
-     id="g9558"
-     transform="translate(1231.125,-250.20312)"
-     inkscape:export-filename="D:\Facultad\Ingenieria de Software I\TP Entrega 0\ContextoNormalSimplificado.png"
-     inkscape:export-xdpi="5.5615478"
-     inkscape:export-ydpi="5.5615478">
-    <rect
-       y="572.62494"
-       x="389.44525"
-       height="93.156357"
-       width="184.23448"
-       id="rect9033"
-       style="opacity:1;fill:#e7bc94;fill-opacity:1;stroke:#ff7115;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+     id="g2681">
     <text
        id="text9035"
-       y="610.30469"
-       x="406.1875"
+       y="374.76822"
+       x="1631.4458"
        style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        xml:space="preserve"><tspan
-         y="610.30469"
-         x="406.1875"
-         id="tspan9037"
-         sodipodi:role="line">    Jefe /</tspan><tspan
          id="tspan9556"
-         y="650.30469"
-         x="406.1875"
-         sodipodi:role="line">Encargado</tspan></text>
+         y="374.76822"
+         x="1631.4458"
+         sodipodi:role="line">    Dueño</tspan></text>
   </g>
   <rect
      style="opacity:1;fill:#c1f0f1;fill-opacity:1;stroke:#00b7cd;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -2075,5 +2067,5 @@
        sodipodi:role="line"
        id="tspan5339"
        x="-198.08916"
-       y="1105.5732">32</tspan></text>
+       y="1105.5732">31</tspan></text>
 </svg>
