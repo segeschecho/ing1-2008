@@ -1,21 +1,22 @@
 \chapter{Casos de uso}
 \section{Diagrama}
-\newpage
-\begin{figure}[H]
+
+\textit{(Ver diagrama de casos de uso en la siguiente página)}
+
+\begin{figure}
 \centering
 \includegraphics[scale=0.4]{casosdeuso.png}
 \end{figure}
 
-\section{Breve descripción}
+\section{Descripción de los casos de uso}
 A continuación daremos a modo ilustrativo una breve descripción de los casos de uso 
-considerados en el diagrama. La misma no pretende ser exahustiva, sino simplemente presentar 
+considerados en el diagrama. La misma no pretende ser exhaustiva, sino simplemente presentar 
 un panorama de a qué se refiere cada caso de uso.
 
 \setcounter{subsection}{0}
 \subsection{Autenticando usuario}
 
-\textit{Agente: Cliente}
-
+\textit{Agente: Cliente}\\
 Para poder acceder a los distintos servicios vía Web que ofrece la pizzería, es necesario 
 que el usuario se identifique. Para obtener una cuenta de usuario, el mismo tendrá que 
 registrarse personal o telefónicamente.
@@ -26,8 +27,7 @@ el estado de los mismos y lo paguen vía Internet.
 
 \subsection{Realizando pedido vía Web}
 
-\textit{Agente: Cliente}
-
+\textit{Agente: Cliente}\\
 El usuario, una vez autenticado, puede armar un pedido a través de la página Web de la 
 pizzería. Una vez elegidos los productos que desea ordenar, podrá optar por pagarlo en 
 efectivo al \textit{delivery} o pagar por Internet con su tarjeta de crédito. Además, el sistema le dará algún 
@@ -39,8 +39,7 @@ clientes.
 
 \subsection{Pagando vía web}
 
-\textit{Agente: Cliente}
-
+\textit{Agente: Cliente}\\
 El usuario al realizar un pedido puede elegir hacer un pago vía Web utilizando su tarjeta 
 de crédito.
 
@@ -49,8 +48,7 @@ varias formas.
 
 \subsection{Cancelando pedido}
 
-\textit{Agente: Encargado de pedidos}
-
+\textit{Agente: Encargado de pedidos}\\
 Este caso de uso permite que en cualquier momento el encargado pueda cancelar un pedido
 que fue ingresado previamente al sistema, sin importar su estado. La cancelación puede
 tener motivos varios, aunque lo más común sea hacerlo a pedido del cliente.
@@ -60,8 +58,7 @@ con la pizzería, así como facilitar la integración del sistema con el modelo de 
 
 \subsection{Realizando pedido vía SMS}
 
-\textit{Agente: Cliente}
-
+\textit{Agente: Cliente}\\
 Como alternativa al pedido telefónico, Web o personal, es posible hacer un pedido mediante 
 SMS. Para esto el usuario tiene que haberse registrado anteriormente. Para hacerlo, se 
 utilizan códigos que permiten identificar qué quiere el usuario. Si no se puede hacer el 
@@ -71,8 +68,7 @@ Este caso de uso ayuda a lograr nuevas formas de registrar pedidos por parte de 
 
 \subsection{Ingresando feedback}
 
-\textit{Agente: Cliente}
-
+\textit{Agente: Cliente}\\
 Una vez realizada la entrega de un pedido por \textit{delivery}, el usuario tiene la posibilidad de 
 opinar sobre el servicio mediante Internet. Para esto no es necesario que el usuario se
 loguee ya que utiliza para ello un código único que recibe al momento de entrega del
@@ -84,8 +80,7 @@ en la misma o para generar promociones.
 
 \subsection{Consultando estado de pedido}
 
-\textit{Agentes: Cliente, encargado de pedidos}
-
+\textit{Agentes: Cliente, encargado de pedidos}\\
 El cliente, vía web, o el encargado de pedidos en su computadora, pueden consultar el estado 
 de un pedido. El cliente tiene que loguearse previamente.
 
@@ -94,8 +89,7 @@ como también a conocer información de seguimiento y control de los pedidos.
 
 \subsection{Ingresando pedidos diferidos}
 
-\textit{Agente: Encargado de pedidos}
-
+\textit{Agente: Encargado de pedidos}\\
 Luego de una caída del sistema, cuando éste vuelve a levantarse, el encargado de pedidos 
 puede ingresar los pedidos que se tomaron mientras el sistema no estuvo disponible. Este 
 caso de uso es diferente del ingreso de pedidos normales, porque un pedido 
@@ -106,8 +100,8 @@ El ingreso de pedidos diferidos permite mantener la información sobre los pedido
 poder lograr información estadística precisa.
 
 \subsection{Ingresando producto preparado de antemano}
-\textit{Agente: Encargado de pedidos}
 
+\textit{Agente: Encargado de pedidos}\\
 El maestro de cocina podría en momentos donde el trabajo de la pizzería es bajo, preparar 
 algún producto para luego en caso de un futuro pedido no ya tenerlo preparado.
 
@@ -115,8 +109,7 @@ Este caso de uso ayuda a lograr mejor atención a los clientes, y es una propuest
 para mejorar la operatoria actual.
 
 \subsection{Estableciendo política de colas}
-\textit{Agente: Encargado de pedidos}
-
+\textit{Agente: Encargado de pedidos}\\
 El encargado de pedidos puede modificar la política de cola de pedidos, así como también 
 modificar el orden en el que serán preparados los pedidos.
 
@@ -124,8 +117,7 @@ Este caso de uso ayuda a satisfacer el objetivo de controlar la política de cola
 
 \subsection{Registrando pedido}
 
-\textit{Agente: Encargado de pedidos}
-
+\textit{Agente: Encargado de pedidos}\\
 El encargado de pedidos ingresa un nuevo pedido de un llamado telefónico. El software le 
 informa la planificación existente y los tiempos estimados de cocción. 
 %esta en el enunciado aunque queda de los pelos no lo nombramos en ningun otra parte.
@@ -134,8 +126,7 @@ Este caso de uso está relacionado con lograr automatizar la operatoria. Además, 
 los pedidos se hace posible lograr información estadística.
 
 \subsection{Registrando cliente}
-\textit{Agente: Encargado de pedidos}
-
+\textit{Agente: Encargado de pedidos}\\
 El encargado de pedidos ingresa un nuevo cliente al sistema, el cual se comunica con el 
 encargado vía teléfono o personalmente. Para hacerlo, toma los datos del mismo.
 
@@ -143,8 +134,7 @@ Este caso de uso permite que posteriormente se realicen pedidos vía Web o vía SM
 
 \subsection{Informando próximo pedido}
 
-\textit{Agente: Maestro}
-
+\textit{Agente: Maestro}\\
 El maestro pide al sistema el próximo pedido a preparar, así como también el proximo pedido 
 a ingresar al horno.
 
@@ -152,9 +142,7 @@ Este caso de uso ayuda a automatizar la operatoria de la pizzería y automatizar 
 de horno.
 
 \subsection{Modificando estado de pedido} 
-%TODO: verificar cuando el maestro actualiza el estado del pedido
-\textit{Agentes: Maestro, Encargado de pedidos}
-
+\textit{Agentes: Maestro, Encargado de pedidos}\\
 Este caso de uso permite actualizar en qué etapa del ciclo de pedidos se encuentra un 
 pedido. El maestro actualiza el estado del pedido cuando lo comienza a preparar, cuando 
 termina de prepararlo, al ingresarlo al horno y cuando está listo. El encargado de pedidos actualiza el 
@@ -164,8 +152,7 @@ Este caso de uso permite tener información de seguimiento y control de los pedid
 
 \subsection{Ingresando pedido de mesa}
 
-\textit{Agente: Mozo}
-
+\textit{Agente: Mozo}\\
 El mozo cuenta con una PDA a fin de ingresar los pedidos que le hacen en las mesas al 
 sistema.
 
@@ -175,8 +162,7 @@ de la pizzería.
 
 \subsection{Notificando pedido entregado}
 
-\textit{Agente: Delivery}
-
+\textit{Agente: Delivery}\\
 El \textit{delivery} deberá informar mediante SMS cuando realiza una entrega, de modo que el sistema 
 actualice el estado del pedido a entregado.
 
@@ -186,8 +172,7 @@ como también informacion de seguimiento y control de los pedidos.
 
 \subsection{Haciendo ABM de stock}
 
-\textit{Agente: Encargado de stock}
-
+\textit{Agente: Encargado de stock}\\
 El responsable de controlar el stock de las materias primas y kits en la pizzería tendra la capacidad
 de actualizar el stock ya sea dando de alta productos comprados así como también dando de baja
 productos caducados. Por otro lado, podrá en cualquier momento consultar el stock de los productos y kits.
@@ -196,8 +181,7 @@ El caso de uso ayuda a lograr controlar el stock de la pizzería.
 
 \subsection{Notificando stock crítico}
 
-\textit{Agente: Encargado de stock}
-
+\textit{Agente: Encargado de stock}\\
 En caso de que el stock de algun producto quede por debajo de un nivel crítico, 
 el sistema avisará al encargado de stock de esta situación.
 
@@ -206,8 +190,7 @@ que el sistema avise en caso de stock inferior al nivel crítico.
 
 \subsection{Actualizando precios}
 
-\textit{Agente: Cajero, dueño}
-
+\textit{Agente: Cajero, dueño}\\
 Tanto el dueño como el encargado de caja pueden modificar los precios de los distintos productos 
 en cualquier momento. 
 %fixme: cuando se ven dichos cambios.
@@ -217,8 +200,7 @@ además poder lograr promociones y precios competitivos.
 
 \subsection{Consultando información estadistica}
 
-\textit{Agente: Dueño}
-
+\textit{Agente: Dueño}\\
 El dueño puede consultar la información estadistica sobre los 
 pedidos y el funcionamiento de la pizzería.
 
@@ -227,8 +209,7 @@ a fin de lograr precios competitivos y promociones.
 
 \subsection{Registrando cobro}
 
-\textit{Agente: Cajero}
-
+\textit{Agente: Cajero}\\
 Cuando se cobra un pedido o el \textit{delivery} entrega el dinero, se registra el pago del pedido. 
 Este registro es ingresado manualmente por el cajero.
 
@@ -236,8 +217,7 @@ Esta funcionalidad permite manterner información sobre el estado de los pedidos.
 
 \subsection{Requiriendo facturar}
 
-\textit{Agentes: Cajero, sistema de facturación}
-
+\textit{Agentes: Cajero, sistema de facturación}\\
 El cajero debe requerir que se emita factura cuando se paga un pedido o cuando este sale 
 para ser entregado por el \textit{delivery}. El sistema interactúa con el software de 
 facturación por medio de la interfaz que este presenta para lograr la facturación.
