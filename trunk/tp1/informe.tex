@@ -23,6 +23,9 @@
 \usepackage[dvipsnames,usenames]{color}
 \usepackage{amsfonts}
 \usepackage{pdflscape}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{tabularx}
 %%---------------------------------------------------------------------------%%
 %%	SECCION opciones																												 %%	
 %%---------------------------------------------------------------------------%%
@@ -56,6 +59,82 @@
 \resumen{
 }
 
+\newcommand{\negrita}[1]{{\bf #1}}
+
+
+% ----- Token list para las instrucciones ------------------------------------
+\newtoks\oplist\oplist={}
+% ----- Comando para que el usuario agregue operaciones del CU
+
+\newcounter{PasoCu}
+\setcounter{PasoCu}{1}
+\newcommand{\op}[2]
+{
+\oplist=\expandafter{\the\oplist\thePasoCu #1 &\thePasoCu #2\\}
+\stepcounter{PasoCu}
+}
+
+\definecolor{light-gray}{gray}{0.9}
+\newcommand{\cu}[6]{ 
+{\setlength{\arrayrulewidth}{1mm}
+\setcounter{PasoCu}{1}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|>{\columncolor{Black}}c|}{\textcolor{White}{\negrita{Caso de Uso:}}} &
+\multicolumn{1}{|>{\columncolor{Black}}l|}{\textcolor{White}{#1}}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Actores intervinientes:}} &
+\multicolumn{1}{|l|}{#2}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Requerimientos relacionados:}} &
+\multicolumn{1}{|l|}{#3}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Precondicion:}} &
+\multicolumn{1}{|l|}{#4}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Poscondicion:}} &
+\multicolumn{1}{|l|}{#5}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Descripcion:}} &
+\multicolumn{1}{|l|}{#6}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Curso normal}} &
+\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Curso alternativo}}\\
+\hline
+\the\oplist
+\hline
+\end{tabular}
+}
+}
+\newcounter{req}
+\setcounter{req}{1}
+
+
+\newcommand{\desreq}[5]{
+{\setlength{\arrayrulewidth}{1mm}
+\begin{tabular}{|| c | p ||}
+\multicolumn{1}{|>{\columncolor{Black}}c|}{\textcolor{White}{\negrita{Requerimiento:}}} &
+\multicolumn{1}{|>{\columncolor{Black}}l|}{\textcolor{White}{#1}}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Numero:}} &
+\multicolumn{1}{|l|}{\thereq}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Tipo:}} &
+\multicolumn{1}{|l|}{#2}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Importancia:}} &
+\multicolumn{1}{|l|}{#3}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Descripción:}} &
+\multicolumn{1}{|p{15cm}|}{#4}\\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Motivo:}} &
+\multicolumn{1}{|l|}{#5}\\\hline
+\end{tabular}
+\stepcounter{req}
+}
+}
+
 % TOC, usa estilos locos
 \maketitle
 \pagestyle{empty}
@@ -85,6 +164,4 @@
 \input{introduccion}
 \input{descripcion}
 \input{requerimientosEspecificos}
-
-\label{LastPage}
 \end{document}

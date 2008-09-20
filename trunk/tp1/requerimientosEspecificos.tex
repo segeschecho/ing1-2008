@@ -61,3 +61,114 @@ $\hbar$	Se espera que permitan dar una idea de la información input y ouptut que
  	CdC: La organización de los Requerimientos Específicos es una parte importante de la evaluación. Deben presentarlo de la manera que consideren más apropiada de manera de poder comunicar las ideas.
  	 
  	CdC: No es obligatorio utilizar todas las técnicas mencionadas, queda a criterio de cada grupo (y es parte de la evaluación) la elección de la técnica más apropiada para cada aspecto que quieran modelar, así como la decisión de los aspectos modelados.}
+
+\section{Diagrama de contexto}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[height=16cm]{contextoNormal.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[height=16cm]{contextoNormalSimplificado.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[height=16cm]{contextoContingencia.png}
+\end{figure}
+\end{landscape}
+
+\section{Modelo de objetivos}
+\subsection{Diagrama de objetivos}
+Dado el tamaño del diagrama y para facilitar su lectura decidimos fragmentar el mismo. Las partes se encuentran a continuacion:
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[height=14.5cm]{DiagramaObjetivos4.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[height=14.5cm]{DiagramaObjetivos3.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[height=14cm]{DiagramaObjetivos2.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[height=14.5cm]{DiagramaObjetivos1.png}
+\end{figure}
+\end{landscape}
+
+\subsection{Descripción de los requerimientos}
+
+\desreq{Poder hacer pedido desde pagina web}{Funcional}{Importante}{El usuario tiene que poder ingresar un pedido desde la página web de la pizzería}{El cliente debe poder hacer pedidos via web y asi ampliar las formas de hacer pedidos}
+
+\desreq{Poder identificar al usuario cuando se loguea}{Funcional}{Importante}{Es necesario poder identificar al usuario que quiere utilizar algun servicio de la pizzeria via web}{El cliente debe poder hacer pedidos via web y asi ampliar las formas de hacer pedidos}
+
+\desreq{Mantener base de datos de clientes actualizada}
+{Funcional}
+{Importante}
+{Una base de datos actualizada es necesaria para poder tener información de los usuarios y permitirles realizar pedidos remotos}
+{Mantener base de datos de clientes}
+
+\desreq{Lograr que el cliente se pueda registrar en la base de datos}{Funcional}{Importante}{Debe poder registrarse nuevos usuarios en la base de datos del sistema}{Mantener base de datos de clientes}
+
+\desreq{Identificar al cliente por su número de celular}
+{Funcional}
+{Importante}
+{Asi como para el caso web, para poder hacer un
+pedido via SMS es necesario poder identificar el número del celular que 
+envía el mensaje con el cliente registrado}
+{Lograr que el cliente haga pedidos via SMS}
+
+\desreq{Interactuar con servicio externo de cobros con tarjeta de credito}
+{Funcional}
+{Importante}
+{El sistema debe ser capaz de interactuar con algun servicio similar a paypal}
+{El cliente puede pagar pedidos con tarjeta desde la web}
+
+\desreq{Poder identificar a un pedido de forma unica}
+{Funcional}
+{Importante}
+{Debe ser posible referenciar a un pedido ingresado al sistema de forma univoca}
+{Que el usuario pueda consultar el estado de sus pedidos via web}
+
+\desreq{Estimar tiempos de preparacion de pedidos de forma dinamica}
+{No funcional} %TODO:dice como tiene q hacerse, verificar
+{Deseable}
+{En vez de ingresar a mano el tiempo de preparación de pedidos, una alternativa es ir estimando dinamicamente los tiempos
+de preparación, de este modo se puede adaptar la estimación según la cantidad de pedidos que tenga que atender la cocina}
+{Permitir tener una estimación para los productos individuales}
+
+\desreq{Calcular tiempo total de cocción de un pedido en base a estimaciones individuales}
+{Funcional} %TODO: no se si es func o no
+{Importante} %todo: no se tampoco
+{Los tiempos individuales para los productos deben usarse para poder estimar el tiempo de un pedido teniendo en cuenta la cola
+de producción, la politica de asignación, etc}
+{Se desea estimar el tiempo de preparación de los pedidos}
+
+\section{Casos de uso}
+\subsection{Diagrama}
+\begin{figure}[H]
+\centering
+\includegraphics[height=15.5cm]{casosdeuso.png}
+\end{figure}
+\subsection{Descripción de los casos de uso}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% plantilla para casos de uso %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\op{agrego una operacion en contexto normal}{y ahora su contexto de excepcion}
+%\op{agrego otra}{lo malo es q no se numeran solas}
+%\cu{nombre del caso de uso}{actor relacionado}{requerimiento}{pre}{pos}
+%\oplist={} vacio la lista para otro caso de uso
+%\cu{hola}{colo}{trolo}{fonolo}{rqqq}
+%
+\op{agrego una operacion en contexsadddddddddddddddddddddddddddto normal}{y ahora suasddddddddddddddddddddddddd contexto de excepcion}
+\cu{nombre del caso de uso}{actor relacionado}{requerimiento}{pre}{pos}{descrip}
+\op{agrego otra}{lo malo es q no se numeran solas}
+\section{Descripcion de operaciones} %NOTA: es opcional
+\section{Diagrama de actividad}
+\section{Maquinas de estado finito}
+\section{Modelo conceptual}
+\section{Prototipos de pantalla} %WTF :S
