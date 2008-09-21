@@ -1,69 +1,69 @@
 \chapter{Requerimientos específicos}
-{\color{Blue} Esta sección debería contener todos los requerimientos en un nivel de detalle suficiente para permitir:
-
-*	a los diseñadores de software: realizar un diseño que satisfaga los requerimientos
-
-*	a los analistas de pruebas: verificar que el software satisface los requerimientos
-
-A través de esta sección, cada requerimiento declarado debería ser perceptible por usuarios, operadores y otros sistemas externos. Estos requerimientos deberían incluir, al menos,  una descripción de cada entrada (estímulo) del software , de cada salida (respuesta) del software, y de todas las funciones que debe realizar el software en respuesta de una entrada o como soporte a una salida.
-Esta sección es la más importante del presente documento.}
-
-{\color{ForestGreen}CdC: En esta sección se espera que se describan los requerimientos específicos utilizando las distintas técnicas vistas en la materia. Se espera encontrar:
-
-$\wp$	Diagrama de contexto
-
-$\wp$	Se espera al menos que estén modelados los fenómenos esenciales identificados.
-
-$\wp$	Modelo de Objetivos
-
-$\hbar$	Se espera al menos que estén bien refinados los objetivos principales  y los requerimientos esenciales (ver sección Matriz de requerimientos) para la máquina a construir, y obviamente todo el grafo para cubrir el camino entre ellos. La parte explicitada del diagrama debe ser completa y correcta. 
-
-\hspace{3cm} * Todos los objetivos en el camino hacia los requerimientos esenciales deben ser refinados (al menos para explicitar ese camino).
-
-\hspace{3cm} * Puede ser que algún objetivo no se refine porque no sea relevante en el camino a requerimientos esenciales; pero todo objetivo refinado debe incluir a todos los subobjetivos inmediatos.
-
-$\hbar$	Enumeración de todos los requerimientos detectados, con una breve descripción de cada uno, e identificación de si se trata de un requerimiento funcional o no funcional. Además, cada requerimiento deberá clasificarse como esencial, importante o deseable (debe tener coherencia con el Modelo de Objetivos). En esta clasificación se entiende por:
-
-$\diamond$	requerimientos esenciales: aquellos requerimientos que caracterizan la esencia del software a  construir. Sin estos requerimientos, el software ya dejaría de ser lo que se espera.
-
-$\diamond$	requerimientos importantes: aquellos requerimientos que son necesarios para que el software funcione de acuerdo a lo esperado, pero no son esenciales. Su incumplimiento provocaría la no aceptación del software.
-
-$\diamond$	requerimientos deseables: aquellos que representan alguna funcionalidad opcional, su cumplimiento es deseado por el cliente, pero su incumplimiento no provocaría el rechazo del software.
-
-$\wp$	Casos de Uso
-
-$\hbar$	Actores
-
-$\hbar$	Diagramas.
-
-$\hbar$	Descripción de cada caso de uso
-
-$\wp$	Operaciones relevantes
-
-$\hbar$	Describir operaciones relevantes ( si lo necesitan) usando una combinación de técnicas de documentación de casos de uso y/o OCL  y/o lenguaje natural.
-
-$\wp$	Diagramas de Actividad
-
-$\hbar$	Diagramas de actividad que consideren necesarios. En cada caso se debe indicar a que requerimientos y/o casos de uso u otro artefacto hace referencia. 
-
-$\wp$	Máquinas de estado finito
-
-$\hbar$	Máquinas de estado finito que consideren necesarias. En cada caso se debe indicar a que requerimientos y/o casos de uso se hace referencia. 
-$\wp$	Modelo Conceptual
-$\hbar$	Diagrama
-$\hbar$	Diccionario de datos
-$\hbar$	Restricciones al MC (utilizando OCL)
-
-$\wp$	Prototipos de Pantalla
-$\hbar$	Prototipos de las pantallas que se consideren importantes para validar. 
-$\hbar$	Se espera que permitan dar una idea de la información input y ouptut que debería mostrarse. No es necesario poner énfasis en el aspecto estético definitivo de la interfaz usuario, sólo que permita comunicar la pantalla desde un punto de vista de la funcionalidad y la interacción posible del usuario.
- 
- 	CdC: La organización de los Requerimientos Específicos es una parte importante de la evaluación. Deben presentarlo de la manera que consideren más apropiada de manera de poder comunicar las ideas.
- 	 
- 	CdC: No es obligatorio utilizar todas las técnicas mencionadas, queda a criterio de cada grupo (y es parte de la evaluación) la elección de la técnica más apropiada para cada aspecto que quieran modelar, así como la decisión de los aspectos modelados.}
-
-\section{Diagrama de contexto}
+%{\color{Blue} Esta sección debería contener todos los requerimientos en un nivel de detalle suficiente para permitir:
+%
+%*	a los diseñadores de software: realizar un diseño que satisfaga los requerimientos
+%
+%*	a los analistas de pruebas: verificar que el software satisface los requerimientos
+%
+%A través de esta sección, cada requerimiento declarado debería ser perceptible por usuarios, operadores y otros sistemas externos. Estos requerimientos deberían incluir, al menos,  una descripción de cada entrada (estímulo) del software , de cada salida (respuesta) del software, y de todas las funciones que debe realizar el software en respuesta de una entrada o como soporte a una salida.
+%Esta sección es la más importante del presente documento.}
+%
+%{\color{ForestGreen}CdC: En esta sección se espera que se describan los requerimientos específicos utilizando las distintas técnicas vistas en la materia. Se espera encontrar:
+%
+%$\wp$	Diagrama de contexto
+%
+%$\wp$	Se espera al menos que estén modelados los fenómenos esenciales identificados.
+%
+%$\wp$	Modelo de Objetivos
+%
+%$\hbar$	Se espera al menos que estén bien refinados los objetivos principales  y los requerimientos esenciales (ver sección Matriz de requerimientos) para la máquina a construir, y obviamente todo el grafo para cubrir el camino entre ellos. La parte explicitada del diagrama debe ser completa y correcta. 
+%
+%\hspace{3cm} * Todos los objetivos en el camino hacia los requerimientos esenciales deben ser refinados (al menos para explicitar ese camino).
+%
+%\hspace{3cm} * Puede ser que algún objetivo no se refine porque no sea relevante en el camino a requerimientos esenciales; pero todo objetivo refinado debe incluir a todos los subobjetivos inmediatos.
+%
+%$\hbar$	Enumeración de todos los requerimientos detectados, con una breve descripción de cada uno, e identificación de si se trata de un requerimiento funcional o no funcional. Además, cada requerimiento deberá clasificarse como esencial, importante o deseable (debe tener coherencia con el Modelo de Objetivos). En esta clasificación se entiende por:
+%
+%$\diamond$	requerimientos esenciales: aquellos requerimientos que caracterizan la esencia del software a  construir. Sin estos requerimientos, el software ya dejaría de ser lo que se espera.
+%
+%$\diamond$	requerimientos importantes: aquellos requerimientos que son necesarios para que el software funcione de acuerdo a lo esperado, pero no son esenciales. Su incumplimiento provocaría la no aceptación del software.
+%
+%$\diamond$	requerimientos deseables: aquellos que representan alguna funcionalidad opcional, su cumplimiento es deseado por el cliente, pero su incumplimiento no provocaría el rechazo del software.
+%
+%$\wp$	Casos de Uso
+%
+%$\hbar$	Actores
+%
+%$\hbar$	Diagramas.
+%
+%$\hbar$	Descripción de cada caso de uso
+%
+%$\wp$	Operaciones relevantes
+%
+%$\hbar$	Describir operaciones relevantes ( si lo necesitan) usando una combinación de técnicas de documentación de casos de uso y/o OCL  y/o lenguaje natural.
+%
+%$\wp$	Diagramas de Actividad
+%
+%$\hbar$	Diagramas de actividad que consideren necesarios. En cada caso se debe indicar a que requerimientos y/o casos de uso u otro artefacto hace referencia. 
+%
+%$\wp$	Máquinas de estado finito
+%
+%$\hbar$	Máquinas de estado finito que consideren necesarias. En cada caso se debe indicar a que requerimientos y/o casos de uso se hace referencia.
+% 
+%$\wp$	Modelo Conceptual
+%$\hbar$	Diagrama
+%$\hbar$	Diccionario de datos
+%$\hbar$	Restricciones al MC (utilizando OCL)
+%
+%$\wp$	Prototipos de Pantalla
+%$\hbar$	Prototipos de las pantallas que se consideren importantes para validar. 
+%$\hbar$	Se espera que permitan dar una idea de la información input y ouptut que debería mostrarse. No es necesario poner énfasis en el aspecto estético definitivo de la interfaz usuario, sólo que permita comunicar la pantalla desde un punto de vista de la funcionalidad y la interacción posible del usuario.
+% 
+% 	CdC: La organización de los Requerimientos Específicos es una parte importante de la evaluación. Deben presentarlo de la manera que consideren más apropiada de manera de poder comunicar las ideas.
+% 	 
+% 	CdC: No es obligatorio utilizar todas las técnicas mencionadas, queda a criterio de cada grupo (y es parte de la evaluación) la elección de la técnica más apropiada para cada aspecto que quieran modelar, así como la decisión de los aspectos modelados.}
 \begin{landscape}
+\section{Diagrama de contexto}
 \begin{figure}[H]
 \centering
 \includegraphics[height=16cm]{contextoNormal.png}
@@ -78,10 +78,11 @@ $\hbar$	Se espera que permitan dar una idea de la información input y ouptut que
 \end{figure}
 \end{landscape}
 
+\begin{landscape}
 \section{Modelo de objetivos}
 \subsection{Diagrama de objetivos}
 Dado el tamaño del diagrama y para facilitar su lectura decidimos fragmentar el mismo. Las partes se encuentran a continuacion:
-\begin{landscape}
+
 \begin{figure}[H]
 \centering
 \includegraphics[height=14.5cm]{DiagramaObjetivos4.png}
@@ -148,6 +149,127 @@ de preparación, de este modo se puede adaptar la estimación según la cantidad de
 de producción, la politica de asignación, etc}
 {Se desea estimar el tiempo de preparación de los pedidos}
 
+\desreq{Poder modifiar la cola de pedidos}
+{Funcional}
+{Deseable}
+{El encargado de pedidos debera tener una interfaz que le permita modificar la politica de administracion de cola}
+{Se pide que el sistema sea flexible para incorporar nuevas politicas de cola}
+
+\desreq{Aplicar politica de cola prestablecido}
+{Funcional}
+{Esencial}
+{El sistema debera mostrar que pedido debe ingresar al horno en cada momento}
+{Se pide explicitamente que el software debe indicar que pedido cocinar, ademas sirve para lograr un orden eficiente de los pedidos}
+
+\desreq{Informar proximo pedido a preparar}
+{Funcional}
+{Esencial}
+{El sistema debera informar a los maestros que deben preparar en cada momento}
+{Se pide explicitamente, ademas es necesario para lograr un orden eficiente en los pedidos}
+
+\desreq{Poder modificar el estado de los pedidos a lo largo de su ciclo de vida}
+{Funcional}
+{Esencial}
+{El sistema debe permitir que los distintos agentes que modifican el estado de un pedido puedan registrar ese
+cambio de estado, por ejemplo el maestro debe poder informar que un pedido esta preparado}
+{Se pide explicitamente poder conocer el estado de un pedido, ademas sirve para fines estadisticos, asi como también para brindar información a los clientes}
+
+\desreq{El sistema debe poder funcionar en caso de contingencia desde el puesto del encargado de pedidos}
+{Funcional}
+{Deseable}
+{En caso de caida de los otros puestos de trabajo, el sistema debe permitir que el encargado de pedidos ingrese, y tenga acceso a, la información necesaria para el funcionamiento del software}
+{Es una alternativa deseable propuesta por los clientes, permite un sistema mas tolerante a fallos}
+
+\desreq{Es posible ingresar datos ocurridos fuera del sistema para su registro y facturación}
+{Funcional}
+{Deseable}
+{Luego de una caida del sistema debería ser posible lograr cargar manualmente los pedidos que ocurrieron durante el tiempo en el que el sistema estuvo caido}
+{Lograr un software mas tolerante a fallos}
+
+\desreq{Al cancelar un pedido se elimina el stock si se cancela despues de cocinar}
+{Funcional}
+{Importante}
+{Si un pedido se cancela luego de haber sido cocinado, el stock no debe volver a reestablecerse ya que no puede ser reutilizado}
+{Poder controlar las cancelaciones con el fin de conocer plenamente el estado de los pedidos}
+
+\desreq{Al cancelar un pedido se guarda el pedido preparado si no estaba cocinado}
+{Funcional}
+{Deseable} % o importante?
+{En el caso de que la cancelación se haga luego de ser preparado, pero aun no cocinado, el sistema puede registrar que los productos del pedido estan ya preparados a fin de que puedan utilizarse en algun pedido futuro}
+{Poder controlar las cancelaciones, mejorar la eficiencia de la cocina}
+
+\desreq{Se restaura el stock si el pedido no estaba preparado, al cancelarlo}
+{Funcional}
+{Importante}
+{Si se cancela antes de preparlo, las materias primas que no se usaron deben volver al stock a fin de que puedan ser usadas para preparar un nuevo pedido}
+{Poder controlar las cancelaciones, mejorar la eficiencia de la cocina}
+
+\desreq{Se alerta al responsable en caso de que el stock de un producto sea critico}
+{Funcional}
+{Esencial}
+{Cuando el stock de un producto queda por debajo de un limite preestablecido se debe generar algun mensaje para el responsable del stock a fin de notificar de esta situación}
+{Es una funcionalidad pedida explicitamente por el cliene, ayuda a mantener un stock apropiado de los distintos productos}
+
+\desreq{Disponer de ABM de stock}
+{Funcional}
+{Importante}
+{El sistema debe permitir que las altas, bajas y modificaciones de productos se registren en el sistema, para de esta manera controlar el stock de las materias primas y bebidas}
+{Mantener un stock apropiado de los productos}
+
+\desreq{La notificación de pedido preparado de antemano se registra}
+{Funcional}
+{Deseable}
+{El software podría permitir ingresar pedidos preparados de antemano, quedando notificado que los productos ya estan preparados para ser usado en caso de que un furuto pedido los necesite}
+{Permite mantener actualizado el stock ya que las materias primas de los productos preparados de antemano deben darse de baja del stock}
+
+\desreq{Al ingrear pedido se actualiza el stock}
+{Funcional}
+{Importante}
+{El sistema decrementará el stock de materias primas o bebidas necesarias para un pedido al momento en que este ingresa al sistema}
+{Permite que el ingreso de pedidos modifique el stock consistentemente y de esta manera tener un stock actualizado}
+
+\desreq{Todos los pedidos pueden registrarse en el sistema}
+{Funcional}
+{Esencial}
+{Los pedidos realizados pueden ingresarse al sistema y este los registra}
+{Poder controlar el stock y conocer el estado de los pedidos}
+
+\desreq{Operaciones de ingreso de pedido y baja de stock son atomicas}
+{No funcional} %TODO: no se
+{Importante}
+{Al momento de ingresar un pedido deberia ser posible hacer un lockeo de los productos necesarios, de modo que al momento de confirmar el mismo los recursos a utilizar esten efectivamente disponible}
+{Evitar tomar pedidos si no se dispone de los recursos para satisfacerlos}
+
+\desreq{Rechazar ingreso de pedido si los recursos son insuficientes}
+{Funcional}
+{Esencial}
+{Si cuando se realiza un pedido no se dispone de los recursos necesarios para completarlo, el mismo no debe ingresar al sistema y se debe notificar a quien este intentando realizar el pedido de la situación}
+{Evitar tomar pedidos si no se dispone de los recursos para satisfacerlo}
+
+\desreq{Disponer de ABM de productos}
+{Funcional}
+{Importante}
+{Se debe proveer de una interfaz para registrar nuevos productos (por ejemplo nuevas variedades de pizza) al menú asi como también modificar precios de productos ya registrados o sacarlos del menú. Por otro lado, este ABM sirve para registrar la cantidad de materias primas que utiliza un producto}
+{Conocer la cantidad de materia prima que usa un producto a fin de poder evitar tomar pedidos insatisfacibles, poder modificar lista de precios}
+
+\desreq{Mantener estadisticas sobre productos gestionados}
+{Funcional}
+{Escencial} %TODO: mmmmmmm
+{El sistema debe ser capaz de retener la información estadistica sobre los pedidos asi como también calcular los diferentes indicadores estadisticos descriptos en \textcolor{Peach}{Describir esto en algun lado}}%FIXME: completar esto
+{Se pide de forma explicita tener información estadistica sobre el funcionamiento de la pizzeria, los pedidos, etc}
+
+\desreq{Lograr que el usuario pueda ingresar comentarios sobre el servicio}
+{Funional}
+{Deseable}
+{Como aporte original proponemos que el usuario pueda ingresar comentarios sobre el servicio, luego de recibir un pedido. El sistema debe ser capaz de registrar esos comentarios}
+{Lograr información estadistica}
+
+\desreq{Es posible comunicarse con el sistema de facturación}
+{Funcional}
+{Esencial}
+{El software debe ser capaz de interactuar con el sistema de facturación para facturar el pago de los pedidos, asi como para poder realizar pagos con tarjeta}
+{Se debe automatizar la facturación y la pizzería ya cuenta con un software de facturación}
+
 \section{Casos de uso}
 \subsection{Diagrama}
 \begin{figure}[H]
@@ -171,4 +293,13 @@ de producción, la politica de asignación, etc}
 \section{Diagrama de actividad}
 \section{Maquinas de estado finito}
 \section{Modelo conceptual}
+\begin{landscape}
+\subsection{Diagrama}
+\begin{figure}[H]
+\centering
+\includegraphics[height=14.5cm]{conceptosAlfa}
+\end{figure}
+\end{landscape}
+\subsection{Diccionario de datos} %TODO: no se q es
+\subsection{Restricciones al MC en OCL}
 \section{Prototipos de pantalla} %WTF :S
