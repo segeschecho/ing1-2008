@@ -68,44 +68,41 @@
 
 \newcounter{PasoCu}
 \setcounter{PasoCu}{1}
+
 \newcommand{\op}[2]
 {
-\oplist=\expandafter{\the\oplist\thePasoCu #1 &\thePasoCu #2\\}
+\oplist=\expandafter{\the\oplist #1 & #2\\}
 \stepcounter{PasoCu}
 }
 
 \definecolor{light-gray}{gray}{0.9}
 \newcommand{\cu}[6]{ 
 {\setlength{\arrayrulewidth}{1mm}
-\setcounter{PasoCu}{1}
-\begin{tabular}{|l|l|}
+
+\begin{tabularx}{16cm}{|X|X|}
 \hline
-\multicolumn{1}{|>{\columncolor{Black}}c|}{\textcolor{White}{\negrita{Caso de Uso:}}} &
-\multicolumn{1}{|>{\columncolor{Black}}l|}{\textcolor{White}{#1}}\\
+\multicolumn{2}{|>{\columncolor{Black}}l|}{\textcolor{White}{\negrita{Caso de Uso: #1}}} \\
 \hline
-\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Actores intervinientes:}} &
-\multicolumn{1}{|l|}{#2}\\
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Actores intervinientes: #2}} \\
 \hline
-\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Requerimientos relacionados:}} &
-\multicolumn{1}{|l|}{#3}\\
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Requerimientos relacionados: #3}} \\
 \hline
-\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Precondicion:}} &
-\multicolumn{1}{|l|}{#4}\\
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Precondicion: #4}} \\
 \hline
-\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Poscondicion:}} &
-\multicolumn{1}{|l|}{#5}\\
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Poscondicion: #5}} \\
 \hline
-\multicolumn{1}{|>{\columncolor{light-gray}}p{5cm}|}{\negrita{Descripcion:}} &
-\multicolumn{1}{|l|}{#6}\\
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Descripcion: #6}} \\
 \hline
-\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Curso normal}} &
-\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Curso alternativo}}\\
+\multicolumn{1}{|>{\columncolor{light-gray}}X|}{\negrita{Curso normal}} &
+\multicolumn{1}{|>{\columncolor{light-gray}}X|}{\negrita{Curso alternativo}}\\
 \hline
 \the\oplist
 \hline
-\end{tabular}
+\end{tabularx}
+\setcounter{PasoCu}{0}
 }
 }
+
 \newcounter{req}
 \setcounter{req}{1}
 
