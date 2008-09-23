@@ -286,9 +286,45 @@ cambio de estado, por ejemplo el maestro debe poder informar que un pedido esta 
 %\oplist={} vacio la lista para otro caso de uso
 %\cu{hola}{colo}{trolo}{fonolo}{rqqq}
 %
-\op{1 agrego una operacion en contexsadddddddddddddddddddddddddddto normal}{1 y ahora suasddddddddddddddddddddddddd contexto de excepcion}
-\op{2 agrego otra}{2 lo malo es q no se numeran solas}
-\cu{nombre del caso de uso}{actor relacionado}{requerimiento}{pre}{pos}{descrip}
+
+%LOGUEANDO USUARIO
+\op{1. El cliente ingresa su nombre de cliente en el campo correspondiente}{}
+\op{2. El cliente ingresa su contraseña en el campo correspondiente}{}
+\op{3. El cliente presiona el boton de ingresar}{}
+\op{4. Si los datos ingresados son validos, cliente autentificado}{4. Los datos no son validos, se muestra al cliente mensaje informativo y se le permite re ingresar los datos}
+\op{5. Fin CU}{}
+
+\cu{Logueando cliente}{Usuario}{1,2}{TRUE}{Usuario logueado}{autentificación de un cliente web}
+
+% Haciendo pedido via web
+\op{1. Usuario selecciona de una lista los productos que desea y su cantidad}{}
+\op{2. El cliente presiona el boton de enviar pedido}{}
+\op{3. El sistema intenta ingresar el pedido}{}
+\op{4. Si el pedido es posible, se informa al cliente}{4. Si el pedido no
+era posible de tomar, se muestra mensaje de error al cliente indicando que productos no estan disponibles}
+\op{5. Se pregunta al cliente si desea pagar con tarjeta de credito o pagar en efectivo al delivery}{}
+\op{6. Si el cliente desea pagar con tarjeta se extiende con el caso de uso Pagando pedido via web}{}
+\op{7. Si se paga con tarjeta y el pago fue posible, el pedido queda registrado}{}
+\op{8. Se brinda al cliente un id de pedido para poder luego consultar el estado del pedido}{}
+%TODO: averiguar si la notacion de extender es la que se usa aca
+\op{9. Fin CU}{}
+
+\cu{Realizando pedido via web}{Usuario}{1}{Usuario logueado}{Pedido registrado}{Ingreso de un pedido al sistema desde la pagina web}
+
+% Pagando pedido web
+%TODO: que lo complete alguien que sepa como corno se hace un pago con tarjeta via web
+
+%Cancelando pedido
+\op{1. El cliente informa al encargado de pedido su nombre o nombre de cliente y el id de pedido, o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
+\op{2. El encargado ingresa el nombre proporcionado por el cliente y el id de pedido o revisa los pedidos de la mesa}{}
+\op{3. Una vez seleccionado el pedido por el encargado, presiona el boton de cancelar pedido y el pedido queda cancelado}{3. Si los datos no corresponden con ningun pedido, el sistema muestra un cartel de error, y el encargado debe informar de la situación al cliete para que verifique los datos}
+\op{4. Fin CU}{}
+
+\cu{Cancelando pedido}{Encargado de pedido}{$\infty$}{TRUE}{Pedido cancelado}{Cancelación de un pedido} %TODO: deberia ser un requerimiento cancelar pedido
+%FIXME: deberia haber precondicion?
+
+%Realizando pedido via SMS
+
 \section{Descripcion de operaciones} %NOTA: es opcional
 \section{Diagrama de actividad}
 \section{Maquinas de estado finito}
