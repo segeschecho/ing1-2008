@@ -48,13 +48,13 @@
 \renewcommand{\chaptername}{Parte }
 
 %%---- Caratula -------------------------------------------------------------%%
-\materia{Ingeniería de Software I (2do cuatrimestre de 2008)}
-\titulo{Trabajo Práctico 0}
+\materia{Ingenierï¿½a de Software I (2do cuatrimestre de 2008)}
+\titulo{Trabajo Prï¿½ctico 0}
 
 \integrante{Gonzalez, Emiliano}{426/06}{xjesse\_jamesx@hotmail.com}
 \integrante{Gonzalez, Sergio}{481/06}{seges.ar@gmail.com}
 \integrante{Mart'inez, Federico}{17/06}{federicoemartinez@gmail.com}
-\integrante{Sainz-Trápaga, Gonzalo}{454/06}{gonzalo@sainztrapaga.com.ar}
+\integrante{Sainz-Trï¿½paga, Gonzalo}{454/06}{gonzalo@sainztrapaga.com.ar}
 \grupo{Grupo 5}
 \resumen{
 }
@@ -99,8 +99,9 @@
 \the\oplist
 \hline
 \end{tabularx}
-\setcounter{PasoCu}{0}
+
 }
+\newtoks\oplist\oplist={}
 }
 
 \newcounter{req}
@@ -122,7 +123,7 @@
 \multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Importancia:}} &
 \multicolumn{1}{|l|}{#3}\\
 \hline
-\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Descripción:}} &
+\multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Descripciï¿½n:}} &
 \multicolumn{1}{|p{15cm}|}{#4}\\
 \hline
 \multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Motivo:}} &
@@ -150,7 +151,7 @@
 % reseteo los numeros de pagina para que queden bien
 \pagenumbering{arabic}
 \fancypagestyle{plain} {
-    \fancyhead[LO]{Gonzalez, Gonzalez, Martínez, Sainz-Trápaga}
+    \fancyhead[LO]{Gonzalez, Gonzalez, Martï¿½nez, Sainz-Trï¿½paga}
     \fancyhead[C]{}
     \fancyhead[RO]{P\'agina \thepage\ de \pageref{LastPage}}
     \fancyfoot{}
