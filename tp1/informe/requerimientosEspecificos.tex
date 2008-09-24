@@ -373,6 +373,30 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 
 \cu{Requiriendo facturar}{Cajero, Sistema de Facturacion}{6, 29}{Pedido a facturar registrado}{Factura impresa}{La factura se imprimira y quedara a disposicion del cajero}
 
+%TODO: falta caso de uso Registrando cobro
+
+% Actualizando precios
+\op{1. El encargado o dueño del local identifica el producto que necesita actualizar el precio}{}
+\op{2. El sistema verifica que el producto exista}{}
+\op{3. Si es asi, el sistema le indica al encargado o dueño que ingrese el precio del producto}{Sino se produce un mensaje de error y se procede a Fin CU}
+\op{4. El encargado o dueño indica el precio del producto}{}
+\op{5. El sistema actualiza el precio del producto y avisa al encargado o dueño que la operaci'on fue exitosa}{}
+\op{6. Fin CU}{}
+
+%TODO: PRECONDICION DE ESTO?
+\cu{Actualizando precios}{Encargado/Dueño}{26}{}{Los precios resultan actualizados}{El encargado o dueño registra los cambios de precio}
+
+%TODO: COMPLETAR ESTE CU
+% Consultando informacion estadistica
+\op{1. El dueño le indica al sistema que requiere datos estad'isticos sobre un producto}{}
+\op{2. El sistema verifica que el producto exista}{}
+\op{3. Si es asi, el sistema imprime en pantalla los datos estad'isticos}{Sino se produce un mensaje de error y se procede a Fin CU}
+\op{4. El encargado o dueño indica el precio del producto}{}
+\op{5. El sistema actualiza el precio del producto y avisa al encargado o dueño que la operaci'on fue exitosa}{}
+\op{6. Fin CU}{}
+
+\cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{27, 28}{}{Las estad'isticas son mostradas en pantalla}{El dueño consulta los datos estad'isticos acumulados (comentarios de clientes y datos de venta de los productos).}
+
 \section{Descripcion de operaciones} %NOTA: es opcional
 \section{Diagrama de actividad}
 \section{Maquinas de estado finito}
