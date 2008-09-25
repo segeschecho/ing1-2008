@@ -436,9 +436,15 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \op{4. El sistema de facturacion avisa al cajero que la factura esta preparada}{}
 \op{5. Fin CU}{}
 
-\cu{Requiriendo facturar}{Cajero, Sistema de Facturacion}{6, 29}{Pedido a facturar registrado}{Factura impresa}{La factura se imprimira y quedara a disposicion del cajero}
+\cu{Requiriendo facturar}{Cajero, Sistema de Facturacion}{14, 6, 29}{Pedido a facturar registrado}{Factura impresa}{La factura se imprimira y quedara a disposicion del cajero}
 
-%TODO: falta caso de uso Registrando cobro
+% Registrando cobro
+\op{1. El cajero indica el n'umero de pedido a registrar como cobrado}{}
+\op{2. El sistema verifica que el pedido exista y no est'e cobrado}{}
+\op{3. Si es asi, el sistema registra el pedido como cobrado}{Sino se produce un mensaje de error}
+\op{4. Fin CU}{}
+
+\cu{Registrando cobro}{Cajero}{13, 14, 15}{El pedido est'a facturado}{Se registra el pedido como cobrado}{Cuando se cobra un pedido o el delivery entrega el dinero, el cajero registra el pago del pedido.}
 
 % Actualizando precios
 \op{1. El encargado o dueño del local identifica el producto que necesita actualizar el precio}{}
@@ -448,7 +454,7 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \op{5. El sistema actualiza el precio del producto y avisa al encargado o dueño que la operaci'on fue exitosa}{}
 \op{6. Fin CU}{}
 
-\cu{Actualizando precios}{Encargado/Dueño}{26}{TRUE}{Los precios resultan actualizados}{El encargado o dueño modifica precios}
+\cu{Actualizando precios}{Encargado/Dueño}{14, 26}{TRUE}{Los precios resultan actualizados}{El encargado o dueño modifica precios}
 
 % Consultando informacion estadistica
 \op{1. El dueño le indica al sistema que requiere datos estad'isticos sobre un producto o pedido}{}
@@ -457,7 +463,8 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \op{4. Si es asi, el sistema imprime en pantalla los datos estad'isticos}{Sino se produce un mensaje de error y se procede a Fin CU}
 \op{5. Fin CU}{}
 
-\cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{27}{TRUE}{Las estad'isticas son mostradas en pantalla}{El dueño puede consultar la informaci'on estad'istica sobre los productos y pedidos gestionados}
+%TODO: 14 es REQ?
+\cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{14, 27, 28}{TRUE}{Las estad'isticas son mostradas en pantalla}{El dueño puede consultar la informaci'on estad'istica sobre los productos y pedidos gestionados}
 
 % Notificando stock critico
 \op{1. El sistema detecta que la cantidad de un insumo es por debajo del nivel cr'itico}{}
@@ -465,7 +472,8 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \op{3. El encargado de stock confirma al sistema que el mensaje le lleg'o}{}
 \op{4. Fin CU}{}
 
-\cu{Notificando stock cr'itico}{Encargado de stock}{19, 20}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
+%TODO: 14 es REQ?
+\cu{Notificando stock cr'itico}{Encargado de stock}{14, 19}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
 
 % Haciendo ABM de stock
 \op{1. El sistema le pide al encargado de stock que notifique si se trata de un alta, una baja o una modificaci'on}{}
@@ -486,33 +494,8 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \op{16. El sistema modifica la cantidad en stock del insumo}
 \op{17. Fin CU}
 
-%TODO: 24 es requerimiento?? hmmmmm
-\cu{Haciendo ABM de stock}{Encargado de stock}{20, 24}{TRUE}{El stock queda actualizado con las modificaciones}{Se puede hacer alta, baja y modificaci'on de insumos y kits comprados o caducados}
-
-
-%TODO: falta caso de uso Registrando cobro
-
-% Actualizando precios
-\op{1. El encargado o dueño del local identifica el producto que necesita actualizar el precio}{}
-\op{2. El sistema verifica que el producto exista}{}
-\op{3. Si es asi, el sistema le indica al encargado o dueño que ingrese el precio del producto}{Sino se produce un mensaje de error y se procede a Fin CU}
-\op{4. El encargado o dueño indica el precio del producto}{}
-\op{5. El sistema actualiza el precio del producto y avisa al encargado o dueño que la operaci'on fue exitosa}{}
-\op{6. Fin CU}{}
-
-%TODO: PRECONDICION DE ESTO?
-\cu{Actualizando precios}{Encargado/Dueño}{26}{}{Los precios resultan actualizados}{El encargado o dueño registra los cambios de precio}
-
-%TODO: COMPLETAR ESTE CU
-% Consultando informacion estadistica
-\op{1. El dueño le indica al sistema que requiere datos estad'isticos sobre un producto}{}
-\op{2. El sistema verifica que el producto exista}{}
-\op{3. Si es asi, el sistema imprime en pantalla los datos estad'isticos}{Sino se produce un mensaje de error y se procede a Fin CU}
-\op{4. El encargado o dueño indica el precio del producto}{}
-\op{5. El sistema actualiza el precio del producto y avisa al encargado o dueño que la operaci'on fue exitosa}{}
-\op{6. Fin CU}{}
-
-\cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{27, 28}{}{Las estad'isticas son mostradas en pantalla}{El dueño consulta los datos estad'isticos acumulados (comentarios de clientes y datos de venta de los productos).}
+%TODO: verificar requerimientos!!!!!!!!!
+\cu{Haciendo ABM de stock}{Encargado de stock}{14, 15, 16, 18, 20, 22, 24}{TRUE}{El stock queda actualizado con las modificaciones}{Se puede hacer alta, baja y modificaci'on de insumos y kits comprados o caducados}
 
 \section{Descripcion de operaciones} %NOTA: es opcional
 \section{Diagrama de actividad}
