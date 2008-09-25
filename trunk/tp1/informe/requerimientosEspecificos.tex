@@ -161,6 +161,8 @@ de producción, la politica de asignación, etc}
 {El sistema debera mostrar que pedido debe ingresar al horno en cada momento}
 {Se pide explicitamente que el software debe indicar que pedido cocinar, ademas sirve para lograr un orden eficiente de los pedidos}
 
+%TODO:no entiendo la diferencia entre aplicar y mostrar prox
+%FIXME: cual es el q se relaciona derecho con el horno?
 \desreq{Informar proximo pedido a preparar}
 {Funcional}
 {Esencial}
@@ -352,6 +354,69 @@ notificandole que su pedido esta ingresado, el importe total y el codigo de pedi
 \op{5. Fin CU}{}
 \cu{Consultando estado de pedido}{Cliente, encargado de pedidos}{$\infty$}{Si el agente es un cliente entonces tiene que estar logueado}{Se muestra el estado del pedido}{Permite ver en que estado se encuentra un pedido en un momento dado}
 
+%ingresando pedidos diferidos
+\op{1. El encargado de pedidos selecciona ingresar pedido diferido}{}
+\op{2. El sistema muestra la pantalla para el ingreso del pedido}{}
+\op{3. El encargado ingresa los datos que conoce sobre el pedido (por ejemplo: cantidad de empanadas, pizzas, estado actual del pedido)}{}
+\op{4. El encargado presiona ingresar pedido}{}
+\op{5. El pedido queda ingresado}{}
+\op{6. Fin CU}{}
+%FIXME: ojo con este cu porque nos puede traer dolor de pelotas en el diagrama de conceptos, notar que algunos atributos que posiblemente tenga la clase pedido, este tipo de pedidos no los va a tener.
+
+\cu{Ingresando pedido diferido}{Encargado de pedidos}{15}{}{El pedido diferido queda registrado}{Permite ingresar un pedido que no pudo ser ingresado al sistema cuando se originó, por ejemplo porque el sistema estaba caido}
+
+%ingresando productos de antemano
+\op{1. El maestro informa al encargado de pedidos que preparo cierta cantidad de algún/os producto (Por ejemplo: tres empanadas de carne)}{}
+\op{2. El encargado de pedidos selecciona ingresra producto de antemano en el sistema}{}
+\op{3. Busca el/los producto/s que quiere ingresar y la cantidad}{}
+\op{4. Presiona ingresar}{}
+\op{5. El producto preparado queda registrado}{}
+\op{6. Fin CU}{}
+
+\cu{Ingreando producto de antemano}{Encargado de pedidos}{21}{El producto a ingresar tiene que ser un producto valido}{El producto preparado queda registrado}{Permite registrar productos ya preparados y que se pueden usar para futuros pedidos, sin tener que ser armados}
+
+%estableciendo politica de cola
+\op{1. El encargado de pedidos selecciona establecer politica de cola}{}
+\op{2. Luego escoge uno de los hornos}{}
+\op{3. El sistema lista las politicas disponibles}{}
+\op{4. El encargado selecciona la que desea aplicar}{}
+\op{5. Luego ingresa aceptar}{}
+\op{6. La politica de coloa queda establecida}{}
+\op{7. Fin CU}{} %FIXME: en que momento se aplica la modificación? el cambio de politica puede dejar chingadas algunas cosas
+
+\cu{Estableciendo politica de cola}{Encargado de pedidos}{10,11}{}{Politica de cola establecida}{Permite modificar la politica de cola de pedidos de los hornos}
+
+
+%registrando pedido
+\op{1. El encargado de pedidos atiende una llamada a la pizzería}{}
+\op{2. Ingresa el número del cliente que realiza la llamada}{} %TODO: se identifica por numero, nombre, DNI o q cosa?
+\op{3. Si el cliente no tiene número de cliente informa que tiene que registrarse, ir a fin CU}{} %FIXME: por esto registrar pedido deberia estar extendido por registrando usuario
+\op{4. Si el número de cliente era valido le pide el pedido}{4. Si no, le vuelve a pedir el número}
+\op{5. El encargado selecciona ingresar pedido}{}
+\op{6. Selecciona los productos con las cantidades que el cliente solicita}{}
+\op{7. Presiona aceptar}{}
+\op{8. Si el pedido no se puede satisfacer, el sistema mostara un mensaje de error informando que productos no estan disponibles. El encargado notifica al cliente de la situación y se vuelve a 6}{}
+\op{8. El sistema notifica el total y el codigo de pedido}{}
+\op{9. El encargado da esa información al cliente}{}
+\op{10. Fin CU}{}
+
+\cu{Registrando pedido}{Encargado de pedidos}{23}{}{Pedido ingresado}{Permite que el encargado de pedidos ingrese los pedidos realizados por clientes via telefono}
+
+%ingresando pedido de mesa
+\op{1. El cliente informa al mozo lo que quiere pedir}{}
+\op{2. El mozo marca en su PDA los productos que el cliente pide con sus cantidades}{}
+\op{3. Cuando el cliente informó todo el pedido, el mozo selecciona ingresar pedido}{}
+\op{4. Si el pedido se puede tomar, al mozo se le informa el número de pedido}{4. Si no se puede tomar el pedido, se informa al mozo que partes del pedido no estan disponibles, el mozo informa al cliente y se vuelve a 1}
+\op{5. Fin CU}{}
+
+\cu{Registrando pedido de mesa}{Mozo}{23}{}{El pedido de la mesa queda registrado}{Permite que los mozos puedan ingresar los pedidos de las mesas}
+
+%notificando pedido entregado
+\op{1. El delivery entrega el pedido al cliente}{1. Si es imposible entregar el pedido, el delivery envia un mensaje para que quede cancelado} %TODO: esto es razonable, pero no esta en los otros diagramas
+\op{2. El delivery envia un mensaje con el codigo del pedido}{}
+\op{3. El sistema recibe el mensaje y se marca al pedido como entregado}{}
+\op{4. Fin CU}{}
+
 % Requiriendo facturar
 %TODO: VERIFICAR
 \op{1. El cajero solicita una factura al sistema ingresando que pedido pretende facturar}{}
@@ -372,6 +437,58 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \op{5. Fin CU}{}
 
 \cu{Requiriendo facturar}{Cajero, Sistema de Facturacion}{6, 29}{Pedido a facturar registrado}{Factura impresa}{La factura se imprimira y quedara a disposicion del cajero}
+
+%TODO: falta caso de uso Registrando cobro
+
+% Actualizando precios
+\op{1. El encargado o dueño del local identifica el producto que necesita actualizar el precio}{}
+\op{2. El sistema verifica que el producto exista}{}
+\op{3. Si es asi, el sistema le indica al encargado o dueño que ingrese el precio del producto}{Sino se produce un mensaje de error y se procede a Fin CU}
+\op{4. El encargado o dueño indica el precio del producto}{}
+\op{5. El sistema actualiza el precio del producto y avisa al encargado o dueño que la operaci'on fue exitosa}{}
+\op{6. Fin CU}{}
+
+\cu{Actualizando precios}{Encargado/Dueño}{26}{TRUE}{Los precios resultan actualizados}{El encargado o dueño modifica precios}
+
+% Consultando informacion estadistica
+\op{1. El dueño le indica al sistema que requiere datos estad'isticos sobre un producto o pedido}{}
+\op{2. El dueño ingresa el n'umero de producto o pedido sobre el cual necesita averiguar estad'isticas}{}
+\op{3. El sistema verifica que el producto o pedido exista}{}
+\op{4. Si es asi, el sistema imprime en pantalla los datos estad'isticos}{Sino se produce un mensaje de error y se procede a Fin CU}
+\op{5. Fin CU}{}
+
+\cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{27}{TRUE}{Las estad'isticas son mostradas en pantalla}{El dueño puede consultar la informaci'on estad'istica sobre los productos y pedidos gestionados}
+
+% Notificando stock critico
+\op{1. El sistema detecta que la cantidad de un insumo es por debajo del nivel cr'itico}{}
+\op{2. El sistema advierte al encargado de stock qu'e insumo es cr'itico hasta que este confirme que el mensaje le ha llegado}{}
+\op{3. El encargado de stock confirma al sistema que el mensaje le lleg'o}{}
+\op{4. Fin CU}{}
+
+\cu{Notificando stock cr'itico}{Encargado de stock}{19, 20}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
+
+% Haciendo ABM de stock
+\op{1. El sistema le pide al encargado de stock que notifique si se trata de un alta, una baja o una modificaci'on}{}
+\op{2. El encargado de stock notifica la operaci'on}{}
+\op{3. El sistema le pide al encargado de stock que ingrese el nombre o n'umero del insumo}{}
+\op{4. El encargado de stock ingresa el nombre o el n'umero identificador}{}
+\op{5. Si se trata de un alta el sistema verifica que el insumo no exista en la lista de insumos, sino se procede a paso 10}{}
+\op{6. Si es asi el sistema le pide al encargado de stock que ingrese la cantidad que hay en stock}{Si el nombre ya existe, el sistema produce un mensaje de error y se procede a Fin CU}
+\op{7. El encargado de stock ingresa cantidad en stock del nuevo insumo}{}
+\op{8. El sistema agrega el insumo a la lista con su cantidad en stock}{}
+\op{9. Ir a Fin CU}{}
+\op{10. El sistema verifica que el insumo exista en la lista de insumos}{}
+\op{11. Si es asi, se sigue al siguiente paso}{Si el insumo no existe, el sistema produce un mensaje de error y se procede a Fin CU}
+\op{12. Si se trata de se una baja de un insumo, el sistema elimina el insumo de la lista, sino se procede a paso 14}{}
+\op{13. Ir a Fin CU}{}
+\op{14. El sistema le pide al encargado de stock que ingrese la cantidad}{}
+\op{15. El encargado de stock ingresa cantidad en stock del insumo}{}
+\op{16. El sistema modifica la cantidad en stock del insumo}
+\op{17. Fin CU}
+
+%TODO: 24 es requerimiento?? hmmmmm
+\cu{Haciendo ABM de stock}{Encargado de stock}{20, 24}{TRUE}{El stock queda actualizado con las modificaciones}{Se puede hacer alta, baja y modificaci'on de insumos y kits comprados o caducados}
+
 
 %TODO: falta caso de uso Registrando cobro
 
