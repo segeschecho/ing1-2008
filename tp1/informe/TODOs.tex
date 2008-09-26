@@ -1,0 +1,93 @@
+\documentclass[a4paper,10pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Imports                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath, amsthm}
+\usepackage[spanish,activeacute]{babel}
+\usepackage[medium,compact]{titlesec}
+\usepackage{enumitem}
+\usepackage{a4wide}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{graphicx} % Para el logo magico!
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{subfigure}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{amsfonts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Opciones                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\parskip    = 11 pt
+\headheight	= 13.1pt
+
+\addtolength{\headwidth}{1.0in}
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-0.7in}
+\addtolength{\textheight}{1in}
+
+\flushbottom
+
+\newenvironment{packed_itemize}{
+\begin{itemize}[topsep=0pt, partopsep=0pt]
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documento                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large{TODO's}}\\[0.5cm]
+\end{center}
+
+\textcolor{Blue}{\huge{Cosas varias}}
+\begin{itemize}
+\item Eliminar idea de en q sector esta cada cosa (del alcance)
+\item el sistema no registra cobros (del alcance)
+\item fragmentar el estado de al horno
+\item explicar indicadores estadisticos
+\item definir combo
+\item definir que es perfil de usuario
+\item agregar expectativa delivery entrega SMS
+\item Eliminar preparacion anticipada de productos (las cancelaciones van a requerir tirar cosas)
+\ite al ingresar pedidos se informa la demanda aproximada
+\end {itemize}
+
+\textcolor{Red}{\huge{Cosas del diagrama de contexto}}
+\begin{itemize}
+\item buscar formas de partir diagrama de contexto en diagramas chiquitos (conservar el original)
+\item relacionar sistema con banco
+\item cajero pide al sistema que genere archivo de factura. no solicita factura, no registra cobro
+\item granular lo que pide el maestro (proxima cosa a cocinar, no proximo pedido, etc)
+\item granular los cambios de estado que hace el maestro (no solo de pedidos, sino de cachos)
+\item agregar interacciones entre clietne y sistema (ej sistema manda codigo, informa demanda aproximada)
+\item desarrollar la idea de contingencia, es decir texto no solo el diagrama
+\item hacer el diagrama de contingencia sin referencias
+\end{itemize}
+
+\textcolor{ForestGreen}{\huge{Cosas del diagrama de CU}}
+\begin{itemize}
+\item agregar actores a pagando con tarjeta
+\item numerar casos de uso en el diagrama
+\item partir cu consultando estado de pedido
+\item partir cu informando proximo pedido
+\item partir modificando estado de pedido
+\item sacar estableciendo pedido de cola \textcolor{Red}{aca hay q ver q onda, sobre esto hay q profundizar la comprension de q se quiere}
+\item cambiar lo de requerir facturar, el sistema solo genera un archivo cuando el cajero se lo pide
+\item eliminar sistema de facturación
+\item cu cambiar orden de preparación
+\end{itemize}
+
+\end{document}
