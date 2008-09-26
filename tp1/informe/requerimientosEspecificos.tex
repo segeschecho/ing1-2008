@@ -299,17 +299,18 @@ cambio de estado, por ejemplo el maestro debe poder informar que un pedido esta 
 \cu{Logueando cliente}{Usuario}{1,2}{TRUE}{Usuario logueado}{Autentificación de un cliente web}
 
 % Haciendo pedido via web
-\op{1. Usuario selecciona de una lista los productos que desea y su cantidad}{}
-\op{2. El cliente presiona el boton de enviar pedido}{}
-\op{3. El sistema intenta ingresar el pedido}{}
-\op{4. Si el pedido es posible, se informa al cliente}{4. Si el pedido no
+\op{1. Se incluye el caso de uso logueando usuario}{}
+\op{2. Usuario selecciona de una lista los productos que desea y su cantidad}{}
+\op{3. El cliente presiona el boton de enviar pedido}{}
+\op{4. El sistema intenta ingresar el pedido}{}
+\op{5. Si el pedido es posible, se informa al cliente}{4. Si el pedido no
 era posible de tomar, se muestra mensaje de error al cliente indicando que productos no estan disponibles}
-\op{5. Se pregunta al cliente si desea pagar con tarjeta de credito o pagar en efectivo al delivery}{}
-\op{6. Si el cliente desea pagar con tarjeta se extiende con el caso de uso Pagando pedido via web}{}
-\op{7. Si se paga con tarjeta y el pago fue posible, el pedido queda registrado}{}
-\op{8. Se brinda al cliente un id de pedido para poder luego consultar el estado del pedido}{}
+\op{6. Se pregunta al cliente si desea pagar con tarjeta de credito o pagar en efectivo al delivery}{}
+\op{7. Si el cliente desea pagar con tarjeta se extiende con el caso de uso Pagando pedido via web}{}
+\op{8. Si se paga con tarjeta y el pago fue posible, el pedido queda registrado}{}
+\op{9. Se brinda al cliente un id de pedido para poder luego consultar el estado del pedido}{}
 %TODO: averiguar si la notacion de extender es la que se usa aca
-\op{9. Fin CU}{}
+\op{10. Fin CU}{}
 
 \cu{Realizando pedido via web}{Usuario}{1}{Usuario logueado}{Pedido registrado}{Ingreso de un pedido al sistema desde la pagina web}
 
@@ -416,6 +417,8 @@ notificandole que su pedido esta ingresado, el importe total y el codigo de pedi
 \op{2. El delivery envia un mensaje con el codigo del pedido}{}
 \op{3. El sistema recibe el mensaje y se marca al pedido como entregado}{}
 \op{4. Fin CU}{}
+
+\cu{Notificando pedido entregado}{Delivery}{$\infty$}{True}{El pedido se registra como entregado}{Permite que el delivery mediante SMS informe inmediatamente la entrega de un pedido}
 
 % Requiriendo facturar
 \op{1. El cajero solicita una factura al sistema ingresando que pedido pretende facturar}{}

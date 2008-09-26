@@ -54,7 +54,7 @@
 \end{center}
 
 \newcommand{\tick}[0]{{\textcolor{Green}{$\checkmark$}}}
-\newcommand{\unresolved}[0]{{\textcolor{Goldenrod}{$\chi$}}}
+\newcommand{\unresolved}[0]{{\textcolor{VioletRed}{$\chi$}}}
 \newcommand{\dudoso}[0]{{\textcolor{SkyBlue}{\textbf{$?$}}}}
 Por favor no borrar los todos ya resueltos, colorearlos o marcarlos con \tick.
 
@@ -74,11 +74,13 @@ Si se revisa pero se tienen serias dudas sobre lo realizado marcar con \dudoso
 \item poner q al cliente se le informa la demora aproximada, y q esto requiere cargar tiempos de delivery (probablemente CU) \unresolved
 \item ver si no hay q unir mantener control de stock con lograr buen rendimiento de cocina \tick
 \item desgranar el sistema puede funcionar en modo restringido \dudoso
-\item refinar se puede modificar estado del pedido a lo largo de su ciclo de vida
-\item se controlan cancelaciones: ojo q dice q se guarda el pedido y eso no lo queresmo, ademas tenemos el CU cancelar pedido, deberia haber un req llamado se pueden cancelar pedidos
-\item fletar la parte de pedidos de antemano
-\item no se q onda esta marcado el req de alertar al responsable de stock de stock critico
-\item diferenciar abm de stock con abm de productos (ojo que esto puede dar algun caso de uso)
+\item refinar se puede modificar estado del pedido a lo largo de su ciclo de vida \dudoso
+\item se controlan cancelaciones: ojo q dice q se guarda el pedido y eso no lo queresmo, ademas tenemos el CU cancelar pedido, deberia haber un req llamado se pueden cancelar pedidos \dudoso
+\item fletar la parte de pedidos de antemano \tick
+\item no se q onda esta marcado el req de alertar al responsable de stock de stock critico \unresolved
+\item diferenciar abm de stock con abm de productos (ojo que esto puede dar algun caso de uso) \tick
+\item el tema de la politicas como lo resolvemos? \unresolved
+\item agregar expectativa delivery entrega SMS \tick
 \end{itemize}
 
 \textcolor{Blue}{\huge{Cosas varias}}
@@ -89,9 +91,9 @@ Si se revisa pero se tienen serias dudas sobre lo realizado marcar con \dudoso
 \item explicar indicadores estadisticos
 \item definir combo
 \item definir que es perfil de usuario
-\item agregar expectativa delivery entrega SMS
 \item Eliminar preparacion anticipada de productos (las cancelaciones van a requerir tirar cosas)
-\item al ingresar pedidos se informa la demanda aproximada
+\item al ingresar pedidos se informa la demora aproximada
+\item Que pasa si cancelo un pedido y ya se hizo la factura? hay q impedir eso, se debe registrar q ya esta facturado
 \end{itemize}
 
 \textcolor{Red}{\huge{Cosas del diagrama de contexto}}
@@ -104,6 +106,7 @@ Si se revisa pero se tienen serias dudas sobre lo realizado marcar con \dudoso
 \item agregar interacciones entre clietne y sistema (ej sistema manda codigo, informa demanda aproximada)
 \item desarrollar la idea de contingencia, es decir texto no solo el diagrama
 \item hacer el diagrama de contingencia sin referencias
+\item ingresar tiempo aprox de coccion por producto
 \end{itemize}
 
 \textcolor{ForestGreen}{\huge{Cosas del diagrama de CU}}
