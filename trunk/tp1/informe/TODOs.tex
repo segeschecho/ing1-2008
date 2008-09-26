@@ -14,10 +14,11 @@
 \usepackage{graphicx} % Para el logo magico!
 \usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
 \usepackage{subfigure}
 \usepackage[dvipsnames,usenames]{color}
 \usepackage{amsfonts}
+\usepackage{pifont}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Opciones                 %
@@ -53,25 +54,32 @@
 \end{center}
 
 \newcommand{\tick}[0]{{\textcolor{Green}{$\checkmark$}}}
+\newcommand{\unresolved}[0]{{\textcolor{Goldenrod}{$\chi$}}}
+\newcommand{\dudoso}[0]{{\textcolor{SkyBlue}{\textbf{$?$}}}}
+Por favor no borrar los todos ya resueltos, colorearlos o marcarlos con \tick.
 
-Por favor no borrar los todos ya resueltos, colorearlos o marcarlos con \tick
+Si se revisa un todo y no se pudo resolver marcarlo con \unresolved
+
+Si se revisa pero se tienen serias dudas sobre lo realizado marcar con \dudoso
+
+
 
 \textcolor{Peach}{\huge{Diagrama de objetivos}}
 \begin{itemize}
-\item cambiar cuadradito de mozo con PDA por ``atender pedidos de mozos con PDA'' y encajarselo al mozo (requerimiento nuevo: poder recibir los pedidos de los mozos)
-\item cambiar cuadrito de dueño responsable de tercerizar como servicio de delivery responsable de atencion por sistema de delivery
-\item en lograr el cliente hace pedido por telefono agregar el encargado ingresa los pedidos telefonicos de clientes registrados
-\item en mantener base de datos de clientes hay q poner algo como el encargado de pedidos registra usuarios en la base de datos
-\item reginar la parte de pagar con tarjeta de debito, efectivo y tarjeta de credito. el sistema debe enterarse y ver si hay q agregar alguna expectativa
-\item poner q al cliente se le informa la demora aproximada, y q esto requiere cargar tiempos de delivery (probablemente CU)
-\item ver si no hay q unir mantener control de stock con lograr buen rendimiento de cocina
-\item desgranar el sistema puede funcionar en modo restringido
+\item cambiar cuadradito de mozo con PDA por ``atender pedidos de mozos con PDA'' y encajarselo al mozo (requerimiento nuevo: poder recibir los pedidos de los mozos) \tick
+\item cambiar cuadrito de dueño responsable de tercerizar como servicio de delivery responsable de atencion por sistema de delivery \tick
+\item en lograr el cliente hace pedido por telefono agregar el encargado ingresa los pedidos telefonicos de clientes registrados \tick
+\item en mantener base de datos de clientes hay q poner algo como el encargado de pedidos registra usuarios en la base de datos \tick
+\item refinar la parte de pagar con tarjeta de debito, efectivo y tarjeta de credito. el sistema debe enterarse y ver si hay q agregar alguna expectativa \unresolved
+\item poner q al cliente se le informa la demora aproximada, y q esto requiere cargar tiempos de delivery (probablemente CU) \unresolved
+\item ver si no hay q unir mantener control de stock con lograr buen rendimiento de cocina \tick
+\item desgranar el sistema puede funcionar en modo restringido \dudoso
 \item refinar se puede modificar estado del pedido a lo largo de su ciclo de vida
 \item se controlan cancelaciones: ojo q dice q se guarda el pedido y eso no lo queresmo, ademas tenemos el CU cancelar pedido, deberia haber un req llamado se pueden cancelar pedidos
 \item fletar la parte de pedidos de antemano
 \item no se q onda esta marcado el req de alertar al responsable de stock de stock critico
 \item diferenciar abm de stock con abm de productos (ojo que esto puede dar algun caso de uso)
-\end{temize}
+\end{itemize}
 
 \textcolor{Blue}{\huge{Cosas varias}}
 \begin{itemize}
@@ -83,8 +91,8 @@ Por favor no borrar los todos ya resueltos, colorearlos o marcarlos con \tick
 \item definir que es perfil de usuario
 \item agregar expectativa delivery entrega SMS
 \item Eliminar preparacion anticipada de productos (las cancelaciones van a requerir tirar cosas)
-\ite al ingresar pedidos se informa la demanda aproximada
-\end {itemize}
+\item al ingresar pedidos se informa la demanda aproximada
+\end{itemize}
 
 \textcolor{Red}{\huge{Cosas del diagrama de contexto}}
 \begin{itemize}
