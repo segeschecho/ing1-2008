@@ -45,10 +45,10 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.0864"
-     inkscape:cx="93.939106"
-     inkscape:cy="1338.9482"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4"
+     inkscape:cx="5908.5566"
+     inkscape:cy="1287.1245"
+     inkscape:window-x="0"
+     inkscape:window-y="52"
      inkscape:current-layer="svg2"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -81,6 +81,30 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
+       id="linearGradient8197">
+      <stop
+         style="stop-color:#e6afe2;stop-opacity:1;"
+         offset="0"
+         id="stop8199" />
+      <stop
+         style="stop-color:#e6afe2;stop-opacity:0;"
+         offset="1"
+         id="stop8201" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8161">
+      <stop
+         style="stop-color:#bfbec9;stop-opacity:1;"
+         offset="0"
+         id="stop8163" />
+      <stop
+         style="stop-color:#bfbec9;stop-opacity:0;"
+         offset="1"
+         id="stop8165" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
        id="linearGradient8127">
       <stop
          style="stop-color:#c1f0f1;stop-opacity:1;"
@@ -90,6 +114,66 @@
          style="stop-color:#c1f0f1;stop-opacity:0;"
          offset="1"
          id="stop8131" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8111">
+      <stop
+         style="stop-color:#a19ede;stop-opacity:1;"
+         offset="0"
+         id="stop8113" />
+      <stop
+         style="stop-color:#a19ede;stop-opacity:0;"
+         offset="1"
+         id="stop8115" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8095">
+      <stop
+         style="stop-color:#e7bc94;stop-opacity:1;"
+         offset="0"
+         id="stop8097" />
+      <stop
+         style="stop-color:#e7bc94;stop-opacity:0;"
+         offset="1"
+         id="stop8099" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8071">
+      <stop
+         style="stop-color:#e4e7a6;stop-opacity:1;"
+         offset="0"
+         id="stop8073" />
+      <stop
+         style="stop-color:#e4e7a6;stop-opacity:0;"
+         offset="1"
+         id="stop8075" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8015">
+      <stop
+         style="stop-color:#cbb0c9;stop-opacity:1;"
+         offset="0"
+         id="stop8017" />
+      <stop
+         style="stop-color:#cbb0c9;stop-opacity:0;"
+         offset="1"
+         id="stop8019" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient7916">
+      <stop
+         style="stop-color:#e497ae;stop-opacity:1;"
+         offset="0"
+         id="stop7918" />
+      <stop
+         style="stop-color:#e497ae;stop-opacity:0;"
+         offset="1"
+         id="stop7920" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
@@ -367,6 +451,15 @@
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient7326"
+       id="linearGradient7465"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7326"
        id="linearGradient7834"
        gradientUnits="userSpaceOnUse"
        x1="-439.18782"
@@ -375,12 +468,228 @@
        y2="-77.96582" />
     <linearGradient
        inkscape:collect="always"
+       xlink:href="#linearGradient7916"
+       id="linearGradient7943"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7916"
+       id="linearGradient7951"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7916"
+       id="linearGradient7959"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7916"
+       id="linearGradient7967"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7916"
+       id="linearGradient7979"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7916"
+       id="linearGradient7987"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8015"
+       id="linearGradient8021"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8015"
+       id="linearGradient8037"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7326"
+       id="linearGradient8061"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8071"
+       id="linearGradient8077"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8095"
+       id="linearGradient8101"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8111"
+       id="linearGradient8117"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8127"
+       id="linearGradient8135"
+       x1="-439.18781"
+       y1="-77.96582"
+       x2="-370.88879"
+       y2="-77.96582"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8127"
+       id="linearGradient8151"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18781"
+       y1="-77.96582"
+       x2="-370.88879"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8161"
+       id="linearGradient8167"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
        xlink:href="#linearGradient8127"
        id="linearGradient8175"
        gradientUnits="userSpaceOnUse"
        x1="-439.18781"
        y1="-77.96582"
        x2="-370.88879"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8161"
+       id="linearGradient8187"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8197"
+       id="linearGradient8203"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8197"
+       id="linearGradient8211"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7326"
+       id="linearGradient2645"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8127"
+       id="linearGradient2665"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18781"
+       y1="-77.96582"
+       x2="-370.88879"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8015"
+       id="linearGradient2674"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8071"
+       id="linearGradient2684"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7916"
+       id="linearGradient2712"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
+       y2="-77.96582" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8161"
+       id="linearGradient2724"
+       gradientUnits="userSpaceOnUse"
+       x1="-439.18782"
+       y1="-77.96582"
+       x2="-370.88878"
        y2="-77.96582" />
     <linearGradient
        inkscape:collect="always"
@@ -754,6 +1063,33 @@
      inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
+  <g
+     id="g7475"
+     transform="translate(103.20988,-16.296296)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
+    <path
+       transform="translate(-150.92303,765.06982)"
+       d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+       sodipodi:ry="31.112698"
+       sodipodi:rx="31.112698"
+       sodipodi:cy="-77.96582"
+       sodipodi:cx="-405.0383"
+       id="path7463"
+       style="fill:url(#linearGradient7465);fill-opacity:1;stroke:#389a2e;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:type="arc" />
+    <text
+       id="text7471"
+       y="698.36804"
+       x="-567.22534"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="698.36804"
+         x="-567.22534"
+         id="tspan7473"
+         sodipodi:role="line">3</tspan></text>
+  </g>
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -476.17901,1086.963 C -551.8835,1561.6174 163.15192,1355.6349 609.40159,1381.0123"
@@ -790,6 +1126,33 @@
      inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
+  <g
+     id="g7580"
+     transform="translate(-90.268309,-111.50791)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
+    <path
+       transform="translate(515.30924,915.3299)"
+       d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+       sodipodi:ry="31.112698"
+       sodipodi:rx="31.112698"
+       sodipodi:cy="-77.96582"
+       sodipodi:cx="-405.0383"
+       id="path7563"
+       style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78823529"
+       sodipodi:type="arc" />
+    <text
+       id="text7576"
+       y="850.39984"
+       x="97.750938"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="850.39984"
+         x="97.750938"
+         sodipodi:role="line"
+         id="tspan7682">2</tspan></text>
+  </g>
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#00b7cd;stroke-width:3.51999998000000010;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 627.8067,1426.458 C -262.84389,1802.9278 -663.36861,1378.0299 -1330.995,1378.1464"
@@ -928,6 +1291,331 @@
        id="tspan7735"
        x="693.43201"
        y="882.60992" /></text>
+  <g
+     id="g7891"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27">
+    <path
+       transform="translate(1170.0939,35.052245)"
+       d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+       sodipodi:ry="31.112698"
+       sodipodi:rx="31.112698"
+       sodipodi:cy="-77.96582"
+       sodipodi:cx="-405.0383"
+       id="path7883"
+       style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:6.07364273000000040;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:type="arc" />
+    <text
+       id="text7887"
+       y="-31.149811"
+       x="740.24188"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="-31.149811"
+         x="740.24188"
+         id="tspan7889"
+         sodipodi:role="line">22</tspan></text>
+  </g>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient7943);fill-opacity:1;stroke:#9e0021;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78431373"
+     id="path7937"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(127.13089,746.65718)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-289.24094"
+     y="681.29523"
+     id="text7939"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan7941"
+       x="-289.24094"
+       y="681.29523">4</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient7951);fill-opacity:1;stroke:#9e0021;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78431373"
+     id="path7945"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(292.8099,716.78067)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-123.56197"
+     y="651.41864"
+     id="text7947"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan7949"
+       x="-123.56197"
+       y="651.41864">1</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient7959);fill-opacity:1;stroke:#9e0021;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78431373"
+     id="path7953"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(836.01978,719.49668)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="419.64792"
+     y="654.1347"
+     id="text7955"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan7957"
+       x="419.64792"
+       y="654.1347">5</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient7967);fill-opacity:1;stroke:#9e0021;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78431373"
+     id="path7961"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(1085.8963,961.22509)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="669.52441"
+     y="895.86316"
+     id="text7963"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       x="669.52441"
+       y="895.86316"
+       id="tspan7969">7</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient7979);fill-opacity:1;stroke:#9e0021;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78431373"
+     id="path7973"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(86.390147,1409.3732)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-342.18439"
+     y="1344.4806"
+     id="text7975"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan7977"
+       x="-342.18439"
+       y="1344.4806">12</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient7987);fill-opacity:1;stroke:#9e0021;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78431373"
+     id="path7981"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-432.37527,396.2868)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-862.82794"
+     y="330.92484"
+     id="text7983"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan7985"
+       x="-862.82794"
+       y="330.92484">19</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8021);fill-opacity:1;stroke:#90009e;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path7999"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-307.43701,388.13866)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-736.95093"
+     y="323.98325"
+     id="text8003"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8005"
+       x="-736.95093"
+       y="323.98325">18</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8037);fill-opacity:1;stroke:#90009e;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8031"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-84.720959,5.1757007)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-514.2348"
+     y="-58.979691"
+     id="text8033"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8035"
+       x="-514.2348"
+       y="-58.979691">20</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8061);fill-opacity:1;stroke:#389a2e;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8059"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(13.056818,-5.6884974)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-417.19504"
+     y="-71.221573"
+     id="text8063"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8065"
+       x="-417.19504"
+       y="-71.221573">21</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8077);fill-opacity:1;stroke:#e9ef00;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8067"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(936.51356,798.26211)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="520.61108"
+     y="732.6687"
+     id="text8079"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8081"
+       x="520.61108"
+       y="732.6687">6</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8101);fill-opacity:1;stroke:#ff7115;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8087"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(1118.4889,1069.8671)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="702.58636"
+     y="1003.7042"
+     id="text8091"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8093"
+       x="702.58636"
+       y="1003.7042">8</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8117);fill-opacity:1;stroke:#0051cb;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8103"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(1175.526,1249.1262)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -941,6 +1629,175 @@
        id="tspan8109"
        x="928.01849"
        y="1108.6914" /></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="759.25421"
+     y="1183.6954"
+     id="text8119"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8121"
+       x="759.25421"
+       y="1183.6954">9</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8135);fill-opacity:1;stroke:#00b7cd;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8123"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(205.89634,1363.2003)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-223.41689"
+     y="1298.9773"
+     id="text8137"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8139"
+       x="-223.41689"
+       y="1298.9773">11</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8151);fill-opacity:1;stroke:#00b7cd;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8145"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-101.01726,1561.472)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-530.33044"
+     y="1497.2489"
+     id="text8147"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8149"
+       x="-530.33044"
+       y="1497.2489">13</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8167);fill-opacity:1;stroke:#7c8185;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8153"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-133.60985,1854.8053)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-562.92297"
+     y="1790.5823"
+     id="text8155"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8157"
+       x="-562.92297"
+       y="1790.5823">14</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8187);fill-opacity:1;stroke:#7c8185;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8181"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-565.46169,586.41026)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-994.77478"
+     y="522.18719"
+     id="text8183"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8185"
+       x="-994.77478"
+       y="522.18719">15</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8203);fill-opacity:1;stroke:#ea00c4;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8189"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-755.58515,-176.79961)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-1184.8983"
+     y="-241.02263"
+     id="text8191"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8193"
+       x="-1184.8983"
+       y="-241.02263">17</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient8211);fill-opacity:1;stroke:#ea00c4;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path8205"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(1034.2914,-611.36751)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="607.32501"
+     y="-675.59058"
+     id="text8207"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan8209"
+       x="607.32501"
+       y="-675.59058">23</tspan></text>
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#389a2e;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -487.04321,383.50617 C -1204.9763,658.26333 -1416.5157,981.7122 -1383.3395,1328.6914"
@@ -950,6 +1807,32 @@
      inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient2645);fill-opacity:1;stroke:#389a2e;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path2639"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-516.57281,722.21271)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-946.82471"
+     y="656.67963"
+     id="text2641"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan2643"
+       x="-946.82471"
+       y="656.67963">16</tspan></text>
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#00b7cd;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 610.24074,1418.3209 C -1540.6886,1718.5087 -1600.0157,633.32234 -698.89506,-515.50617"
@@ -969,6 +1852,58 @@
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
   <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient2665);fill-opacity:1;stroke:#00b7cd;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path2659"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-570.8938,1276.2869)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-1000.207"
+     y="1212.0637"
+     id="text2661"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan2663"
+       x="-1000.207"
+       y="1212.0637">24</tspan></text>
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient2674);fill-opacity:1;stroke:#90009e;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path2668"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-473.11602,1202.9535)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="-902.62994"
+     y="1138.7981"
+     id="text2670"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan2672"
+       x="-902.62994"
+       y="1138.7981">25</tspan></text>
+  <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#e9ef00;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 1461.286,-409.4702 C 2426.3018,240.22812 1939.9738,665.56412 1440.353,1088.8452"
      id="path2676"
@@ -980,6 +1915,32 @@
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
   <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient2684);fill-opacity:1;stroke:#e9ef00;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path2678"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(2378.7358,339.24977)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="1950.63"
+     y="273.65637"
+     id="text2680"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan2682"
+       x="1950.63"
+       y="273.65637">26</tspan></text>
+  <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -419.14198,1086.963 C -147.16537,1279.6347 860.81252,1433.0177 1272.9568,1171.1605"
      id="path2688"
@@ -988,6 +1949,32 @@
      inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient2712);fill-opacity:1;stroke:#9e0021;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.78431373"
+     id="path2706"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(1189.1062,1346.9041)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="758.65442"
+     y="1281.5422"
+     id="text2708"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       x="758.65442"
+       y="1281.5422"
+       id="tspan2710">10</tspan></text>
   <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -1331.7346,1355.8519 C -371.90487,1413.2883 -1061.4444,1234.6808 -499.99643,1074.7034"
@@ -998,765 +1985,30 @@
      inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
+  <path
+     sodipodi:type="arc"
+     style="fill:url(#linearGradient2724);fill-opacity:1;stroke:#7c8185;stroke-width:6.07364273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path2718"
+     sodipodi:cx="-405.0383"
+     sodipodi:cy="-77.96582"
+     sodipodi:rx="31.112698"
+     sodipodi:ry="31.112698"
+     d="M -373.9256,-77.96582 A 31.112698,31.112698 0 1 1 -436.151,-77.96582 A 31.112698,31.112698 0 1 1 -373.9256,-77.96582 z"
+     transform="translate(-277.56047,1281.7189)"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-151.27477"
-     y="98.644829"
-     id="text2671"><tspan
-       sodipodi:role="line"
-       id="tspan2673"
-       x="-151.27477"
-       y="98.644829"
-       style="font-size:33px">Registra usuarios</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="139.89482"
-       id="tspan2675"
-       style="font-size:33px">Ingresa pedidos</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="181.14482"
-       id="tspan2677"
-       style="font-size:33px">Cambia politica de colas</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="222.39482"
-       id="tspan2679"
-       style="font-size:33px">Notifica pedido saliendo</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="263.64484"
-       id="tspan2681"
-       style="font-size:33px">Consulta estado de pedido</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="304.89484"
-       id="tspan2683"
-       style="font-size:33px">Cambia estado de pedido</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="346.14484"
-       id="tspan2685"
-       style="font-size:33px">Modifica precios</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="387.39484"
-       id="tspan2687"
-       style="font-size:33px">Consulta estadisticas</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="428.64484"
-       id="tspan2689"
-       style="font-size:33px">Ingresa cambios al stock</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="469.89484"
-       id="tspan2691"
-       style="font-size:33px">Registra Cobro</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="511.14484"
-       id="tspan2693"
-       style="font-size:33px">Solicita factura</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
-       y="552.39484"
-       id="tspan2695" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect2734"
-     width="417.23444"
-     height="469.1358"
-     x="-166.17685"
-     y="58.258366" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-124.45765"
-     y="584.71954"
-     id="text3542"><tspan
-       sodipodi:role="line"
-       x="-124.45765"
-       y="584.71954"
-       id="tspan3564"
-       style="font-size:33px">Avisa pedido no posible</tspan><tspan
-       sodipodi:role="line"
-       x="-124.45765"
-       y="625.96954"
-       style="font-size:33px"
-       id="tspan3635">Informa estado pedidos</tspan><tspan
-       sodipodi:role="line"
-       x="-124.45765"
-       y="667.21948"
-       style="font-size:33px"
-       id="tspan3637">Informa estadisticas</tspan><tspan
-       sodipodi:role="line"
-       x="-124.45765"
-       y="708.46948"
-       style="font-size:33px"
-       id="tspan3639">Notifica stock critico</tspan><tspan
-       sodipodi:role="line"
-       x="-124.45765"
-       y="749.71948"
-       style="font-size:33px"
-       id="tspan3643">Informa prox pedido a preparar/cocinar</tspan><tspan
-       sodipodi:role="line"
-       x="-124.45765"
-       y="790.96948"
-       id="tspan3566" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.35583615;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:10.06750832, 10.06750832;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3568"
-     width="600.28247"
-     height="214.30144"
-     x="-137.73772"
-     y="549.7962" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-542.17438"
-     y="516.54041"
-     id="text3647"><tspan
-       sodipodi:role="line"
-       x="-542.17438"
-       y="516.54041"
-       style="font-size:33px"
-       id="tspan3657">Notifica pedidos hechos</tspan><tspan
-       sodipodi:role="line"
-       x="-542.17438"
-       y="557.79041"
-       style="font-size:33px"
-       id="tspan3691">Indica cancelacion</tspan><tspan
-       sodipodi:role="line"
-       x="-542.17438"
-       y="599.04041"
-       id="tspan3659" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#389a2e;stroke-width:3.1891253;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.5673755, 9.5673755;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3661"
-     width="367.7016"
-     height="87.35009"
-     x="-548.63464"
-     y="482.67526" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-630.5191"
-     y="614.48773"
-     id="text3693"><tspan
-       sodipodi:role="line"
-       x="-630.5191"
-       y="614.48773"
-       style="font-size:33px"
-       id="tspan3703">Avisa pedido listo para entregar</tspan><tspan
-       sodipodi:role="line"
-       x="-630.5191"
-       y="655.73773"
-       style="font-size:33px"
-       id="tspan3723">Avisa pedido no posible</tspan><tspan
-       sodipodi:role="line"
-       x="-630.5191"
-       y="696.98773"
-       id="tspan3705" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3707"
-     width="486.48059"
-     height="87.055809"
-     x="-640.67328"
-     y="582.69037" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-67.945076"
-     y="784.91772"
-     id="text3725"
-     transform="matrix(0.6539937,-0.7565,0.7565,0.6539937,0,0)"><tspan
-       sodipodi:role="line"
-       x="-67.945076"
-       y="784.91772"
-       style="font-size:33px"
-       id="tspan3729">Ordena proximo pedido a preparar/cocinar</tspan><tspan
-       sodipodi:role="line"
-       x="-67.945076"
-       y="826.16772"
-       id="tspan3731" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600053, 9.85600053;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3733"
-     width="639.18134"
-     height="44.201012"
-     x="-78.400269"
-     y="752.8194"
-     transform="matrix(0.6539937,-0.7565,0.7565,0.6539937,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40.00001144px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-49.488865"
-     y="873.20361"
-     id="text3737"
-     transform="matrix(0.648583,-0.761144,0.761144,0.648583,0,0)"><tspan
-       sodipodi:role="line"
-       x="-49.488865"
-       y="873.20361"
-       style="font-size:33px"
-       id="tspan3741">Notifica estado de pedidos</tspan><tspan
-       sodipodi:role="line"
-       x="-49.488865"
-       y="914.45367"
-       style="font-size:33px"
-       id="tspan3749">Entrega pedido preparado</tspan><tspan
-       sodipodi:role="line"
-       x="-49.488865"
-       y="955.70367"
-       style="font-size:33px"
-       id="tspan3751">Ingresa productos preparados de antemano</tspan><tspan
-       sodipodi:role="line"
-       x="-49.488865"
-       y="996.95367"
-       id="tspan3743" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#e9ef00;stroke-width:3.39234614;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:10.17703787, 10.17703787;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3745"
-     width="658.9754"
-     height="129.18005"
-     x="-58.97678"
-     y="842.07251"
-     transform="matrix(0.648583,-0.761144,0.761144,0.648583,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="283.52948"
-     y="1114.4005"
-     id="text3753"
-     transform="matrix(0.90767,-0.4196846,0.4196846,0.90767,0,0)"><tspan
-       sodipodi:role="line"
-       x="283.52948"
-       y="1114.4005"
-       id="tspan3757"
-       style="font-size:33px">Informa estadisticas</tspan></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599996, 9.85599996;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3759"
-     width="311.50623"
-     height="45.167877"
-     x="272.59088"
-     y="1081.8186"
-     transform="matrix(0.90767,-0.4196846,0.4196846,0.90767,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="204.07686"
-     y="1294.3029"
-     id="text3783"
-     transform="matrix(0.8732843,-0.4872109,0.4872109,0.8732843,0,0)"><tspan
-       sodipodi:role="line"
-       x="204.07686"
-       y="1294.3029"
-       style="font-size:33px"
-       id="tspan3789">Ordena modificar precios</tspan><tspan
-       sodipodi:role="line"
-       x="204.07686"
-       y="1335.5529"
-       style="font-size:33px"
-       id="tspan3799">Pide informe de estadisticas</tspan><tspan
-       sodipodi:role="line"
-       x="204.07686"
-       y="1376.8029"
-       id="tspan3791" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#ff7115;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3793"
-     width="429.29297"
-     height="84.189148"
-     x="196.71407"
-     y="1259.8649"
-     transform="matrix(0.8732843,-0.4872109,0.4872109,0.8732843,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="383.03497"
-     y="1210.2119"
-     id="text3801"><tspan
-       sodipodi:role="line"
-       x="383.03497"
-       y="1210.2119"
-       style="font-size:33px"
-       id="tspan3807">Informa cambios de stock</tspan><tspan
-       sodipodi:role="line"
-       x="383.03497"
-       y="1251.4619"
-       id="tspan3809" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#0051cb;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3811"
-     width="393.93829"
-     height="40.832527"
-     x="372.5882"
-     y="1178.1219" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="439.21997"
-     y="1295.318"
-     id="text3818"><tspan
-       sodipodi:role="line"
-       x="439.21997"
-       y="1295.318"
-       style="font-size:33px"
-       id="tspan3822">Informa stock critico</tspan><tspan
-       sodipodi:role="line"
-       x="439.21997"
-       y="1336.568"
-       id="tspan3824" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.08219743;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.24659193, 9.24659193;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3826"
-     width="315.19565"
-     height="40.605766"
-     x="428.28412"
-     y="1262.7389" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-288.15097"
-     y="1331.8514"
-     id="text3844"><tspan
-       sodipodi:role="line"
-       x="-288.15097"
-       y="1331.8514"
-       style="font-size:33px"
-       id="tspan3848">Notifica pedido entregado y pagado</tspan><tspan
-       sodipodi:role="line"
-       x="-288.15097"
-       y="1373.1014"
-       id="tspan3850" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#00b7cd;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3852"
-     width="539.16943"
-     height="43.717812"
-     x="-297.31436"
-     y="1301.5143" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-121.57687"
-     y="1395.186"
-     id="text3856"><tspan
-       sodipodi:role="line"
-       x="-121.57687"
-       y="1395.186"
-       style="font-size:33px"
-       id="tspan3860">Ordena llevar pedido</tspan><tspan
-       sodipodi:role="line"
-       x="-121.57687"
-       y="1436.436"
-       id="tspan3862" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3864"
-     width="326.52188"
-     height="44.249859"
-     x="-132.41426"
-     y="1362.7054" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-345.00873"
-     y="1634.7039"
-     id="text3868"
-     transform="matrix(0.9816522,0.1906803,-0.1906803,0.9816522,0,0)"><tspan
-       sodipodi:role="line"
-       x="-345.00873"
-       y="1634.7039"
-       style="font-size:33px"
-       id="tspan3872">Entrega dinero</tspan><tspan
-       sodipodi:role="line"
-       x="-345.00873"
-       y="1675.9539"
-       id="tspan3874" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#00b7cd;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600009, 9.85600009;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3876"
-     width="236.53717"
-     height="44.530373"
-     x="-355.98639"
-     y="1603.4911"
-     transform="matrix(0.9816522,0.1906803,-0.1906803,0.9816522,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-764.95667"
-     y="1788.896"
-     id="text3880"><tspan
-       sodipodi:role="line"
-       x="-764.95667"
-       y="1788.896"
-       style="font-size:33px"
-       id="tspan3884">Da la factura para la entrega</tspan><tspan
-       sodipodi:role="line"
-       x="-764.95667"
-       y="1830.146"
-       id="tspan3886" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.02003431;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.06010231, 9.06010231;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3888"
-     width="439.70651"
-     height="40.281742"
-     x="-775.73053"
-     y="1756.479" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-1190.7931"
-     y="21.643414"
-     id="text3892"
-     transform="matrix(0.8862519,-0.4632036,0.4632036,0.8862519,0,0)"><tspan
-       sodipodi:role="line"
-       x="-1190.7931"
-       y="21.643414"
-       style="font-size:33px"
-       id="tspan3896">Entrega factura</tspan><tspan
-       sodipodi:role="line"
-       x="-1190.7931"
-       y="62.893414"
-       id="tspan3898" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600003, 9.85600003;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3900"
-     width="244.15872"
-     height="46.390312"
-     x="-1201.7405"
-     y="-10.947103"
-     transform="matrix(0.8862519,-0.4632036,0.4632036,0.8862519,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-1210.0021"
-     y="63.222824"
-     id="text3904"
-     transform="matrix(0.8597466,-0.5107209,0.5107209,0.8597466,0,0)"><tspan
-       sodipodi:role="line"
-       x="-1210.0021"
-       y="63.222824"
-       style="font-size:33px"
-       id="tspan3908">Entrega pago</tspan><tspan
-       sodipodi:role="line"
-       x="-1210.0021"
-       y="104.47282"
-       id="tspan3910" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#389a2e;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3912"
-     width="219.24683"
-     height="48.365932"
-     x="-1220.9769"
-     y="30.60478"
-     transform="matrix(0.8597466,-0.5107209,0.5107209,0.8597466,0,0)" />
-  <flowRoot
-     xml:space="preserve"
-     id="flowRoot3914"
-     style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:normal;font-weight:normal;font-size:40px"><flowRegion
-       id="flowRegion3916"><rect
-         id="rect3918"
-         width="443.64404"
-         height="80.662552"
-         x="-1346.1782"
-         y="696.31787" /></flowRegion><flowPara
-       id="flowPara3920"></flowPara></flowRoot>  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-398.13409"
-     y="-642.50366"
-     id="text3924"><tspan
-       sodipodi:role="line"
-       x="-398.13409"
-       y="-642.50366"
-       style="font-size:33px"
-       id="tspan3928">Factura</tspan><tspan
-       sodipodi:role="line"
-       x="-398.13409"
-       y="-601.25366"
-       id="tspan3930" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#ea00c4;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3932"
-     width="133.2576"
-     height="43.039257"
-     x="-409.32648"
-     y="-675.33923" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-868.35956"
-     y="68.424469"
-     id="text3936"><tspan
-       sodipodi:role="line"
-       x="-868.35956"
-       y="68.424469"
-       style="font-size:33px"
-       id="tspan3940">Realiza pedido por telefono</tspan><tspan
-       sodipodi:role="line"
-       x="-868.35956"
-       y="109.67447"
-       style="font-size:33px"
-       id="tspan3948">Cancela pedido por telefono</tspan><tspan
-       sodipodi:role="line"
-       x="-868.35956"
-       y="150.92447"
-       style="font-size:33px"
-       id="tspan3950">Requiere registro</tspan><tspan
-       sodipodi:role="line"
-       x="-868.35956"
-       y="192.17447"
-       style="font-size:33px"
-       id="tspan3952">Consulta estado de pedido</tspan><tspan
-       sodipodi:role="line"
-       x="-868.35956"
-       y="233.42447"
-       id="tspan3942" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#90009e;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3944"
-     width="431.64926"
-     height="170.50314"
-     x="-877.9856"
-     y="37.155251" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-908.99689"
-     y="265.91028"
-     id="text3954"><tspan
-       sodipodi:role="line"
-       x="-908.99689"
-       y="265.91028"
-       style="font-size:33px"
-       id="tspan3958">Informa pedido no posible</tspan><tspan
-       sodipodi:role="line"
-       x="-908.99689"
-       y="307.16028"
-       style="font-size:33px"
-       id="tspan3966">Informa estado de pedido</tspan><tspan
-       sodipodi:role="line"
-       x="-908.99689"
-       y="348.41028"
-       id="tspan3960" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:2.98549676;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8.95649033, 8.95649033;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3962"
-     width="400.35626"
-     height="87.355644"
-     x="-919.30096"
-     y="233.96297" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-604.3595"
-     y="-79.786392"
-     id="text4018"><tspan
-       sodipodi:role="line"
-       x="-604.3595"
-       y="-79.786392"
-       style="font-size:33px"
-       id="tspan4022">Cancela pedido</tspan><tspan
-       sodipodi:role="line"
-       x="-604.3595"
-       y="-38.536388"
-       style="font-size:33px"
-       id="tspan4032">Hace pedido</tspan><tspan
-       sodipodi:role="line"
-       x="-604.3595"
-       y="2.7136111"
-       id="tspan4024"
-       style="font-size:33px">Paga</tspan></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#90009e;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4026"
-     width="248.77254"
-     height="127.82561"
-     x="-614.73291"
-     y="-111.80301" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-426.9422"
-     y="-227.66774"
-     id="text4040"><tspan
-       sodipodi:role="line"
-       x="-426.9422"
-       y="-227.66774"
-       style="font-size:33px"
-       id="tspan4044">Informa pedido no posible</tspan><tspan
-       sodipodi:role="line"
-       x="-426.9422"
-       y="-186.41774"
-       style="font-size:33px"
-       id="tspan4052">Entrega factura</tspan><tspan
-       sodipodi:role="line"
-       x="-426.9422"
-       y="-145.16774"
-       style="font-size:33px"
-       id="tspan4054">Entrega pedido</tspan><tspan
-       sodipodi:role="line"
-       x="-426.9422"
-       y="-103.91773"
-       id="tspan4046" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#389a2e;stroke-width:3.28533339999999980;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599999999999990, 9.85599999999999990;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4048"
-     width="399.74371"
-     height="127.07436"
-     x="-436.94"
-     y="-259.30875" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="698.49243"
-     y="-104.75336"
-     id="text4056"><tspan
-       sodipodi:role="line"
-       x="698.49243"
-       y="-104.75336"
-       style="font-size:33px"
-       id="tspan4060">Ordena facturar</tspan><tspan
-       sodipodi:role="line"
-       x="698.49243"
-       y="-63.503365"
-       id="tspan4062" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4064"
-     width="249.97192"
-     height="42.600842"
-     x="687.51935"
-     y="-137.36969" />
-  <text
-     xml:space="preserve"
-     style="font-size:40.00000381px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="131.16592"
-     y="-790.29498"
-     id="text4068"
-     transform="matrix(0.9220388,0.3870976,-0.3870976,0.9220388,0,0)"><tspan
-       sodipodi:role="line"
-       x="131.16592"
-       y="-790.29498"
-       style="font-size:33px"
-       id="tspan4072">Ingresa pago tarjeta</tspan><tspan
-       sodipodi:role="line"
-       x="131.16592"
-       y="-749.04498"
-       id="tspan4074" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#ea00c4;stroke-width:3.28533363;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.8560005, 9.8560005;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4076"
-     width="313.07776"
-     height="46.169987"
-     x="120.32876"
-     y="-822.77533"
-     transform="matrix(0.9220388,0.3870976,-0.3870976,0.9220388,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="107.89111"
-     y="1542.2676"
-     id="text4080"
-     transform="matrix(0.6017374,0.798694,-0.798694,0.6017374,0,0)"><tspan
-       sodipodi:role="line"
-       x="107.89111"
-       y="1542.2676"
-       style="font-size:33px"
-       id="tspan4084">Entrega pedido</tspan><tspan
-       sodipodi:role="line"
-       x="107.89111"
-       y="1583.5176"
-       id="tspan4086" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#00b7cd;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600056, 9.85600056;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4088"
-     width="246.35294"
-     height="45.19976"
-     x="96.936768"
-     y="1509.6697"
-     transform="matrix(0.6017374,0.798694,-0.798694,0.6017374,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="84.364769"
-     y="1432.7451"
-     id="text4092"
-     transform="matrix(0.6450692,0.7641242,-0.7641242,0.6450692,0,0)"><tspan
-       sodipodi:role="line"
-       x="84.364769"
-       y="1432.7451"
-       style="font-size:33px"
-       id="tspan4096">Paga</tspan><tspan
-       sodipodi:role="line"
-       x="84.364769"
-       y="1473.9951"
-       id="tspan4098" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#92059f;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600032, 9.85600032;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4100"
-     width="97.587341"
-     height="45.816879"
-     x="73.101707"
-     y="1399.8389"
-     transform="matrix(0.6450692,0.7641242,-0.7641242,0.6450692,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="310.23834"
-     y="1765.2784"
-     id="text4104"
-     transform="matrix(0.7132823,-0.7008768,0.7008768,0.7132823,0,0)"><tspan
-       sodipodi:role="line"
-       x="310.23834"
-       y="1765.2784"
-       id="tspan4110"
-       style="font-size:33px">Informa ingredientes de nuevo producto</tspan></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#e9ef00;stroke-width:3.28533292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599918, 9.85599918;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4112"
-     width="606.57922"
-     height="46.907539"
-     x="299.78793"
-     y="1733.1848"
-     transform="matrix(0.7132823,-0.7008768,0.7008768,0.7132823,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-1196.0786"
-     y="727.90466"
-     id="text4127"
-     transform="matrix(0.9367713,-0.3499421,0.3499421,0.9367713,0,0)"><tspan
-       sodipodi:role="line"
-       x="-1196.0786"
-       y="727.90466"
-       style="font-size:33px"
-       id="tspan4131">Avisa registrar cobro</tspan><tspan
-       sodipodi:role="line"
-       x="-1196.0786"
-       y="769.15466"
-       style="font-size:33px"
-       id="tspan4139">Avisa solicita factura</tspan><tspan
-       sodipodi:role="line"
-       x="-1196.0786"
-       y="810.40466"
-       style="font-size:33px"
-       id="tspan4141">Modifica precios</tspan><tspan
-       sodipodi:role="line"
-       x="-1196.0786"
-       y="851.65466"
-       id="tspan4133" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599971, 9.85599971;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4135"
-     width="323.55621"
-     height="127.83514"
-     x="-1206.2521"
-     y="696.08801"
-     transform="matrix(0.9367713,-0.3499421,0.3499421,0.9367713,0,0)" />
+     x="-706.8736"
+     y="1217.4958"
+     id="text2720"
+     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
+     inkscape:export-xdpi="27"
+     inkscape:export-ydpi="27"><tspan
+       sodipodi:role="line"
+       id="tspan2722"
+       x="-706.8736"
+       y="1217.4958">27</tspan></text>
 </svg>
