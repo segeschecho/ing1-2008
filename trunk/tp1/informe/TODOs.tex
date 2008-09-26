@@ -52,6 +52,27 @@
 \textbf{\Large{TODO's}}\\[0.5cm]
 \end{center}
 
+\newcommand{\tick}[0]{{\textcolor{Green}{$\checkmark$}}}
+
+Por favor no borrar los todos ya resueltos, colorearlos o marcarlos con \tick
+
+\textcolor{Peach}{\huge{Diagrama de objetivos}}
+\begin{itemize}
+\item cambiar cuadradito de mozo con PDA por ``atender pedidos de mozos con PDA'' y encajarselo al mozo (requerimiento nuevo: poder recibir los pedidos de los mozos)
+\item cambiar cuadrito de dueño responsable de tercerizar como servicio de delivery responsable de atencion por sistema de delivery
+\item en lograr el cliente hace pedido por telefono agregar el encargado ingresa los pedidos telefonicos de clientes registrados
+\item en mantener base de datos de clientes hay q poner algo como el encargado de pedidos registra usuarios en la base de datos
+\item reginar la parte de pagar con tarjeta de debito, efectivo y tarjeta de credito. el sistema debe enterarse y ver si hay q agregar alguna expectativa
+\item poner q al cliente se le informa la demora aproximada, y q esto requiere cargar tiempos de delivery (probablemente CU)
+\item ver si no hay q unir mantener control de stock con lograr buen rendimiento de cocina
+\item desgranar el sistema puede funcionar en modo restringido
+\item refinar se puede modificar estado del pedido a lo largo de su ciclo de vida
+\item se controlan cancelaciones: ojo q dice q se guarda el pedido y eso no lo queresmo, ademas tenemos el CU cancelar pedido, deberia haber un req llamado se pueden cancelar pedidos
+\item fletar la parte de pedidos de antemano
+\item no se q onda esta marcado el req de alertar al responsable de stock de stock critico
+\item diferenciar abm de stock con abm de productos (ojo que esto puede dar algun caso de uso)
+\end{temize}
+
 \textcolor{Blue}{\huge{Cosas varias}}
 \begin{itemize}
 \item Eliminar idea de en q sector esta cada cosa (del alcance)
@@ -84,10 +105,12 @@
 \item partir cu consultando estado de pedido
 \item partir cu informando proximo pedido
 \item partir modificando estado de pedido
-\item sacar estableciendo pedido de cola \textcolor{Red}{aca hay q ver q onda, sobre esto hay q profundizar la comprension de q se quiere}
+\item sacar estableciendo pedido de cola \textcolor{Red}{aca hay q ver q onda, sobre esto hay q profundizar la comprension de q se quiere} habria q poder modificar orden de pedidos a preparar y politica del horno
 \item cambiar lo de requerir facturar, el sistema solo genera un archivo cuando el cajero se lo pide
 \item eliminar sistema de facturación
 \item cu cambiar orden de preparación
+\item cu de contingencia (diagrama aparte)
+\item maestro carga tiempos manualmente como CU
 \end{itemize}
 
 \end{document}
