@@ -1,0 +1,35 @@
+\chapter{Operatoria de la cocina:}
+
+\section{Ingreso de pedidos}
+Los pedidos basicamente pueden ser remotos o locales. Los pedidos remotos se pueden realizar via telefonica, via web, o via sms. Un pedido local se realiza siempre a un mozo.
+
+\subsection{Pedidos remotos}
+Los pedidos remotos requieren que los usuarios esten registrados en el sistema. Esto se hace por cuestiones de seguridad, a fin de evitar la realización de pedidos por parte de usuarios anonimos que podrian cancelar constantemente. La registracion de usuarios se realiza personalmente o telefonicamente. Decidimos no permitir regitro de usuarios via web, ya que consideramos que el método no era del todo fiable (es facil crear usuarios ficticios y hacer pedidos en broma).
+
+Un usuario registrado obtiene un nombre de usuario con el cual puede autentificarse en el sistema. En particular para poder hacer pedidos SMS, un usuario debe en el momento del registro brindar el número del télefono celular desde el cual va a realizar los pedidos.
+
+A continuación describiremos los procedimientos para la realización de pedidos remotos.
+
+\subsubsection{Pedidos telefonicos}
+El cliente que desee realizar un pedido telefonico debe llamar al número de la pizzería. El encargado de pedidos es el responsable de atender los llamados telefonicos. El cliente debe brindar sus datos de usuario para poder realizar un pedido. El encargado de pedidos ingresa esos datos y el sistema se encarga de chequear la validez de los mismos.
+
+Si el usuario no estaba registrado, el encargado debe sugerirle la posibilidad de registrarse. Si el usuario no esta registrado y no desea registrarse, no se toma el pedido. %TODO: caso de uso chequear datos de usuario
+
+Una vez autentificado el usuario, el mismo procede a dictar su pedido al encargado de pedidos. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema, el cual se encarga de verificar si es posible satisfacer dicho pedido. En caso de no ser posible el sistema indicara mediante un mensaje de error que el pedido no fue posible de realizar e indicara que producto/s no estaba/n disponible/s. El cliente puede entonces dar un pedido diferente.
+
+Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido como ingresado. Se genera un identificador de pedido, se estima el tiempo del mismo y se calcula el costo total. Ademas si el pedido es mixto se brinda la posibilidad de que el encargado de pedidos asigne un horno o de que esta asignación sea automatica. %TODO: caso de uso loco
+
+%TODO: poner diagrama de actividad
+%NOTA: estos casos de uso q aparecen son medio especificos del caso, tonces se podria hacer un diagrama aparte
+
+\subsubsection{Pedidos web}
+Para que los clientes puedan realizar pedidos via web, la pizzería contara con una página web. El cliente que desee hacer un pedido por esta vía debe ingresar a la página y autentificarse.
+
+Una vez autentificado, tendra la posibilidad de elegir ingresar pedido. Entonces podra elegir que productos desea y con que cantidad. Cuando marco lo que deseaba puede ingresar el pedido. Entonces el sistema verifica la viabilidad del pedido, y en caso de no ser posible de realizar lo informa mediante un mensaje indicando que producto no se encuentra disponible. El cliente puede volver a ingresar un pedido.
+
+En caso de que sea posible registrar el pedido, se genera un identificador de pedido, se estima el tiempo del mismo y se calcula el costo total. Esta información se muestra al usuario por pantalla. Luego se brinda la posibilidad de realizar un pago con tarjeta o en efectivo al delivery. Si el usuario decide pagar con tarjeta debera ingresar los datos de la misma y el sistema se encargara de efectuar el cobro interactuando con el sistema bancario. Si el cobro no se pudo realizar, el usuario podra reingresar los datos de la tarjeta o decidir pagar el pedido en efectivo.
+
+En este caso la asignación del horno en caso de que un pedido sea mixto es responsabilidad del sistema.
+
+\subsection{Registro de usuarios}
+
