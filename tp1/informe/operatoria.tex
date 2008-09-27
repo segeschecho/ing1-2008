@@ -31,6 +31,11 @@ En caso de que sea posible registrar el pedido, se genera un identificador de pe
 
 En este caso la asignación del horno en caso de que un pedido sea mixto es responsabilidad del sistema.
 
+\subsubsection{Pedidos SMS}
+El cliente que desee realizar un pedido via sms debe enviar un mensaje al servidor sms de la pizzeria, junto con el pedido que quiere hacer. Si el celular no estaba registrado, el sistema descarta el pedido y le envia un mensaje sms al mismo sugiriendole registrarse por telefono o personalmente.
+
+El sistema verifica si es posible satisfacer el pedido. En caso de no ser posible el sistema le envia un mensaje al cliente para avisar que el pedido no podra ser satisfecho. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido (para despues hacer reclamos o consultas), estima el tiempo del mismo (desde que se registra el pedido hasta que llega a su casa, teniendo en cuenta el tiempo de demora del delivery), calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de sms con esos datos al cliente.
+
 \subsection{Pedidos locales}
 Como dijimos previamente, los pedidos locales se realizan a los mozos, quienes cuentan con una PDA para realizar el registro de los pedidos. Un cliente dicta su pedido a algún mozo, el cual marca los productos y sus cantidades en su PDA. una vez que el cliente dictó su pedido el mozo ingresa el pedido. El sistema verifica la factibilidad del mismo, si no es posible tomarlo, notifica al mozo para que informe de la situación al cliente.
 
