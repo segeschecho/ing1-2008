@@ -372,20 +372,22 @@ notificandole que su pedido esta ingresado, el importe total, el tiempo de demor
 \cu{Estableciendo politica de cola}{Encargado de pedidos}{10,11}{}{Politica de cola establecida}{Permite modificar la politica de cola de pedidos de los hornos}
 
 
-%registrando pedido
-\op{1. El encargado de pedidos atiende una llamada a la pizzería}{}
-\op{2. Ingresa el número del cliente que realiza la llamada}{} %TODO: se identifica por numero, nombre, DNI o q cosa?
-\op{3. Si el cliente no tiene número de cliente informa que tiene que registrarse, ir a fin CU}{} %FIXME: por esto registrar pedido deberia estar extendido por registrando usuario
-\op{4. Si el número de cliente era valido le pide el pedido}{4. Si no, le vuelve a pedir el número}
-\op{5. El encargado selecciona ingresar pedido}{}
+%registrando pedido telefonico
+\op{1. El encargado le pide al cliente sus datos de identificaci'on}{}
+\op{2. Ingresa el n'umero del cliente que realiza la llamada}{}
+\op{3. El sistema verifica si el cliente est'a registrado}{}
+\op{4. Si el cliente estaba registrado, el encargado selecciona ingresar pedido}{4. Sino, el sistema genera un mensaje de error y luego el encargado sugiere al cliente que se registre. EXTIENDE Registrando cliente. Ir a Fin CU}
+\op{5. El encargado le pide al cliente que le dicte el pedido}{}
 \op{6. Selecciona los productos con las cantidades que el cliente solicita}{}
 \op{7. Presiona aceptar}{}
-\op{8. Si el pedido no se puede satisfacer, el sistema mostara un mensaje de error informando que productos no estan disponibles. El encargado notifica al cliente de la situación y se vuelve a 6}{}
-\op{8. El sistema notifica el total y el codigo de pedido}{}
-\op{9. El encargado da esa información al cliente}{}
-\op{10. Fin CU}{}
+\op{8. El sistema verifica, con el stock, si el posible satisfacer el pedido}{}
+\op{9. Si el pedido se puede satisfacer, el sistema lo registra como ingresado. Si el pedido no se puede satisfacer, el sistema mostara un mensaje de error informando que productos no est'an disponibles. El encargado notifica al cliente de la situaci'on y se vuelve a paso 6}{}
+\op{10. El sistema genera el identificador de pedido, estima la demora del mismo, calcula costo total y finalmente notifica al encargado de pedidos sobre estos datos}{}
+\op{11. El encargado da esa informaci'on al cliente}{}
+\op{12. Fin CU}{}
+%TODO: Si el pedido es mixto se brinda la posibilidad de que el encargado de pedidos asigne un horno o de que esta asignaci'on sea autom'atica.
 
-\cu{Registrando pedido}{Encargado de pedidos}{23}{}{Pedido ingresado}{Permite que el encargado de pedidos ingrese los pedidos realizados por clientes via telefono}
+\cu{Registrando pedido telef'onico}{Encargado de pedidos}{23}{Hay llamada telef'onica}{Pedido ingresado al sistema}{Permite que el encargado de pedidos ingrese los pedidos realizados por clientes v'ia telefono}
 
 %ingresando pedido de mesa
 \op{1. El cliente informa al mozo lo que quiere pedir}{}
@@ -397,10 +399,11 @@ notificandole que su pedido esta ingresado, el importe total, el tiempo de demor
 \cu{Registrando pedido de mesa}{Mozo}{23}{}{El pedido de la mesa queda registrado}{Permite que los mozos puedan ingresar los pedidos de las mesas}
 
 %notificando pedido entregado
-\op{1. El delivery entrega el pedido al cliente}{1. Si es imposible entregar el pedido, el delivery envia un mensaje para que quede cancelado} %TODO: esto es razonable, pero no esta en los otros diagramas
-\op{2. El delivery envia un mensaje con el codigo del pedido}{}
-\op{3. El sistema recibe el mensaje y se marca al pedido como entregado}{}
-\op{4. Fin CU}{}
+%\op{1. El delivery entrega el pedido al cliente}{1. Si es imposible entregar el pedido, el delivery env'ia un mensaje para que quede cancelado}
+%TODO: que pasa si el pedido no puede ser entregado?
+\op{1. El delivery envia un mensaje con el codigo del pedido}{}
+\op{2. El sistema recibe el mensaje y el estado del pedido cambia a entregado}{}
+\op{3. Fin CU}{}
 
 \cu{Notificando pedido entregado}{Delivery}{$\infty$}{True}{El pedido se registra como entregado}{Permite que el delivery mediante SMS informe inmediatamente la entrega de un pedido}
 
@@ -462,7 +465,7 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \op{4. Fin CU}{}
 
 %TODO: 14 es REQ?
-\cu{Notificando stock cr'itico}{Encargado de stock}{19}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
+\cu{Siendo notificado stock cr'itico}{Encargado de stock}{19}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
 
 % Haciendo ABM de stock
 \op{1. El encargado de stock elige que operación realizar}{}
