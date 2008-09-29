@@ -1,0 +1,73 @@
+\chapter{Glosario}
+% FIXME: mover el glosario a algun luga razonable
+\section{Terminología}
+\begin{itemize}
+\item \textbf{Pedido:} Se denomina ``pedido'' a todo pedido realizado por un cliente 
+(a través de alguno de los medios de contacto disponibles) y que ya ha sido 
+procesado por el sistema. Un pedido no es tal, y no se registra información sobre él,
+hasta el momento en que se da de alta en el sistema.
+\item \textbf{Encargado de pedidos:} El encargado de pedidos es un empleado cuya labor es la de administrar los pedidos y el funcionamiento generascontrola la facturación y supervisa la distribución de los pedidos. Además tiene privilegios para situaciones especiales (reorganización de la cola de pedidos, cambios de política de pedidos, cancelaciones y acceso al ABM de usuarios). En caso de contingencia (sistema caído o con funcionalidad limitada), este agente deberá controlar el funcionamiento manual del sistema y posteriormente ingresar los datos de los pedidos recibidos para su registro en el sistema.
+\item \textbf{Encargado de stock:} El encargado de stock es la persona responsable de
+recibir las notificaciones relacionadas a los niveles de stock e ingresar los datos
+respectivos a las altas y bajas del stock. En la mecánica actual de la pizzería no
+hay un encargado de stock definido. Si bien su papel será desempeñado por alguno
+de los otros agentes (dueño o encargado de pedidos), decidimos separar su rol puesto 
+que se trata de una tarea independiente de las demás.
+
+% FIXME: el cajero al parecer ahora no hace nada
+\item \textbf{Cajero:} El cajero se encarga de modificar los precios (capacidad que
+comparte con el dueño), registrar los pagos que se hacen en el local, recibir el dinero
+del \textit{delivery} e ingresar los pagos en el sistema, y solicitar la facturación
+de pedidos cuando sea necesario.
+
+\item \textbf{Dueño:} El dueño es responsable de la gestión de la carta de la pizzería, sus precios y es el interesado en acceder a las estadísticas sobre el funcionamiento del negocio.
+\item \textbf{Cocinero:} El cocinero es cualquier persona que trabaja en la cocina. En principio es ya sea el maestro pizzero o el maestro empanadero, pero podría ser un ayudante de cocina en general.
+\item \textbf{Estadísticas:} Las estadísticas son registros históricos de los indicadores de rendimiento, que permiten evaluar la progresión del negocio a lo largo del tiempo.
+\item \textbf{Indicadores de rendimiento:} Son valores numéricos que describen el rendimiento de la pizzería en un período determinado. Pueden depender de factores diversos. Algunos ejemplos de indicadores de rendimiento son la tasa de producción de la cocina, la tasa de ocupación del horno, el tiempo medio de espera por un pedido o la cantidad de valoraciones negativas obtenidas por el sistema de feedback. Algunos de ellos se le presentan al encargado de pedidos en tiempo real. % TODO: linkear con un apartado sobre esto en el SRS
+\item \textbf{Maestro Pizzero:} Es el cocinero encargado de las pizzas, que se ocupa de determinar los ingredientes que componen a una pizza dada, prepararla y supervisar su cocción si se hace en su horno. En el contexto del sistema, es responsable de los cambios de estado de los pedidos en la sección que concierne a la cocina.
+\item \textbf{Maestro Empanadero:} Análogo al maestro pizzero pero para la preparación de empanadas.
+\item \textbf{Mesero o Mozo:} Es el responsable de atender a los clientes en las mesas y registrar sus pedidos en el PDA que luego los transfiere al sistema. Si el sistema está degradado y no dispone del PDA, registrar los pedidos mentalmente o en papel y luego se los entrega al encargado de pedidos.
+\item \textbf{Cliente:} Es cualquier individuo que esté interesado en adquirir productos de la pizzería, a través de cualquiera de los medios de contacto y pedido.
+\item \textbf{Cliente local:} Cliente que concurre personalmente al local y es atendido por un mesero en su mesas.
+\item \textbf{Cliente remoto:} Cliente que hace su pedido desde su casa u otro lugar y requiere que le sea entregado por el servicio de delivery.
+\item \textbf{Cliente telefónico:} Cliente remoto que realiza su pedido por teléfono (es atendido por el encargado de pedidos que a su vez ingresa el pedido en el sistema manualmente.
+\item \textbf{Cliente Web:} Cliente remoto que realiza su pedido a través de la página web de la pizzería. El sistema registra su pedido sin ninguna intervención humana.
+\item \textbf{Cliente SMS:} Cliente remoto que realiza su pedido a través de mensajes de texto. El sistema registra su pedido sin ninguna intervención humana.
+\item \textbf{Servicio de delivery:} Servicio de entrega a domicilio de los pedidos. Este servicio se subcontrata a un tercero que provee toda la logística de entregas, debiendo la pizzería únicamente indicar las entregas que deben realizarse.
+\item \textbf{Cola de pedidos:} La cola de pedidos almacena los pedidos que deben prepararse y entregarse, y permite priorizarlos según la política de cola elegida. Dichar priorización puede ser manual o automática. 
+
+\item \textbf{ABM de stock:} Sistema que permite ingresar cambios a la base de datos de stock. Se considera stock a todas las compras de lotes de materias primas que se usan a continuación en la cocina. Se contemplan también datos como fecha de ingreso y vencimiento del lote, para una mayor granularidad en el control.
+\item \textbf{ABM de productos:} Sistema que permite ingresar productos que luego podrán ser vendidos en la pizzería. Por ejemplo, un producto es una nueva gaseosa o un nuevo sabor de empanada. Se incluyen además de su nombre el precio y los ingredientes necesarios para la preparación. A través de esta interfaz se hacen los cambios de precios.
+
+\item \textbf{Sistema de facturación:} Es un sistema informático externo que mediante una interfaz predefinida se encarga de la facturación y emisión de comprobantes de todas las ventas que se producen en la pizzería.
+\item \textbf{Sistema de SMS:} Es un sistema informático externo que provee un servicio de interfaz con las empresas de telefonía celular, permitiendo que el sistema procese mensajes que los clientes envían o realizar el envío de mensajes sobre el sistema SMS.
+\item \textbf{Pedido diferido:} Los pedidos diferidos son pedidos que se realizaron por fuera del sistema (por diversas razones, una de las cuales puede ser una caída del sistema). Se permite al encargado registrar dichos pedidos después de que fueron procesados manualmente para que sean tenidos en cuenta en las estadísticas.
+
+\item \textbf{Cola de pedidos:} Los pedidos que ingresan al sistema pasan a una cola de pedidos donde pueden ser reordenados por el encargado antes de que la cocina esté lista para procesarlos. Una vez que les llega su turno, los pedidos son preparados y pasan a la cola de horno donde esperan ser preparados. El orden de la cola de pedidos es en principio FIFO con modificaciones manuales, pero podría cambiarse de ser necesario.
+\item \textbf{Cola de horno:} Los pedidos que ya fueron preparados en la cocina pasan a la cola de horno en forma de fragmentos que pueden cocinarsesimultáneamente en un único módulo de horno. Allí se ordenan y procesan según la política de horno que tiene al menos dos variantes (cola convencional y cola ágil)
+
+% FIXME: esto calculo que vuela
+\item \textbf{Productos preparados de antemano:} En alguna situaciones pueden prepararse los productos de antemano dejándolos listos para ingresar al horno, antes de que los pedidos sean efectuados. Esto permite preparar la cocina para un pico de demanda. Es importante no confundir con las materias primas necesarias para la preparación.
+\end{itemize}
+% FIXME: esto estaba en el glosario del TP0 pero ahora tiene que ir a parar
+% a algun otro lado dentro del informe.
+%\section{Estados de pedido}
+%Los estados en los que puede encontrarse un pedido una vez que ingresó al sistema son:
+%\begin{itemize}
+%\item Ingresado: El pedido pasó los chequeos necesarios, se determinó que es posible llevarlo a cabo con éxito y se ingresó al sistema, yendo a parar a una cola donde espera a que la cocina esté lista para prepararlo.
+%\item	En preparación: El pedido ya fue recibido por la cocina y está siendo preparado por un cocinero.
+%\item	Preparado: El pedido ya fue preparado en su totalidad y está listo para ingresar al horno cuando haya lugar disponible.
+%\item	En el horno: El pedido (o al menos una de sus partes) está en el horno.
+%\item	Listo: El pedido está listo para ser entregado al cliente.
+%\item	Enviado: El pedido fue entregado al delivery para su entrega a domicilio.
+%\item	Finalizado: El pedido fue entregado con éxito (ya sea a la mesa o a domicilio).
+%\item	Cancelado: El pedido fue cancelado antes de su entrega.
+%\end{itemize}
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.25]{ciclo_pedido.png}
+%\end{figure}
+%
+%En breve, un proceso ingresa al sistema cuando es requerido por un cliente por algún medio de comunicación. Enseguida se indica a la cocina que el pedido debe ser preparado. Una vez completada la preparación de la comida, los responsables de cocina lo indican al sistema que planifica de forma independiente la asignación de lugares en los hornos. Finalmente, después de que el pedido es horneado, se entrega a la mesa o al delivery según corresponda. Por último cuando existe confirmación de la entrega se marca el pedido como finalizado y se almacena con fines de registro. El pedido puede ser cancelado en cualquier punto (salvo después de ser finalizado), con implicaciones varias en el sistema de control de stock.
+%
+%Los estados presentados tienen utilidad para el sistema puesto que hay necesidad de indicar al cliente sobre el estado de su pedido. Así, se podrá indicar si un pedido está siendo preparado o ya fue enviado al destinatario. Si bien para estos fines alcanza con 3 estados (preparando, enviando, finalizado), se agregan los demás con fines de control para el sistema. Además, la granularidad más fina permite al sistema hacer predicciones y organizaciones más eficientes del uso de los recursos. Por ejemplo, al controlar los tiempos de preparación por separado de los de horneado resulta más sencillo, en caso de un cuello de botella en la cocina, determinar cual es el factor limitante.
