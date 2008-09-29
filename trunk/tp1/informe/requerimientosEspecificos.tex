@@ -298,9 +298,9 @@ cambio de estado, por ejemplo el maestro debe poder informar que un pedido esta 
 \op{2. Usuario selecciona de una lista los productos que desea y su cantidad}{}
 \op{3. El cliente presiona el boton de enviar pedido}{}
 \op{4. El sistema intenta ingresar el pedido}{}
-\op{5. Si el pedido es posible, se informa al cliente}{4. Si el pedido no
+\op{5. Se pregunta al cliente si desea pagar con tarjeta de credito o pagar en efectivo al delivery}{}
+\op{6. Si el pedido es posible, se informa al cliente}{6. Si el pedido no
 era posible de tomar, se muestra mensaje de error al cliente indicando que productos no estan disponibles}
-\op{6. Se pregunta al cliente si desea pagar con tarjeta de credito o pagar en efectivo al delivery}{}
 \op{7. Si el cliente desea pagar con tarjeta se extiende con el caso de uso Pagando pedido via web}{}
 \op{8. Si se paga con tarjeta y el pago fue posible, el pedido queda registrado}{}
 \op{9. Se brinda al cliente un id de pedido para poder luego consultar el estado del pedido}{}
@@ -309,13 +309,11 @@ era posible de tomar, se muestra mensaje de error al cliente indicando que produ
 
 \cu{Realizando pedido via web}{Usuario}{1}{Usuario logueado}{Pedido registrado}{Ingreso de un pedido al sistema desde la pagina web}
 
-% Pagando pedido web
-%TODO: que lo complete alguien que sepa como corno se hace un pago con tarjeta via web
-
 %Cancelando pedido
 \op{1. El cliente informa al encargado de pedido su nombre o nombre de cliente y el id de pedido, o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
 \op{2. El encargado ingresa el nombre proporcionado por el cliente y el id de pedido o revisa los pedidos de la mesa}{}
-\op{3. Una vez seleccionado el pedido por el encargado, presiona el boton de cancelar pedido y el pedido queda cancelado}{3. Si los datos no corresponden con ningun pedido, el sistema muestra un cartel de error, y el encargado debe informar de la situación al cliete para que verifique los datos}
+\op{3. Una vez seleccionado el pedido por el encargado, presiona el boton de cancelar pedido y el pedido queda cancelado}{3.1. Si los datos no corresponden con ningun pedido, el sistema muestra un cartel de error, y el encargado debe informar de la situación al cliete para que verifique los datos}
+\op{}{3.2.}%TODO: el pedido puede no poder cancelarse porq el tema de la factura
 \op{4. Fin CU}{}
 
 \cu{Cancelando pedido}{Encargado de pedido}{$\infty$}{TRUE}{Pedido cancelado}{Cancelación de un pedido} 
@@ -331,12 +329,13 @@ notificandole que su pedido esta ingresado, el importe total, el tiempo de demor
 \cu{Realizando pedido via sms}{Cliente}{$\infty$}{TRUE}{Pedido ingresado}{Ingreso de un pedido a traves de mensaje de texto}
 
 %Ingresando feedback
-\op{1. El cliente ingresa a la página web de la pizzería}{}
-\op{2. Ingresa al apartado de feedback}{}
-\op{3. Ingresa el número de pedido sobre el que va a emitir feedback}{}
-\op{4. El sistema verifica que el número de pedido corresponda con un pedido enviado por delivery}{}
-\op{5. Si el número era valido, se muestra un formulario al usuario para que envia sus opinión}{5. Si el número no coincide se envia un mensaje de error al usuario}
-\op{6. Fin CU}{}
+\op{1. El cliente ingresa a la página web de feedback}{}
+\op{2. Se incluye CU logueando usuario}{}
+\op{3. Ingresa al apartado de feedback}{}
+\op{4. Ingresa el número de pedido sobre el que va a emitir feedback}{}
+\op{5. El sistema verifica que el número de pedido corresponda con un pedido enviado por delivery}{}
+\op{6. Si el número era valido, se muestra un formulario al usuario para que envia sus opinión}{5. Si el número no coincide se envia un mensaje de error al usuario}
+\op{7. Fin CU}{}
 \cu{Ingresando feedback}{Cliente}{28}{TRUE}{Comentario ingresado}{Permite que el usuario envie al sistema su opinión sobre un pedido recibido por delivery}
 
 %Consultando estado de pedido
@@ -444,11 +443,14 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \cu{Actualizando precios}{Encargado/Dueño}{14, 26}{TRUE}{Los precios resultan actualizados}{El encargado o dueño modifica precios}
 
 % Consultando informacion estadistica
-\op{1. El dueño le indica al sistema que requiere datos estad'isticos sobre un producto o pedido}{}
-\op{2. El dueño ingresa el n'umero de producto o pedido sobre el cual necesita averiguar estad'isticas}{}
-\op{3. El sistema verifica que el producto o pedido exista}{}
-\op{4. Si es asi, el sistema imprime en pantalla los datos estad'isticos}{Sino se produce un mensaje de error y se procede a Fin CU}
-\op{5. Fin CU}{}
+\op{1. Si el dueño desea observar información estadistica sobre un producto ir a paso 2, sino ir a paso 6}{}
+\op{2. El dueño le indica al sistema que requiere datos estad'isticos sobre un producto o pedido}{}
+\op{3. El dueño ingresa el n'umero de producto o pedido sobre el cual necesita averiguar estad'isticas}{}
+\op{4. El sistema verifica que el producto o pedido exista}{}
+\op{5. Si es asi, el sistema imprime en pantalla los datos estad'isticos}{Sino se produce un mensaje de error y se procede a Fin CU}
+\op{6. El dueño elige que estadisticas observar entre las disponibles (ver detalle en información estadistica)}{} %TODO: ver que este link lleve a alguna parte :)
+\op{7. Cuando el dueño observo las estadisticas que deseaba, ir a fin CU}{}
+\op{8. Fin CU}{}
 
 %TODO: 14 es REQ?
 \cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{14, 27, 28}{TRUE}{Las estad'isticas son mostradas en pantalla}{El dueño puede consultar la informaci'on estad'istica sobre los productos y pedidos gestionados}
@@ -460,29 +462,30 @@ y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestr
 \op{4. Fin CU}{}
 
 %TODO: 14 es REQ?
-\cu{Notificando stock cr'itico}{Encargado de stock}{14, 19}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
+\cu{Notificando stock cr'itico}{Encargado de stock}{19}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
 
 % Haciendo ABM de stock
-\op{1. El sistema le pide al encargado de stock que notifique si se trata de un alta, una baja o una modificaci'on}{}
-\op{2. El encargado de stock notifica la operaci'on}{}
-\op{3. El sistema le pide al encargado de stock que ingrese el nombre o n'umero del insumo}{}
-\op{4. El encargado de stock ingresa el nombre o el n'umero identificador}{}
-\op{5. Si se trata de un alta el sistema verifica que el insumo no exista en la lista de insumos, sino se procede a paso 10}{}
-\op{6. Si es asi el sistema le pide al encargado de stock que ingrese la cantidad que hay en stock}{Si el nombre ya existe, el sistema produce un mensaje de error y se procede a Fin CU}
-\op{7. El encargado de stock ingresa cantidad en stock del nuevo insumo}{}
-\op{8. El sistema agrega el insumo a la lista con su cantidad en stock}{}
-\op{9. Ir a Fin CU}{}
-\op{10. El sistema verifica que el insumo exista en la lista de insumos}{}
-\op{11. Si es asi, se sigue al siguiente paso}{Si el insumo no existe, el sistema produce un mensaje de error y se procede a Fin CU}
-\op{12. Si se trata de se una baja de un insumo, el sistema elimina el insumo de la lista, sino se procede a paso 14}{}
-\op{13. Ir a Fin CU}{}
-\op{14. El sistema le pide al encargado de stock que ingrese la cantidad}{}
-\op{15. El encargado de stock ingresa cantidad en stock del insumo}{}
-\op{16. El sistema modifica la cantidad en stock del insumo}{}
-\op{17. Fin CU}{}
+\op{1. El encargado de stock elige que operación realizar}{}
+\op{2. El sistema le pide al encargado de stock que ingrese el nombre o n'umero del insumo}{}
+\op{3. El encargado de stock ingresa el nombre o el n'umero identificador}{}
+\op{4.1. Si se trata de un alta ir a paso 6}{}% el sistema verifica que el insumo no exista en la lista de insumos, sino se procede a paso 10}{}
+\op{4.2. Si se trata de una modificación ir a paso 9}{}
+\op{4.3. Si se trata de una baja ir a paso 9.}{}
+\op{5. El sistema permite ingresar la cantidad y otros datos del insumo}{}
+\op{6. El encargado de stock ingresa cantidad en stock del nuevo insumo y datos}{}
+\op{7. El sistema agrega el insumo a la lista con su cantidad en stock y datos}{}
+\op{8. Ir a Fin CU}{}
+\op{9. El sistema verifica que el insumo exista en la lista de insumos}{}
+\op{10. Si es asi, se sigue al siguiente paso}{Si el insumo no existe, el sistema produce un mensaje de error y se procede a Fin CU}
+\op{11. Si se trata de se una baja de un insumo, el sistema elimina el insumo de la lista, sino se procede a paso 13}{}
+\op{12. Ir a Fin CU}{}
+\op{13. El sistema le pide al encargado de stock que ingrese la cantidad a aumentar o a quitar}{}
+\op{14. El encargado de stock ingresa la cantidad en stock del insumo}{}
+\op{15. El sistema modifica la cantidad en stock del insumo}{}
+\op{16. Fin CU}{}
 
 %TODO: verificar requerimientos!!!!!!!!!
-\cu{Haciendo ABM de stock}{Encargado de stock}{14, 15, 16, 18, 20, 22, 24}{TRUE}{El stock queda actualizado con las modificaciones}{Se puede hacer alta, baja y modificaci'on de insumos y kits comprados o caducados}
+\cu{Haciendo ABM de stock}{Encargado de stock}{15, 20}{TRUE}{El stock queda actualizado con las modificaciones}{Se puede hacer alta, baja y modificaci'on de insumos y kits comprados o caducados}
 
 \newpage
 \section{Descripcion de operaciones} %NOTA: es opcional

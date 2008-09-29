@@ -81,7 +81,7 @@ Cuando el maestro esta listo para preparar algun producto, debe indicarselo al s
 Cuando todas las partes de un pedido fueron preparados, el pedido deja de estar en preparación para pasar a estar en estado de preparado.
 
 \section{Cola de horno} 
-La cola del horno es la cola que establece que pedido (que parte del mismo) se cocinara a continuación. La cola se gestiona también de manera automatica. El maestro pide al sistema que pedido debe cocinar a continuación. El sistema informa que parte del mismo debe colocar al horno. A partir de este momento, el pedido pasa a ser considerado al horno. El sistema identifica que parte esta realmente en el horno, que parte aun no ingreso y que parte ya fue cocinada. Cuando todas las partes del pedido fueron cocinadas, se considera que el pedido fue cocinado.
+La cola del horno es la cola que establece que pedido (que parte del mismo) se cocinara a continuación. La cola se gestiona también de manera automatica. El maestro pide al sistema que pedido debe cocinar a continuación. El sistema informa que parte del mismo debe colocar al horno. A partir de este momento, el pedido pasa a ser considerado al horno. El sistema identifica que parte esta realmente en el horno, que parte aun no ingreso y que parte ya fue cocinada. Cuando todas las partes del pedido fueron cocinadas, se considera que el pedido fue cocinado. Cuando el maestro saca algo del horno, debe indicarselo al sistema a fin de que este pueda establecer que poner a continuación. 
 
 La cola ingreso al horno admite varias politicas, una de ella es la de sectores agiles. En este caso, algunos modulos funcionan como modulos agiles y dan prioridad a los pedidos mas chicos. Es decir, que cuando se libera un modulo agil y el maestro pide que producto debe ingrear, el sistema tendra en cuenta la existencia de pedidos mas chicos que se puedan ingresar por completo al horno. 
 
@@ -119,6 +119,7 @@ Finalmente el dueño deberá informar al encargado de pedido los precios que prete
 \includegraphics[height=16cm]{ContextoContingencia.png}
 \end{figure}
 \end{landscape}
+
 \section{Informacion estadistica}
 %TODO: chamuyar aqui
 
@@ -126,7 +127,7 @@ Finalmente el dueño deberá informar al encargado de pedido los precios que prete
 La modificación de precios puede ser realizada por el dueño, o por el cajero. Para modificar precios se utiliza el sistema de ABM de productos que provee el sistema. (ver ABM de productos)
 
 \section{ABM de productos}
-%TODO: chamuye aqui
+El ABM de productos, permite ingresar nuevos productos, es decir nuevas variedades de pizzas, empanadas, etc. Al ingresar un nuevo producto se deben ingresar su receta, asi como un tiempo estimado de cocción. Por otro lado también se puede modificar los precios de los productos existentes, que no afectan a los pedidos ya registrados. Finalmente, también se puede dar de baja productos, por ejemplo productos que se venden muy poco.
 
-\section{ABM de insumos}
-%TODO: chamuye aqui
+\section{ABM de stock}
+El ABM de stock permite realizar altas, bajas y modificaciones de los kits y demas insumos para la elaboración de productos. Ademas permite modificar el valor critico de cada insumo, de modo que el sistema pueda utilizar dicho valor para alertar al encargado de stock cuando la cantidad disponible de un producto descienda por debajo de dicho valor. La notificación se realiza con un mensaje en pantalla  
