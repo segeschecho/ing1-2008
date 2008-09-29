@@ -75,6 +75,9 @@
 \stepcounter{PasoCu}
 }
 
+\newcounter{casoUso}
+\setcounter{casoUso}{1}
+
 \definecolor{light-gray}{gray}{0.9}
 \newcommand{\cu}[6]{ 
 {\setlength{\arrayrulewidth}{1mm}
@@ -83,13 +86,15 @@
 \hline
 \multicolumn{2}{|>{\columncolor{Black}}l|}{\textcolor{White}{\negrita{Caso de Uso: #1}}} \\
 \hline
+\multicolumn{2}{|>{\columncolor{Black}}l|}{\textcolor{White}{\negrita{Número \thecasoUso}}} \\
+\hline
 \multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Actores intervinientes: #2}} \\
 \hline
 \multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Requerimientos relacionados: #3}} \\
 \hline
-\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Precondicion: #4}} \\
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Precondición: #4}} \\
 \hline
-\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Poscondicion: #5}} \\
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Poscondición: #5}} \\
 \hline
 \multicolumn{1}{|>{\columncolor{light-gray}}X|}{\negrita{Descripcion:}} &
 \multicolumn{1}{>{\columncolor{light-gray}}X|}{\negrita{#6}} \\
@@ -100,7 +105,7 @@
 \the\oplist
 \hline
 \end{tabularx}
-
+\stepcounter{casoUso}
 }
 \newtoks\oplist\oplist={}
 }
@@ -163,5 +168,6 @@
 \input{introduccion}
 \input{descripcion}
 \input{requerimientosEspecificos}
+\input{operatoria}
 \label{LastPage}
 \end{document}
