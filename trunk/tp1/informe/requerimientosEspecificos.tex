@@ -326,7 +326,7 @@ era posible de tomar, se muestra mensaje de error al cliente indicando que produ
 \op{2. El cliente envia el mensaje a la pizzería}{}
 \op{3. El sistema revisa si el número desde donde proviene el mensaje esta registrado con algún cliente, si no es asi el pedido no se ingresa, fin CU}{3. Si el número esta registrado pero el mensaje no corresponde con ningún código se notifica al cliente que el código no es válido}
 \op{4. El sistema revisa si es posible tomar el pedido, si es posible se ingresa el pedido, se envia al usuario un mensaje 
-notificandole que su pedido esta ingresado, el importe total y el codigo de pedido para realizar consultas sobre el mismo}{3. Si no era posible se envia un mensaje indicandole que producto no estaba disponible}
+notificandole que su pedido esta ingresado, el importe total, el tiempo de demora aproximado y el codigo de pedido para realizar consultas sobre el mismo}{3. Si no era posible se envia un mensaje indicandole que producto no estaba disponible}
 \op{5. Fin CU}{}
 \cu{Realizando pedido via sms}{Cliente}{$\infty$}{TRUE}{Pedido ingresado}{Ingreso de un pedido a traves de mensaje de texto}
 
@@ -392,7 +392,7 @@ notificandole que su pedido esta ingresado, el importe total y el codigo de pedi
 \op{1. El cliente informa al mozo lo que quiere pedir}{}
 \op{2. El mozo marca en su PDA los productos que el cliente pide con sus cantidades}{}
 \op{3. Cuando el cliente informó todo el pedido, el mozo selecciona ingresar pedido}{}
-\op{4. Si el pedido se puede tomar, al mozo se le informa el número de pedido}{4. Si no se puede tomar el pedido, se informa al mozo que partes del pedido no estan disponibles, el mozo informa al cliente y se vuelve a 1}
+\op{4. Si el pedido se puede tomar, al mozo se le informa el número de pedido y le informa la demora aproximada.}{4. Si no se puede tomar el pedido, se informa al mozo que partes del pedido no estan disponibles, el mozo informa al cliente y se vuelve a 1}
 \op{5. Fin CU}{}
 
 \cu{Registrando pedido de mesa}{Mozo}{23}{}{El pedido de la mesa queda registrado}{Permite que los mozos puedan ingresar los pedidos de las mesas}
