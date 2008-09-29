@@ -6,35 +6,37 @@ Los pedidos basicamente pueden ser remotos o locales. Los pedidos remotos se pue
 \subsection{Pedidos remotos}
 Los pedidos remotos requieren que los usuarios esten registrados en el sistema. Esto se hace por cuestiones de seguridad, a fin de evitar la realización de pedidos por parte de usuarios anonimos que podrian cancelar constantemente. La registracion de usuarios se realiza personalmente o telefonicamente. Decidimos no permitir regitro de usuarios via web, ya que consideramos que el método no era del todo fiable (es facil crear usuarios ficticios y hacer pedidos en broma).
 
-Un usuario registrado obtiene un nombre de usuario con el cual puede autentificarse en el sistema. En particular para poder hacer pedidos SMS, un usuario debe en el momento del registro brindar el número del télefono celular desde el cual va a realizar los pedidos.
+Si un usuario desea poder hacer pedidos vía web, deberá elegir un nombre de usuario y una contraseña al momento de registrarse, así como proveer una dirección de mail. Si se desean hacer pedidos SMS, el usuario deberá brindar un número de celular, al que se ``autoriza'' para efectuar pedidos a nombre de ese usuario. Para todo tipo de pedidos que involucren delivery, el usuario deberá registrar una dirección (aunque podría tener más de una, existe una única que es predeterminada).
 
 A continuación describiremos los procedimientos para la realización de pedidos remotos.
 
 \subsubsection{Pedidos telefonicos}
-El cliente que desee realizar un pedido telefonico debe llamar al número de la pizzería. El encargado de pedidos es el responsable de atender los llamados telefonicos. El cliente debe brindar sus datos de usuario para poder realizar un pedido. El encargado de pedidos ingresa esos datos y el sistema se encarga de chequear la validez de los mismos.
+El cliente que desee realizar un pedido telefonico debe llamar al número de la pizzería. El encargado de pedidos es el responsable de atender los llamados telefonicos. El cliente debe brindar información de identificación al encargado para permitir individualizarlo (nombre, dirección o nombre de usuario). El encargado corrobora entoces el número desde el que está llamando el usuario para verificar su identidad (eventualmente si llama desde otro número puede identificarse con usuario y password si lo tuviera).
 
 Si el usuario no estaba registrado, el encargado debe sugerirle la posibilidad de registrarse. Si el usuario no esta registrado y no desea registrarse, no se toma el pedido. %TODO: caso de uso chequear datos de usuario
 
 Una vez autentificado el usuario, el mismo procede a dictar su pedido al encargado de pedidos. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema, el cual se encarga de verificar si es posible satisfacer dicho pedido. En caso de no ser posible el sistema indicara mediante un mensaje de error que el pedido no fue posible de realizar e indicara que producto/s no estaba/n disponible/s. El cliente puede entonces dar un pedido diferente.
 
 Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido como ingresado. Se genera un identificador de pedido, se estima el tiempo del mismo y se calcula el costo total. Ademas si el pedido es mixto se brinda la posibilidad de que el encargado de pedidos asigne un horno o de que esta asignación sea automatica. %TODO: caso de uso loco
-
+% TODO: verificar esto del horno es dudoso
 %TODO: poner diagrama de actividad
 %NOTA: estos casos de uso q aparecen son medio especificos del caso, tonces se podria hacer un diagrama aparte
 
 \subsubsection{Pedidos web}
-Para que los clientes puedan realizar pedidos via web, la pizzería contara con una página web. El cliente que desee hacer un pedido por esta vía debe ingresar a la página y autentificarse.
+Para que los clientes puedan realizar pedidos via web, la pizzería contara con una página web. El cliente que desee hacer un pedido por esta vía debe ingresar a la página y autentificarse con usuario y contraseña.
 
-Una vez autentificado, tendra la posibilidad de elegir ingresar pedido. Entonces podra elegir que productos desea y con que cantidad. Cuando marco lo que deseaba puede ingresar el pedido. Entonces el sistema verifica la viabilidad del pedido, y en caso de no ser posible de realizar lo informa mediante un mensaje indicando que producto no se encuentra disponible. El cliente puede volver a ingresar un pedido.
+Una vez autentificado, tendra la posibilidad de elegir ingresar pedido. Entonces podra elegir que productos desea y con que cantidad a partir de una lista en línea. Dicha lista solo contiene productos que están disponibles (los que ya están fuera de stock no se incluyen). Cuando marco lo que deseaba puede ingresar el pedido. Entonces el sistema verifica la viabilidad del pedido, y en caso de no ser posible de realizar lo informa mediante un mensaje indicando que producto no se encuentra disponible. El cliente puede volver a ingresar un pedido diferente si lo desea.
 
-En caso de que sea posible registrar el pedido, se genera un identificador de pedido, se estima el tiempo del mismo y se calcula el costo total. Esta información se muestra al usuario por pantalla. Luego se brinda la posibilidad de realizar un pago con tarjeta o en efectivo al delivery. Si el usuario decide pagar con tarjeta debera ingresar los datos de la misma y el sistema se encargara de efectuar el cobro interactuando con el sistema bancario. Si el cobro no se pudo realizar, el usuario podra reingresar los datos de la tarjeta o decidir pagar el pedido en efectivo.
+En caso de que sea posible registrar el pedido, se estima el tiempo del mismo y se calcula el costo total. Esta información se muestra al usuario por pantalla. A continuación se le permite al usuario elegir si prefiere pagar contra entrega al delivery o con tarjeta de crédito (que deberá haber sido registrada previamente). Hecho esto, se confirma todo el pedido y se le envía por correo electrónico un identificador del mismo (incluyendo además un link con código especial que le permite a) ver el estado del pedido y b) después de que fue entregado, completar el feedback). Si entre la elección de los productos y la confirmación del pedido se acaba el stock de materias primas, se muestra un error y se vuelve a la pantalla de selección de productos (esto debería ser muy raro). 
 
-En este caso la asignación del horno en caso de que un pedido sea mixto es responsabilidad del sistema.
+El pedido será encolado automáticamente de la forma que el sistema juzgue eficiente, pudiendo el encargado modificar dicho orden posteriormente. 
 
 \subsubsection{Pedidos SMS}
 El cliente que desee realizar un pedido via sms debe enviar un mensaje al servidor sms de la pizzeria, junto con el pedido que quiere hacer. Si el celular no estaba registrado, el sistema descarta el pedido y le envia un mensaje sms al mismo sugiriendole registrarse por telefono o personalmente.
 
-El sistema verifica si es posible satisfacer el pedido. En caso de no ser posible el sistema le envia un mensaje al cliente para avisar que el pedido no podra ser satisfecho. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido (para despues hacer reclamos o consultas), estima el tiempo del mismo (desde que se registra el pedido hasta que llega a su casa, teniendo en cuenta el tiempo de demora del delivery), calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de sms con esos datos al cliente.
+Para identificar los productos que desea pedir, el cliente cuenta con un catálogo con códigos de producto y de ``combos'' populares ya sea en papel o consultable via Internet.
+
+El sistema verifica si es posible satisfacer el pedido. En caso de no ser posible el sistema le envia un mensaje al cliente para avisar que el pedido no podra ser satisfecho. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido (para despues hacer reclamos o consultas), estima el tiempo del mismo (desde que se registra el pedido hasta que llega a su casa, teniendo en cuenta el tiempo de demora del delivery), calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de sms con esos datos al cliente. Cada X tiempo, el sistema envía una actualización de status del pedido (esto puede ser personalizable al momento de registrar el usuario).
 
 \subsection{Pedidos locales}
 Como dijimos previamente, los pedidos locales se realizan a los mozos, quienes cuentan con una PDA para realizar el registro de los pedidos. Un cliente dicta su pedido a algún mozo, el cual marca los productos y sus cantidades en su PDA. una vez que el cliente dictó su pedido el mozo ingresa el pedido. El sistema verifica la factibilidad del mismo, si no es posible tomarlo, notifica al mozo para que informe de la situación al cliente.
@@ -50,7 +52,9 @@ Para registrar a un usuario el encargado de pedidos debe tomar los siguientes da
 \item Apellido
 \item Dirección
 \item Telefono
+\item Usuario, password y mail (opcional, solo necesario para hacer pedidos via Web)
 \item Célular (opcional, solo necesario para poder hacer pedidos vis SMS)
+\item Desea recibir actualizaciones de estado de pedidos cada X minutos en su celular? (S/N)
 \end{itemize}
 
 \section{Facturacion}
@@ -63,9 +67,11 @@ A la hora de generar el archivo la forma de pago de los pedidos en el local debe
 \section{Cancelación}
 La cancelación de un pedido se realiza via telefonica o personalmente. Una cancelación se puede realizar siempre y cuando no se haya generado la factura para el pedido. %TODO: revisar esto, porq si la facturacion es manual se chinga, tal vez alcance con que no se genere el archivo
 
-Los productos ya elaborados, se descartan al cancelarse el pedido. En cambio los insumos no utilizados regresan al stock automaticamente, de esto se encarga el sistema de manera automatica.
+Los productos ya elaborados, se descartan al cancelarse el pedido. En cambio los insumos no utilizados regresan al stock automaticamente, de esto se encarga el sistema de manera automatica según las actualizaciones de estado que hayan provisto los maestros de cocina.
 
-Para cancelar un pedido via telefonica el usuario debe identificarse, y luego debe indicar el número del pedido que pretende cancelar. En caso de un pedido hecho en el local, el cliente debe avisar al mozo, que notifica al encargado de pedidos, quien cancela el pedido a partir del número del mismo.
+Para cancelar un pedido via telefonica el usuario debe identificarse, y luego debe indicar el número del pedido que pretende cancelar. En caso de un pedido hecho en el local, el cliente debe avisar al mozo, que notifica al encargado de pedidos, quien cancela el pedido a partir del número del mismo. 
+
+% TODO: Las modificaciones de pedidos son casos particulares de cancelaciones? Que onda cuando queres cambiar una cosa? No se puede borrar todo el pedido e insertar de nuevo, es cualquiera. Tal vez sería más razonable poder cancelar por producto en vez de por pedido. Verificarlo. 
 
 \section{Cola de pedidos}
 Por cola de pedidos se entiende la cola que determina el orden en el cual se prepararan los pedidos ingresados al sistema. La cola es la que determina que pedido ingresado debe comenzar a preparse a continuación. Dicha cola se gestiona de manera automatica, pero puede ser modificada por el encargado de pedidos. Ni bien un producto pasa a preparse, es decir se comienza a preparar cualquiera de sus partes el mismo deja de estar en esta cola.
