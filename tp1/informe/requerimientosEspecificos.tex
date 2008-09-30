@@ -301,50 +301,63 @@ de producción, la politica de asignación, etc.}
 %
 
 %TODO: revisar los numeros de requerimiento que quedaron cambiados
-%LOGUEANDO USUARIO
-\op{1. El cliente ingresa su nombre de cliente en el campo correspondiente}{}
+% Autenticando usuario
+\op{1. El cliente ingresa su nombre de usuario en el campo correspondiente}{}
 \op{2. El cliente ingresa su contraseña en el campo correspondiente}{}
 \op{3. El cliente presiona el boton de ingresar}{}
 \op{4. El sistema valida los datos. Si los datos ingresados son validos, cliente autentificado}{4. Los datos no son validos, se muestra al cliente mensaje informativo y se le permite re ingresar los datos}
 \op{5. Fin CU}{}
 
-\cu{Autenticando cliente}{Usuario}{1,2}{TRUE}{Usuario logueado}{Autentificación de un cliente web}
+\cu{Autenticando usuario}{Cliente}{1,2}{TRUE}{Cliente logueado}{Autentificación de un cliente web}
+%TODO: Agregar CU Cerrando cuenta mesa
 
-% Haciendo pedido via web
-\op{1. Se incluye el caso de uso logueando usuario}{}
-\op{2. Usuario selecciona de una lista los productos que desea y su cantidad}{}
-\op{3. El cliente presiona el boton de enviar pedido}{}
-\op{4. El sistema intenta ingresar el pedido}{}
-\op{5. Se pregunta al cliente si desea pagar con tarjeta de credito o pagar en efectivo al delivery}{}
-\op{6. Si el pedido es posible, se informa al cliente}{6. Si el pedido no
-era posible de tomar, se muestra mensaje de error al cliente indicando que productos no estan disponibles}
-\op{7. Si el cliente desea pagar con tarjeta se extiende con el caso de uso Pagando pedido via web}{}
-\op{8. Si se paga con tarjeta y el pago fue posible, el pedido queda registrado}{}
-\op{9. Se brinda al cliente un id de pedido para poder luego consultar el estado del pedido}{}
-%TODO: averiguar si la notacion de extender es la que se usa aca
-\op{10. Fin CU}{}
+% Realizando pedido web
+\op{1. INCLUYE autentificando usuario}{}
+\op{2. Cliente selecciona de una lista los productos qu'e desea y su cantidad}{}
+\op{3. El sistema brinda al cliente una estimaci'on de la demora del pedido y el costo total}{}
+\op{4. El sistema pregunta al cliente si desea pagar con tarjeta de cr'edito o pagar en efectivo al delivery}{}
+\op{5. El cliente elige forma de pago}{}
+\op{6. Si el cliente eligi'o pagar en efectivo, ir al paso 14}{}
+\op{7. Si el cliente eligi'o pagar con tarjeta y la tarjeta no se encuentra registrada, el sistema le pide al cliente que ingrese su n'umero de tarjeta, sino ir al paso 12}{}
+\op{8. El cliente ingresa la tarjeta al sistema}{}
+\op{9. El sistema pide al sistema bancario verificar si la tarjeta existe}{}
+\op{10. Si la tarjeta existe, el sistema pide al sistema bancario verificar el monto}{Sino el sistema muestra un mensaje de error al cliente. Ir al paso 4}
+\op{11. El sistema registra la tarjeta}{}
+\op{12. El sistema pide al sistema bancario verificar si la tarjeta tiene fondos}{}
+\op{13. Si el pago con tarjeta es posible, el sistema espera que el cliente confirme el pedido}{Sino Ir al paso 2}
+%TODO: Agregar actor sistema bancario en el diagrama de CU
+\op{14. El cliente presiona el boton de enviar pedido}{}
+\op{15. El sistema verifica si el pedido es viable}{}
+\op{16. Si el pedido es posible, ir al siguiente paso}{10. Si el pedido no es posible, se muestra mensaje de error al cliente indicando qu'e productos no estan disponibles. Ir al paso 2}
+\op{17. Si el cliente eligi'o pagar con tarjeta, el sistema indica al sistema bancario que haga el pago}{}
+\op{18 El sistema registra el pedido como ingresado}{}
+\op{19. El sistema brinda al cliente un id de pedido para que luego consulte el estado del pedido si lo necesita}{}
+\op{20. Fin CU}{}
 
-\cu{Realizando pedido via web}{Usuario}{1}{Usuario logueado}{Pedido registrado}{Ingreso de un pedido al sistema desde la pagina web}
+%TODO: Cliente autentificado va como PRE e INCLUYE o solo INCLUYE?
+\cu{Realizando pedido web}{Cliente}{1}{}{Pedido registrado}{El cliente ingresa un pedido al sistema desde la pagina web}
 
-%Cancelando pedido
-\op{1. El cliente informa al encargado de pedido su nombre o nombre de cliente y el id de pedido, o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
-\op{2. El encargado ingresa el nombre proporcionado por el cliente y el id de pedido o revisa los pedidos de la mesa}{}
-\op{3. Una vez seleccionado el pedido por el encargado, presiona el boton de cancelar pedido y el pedido queda cancelado}{3.1. Si los datos no corresponden con ningun pedido, el sistema muestra un cartel de error, y el encargado debe informar de la situación al cliete para que verifique los datos}
-\op{}{3.2.}%TODO: el pedido puede no poder cancelarse porq el tema de la factura
+% Cancelando pedido
+\op{1. El cliente informa al encargado de pedido su nombre o nombre de usuario y el id de pedido (ya sea via sms o tel'efono), o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
+\op{2. El encargado ingresa al sistema el nombre proporcionado por el cliente y el id de pedido}{}
+\op{3. El sistema verifica que el pedido exista y que el cliente haya hecho el pedido}{}
+\op{4. Si el pedido existe y est'a en estado preparando, se deben reingresar los insumos reutilizables. EXTIENDE caso de uso Agregando insumos reutilizables}{}
+\op{4. Si el pedido existe y es de ese cliente, el pedido pasa a estado cancelado}{4. Si los datos no corresponden con ning'un pedido del cliente, el sistema muestra un cartel de error. Ir al paso 1}
 \op{4. Fin CU}{}
 
-\cu{Cancelando pedido}{Encargado de pedido}{$\infty$}{TRUE}{Pedido cancelado}{Cancelación de un pedido} 
-%FIXME: deberia haber precondicion?
+\cu{Cancelando pedido}{Encargado de pedido}{$\infty$}{Pedido no entregado y cliente solicit'o una cancelacion de pedido}{Pedido cancelado}{Un cliente solicita cancelar un pedido, por tel'efono o personalmente, y el encargado de pedidos se encarga de esta cancelaci'on. Si el pedido se estaba preparando en el momento de la cancelaci'on, el maestro debe reingresar los insumos reutilizables} 
 
 %Realizando pedido via SMS
-\op{1. El cliente escribe codigos que identifican a productos (por ejemplo: Muzza podria ser un codigo para pedir una pizza de muzzarela) asi como la cantidad (por ejemplo: Muzza 2 Napo 1, podria ser dos muzzarelas y una napolitana)}{}
-\op{2. El cliente envia el mensaje a la pizzería}{}
-\op{3. El sistema revisa si el número desde donde proviene el mensaje esta registrado con algún cliente, si no es asi el pedido no se ingresa, fin CU}{3. Si el número esta registrado pero el mensaje no corresponde con ningún código se notifica al cliente que el código no es válido}
-\op{4. El sistema revisa si es posible tomar el pedido, si es posible se ingresa el pedido, se envia al usuario un mensaje 
-notificandole que su pedido esta ingresado, el importe total, el tiempo de demora aproximado y el codigo de pedido para realizar consultas sobre el mismo}{3. Si no era posible se envia un mensaje indicandole que producto no estaba disponible}
+\op{1. El cliente consulta el cat'alogo de c'odigos de producto y combos, publicados en la web del sistema junto con el formato que debe tener el mensaje}{}
+\op{2. El cliente env'ia un mensaje al sistema con el pedido a solicitar}{}
+\op{3. El sistema verifica si el número desde donde proviene el mensaje est'a registrado con algún cliente}{}
+\op{4. Si el n'umero no se encuentra registrado, el sistema responde al cliente sugiri'endole registrarse por tel'efono o personalmente y el pedido es descartado. Ir a Fin CU}{3. Si el número est'a registrado pero el mensaje no corresponde con ningún código se notifica al cliente que el código no es válido}
+\op{4. El sistema verifica si es posible satisfacer el pedido}{}
+\op{5. Si es posible se ingresa el pedido al sistema y se envia al usuario un mensaje, notific'andole que su pedido est'a ingresado, el importe total, el tiempo de demora aproximado y el c'odigo de pedido para realizar consultas sobre el mismo}{5. Sino el sistema le env'ia un mensaje al cliente avis'andole que el pedido no podr'a ser satisfecho, informando adem'as qu'e producto/s no est'an disponibles}
 \op{5. Fin CU}{}
-\cu{Realizando pedido via sms}{Cliente}{$\infty$}{TRUE}{Pedido ingresado}{Ingreso de un pedido a traves de mensaje de texto}
+\cu{Realizando pedido via sms}{Cliente}{$\infty$}{TRUE}{Pedido ingresado al sistema}{El cliente hace un pedido via sms}
 
+%TODO: FALTA EXPLICAR EN OPERATORIA SOBRE QUE PASA CON FEEDBACK, POR LO TANTO FALTA REVISAR ESTE CU
 %Ingresando feedback
 \op{1. El cliente ingresa a la página web de feedback}{}
 \op{2. Se incluye CU logueando usuario}{}
@@ -355,17 +368,14 @@ notificandole que su pedido esta ingresado, el importe total, el tiempo de demor
 \op{7. Fin CU}{}
 \cu{Ingresando feedback}{Cliente}{28}{TRUE}{Comentario ingresado}{Permite que el usuario envie al sistema su opinión sobre un pedido recibido por delivery}
 
-%Consultando estado de pedido
-\op{1. Si el agente que desea consultar estado es el encargado de pedidos ir a 6}{}
-\op{2. El cliente selecciona consultar estado de pedido}{}
-\op{3. El cliente ingresa el número del pedido cuyo estado quiere conocer}{}
-\op{4. El sistema verifica que el número de pedido corresponda a un pedido del usuario}{}
-\op{5. Si es asi se muestra el estado del pedido, ir a fin CU}{5. Si no es asi se muestra un mensaje de error, pedir que ingrese de nuevo el número de pedido}
-\op{6.El encargado de pedidos ingresa el numero de pedido a consultar}{}
-\op{7. Se verifica que el número de pedido sea correcto, si es asi se muestra el estado y demas información del pedido}{7. Si no es asi se notifica con un mensaje de error}
-\op{5. Fin CU}{}
-\cu{Consultando estado de pedido}{Cliente, encargado de pedidos}{$\infty$}{Si el agente es un cliente entonces tiene que estar logueado}{Se muestra el estado del pedido}{Permite ver en que estado se encuentra un pedido en un momento dado}
+%Consultando estado de su pedido
+\op{1. INCLUYE autentificando usuario}{}
+\op{2. El cliente selecciona consultar estado de pedidos}{}
+\op{3. El sistema muestra al cliente la lista de los pedidos del usuario pendientes de entrega cada uno con su estado correspondiente}{}
+\op{4. Fin CU}{}
+\cu{Consultando estado de pedido}{Cliente}{$\infty$}{}{Se muestra el estado del pedido}{Permite al cliente ver en que estado se encuentran sus pedidos en un momento dado}
 
+%TODO: FALTA EXPLICAR EN OPERATORIA SOBRE QUE PASA CON PEDIDOS DIFERIDOS, POR LO TANTO FALTA REVISAR ESTE CU
 %ingresando pedidos diferidos
 \op{1. El encargado de pedidos selecciona ingresar pedido diferido}{}
 \op{2. El sistema muestra la pantalla para el ingreso del pedido}{}
@@ -377,56 +387,63 @@ notificandole que su pedido esta ingresado, el importe total, el tiempo de demor
 
 \cu{Ingresando pedido diferido}{Encargado de pedidos}{15}{}{El pedido diferido queda registrado}{Permite ingresar un pedido que no pudo ser ingresado al sistema cuando se originó, por ejemplo porque el sistema estaba caido}
 
-%estableciendo politica de cola
-\op{1. El encargado de pedidos selecciona establecer politica de cola}{}
-\op{2. Luego escoge uno de los hornos}{}
-\op{3. El sistema lista las politicas disponibles}{}
-\op{4. El encargado selecciona la que desea aplicar}{}
-\op{5. Luego ingresa aceptar}{}
-\op{6. La politica de coloa queda establecida}{}
-\op{7. Fin CU}{} %FIXME: en que momento se aplica la modificación? el cambio de politica puede dejar chingadas algunas cosas
+%TODO: Este caso de uso deberia volar? Si no vuela, verificar si hay que  agregar o no para que el encargado setee lo que es un pedido chico
+% Modificando politica del horno
+\op{1. El encargado de pedidos selecciona modificar pol'itica de horno}{}
+\op{2. El sistema muestra las pol'iticas posibles y espera que el encargado elija una}{}
+\op{3. El encargado elige una pol'itica}
+\op{4. Si el encargado eligi'o la pol'itica de cola normal, el sistema registra que la pol'itica de horno a usar ser'a cola. Ir a Fin CU}{}
+\op{5. Si el encargado eligi'o la pol'itica de colas con sector 'agil, el sistema le pide que ingrese cuales son los m'odulos 'agiles}{}
+\op{6. El encargado ingresa los m'odulos 'agiles}{}
+\op{7. El sistema registra que la pol'itica de horno a usar ser'a cola con sector 'agil}{}
+\op{8. Fin CU}{}
 
-\cu{Estableciendo politica de cola}{Encargado de pedidos}{10,11}{}{Politica de cola establecida}{Permite modificar la politica de cola de pedidos de los hornos}
+\cu{Modificando pol'itica del horno}{Encargado de pedidos}{10,11}{No hay pedidos hechos}{Pol'itica de cola modificada}{El encargado de pedidos modifica la pol'itica de cola del horno. Este caso de uso se lleva a cabo cuando inicia el sistema}
 
 
-%registrando pedido telefonico
-\op{1. El encargado le pide al cliente sus datos de identificaci'on}{}
-\op{2. Ingresa el n'umero del cliente que realiza la llamada}{}
-\op{3. El sistema verifica si el cliente est'a registrado}{}
-\op{4. Si el cliente estaba registrado, el encargado selecciona ingresar pedido}{4. Sino, el sistema genera un mensaje de error y luego el encargado sugiere al cliente que se registre. EXTIENDE Registrando cliente. Ir a Fin CU}
-\op{5. El encargado le pide al cliente que le dicte el pedido}{}
-\op{6. Selecciona los productos con las cantidades que el cliente solicita}{}
-\op{7. Presiona aceptar}{}
-\op{8. El sistema verifica, con el stock, si el posible satisfacer el pedido}{}
-\op{9. Si el pedido se puede satisfacer, el sistema lo registra como ingresado. Si el pedido no se puede satisfacer, el sistema mostara un mensaje de error informando que productos no est'an disponibles. El encargado notifica al cliente de la situaci'on y se vuelve a paso 6}{}
-\op{10. El sistema genera el identificador de pedido, estima la demora del mismo, calcula costo total y finalmente notifica al encargado de pedidos sobre estos datos}{}
-\op{11. El encargado da esa informaci'on al cliente}{}
-\op{12. Fin CU}{}
-%TODO: Si el pedido es mixto se brinda la posibilidad de que el encargado de pedidos asigne un horno o de que esta asignaci'on sea autom'atica.
+% Registrando pedido telefonico
+\op{1. El cliente llama al n'umero telef'onico de la pizzer'ia y lo atiende el encargado de pedidos}{}
+\op{2. El encargado le pide al cliente sus datos de identificaci'on}{}
+\op{3. El cliente informa al encargado de pedidos sus datos}{}
+\op{4. El encargado indica al sistema que desea ingresar un pedido y luego ingresa los datos del cliente al sistema}{}
+\op{5. El sistema verifica si el cliente est'a registrado}{}
+\op{6. Si el cliente est'a registrado, el sistema muestra al encargado el perfil del cliente}{6. Sino el encargado de pedidos le sugiere al cliente la posibilidad de registrarse. Si el cliente no lo desea entonces Ir a fin CU, sino se procede a registrarlo (EXTIENDE Registrando cliente)} %FIXME: este extiende parece ser razonable, pero no esta, revisar por favor
+\op{7. El encargado de pedidos verifica el tel'efono del cliente registrado con el tel'efono desde el cual cliente est'a llamando}{}
+\op{8. Si el tel'efono registrado no coincide con el tel'efono desde el cual est'a llamando pero el cliente tiene usuario y clave, el encargado le pide al cliente que este indique usuario y clave y verifica}{7. Si el tel'efono registrado no coincide con el tel'efono desde el cual el cliente est'a llamando y el cliente no tiene usuario y clave ir a Fin CU}
+\op{9. El encargado de pedidos indica al cliente que le dicte el pedido}{}
+\op{10. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema}{}
+\op{11. El sistema verifica si es posible satisfacer el pedido}{}
+\op{12. Si el pedido es posible el sistema estima el tiempo del mismo, calcula el costo total y el encargado se lo comunica al cliente, sino el sistema indica mediante un mensaje de error que producto/s no estaba/n disponible/s, para que el encargado se lo comunique al cliente. Ir a paso 9}
+\op{13. Si el cliente desea cambiar el pedido, ir al paso 9, sino el encargado confirma el pedido al sistema para que proceda a registrarlo}{}
+\op{14. Si el pedido es mixto, el sistema pide al encargado de pedidos que asigne un horno}{}
+\op{15. El sistema genera el identificador de pedido y notifica al encargado de pedidos sobre estos datos, para que el encargado se lo notifique al cliente}{}
+\op{16. Fin CU}{}
 
-\cu{Registrando pedido telef'onico}{Encargado de pedidos}{23}{Hay llamada telef'onica}{Pedido ingresado al sistema}{Permite que el encargado de pedidos ingrese los pedidos realizados por clientes v'ia telefono}
+\cu{Registrando pedido telef'onico}{Encargado de pedidos}{23}{}{Pedido ingresado al sistema}{El cliente quiere hacer un pedido por v'ia telef'onica, el encargado de pedidos lo atiende y luego de verificar los datos ingresa el pedido al sistema}
 
-%ingresando pedido de mesa
+% Realizando pedidos mesa
 \op{1. El cliente informa al mozo lo que quiere pedir}{}
-\op{2. El mozo marca en su PDA los productos que el cliente pide con sus cantidades}{}
-\op{3. Cuando el cliente informó todo el pedido, el mozo selecciona ingresar pedido}{}
-\op{4. Si el pedido se puede tomar, al mozo se le informa el número de pedido y le informa la demora aproximada.}{4. Si no se puede tomar el pedido, se informa al mozo que partes del pedido no estan disponibles, el mozo informa al cliente y se vuelve a 1}
+\op{2. El mozo marca en su PDA los productos que el cliente pide con sus respectivas cantidades}{}
+\op{3. Cuando el cliente informó todo el pedido, el mozo ingresa el pedido}{}
+\op{4. El sistema verifica si el pedido es posible}{}
+\op{5. Si el pedido se puede tomar, el sistema genera el id del pedido, estima el tiempo del mismo, calcula el costo total y muestra estos datos al mozo}{5. Sino el sistema indica mediante un mensaje de error que producto/s no estaba/n disponible/s, y el mozo le comunica al cliente sobre la situaci'ion. Ir a paso 1}
 \op{5. Fin CU}{}
 
-\cu{Registrando pedido de mesa}{Mozo}{23}{}{El pedido de la mesa queda registrado}{Permite que los mozos puedan ingresar los pedidos de las mesas}
+\cu{Realizando pedidos mesa}{Mozo}{23}{}{El pedido de la mesa queda registrado}{El cliente del local hace un pedido a un mozo, quien ingresa el pedido}
 
 %notificando pedido entregado
-%\op{1. El delivery entrega el pedido al cliente}{1. Si es imposible entregar el pedido, el delivery env'ia un mensaje para que quede cancelado}
-%TODO: que pasa si el pedido no puede ser entregado?
-\op{1. El delivery envia un mensaje con el codigo del pedido}{}
-\op{2. El sistema recibe el mensaje y el estado del pedido cambia a entregado}{}
-\op{3. Fin CU}{}
+\op{1. El delivery entrega el pedido al cliente}{1. Si es imposible entregar el pedido, el delivery env'ia un mensaje para que quede cancelado}
+\op{2. El delivery envia un mensaje con el codigo del pedido}{}
+\op{3. El sistema recibe el mensaje y el estado del pedido cambia a entregado}{}
+\op{4. Fin CU}{}
 
-\cu{Notificando pedido entregado}{Delivery}{$\infty$}{True}{El pedido se registra como entregado}{Permite que el delivery mediante SMS informe inmediatamente la entrega de un pedido}
+\cu{Notificando pedido entregado}{Delivery}{$\infty$}{True}{El pedido se registra como entregado}{Permite que el delivery mediante SMS informe inmediatamente la entrega o no entrega de un pedido}
 
-% Requiriendo facturar
-\op{1. El cajero solicita una factura al sistema ingresando que pedido pretende facturar}{}
-\op{2. El sistema genera el archivo con los datos necesarios para el sistema de facturación
+%TODO: alto bache: tipo de despacho MOSTRADOR?????
+% Generando archivo para factura
+\op{1. Si la factura es para un cliente en el local, el mozo le pregunta al cliente sobre la forma de pago y procede a ingresarlo al sistema para su posterior facturaci'on}{}
+\op{2. Si la factura es para pedido SMS o telef'onico, la forma de pago ser;a
+\op{1. El sistema genera en el cajero el archivo con los datos necesarios para el sistema de facturación
 \begin{itemize}
 \item Código del cliente
 \item Apellido del Cliente
@@ -436,13 +453,12 @@ notificandole que su pedido esta ingresado, el importe total, el tiempo de demor
 \item Monto pagado (si lo hubiera)
 \item Nº Cupón de tarjeta de crédito del pago (si lo hubiera)
 \item Lista de Productos incluidos, conteniendo cantidad y código del producto
-\end{itemize}
-y notifica al sistema de facturación}{2. Si el pedido ya fue facturado se muestra un mensaje de error}
-\op{3. El sistema de facturacion levanta el archvio y factura}{}
-\op{4. El sistema de facturacion avisa al cajero que la factura esta preparada}{}
-\op{5. Fin CU}{}
+\end{itemize}}{}
+\op{2. El cajero ordena imprimir la factura}{}
+\op{3. El sistema de facturacion avisa al cajero que la factura esta preparada}{}
+\op{4. Fin CU}{}
 
-\cu{Requiriendo facturar}{Cajero, Sistema de Facturacion}{14, 6, 29}{Pedido a facturar registrado}{Factura impresa}{La factura se imprimira y quedara a disposicion del cajero}
+\cu{Generando archivo para factura}{Cajero}{14, 6, 29}{Pedido en estado listo}{Factura impresa}{La factura se imprimira y quedara a disposicion del cajero}
 
 % Registrando cobro
 \op{1. El cajero indica el n'umero de pedido a registrar como cobrado}{}
