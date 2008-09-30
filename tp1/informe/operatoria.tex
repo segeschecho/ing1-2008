@@ -18,7 +18,6 @@ Si el usuario no estaba registrado, el encargado debe sugerirle la posibilidad d
 Una vez autentificado el usuario, el mismo procede a dictar su pedido al encargado de pedidos. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema, el cual se encarga de verificar si es posible satisfacer dicho pedido. En caso de no ser posible el sistema indicara mediante un mensaje de error que el pedido no fue posible de realizar e indicara que producto/s no estaba/n disponible/s. El cliente puede entonces dar un pedido diferente.
 
 Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido como ingresado. Se genera un identificador de pedido, se estima el tiempo del mismo y se calcula el costo total. Ademas si el pedido es mixto se brinda la posibilidad de que el encargado de pedidos asigne un horno. %TODO: caso de uso loco
-% TODO: verificar esto del horno es dudoso
 %TODO: poner diagrama de actividad
 %NOTA: estos casos de uso q aparecen son medio especificos del caso, tonces se podria hacer un diagrama aparte
 
@@ -27,21 +26,26 @@ Para que los clientes puedan realizar pedidos via web, la pizzería contara con u
 
 Una vez autentificado, tendra la posibilidad de elegir ingresar pedido. Entonces podra elegir que productos desea y con que cantidad a partir de una lista en línea. Dicha lista solo contiene productos que están disponibles (los que ya están fuera de stock no se incluyen). Cuando marco lo que deseaba puede ingresar el pedido. Entonces el sistema verifica la viabilidad del pedido, y en caso de no ser posible de realizar lo informa mediante un mensaje indicando que producto no se encuentra disponible. El cliente puede volver a ingresar un pedido diferente si lo desea.
 
-En caso de que sea posible registrar el pedido, se estima el tiempo del mismo y se calcula el costo total. Esta información se muestra al usuario por pantalla. A continuación se le permite al usuario elegir si prefiere pagar contra entrega al delivery o con tarjeta de crédito (que deberá haber sido registrada previamente). Hecho esto, se confirma todo el pedido y se le envía por correo electrónico un identificador del mismo (incluyendo además un link con código especial que le permite a) ver el estado del pedido y b) después de que fue entregado, completar el feedback). Si entre la elección de los productos y la confirmación del pedido se acaba el stock de materias primas, se muestra un error y se vuelve a la pantalla de selección de productos (esto debería ser muy raro). 
+En caso de que sea posible registrar el pedido, se estima el tiempo del mismo y se calcula el costo total. Esta información se muestra al usuario por pantalla. A continuación se le permite al usuario elegir si prefiere pagar contra entrega al delivery o con tarjeta de crédito. Si la operación con tarjeta falla, se muestra un mensaje de error y se permite al usuario reingresar los datos de la misma o cambiar de forma de pago. Hecho esto, se confirma todo el pedido.
 
-El pedido será encolado automáticamente de la forma que el sistema juzgue eficiente, pudiendo el encargado modificar dicho orden posteriormente. %TODO: como lo encolamos?
+Si entre la elección de los productos y la confirmación del pedido se acaba el stock de materias primas, se muestra un error y se vuelve a la pantalla de selección de productos (esto debería ser muy raro). 
+
+El pedido será encolado automáticamente tratando de balancear la carga de los hornos. 
 
 \subsubsection{Pedidos SMS}
 El cliente que desee realizar un pedido via sms debe enviar un mensaje al servidor sms de la pizzeria, junto con el pedido que quiere hacer. Si el celular no estaba registrado, el sistema descarta el pedido y le envia un mensaje sms al mismo sugiriendole registrarse por telefono o personalmente.
 
 Para identificar los productos que desea pedir, el cliente cuenta con un catálogo con códigos de producto y de ``combos'' populares ya sea en papel o consultable via Internet.
 
-El sistema verifica si es posible satisfacer el pedido. En caso de no ser posible el sistema le envia un mensaje al cliente para avisar que el pedido no podra ser satisfecho, indicando que producto no esta disponible. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido (para despues hacer reclamos o consultas), estima el tiempo del mismo (desde que se registra el pedido hasta que llega a su casa, teniendo en cuenta el tiempo de demora del delivery), calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de sms con esos datos al cliente. Cada X tiempo, el sistema envía una actualización de status del pedido (esto puede ser personalizable al momento de registrar el usuario). %TODO: esto del x tiempo lo sacaria
+El sistema verifica si es posible satisfacer el pedido. En caso de no ser posible el sistema le envia un mensaje al cliente para avisar que el pedido no podra ser satisfecho, indicando que producto no esta disponible. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido, estima el tiempo del mismo, calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de sms con esos datos al cliente. 
 
 \subsection{Pedidos locales}
 Como dijimos previamente, los pedidos locales se realizan a los mozos, quienes cuentan con una PDA para realizar el registro de los pedidos. Un cliente dicta su pedido a algún mozo, el cual marca los productos y sus cantidades en su PDA. una vez que el cliente dictó su pedido el mozo ingresa el pedido. El sistema verifica la factibilidad del mismo, si no es posible tomarlo, notifica al mozo para que informe de la situación al cliente.
 
 Si es posible ingresar el pedido el sistema genera el id del pedido, se estima el tiempo del mismo y se calcula el costo total. La asignación del horno es también responsabilidad del sistema.
+
+\section{Pedidos diferidos}
+Durante una caida del sistema, la pizzería puede seguir funcionando manualmente. 
 
 \section{Registro de usuarios}
 El registro de usuarios es responsabilidad del encargado de pedidos, y se realiza por via telefonica asi como también personalmente. 
@@ -58,26 +62,28 @@ Para registrar a un usuario el encargado de pedidos debe tomar los siguientes da
 \end{itemize}
 
 \section{Facturacion}
-La facturación de los pedidos de la pizzería esta a cargo del software de facturación que posee el establecimiento. El sistema solo provee de la facilidad de generar un archivo con los datos necesarios para realizar la factura cuando el cajero lo determine adecuado. El sistema no puede saber cuando se facturó un archivo de forma automatica, dicho evento debe ser informado por el cajero. %TODO: caso de uso no?
+La facturación de los pedidos de la pizzería esta a cargo del software de facturación que posee el establecimiento. El sistema solo provee de la facilidad de generar un archivo con los datos necesarios para realizar la factura cuando el cajero lo determine adecuado. 
 Lo unico que registra el sistema por si solo es que ya se ha generado un archivo para facturar el pedido.
-%FIXME: q onda con los pedidos en el local q no tienen todos los datos
 
-A la hora de generar el archivo la forma de pago de los pedidos en el local debe ser ingresada por el mozo, tras preguntarsela al cliente. En el caso de los pedidos via SMS o telefonicos, estos se pagan en efectivo al delivery. Por otro lado, para los pedidos via web, la forma de pago la determina el usuario. En esta caso, si el pago es mediante tarjeta el sistema registra que el pedido ya esta pago antes de entregar.
+El archivo se genera cuando un pedido esta listo para salir a entrega en el caso de que el mismo sea con delivery o en el momento en el que el cliente pide la cuenta al mozo. %TODO: caso de uso
+
+A la hora de generar el archivo la forma de pago de los pedidos en el local debe ser ingresada por el mozo, tras preguntarsela al cliente. En el caso de los pedidos via SMS o telefonicos, estos se pagan en efectivo al delivery. Por otro lado, para los pedidos via web, la forma de pago la determina el usuario.
 
 \section{Cancelación}
 La cancelación de un pedido se realiza via telefonica o personalmente. Una cancelación se puede realizar siempre y cuando no se haya entregado el pedido. %TODO: cual es el nombre de este estado
 
 Los productos ya elaborados, se descartan al cancelarse el pedido. En cambio los insumos no utilizados regresan al stock.
-Dado que no se informa cada producto que se prepara, por ejemplo si hay que hacer 6 empanadas el maestro no notifica cada vez que arma una, podria ocurrir que una
+Dado que no se informa cada producto que se prepara, por ejemplo si hay que hacer 6 empanadas el maestro no notifica cada vez que arma una, podria ocurrir que el pedido se cancele mientras esta siendo preparado. En este caso el sistema muestra al maestro un mensaje informandole que el pedido se cancelo, y pidiendole que indique que parte de los insumos se puede reutilizar.
 
 Para cancelar un pedido via telefonica el usuario debe identificarse, y luego debe indicar el número del pedido que pretende cancelar. En caso de un pedido hecho en el local, el cliente debe avisar al mozo, que notifica al encargado de pedidos, quien cancela el pedido a partir del número del mismo. 
 
-% TODO: Las modificaciones de pedidos son casos particulares de cancelaciones? Que onda cuando queres cambiar una cosa? No se puede borrar todo el pedido e insertar de nuevo, es cualquiera. Tal vez sería más razonable poder cancelar por producto en vez de por pedido. Verificarlo. 
+También se considera cancelado un pedido que no se pudo entregar por delivery.
+
 
 \section{Cola de pedidos}
 Por cola de pedidos se entiende la cola que determina el orden en el cual se prepararan los pedidos ingresados al sistema. La cola es la que determina que pedido ingresado debe comenzar a preparse a continuación. Dicha cola se gestiona de manera automatica, pero puede ser modificada por el encargado de pedidos. Ni bien un producto pasa a preparse, es decir se comienza a preparar cualquiera de sus partes el mismo deja de estar en esta cola.
 
-El primer elemento de la cola se considera lo proximo que el maestro debe preparar. El elemento que esta en esta posición no puede ser movido por el encargado de pedidos. El sistema muestra este pedido al maestro para que lo prepare, cuando este lo preparo completamente, se lo indica al sistema el cual muestra el proximo pedido en caso de que halla. Si no lo habia, en cuanto llegue uno se lo muestra al maestro.
+El primer elemento de la cola se considera lo proximo que el maestro debe preparar. El elemento que esta en esta posición no puede ser movido por el encargado de pedidos. El sistema muestra este pedido al maestro para que lo prepare. Cuando este lo preparó completamente, se lo indica al sistema el cual muestra el proximo pedido en caso de que halla. Si no lo habia, en cuanto llegue uno se lo muestra al maestro.
 
 Cuando todas las partes de un pedido fueron preparados, el pedido deja de estar en preparación para pasar a estar en estado de preparado.
 
@@ -88,17 +94,21 @@ El sistema muestra que debe de colocarse en el horno. Cuando el maestro saca alg
 
 La cola ingreso al horno admite varias politicas, una de ella es la de sectores agiles. En este caso, algunos modulos funcionan como modulos agiles y dan prioridad a los pedidos mas chicos. Es decir, que cuando se libera un modulo agil y el maestro pide que producto debe ingrear, el sistema tendra en cuenta la existencia de pedidos mas chicos que se puedan ingresar por completo al horno. 
 
-El cambio de politica es ingresado por el encargado de pedidos, quien al cambiar la politica a sectores agiles, debe ingresar cuales son los modulos agiles. El sistema necesita ademas conocer el tamaño de los modulos de los hornos. Solo se puede cambiar la politica de cola cuando no hay pedidos en las colas de los hornos.
+El cambio de politica es ingresado por el encargado de pedidos, quien al cambiar la politica a sectores agiles, debe ingresar cuales son los modulos agiles. Las políticas de horno no se modifican a lo largo del día (se elige al iniciar el sistema por la mañana). Además, es global (no es por horno).
+
+El tamaño y cantidad de los módulos del horno es configurable, sin embargo no se considera necesario un caso de uso para hacer esto. Lo mismo ocurre con la definición de pedido "chico".
 
 %FIXME: esto esta dudoso, no logro entender si puede ingresar un pedido antes de que el actual ingrese completo, es decir si solo puede haber un pedido mitad adentro, mitad afuera. Para explicar esto hay q consultar, pero la idea es mas o menos la misma en cuanto a interacciones'
 
 \section{Consulta de estado de pedidos}
-Tanto el cliente como el encargado de pedidos pueden consultar el estado de un pedido determinado. El cliente puede hacerlo via web o mediante el encargado de pedidos por una llamada telefonica. Para consultar el estado de un pedido via web, el usuario tiene que autentificarse primero. Una vez autentificado podra acceder a la opción de consultar estado de pedido median su ID. El sistema se encarga de validar el ID, y de validar que el ID sea un pedido del usuario. Entonces el sistema muestra el estado del mismo usando los estados nombrados anteriormente. 
+Tanto el cliente como el encargado de pedidos pueden consultar el estado de un pedido determinado. El cliente puede hacerlo via web o mediante el encargado de pedidos por una llamada telefonica. Para consultar el estado de un pedido via web, el usuario tiene que autentificarse primero. Una vez autentificado podra acceder a la opción de consultar estado de sus pedidos. El sistema lista entonces los pedidos del usuario pendientes de entrega con su estado. 
 
-Por otro lado, de manera similar el encargado de pedidos puede ingresar un número de pedido para revisar su estado.
+Por otro lado, de manera similar el encargado de pedidos puede ingresar un número de pedido para revisar su estado o ver los pedidos de un cliente.
 
 \section{Delivery}
 El delivery posee una unica interacción con el sistema. Cuando entrega un pedido, debe enviar un mensaje SMS al sistema notificando la entrega del mismo.
+
+Si el pedido no se pudo entregar el delivery debe notificarselo al encargado de pedidos, y el pedido pasara a ser considerado como cancelado
 %TODO: expandir idea, que pasa si no se puede entregar, etc
 
 \section{Alternativa de contingencia}
