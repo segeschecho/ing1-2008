@@ -1,0 +1,114 @@
+Diagrama de casos de uso
+
+Si se hace el caso de contingencia con herencia a los demás agentes, aclarar
+que se hace por esta razón y prestar atención a que realmente se lleven a cabo
+todas las tareas de los agentes (si hay algun caso de uso que en caso de contingencia
+no ocurra entonces no se puede usar herencia!). Por ejemplo, los mozos y sus PDA no
+van a funcionar en caso de contingencia luego no se puede heredar de mozo.
+
+La otra opción es hacer diagramas separados para cada escenario.
+
+------------------------------------------------
+
+Politica de horno
+
+No es necesario trackear si cada elemento del pedido fue preparada, alcanza
+con que cada uno de los maestros indique si ya preparó su parte. Ambos deben
+indicarlo antes de que el pedido sea elegible para pasar al horno.
+
+El tamaño y cantidad de los módulos del horno se puede considerar constante
+o configurable (no hace falta un caso de uso). Si se quiere soportar tamaños
+variables de módulos corresponde al siguiente TP. Para este caso se puede
+asumir constante, y en cualquier caso el tamaño de los módulos de ambos hornos
+es idéntico entre ellos. Lo mismo ocurre con la definición de pedido "chico".
+
+El software debería asignar a un cierto horno (con algún criterio) si el
+pedido es mixto, no hace falta que lo haga manualmente el encargado. En cualquier
+caso el encargado debe poder modificar esta decisión posteriormente (pero
+antes de que se comience a procesar el pedido).
+
+Es razonable que el encargado de pedidos ordene solo de a pedidos enteros,
+y que la bifurcación entre lo que va a un maestro y a otro se produzca al
+ingresar en la cocina. No hace falta que se pueda reordenar por un lado
+las pizzas y por otro las empanadas. NOTA: el grado de ocupación de cada
+horno puede ser tenido en cuenta para ordenar los pedidos antes de entrar
+a la cocina (si está bloqueando el horno de pizzas  se pueden acelerar los
+pedidos de solo empanadas y así).
+
+El reordenamiento de pedidos se hace segun el siguiente criterio:
+- Una vez que un pedido se empezo a cocinar ya no se puede bajar su prioridad
+- Antes de que se empiece a preparar un pedido, se tiene que poder reordenar
+- Si el pedido esta parcialmente preparado pero no se empezo a cocinar, es a
+  criterio nuestro lo que se va a hacer.
+
+Las políticas de horno no se modifican a lo largo del día (se elige al iniciar
+el sistema por la mañana). Además, es global (no es por horno).
+
+------------------------------------------------
+
+Estadísticas
+
+Se puede asumir que el maestro comienza a preparar los pedidos apenas los
+ve llegar (aunque no puede decirse que no ocurra otro evento entre medio).
+
+------------------------------------------------
+
+Facturación
+
+El delivery sale del negocio con la factura (así que las cancelaciones
+posteriores no se pueden procesar en el sistema de facturación). Sin
+embargo, hay que hacer algo al respecto de esto, habría que comentarlo
+en el informe.
+
+Cuando se hace la facturación está a nuestro criterio pero hay que
+proponer una operatoria completa (como se hace, cuando se hace y porqué).
+El tipo sugirió que sea automático.
+
+En delivery facturamos cuando se envía el pedido, mientras que los mozos
+deberán requerir la facturación para los clientes que están en el local.
+La idea es hacerlo a último momento para evitar cancelaciones previas.
+
+------------------------------------------------
+
+Cancelaciones
+
+Se puede cancelar el pedido en todo momento (incluso después de haberlo
+facturado!). El único estado que no sirve es Finalizado (=== Entregado).
+
+Los insumos que no fueron utilizados deben devolverse al stock (tirarlo
+no es viable).
+
+Se cancela el pedido entero cada vez (no hay cancelaciones parciales).
+La cancelación se debería registrar en el sistema para hacer
+estadísticas.
+
+Puede estar bueno guardar el motivo de cancelación para motivos estadísticos
+(llegó muy tarde, se perdió, no lo quiso más, etc). 
+
+
+
+------------------------------------------------
+
+Otros
+
+
+
+Notificaciones especiales:
+- Cuando un pedido que fue cocinado por partes se termina de preparar se
+  debe avisar al cocinero para que se lo pase al encargado para que lo
+  complete y lo entregue.
+- Cuando se produce un evento y el cocinero no está frente a la pantalla
+  pero debe reaccionar hace falta una notificación especial (por ejemplo
+  si el otro cocinero estaba preparando una parte del pedido, o si el cocinero
+  estaba idle y llega un nuevo pedido). Se puede usar algun sonido o luz
+  especial.
+- Cuando se cancela un pedido
+
+
+El encargado de pedidos se ocupa del despacho de los pedidos, así que debe
+tener una lista apropiada para este fin.
+
+
+Tarjetas de crédito se puede asumir que todo es sincrónico y con autorización
+de transacciones en el momento (solo para los pedidos web, los pedidos locales
+son problema del sistema de facturación).
