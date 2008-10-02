@@ -1,69 +1,6 @@
-\chapter{Requerimientos específicos}
+\chapter{Consideraciones globales de la solución}
 En esta sección se procede a la realización de una especificación completa de la solución. Para ello presentaremos una visión general de la solución, para posteriormente presentar un analisis mas detallado de los distintos aspectos de la misma. Consideramos que de esta manera es posible trabajar con un nivel de detalle mayor en cuestiones particulares, sin generar que la visión de la solución como un todo sea engorrosa.
 
-%{\color{Blue} Esta sección debería contener todos los requerimientos en un nivel de detalle suficiente para permitir:
-%
-%*	a los diseñadores de software: realizar un diseño que satisfaga los requerimientos
-%
-%*	a los analistas de pruebas: verificar que el software satisface los requerimientos
-%
-%A través de esta sección, cada requerimiento declarado debería ser perceptible por usuarios, operadores y otros sistemas externos. Estos requerimientos deberían incluir, al menos,  una descripción de cada entrada (estímulo) del software , de cada salida (respuesta) del software, y de todas las funciones que debe realizar el software en respuesta de una entrada o como soporte a una salida.
-%Esta sección es la más importante del presente documento.}
-%
-%{\color{ForestGreen}CdC: En esta sección se espera que se describan los requerimientos específicos utilizando las distintas técnicas vistas en la materia. Se espera encontrar:
-%
-%$\wp$	Diagrama de contexto
-%
-%$\wp$	Se espera al menos que estén modelados los fenómenos esenciales identificados.
-%
-%$\wp$	Modelo de Objetivos
-%
-%$\hbar$	Se espera al menos que estén bien refinados los objetivos principales  y los requerimientos esenciales (ver sección Matriz de requerimientos) para la máquina a construir, y obviamente todo el grafo para cubrir el camino entre ellos. La parte explicitada del diagrama debe ser completa y correcta. 
-%
-%\hspace{3cm} * Todos los objetivos en el camino hacia los requerimientos esenciales deben ser refinados (al menos para explicitar ese camino).
-%
-%\hspace{3cm} * Puede ser que algún objetivo no se refine porque no sea relevante en el camino a requerimientos esenciales; pero todo objetivo refinado debe incluir a todos los subobjetivos inmediatos.
-%
-%$\hbar$	Enumeración de todos los requerimientos detectados, con una breve descripción de cada uno, e identificación de si se trata de un requerimiento funcional o no funcional. Además, cada requerimiento deberá clasificarse como esencial, importante o deseable (debe tener coherencia con el Modelo de Objetivos). En esta clasificación se entiende por:
-%
-%$\diamond$	requerimientos esenciales: aquellos requerimientos que caracterizan la esencia del software a  construir. Sin estos requerimientos, el software ya dejaría de ser lo que se espera.
-%
-%$\diamond$	requerimientos importantes: aquellos requerimientos que son necesarios para que el software funcione de acuerdo a lo esperado, pero no son esenciales. Su incumplimiento provocaría la no aceptación del software.
-%
-%$\diamond$	requerimientos deseables: aquellos que representan alguna funcionalidad opcional, su cumplimiento es deseado por el cliente, pero su incumplimiento no provocaría el rechazo del software.
-%
-%$\wp$	Casos de Uso
-%
-%$\hbar$	Actores
-%
-%$\hbar$	Diagramas.
-%
-%$\hbar$	Descripción de cada caso de uso
-%
-%$\wp$	Operaciones relevantes
-%
-%$\hbar$	Describir operaciones relevantes ( si lo necesitan) usando una combinación de técnicas de documentación de casos de uso y/o OCL  y/o lenguaje natural.
-%
-%$\wp$	Diagramas de Actividad
-%
-%$\hbar$	Diagramas de actividad que consideren necesarios. En cada caso se debe indicar a que requerimientos y/o casos de uso u otro artefacto hace referencia. 
-%
-%$\wp$	Máquinas de estado finito
-%
-%$\hbar$	Máquinas de estado finito que consideren necesarias. En cada caso se debe indicar a que requerimientos y/o casos de uso se hace referencia.
-% 
-%$\wp$	Modelo Conceptual
-%$\hbar$	Diagrama
-%$\hbar$	Diccionario de datos
-%$\hbar$	Restricciones al MC (utilizando OCL)
-%
-%$\wp$	Prototipos de Pantalla
-%$\hbar$	Prototipos de las pantallas que se consideren importantes para validar. 
-%$\hbar$	Se espera que permitan dar una idea de la información input y ouptut que debería mostrarse. No es necesario poner énfasis en el aspecto estético definitivo de la interfaz usuario, sólo que permita comunicar la pantalla desde un punto de vista de la funcionalidad y la interacción posible del usuario.
-% 
-% 	CdC: La organización de los Requerimientos Específicos es una parte importante de la evaluación. Deben presentarlo de la manera que consideren más apropiada de manera de poder comunicar las ideas.
-% 	 
-% 	CdC: No es obligatorio utilizar todas las técnicas mencionadas, queda a criterio de cada grupo (y es parte de la evaluación) la elección de la técnica más apropiada para cada aspecto que quieran modelar, así como la decisión de los aspectos modelados.}
 \begin{landscape}
 \section{Diagrama de contexto}
 \begin{figure}[H]
@@ -79,154 +16,23 @@ Dado el tamaño del diagrama y para facilitar su lectura decidimos fragmentar el 
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=14.5cm]{DiagramaObjetivos4.png}
+\includegraphics[height=15cm]{DiagramaObjetivos4.png}
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[height=14.5cm]{DiagramaObjetivos3.png}
+\includegraphics[height=15cm]{DiagramaObjetivos3.png}
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[height=14cm]{DiagramaObjetivos2.png}
+\includegraphics[height=15cm]{DiagramaObjetivos2.png}
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[height=14.5cm]{DiagramaObjetivos1.png}
+\includegraphics[height=15cm]{DiagramaObjetivos1.png}
 \end{figure}
 \end{landscape}
 
 \subsection{Descripción de los requerimientos}
-
-\desreq{El sistema registra los pedidos hechos con PDA.}
-{Funcional}
-{Importante}
-{Cuando un mozo toma un pedido desde una mesa, este puede ingresarlo al sistema utilizando una computadora de mano. Estos pedidos quedan registrados en el sistema.}
-{contribuye a lograr una atención eficiente de los clientes locales.}
-
-\desreq{Generar un archivo con los datos de la venta.}
-{Funcional}
-{Importante}
-{Cuando se completa un pedido, es decir cuando ya se encuentra cocinado y con las bebidas, el sistema genera un archivo con los datos del mismo, la cantidad de cada producto, su precio, y el precio total para ser facturado por el cajero.}
-{Contribuye a brindar la funcionalidad de pagos con efectivo o con tarjeta de credito de clientes.}
-
-\desreq{Es posible indicár que se terminó de preparar un pedido o una parte}
-{Funcional}
-{Importante}
-{Cuando se prepara un pedido, o una parte de él, debe ser posible indicar al sistema que se ha preparado.}
-{Permite llevar el estado del pedido, ademas de contribuir a la funcionalidad de poder cambiar el estado del pedido a lo largo de su ciclo de vida.}
-
-\desreq{Es posible indicar que se esta cocinando un pedido o una parte}
-{Funcional}
-{Importante}
-{Cuando un pedido esta preparado, el maestro puede comenzar a cocinar el pedido completo o una parte de el, en cualquiera de los dos casos se debe poder indicar al sistema que ese pedido o parte de pedido se comenzo a cocinar.}
-{Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, y ademas de llevar el estado del mismo.}
-
-\desreq{Es posible indicar que se cocinó un pedido o una parte}
-{Funcional}
-{Importante}
-{Cuando el maestro termina de cocinar un pedido o una parte de el, debe poder indicarlo al sistema.}
-{Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, y ademas de llevar el estado del mismo.}
-
-\desreq{El encargado puede hacer en modo de contingencia las cosas que hace en modo normal}
-{Funcional}
-{Importante}
-{Cuando el sistema se encuentra en modo de contingencia, el encargado de pedidos va a poder continuar haciendo las funciones que tiene asignadas en modo normal.}
-{Este requerimiento aporta al funcionamiento del sistema en modo de contingencia permitiendo que el mismo sea tolerable a fallas.}
-
-\desreq{El encargado puede ingresar cambios en los estados de los pedidos y sus partes}
-{Funcional}
-{Importante}
-{}
-{}
-
-\desreq{El encargado puede actualizar precios}
-{Funcional}
-{Importante}
-{}
-{}
-
-\desreq{se pueden ingresar cancelaciones}
-{Funcional}
-{Importante}
-{}
-{}
-
-\desreq{Al recibir SMS el sistema registra entrega de pedidos}
-{Funcional}
-{Importante}
-{}
-{}
-
-\desreq{Poder hacer pedido desde pagina web}{Funcional}{Importante}{El usuario tiene que poder ingresar un pedido desde la interfaz que brinda la página web de la pizzería.}{Para ampliar las formas de venta,	el cliente debe poder hacer pedidos via web, considerados como remotos.}
-
-\desreq{Poder identificar al usuario cuando se loguea}{Funcional}{Importante}{Es necesario poder identificar al usuario que quiere utilizar algun servicio de la pizzeria via web, para ello tendrá asignado un usuario y una contraseña para ingresar a su cuenta}{Cada usuario tendra una cuenta,donde realizará pedidos y podrá revisar el estado de los mismos. Esto se requiere para poder proveer una mejor atención a los clientes.}
-
-\desreq{Mantener base de datos de clientes actualizada}
-{Funcional}
-{Importante}
-{Una base de datos actualizada es necesaria para poder tener información de los usuarios y permitirles realizar pedidos remotos.}
-{Mantener una base de datos de clientes actualizada permite identificar de forma correcta a cada uno de ellos, y de esta forma, mejorar la calidad del sistema.}
-
-\desreq{Lograr que el cliente se pueda registrar en la base de datos}
-{Funcional}
-{Importante}
-{los usuarios nuevos que no se encuentren registrados en el sistema, podrán hacerlo, y de esta forma accederán a la posibilidad de realizar pedidos remotos.}
-{Esto ayuda a mantener la base de datos de los clientes actualizada, y de esta forma poder dar un mejor servicio.}
-
-\desreq{Identificar al cliente por su número de celular}
-{Funcional}
-{Importante}
-{Asi como para el caso web, para poder hacer un
-pedido via SMS es necesario poder identificar el número del celular que 
-envía el mensaje, y que éste corresponda con algun cliente que se encuentre registrado en el sistema.}
-{Contribuye a brindar el servicio de pedidos via SMS, lo que hace que se mejore la atención a los clientes.}
-
-\desreq{Interactuar con servicio externo de cobros con tarjeta de credito}
-{Funcional}
-{Importante}
-{El sistema debe ser capaz de interactuar con algun servicio similar a paypal, para permitir que un usuario realice el pago de su pedido utilizando una tarjeta de credito.}
-{Contribuye a tener una mayor variedad formas de pago, y dejar al cliente que opte por la opción que mas le convenga.}
-
-\desreq{Poder identificar a un pedido de forma unica}
-{Funcional}
-{Importante}
-{Debe ser posible referenciar a un pedido ingresado al sistema de forma univoca}
-{Teniendo una unica forma de identificar un pedido, se puede brindar la opcion al cliente de verificar el estado de su pedido de forma remota, lo que mejora la interacción del sistema con el usuario y brinda una mejor atención.}
-
-\desreq{Estimar tiempos de preparacion de pedidos de forma dinamica}
-{No funcional} %TODO:dice como tiene q hacerse, verificar
-{Deseable}
-{En vez de ingresar a mano el tiempo de preparación de pedidos, una alternativa es ir estimando dinamicamente los tiempos
-de preparación, de este modo se puede adaptar la estimación según la cantidad de pedidos que tenga que atender la cocina}
-{Permitir tener una estimación del tiempo de preparación para los productos individuales y de esta forma contribuir a brindar una aproximación del tiempo total que llevará en realizarse el pedido.}
-
-\desreq{Calcular tiempo total de cocción de un pedido en base a estimaciones individuales}
-{Funcional} %TODO: no se si es func o no
-{Importante} %todo: no se tampoco
-{Los tiempos individuales para los productos deben usarse para poder estimar el tiempo de un pedido teniendo en cuenta la cola
-de producción, la politica de asignación, etc.}
-{Se desea estimar el tiempo de preparación de los pedidos, para contribuir a una mejor atención de los clientes.}
-
-
-\desreq{Es posible ingresar datos ocurridos fuera del sistema para su registro y facturación}
-{Funcional}
-{Deseable}
-{Luego de una caida del sistema debería ser posible lograr cargar manualmente los pedidos que ocurrieron durante el tiempo en el que el sistema estuvo caido.}
-{Lograr un software mas tolerante a fallos, de esta forma los pedidos que no se pudieron registrar directamente en el sistema se podrán ingresar una vez que éste se encuentre nuevamente operable en condiciones normales.}
-
-\desreq{Al cancelar un pedido se elimina el stock si se cancela despues de preparar o cocinar}
-{Funcional}
-{Importante}
-{Los productos ya preparados o cocinados de un pedido no se pueden reutilizar, por lo que deben ser descartados. Este requerimiento esta relacionado con que este descarte sea automatico, es decir que no se tenga que ingresar las bajas manualmente.}
-{Provee un metodo para controlar las cancelaciones de pedidos, y llevar el estado de los mismos. Como el descarte es automatico, ayuda tambien a llevar el estado del stock.}
-
-
-\desreq{Se restaura el stock si el pedido no estaba preparado, al cancelarlo}
-{Funcional}
-{Importante}
-{Si se cancela antes de preparlo, las materias primas que no se usaron deben volver al stock a fin de que puedan ser usadas para preparar un nuevo pedido, esta funcionalidad es automatica.}
-{Permite controlar las cancelaciones, mejorar la eficiencia de la cocina, y contribuye a llevar el estado del stock.}
-
 \desreq{Se alerta al responsable en caso de que el stock de un producto sea critico}
 {Funcional}
 {Esencial}
@@ -238,7 +44,6 @@ de producción, la politica de asignación, etc.}
 {Importante}
 {El sistema debe permitir que las altas, bajas y modificaciones de productos se registren en el sistema, para de esta manera controlar el stock de las materias primas y bebidas.}
 {Mantener el stock de insumos actualizados, lo que contribuye a tener un control de stock apropiado.}
-
 
 \desreq{Al ingresar pedido se actualiza el stock}
 {Funcional}
@@ -282,7 +87,137 @@ de producción, la politica de asignación, etc.}
 {Como aporte original proponemos que el usuario pueda ingresar comentarios sobre el servicio, luego de recibir un pedido. El sistema debe ser capaz de registrar esos comentarios}
 {Este requerimiento ayuda a generar información estadistica, con el objetivo de mejorar el servicio.}
 
+\desreq{Es posible indicár que se terminó de preparar un pedido o una parte}
+{Funcional}
+{Importante}
+{Cuando se prepara un pedido, o una parte de él, debe ser posible indicar al sistema que se ha preparado.}
+{Permite llevar el estado del pedido, ademas de contribuir a la funcionalidad de poder cambiar el estado del pedido a lo largo de su ciclo de vida.}
 
+\desreq{Es posible indicar que se esta cocinando un pedido o una parte}
+{Funcional}
+{Importante}
+{Cuando un pedido esta preparado, el maestro puede comenzar a cocinar el pedido completo o una parte de el, en cualquiera de los dos casos se debe poder indicar al sistema que ese pedido o parte de pedido se comenzo a cocinar.}
+{Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, y ademas de llevar el estado del mismo.}
+
+\desreq{Es posible indicar que se cocinó un pedido o una parte}
+{Funcional}
+{Importante}
+{Cuando el maestro termina de cocinar un pedido o una parte de el, debe poder indicarlo al sistema.}
+{Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, y ademas de llevar el estado del mismo.}
+
+\desreq{Es posible ingresar datos ocurridos fuera del sistema para su registro y facturación}
+{Funcional}
+{Deseable}
+{Luego de una caida del sistema debería ser posible lograr cargar manualmente los pedidos que ocurrieron durante el tiempo en el que el sistema estuvo caido.}
+{Lograr un software mas tolerante a fallos, de esta forma los pedidos que no se pudieron registrar directamente en el sistema se podrán ingresar una vez que éste se encuentre nuevamente operable en condiciones normales.}
+
+\desreq{El encargado puede hacer en modo de contingencia las cosas que hace en modo normal}
+{Funcional}
+{Importante}
+{Cuando el sistema se encuentra en modo de contingencia, el encargado de pedidos va a poder continuar haciendo las funciones que tiene asignadas en modo normal.}
+{Este requerimiento aporta al funcionamiento del sistema en modo de contingencia permitiendo que el mismo sea tolerable a fallas.}
+
+\desreq{El encargado puede ingresar cambios en los estados de los pedidos y sus partes}
+{Funcional}
+{Importante}
+{}
+{}
+
+\desreq{El encargado puede actualizar precios}
+{Funcional}
+{Importante}
+{}
+{}
+
+\desreq{se pueden ingresar cancelaciones}
+{Funcional}
+{Importante}
+{}
+{}
+
+\desreq{Al recibir SMS el sistema registra entrega de pedidos}
+{Funcional}
+{Importante}
+{}
+{}
+
+\desreq{Al cancelar un pedido se elimina el stock si se cancela despues de preparar o cocinar}%FIXME: es a nivel de productos
+{Funcional}
+{Importante}
+{Los productos ya preparados o cocinados de un pedido no se pueden reutilizar, por lo que deben ser descartados. Este requerimiento esta relacionado con que este descarte sea automatico, es decir que no se tenga que ingresar las bajas manualmente.}
+{Provee un metodo para controlar las cancelaciones de pedidos, y llevar el estado de los mismos. Como el descarte es automatico, ayuda tambien a llevar el estado del stock.}
+
+\desreq{Se restaura el stock si el pedido no estaba preparado, al cancelarlo}%FIXME:  es a nivel de prod
+{Funcional}
+{Importante}
+{Si se cancela antes de preparlo, las materias primas que no se usaron deben volver al stock a fin de que puedan ser usadas para preparar un nuevo pedido, esta funcionalidad es automatica.}
+{Permite controlar las cancelaciones, mejorar la eficiencia de la cocina, y contribuye a llevar el estado del stock.}
+
+%FIXME: falta el req de se pueden ingresar cancelaciones
+
+\desreq{El sistema registra los pedidos hechos con PDA.}
+{Funcional}
+{Importante}
+{Cuando un mozo toma un pedido desde una mesa, este puede ingresarlo al sistema utilizando una computadora de mano. Estos pedidos quedan registrados en el sistema.}
+{Contribuye a lograr una atención eficiente de los clientes locales.}
+
+\desreq{Poder hacer pedido desde pagina web}{Funcional}{Importante}{El usuario tiene que poder ingresar un pedido desde la interfaz que brinda la página web de la pizzería.}{Para ampliar las formas de venta,	el cliente debe poder hacer pedidos via web, considerados como remotos.}
+
+\desreq{Poder identificar al usuario cuando se loguea}{Funcional}{Importante}{Es necesario poder identificar al usuario que quiere utilizar algun servicio de la pizzeria via web, para ello tendrá asignado un usuario y una contraseña para ingresar a su cuenta}{Cada usuario tendra una cuenta,donde realizará pedidos y podrá revisar el estado de los mismos. Esto se requiere para poder proveer una mejor atención a los clientes.}
+
+\desreq{Mantener base de datos de clientes actualizada}
+{Funcional}
+{Importante}
+{Una base de datos actualizada es necesaria para poder tener información de los usuarios y permitirles realizar pedidos remotos.}
+{Mantener una base de datos de clientes actualizada permite identificar de forma correcta a cada uno de ellos, y de esta forma, mejorar la calidad del sistema.}
+
+\desreq{Lograr que el cliente se pueda registrar en la base de datos}
+{Funcional}
+{Importante}
+{los usuarios nuevos que no se encuentren registrados en el sistema, podrán hacerlo, y de esta forma accederán a la posibilidad de realizar pedidos remotos.}
+{Esto ayuda a mantener la base de datos de los clientes actualizada, y de esta forma poder dar un mejor servicio.}
+
+\desreq{Identificar al cliente por su número de celular}
+{Funcional}
+{Importante}
+{Asi como para el caso web, para poder hacer un
+pedido via SMS es necesario poder identificar el número del celular que 
+envía el mensaje, y que éste corresponda con algun cliente que se encuentre registrado en el sistema.}
+{Contribuye a brindar el servicio de pedidos via SMS, lo que hace que se mejore la atención a los clientes.}
+
+\desreq{Interactuar con servicio externo de cobros con tarjeta de credito}
+{Funcional}
+{Importante}
+{El sistema debe ser capaz de interactuar con algun servicio similar a paypal, para permitir que un usuario realice el pago de su pedido utilizando una tarjeta de credito.}
+{Contribuye a tener una mayor variedad formas de pago, y dejar al cliente que opte por la opción que mas le convenga.}
+
+\desreq{Generar un archivo con los datos de un pedido a facturar.} %TODO: en el diagrama dice venta pero no me gusta
+{Funcional}
+{Importante}
+{Cuando se completa un pedido, es decir cuando ya se encuentra cocinado y con las bebidas, el sistema genera un archivo con los datos necesarios para el funcionamiento del sistema.}
+{Contribuye a brindar la funcionalidad de pagos con efectivo o con tarjeta de credito de clientes.}
+
+\desreq{Poder identificar a un pedido de forma unica}
+{Funcional}
+{Importante}
+{Debe ser posible referenciar a un pedido ingresado al sistema de forma univoca}
+{Teniendo una unica forma de identificar un pedido, se puede brindar la opcion al cliente de verificar el estado de su pedido de forma remota, lo que mejora la interacción del sistema con el usuario y brinda una mejor atención.}
+
+\desreq{Estimar tiempos de preparacion de pedidos de forma dinamica}
+{No funcional} %TODO:dice como tiene q hacerse, verificar
+{Deseable}
+{En vez de ingresar a mano el tiempo de preparación de pedidos, una alternativa es ir estimando dinamicamente los tiempos
+de preparación, de este modo se puede adaptar la estimación según la cantidad de pedidos que tenga que atender la cocina}
+{Permitir tener una estimación del tiempo de preparación para los productos individuales y de esta forma contribuir a brindar una aproximación del tiempo total que llevará en realizarse el pedido.}
+
+\desreq{Calcular tiempo total de cocción de un pedido en base a estimaciones individuales}
+{Funcional} %TODO: no se si es func o no
+{Importante} %todo: no se tampoco
+{Los tiempos individuales para los productos deben usarse para poder estimar el tiempo de un pedido teniendo en cuenta la cola
+de producción, la politica de asignación, etc.}
+{Se desea estimar el tiempo de preparación de los pedidos, para contribuir a una mejor atención de los clientes.}
+
+%FIXME: los numeros de req estan desactualizados, actualizar.
 \section{Casos de uso}
 \subsection{Diagrama}
 \begin{figure}[H]
@@ -300,7 +235,7 @@ de producción, la politica de asignación, etc.}
 %\cu{hola}{colo}{trolo}{fonolo}{rqqq}
 %
 
-%TODO: revisar los numeros de requerimiento que quedaron cambiados
+%TODO y FIXME: revisar los numeros de requerimiento que quedaron cambiados
 % Autenticando usuario
 \op{1. El cliente ingresa su nombre de usuario en el campo correspondiente}{}
 \op{2. El cliente ingresa su contraseña en el campo correspondiente}{}
@@ -321,14 +256,14 @@ de producción, la politica de asignación, etc.}
 \op{7. Si el cliente eligi'o pagar con tarjeta y la tarjeta no se encuentra registrada, el sistema le pide al cliente que ingrese su n'umero de tarjeta, sino ir al paso 12}{}
 \op{8. El cliente ingresa la tarjeta al sistema}{}
 \op{9. El sistema pide al sistema bancario verificar si la tarjeta existe}{}
-\op{10. Si la tarjeta existe, el sistema pide al sistema bancario verificar el monto}{Sino el sistema muestra un mensaje de error al cliente. Ir al paso 4}
+\op{10. Si la tarjeta existe, el sistema pide al sistema bancario verificar el monto}{10. Sino el sistema muestra un mensaje de error al cliente. Ir al paso 4}
 \op{11. El sistema registra la tarjeta}{}
 \op{12. El sistema pide al sistema bancario verificar si la tarjeta tiene fondos}{}
-\op{13. Si el pago con tarjeta es posible, el sistema espera que el cliente confirme el pedido}{Sino Ir al paso 2}
+\op{13. Si el pago con tarjeta es posible, el sistema espera que el cliente confirme el pedido}{13. Sino Ir al paso 2}
 %TODO: Agregar actor sistema bancario en el diagrama de CU
 \op{14. El cliente presiona el boton de enviar pedido}{}
 \op{15. El sistema verifica si el pedido es viable}{}
-\op{16. Si el pedido es posible, ir al siguiente paso}{10. Si el pedido no es posible, se muestra mensaje de error al cliente indicando qu'e productos no estan disponibles. Ir al paso 2}
+\op{16. Si el pedido es posible, ir al siguiente paso}{16. Si el pedido no es posible, se muestra mensaje de error al cliente indicando qu'e productos no estan disponibles. Ir al paso 2}
 \op{17. Si el cliente eligi'o pagar con tarjeta, el sistema indica al sistema bancario que haga el pago}{}
 \op{18 El sistema registra el pedido como ingresado}{}
 \op{19. El sistema brinda al cliente un id de pedido para que luego consulte el estado del pedido si lo necesita}{}
@@ -338,22 +273,22 @@ de producción, la politica de asignación, etc.}
 \cu{Realizando pedido web}{Cliente}{1}{}{Pedido registrado}{El cliente ingresa un pedido al sistema desde la pagina web}
 
 % Cancelando pedido
-\op{1. El cliente informa al encargado de pedido su nombre o nombre de usuario y el id de pedido (ya sea via sms o tel'efono), o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
+\op{1. El cliente informa al encargado de pedido su nombre o nombre de usuario y el id de pedido, o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
 \op{2. El encargado ingresa al sistema el nombre proporcionado por el cliente y el id de pedido}{}
-\op{3. El sistema verifica que el pedido exista y que el cliente haya hecho el pedido}{}
-\op{4. Si el pedido existe y est'a en estado preparando, se deben reingresar los insumos reutilizables. EXTIENDE caso de uso Agregando insumos reutilizables}{}
-\op{4. Si el pedido existe y es de ese cliente, el pedido pasa a estado cancelado}{4. Si los datos no corresponden con ning'un pedido del cliente, el sistema muestra un cartel de error. Ir al paso 1}
-\op{4. Fin CU}{}
+\op{3. Se verifica que el pedido no haya sido entregado}{3. Si ya fue entregado, no se puede cancelar. Ir a fin CU}
+\op{4. El sistema verifica que el pedido exista y que el cliente haya hecho el pedido}{}
+\op{5. Si el pedido existe y est'a en estado preparando, se deben reingresar los insumos reutilizables. EXTIENDE caso de uso Agregando insumos reutilizables}{}
+\op{6. Fin CU}{}
 
-\cu{Cancelando pedido}{Encargado de pedido}{$\infty$}{Pedido no entregado y cliente solicit'o una cancelacion de pedido}{Pedido cancelado}{Un cliente solicita cancelar un pedido, por tel'efono o personalmente, y el encargado de pedidos se encarga de esta cancelaci'on. Si el pedido se estaba preparando en el momento de la cancelaci'on, el maestro debe reingresar los insumos reutilizables} 
+\cu{Cancelando pedido}{Encargado de pedido}{$\infty$}{Pedido no entregado}{Pedido cancelado}{Un cliente solicita cancelar un pedido, por tel'efono o personalmente, y el encargado de pedidos se encarga de esta cancelaci'on. Si el pedido se estaba preparando en el momento de la cancelaci'on, el maestro debe reingresar los insumos reutilizables} 
 
 %Realizando pedido via SMS
 \op{1. El cliente consulta el cat'alogo de c'odigos de producto y combos, publicados en la web del sistema junto con el formato que debe tener el mensaje}{}
 \op{2. El cliente env'ia un mensaje al sistema con el pedido a solicitar}{}
 \op{3. El sistema verifica si el número desde donde proviene el mensaje est'a registrado con algún cliente}{}
 \op{4. Si el n'umero no se encuentra registrado, el sistema responde al cliente sugiri'endole registrarse por tel'efono o personalmente y el pedido es descartado. Ir a Fin CU}{3. Si el número est'a registrado pero el mensaje no corresponde con ningún código se notifica al cliente que el código no es válido}
-\op{4. El sistema verifica si es posible satisfacer el pedido}{}
-\op{5. Si es posible se ingresa el pedido al sistema y se envia al usuario un mensaje, notific'andole que su pedido est'a ingresado, el importe total, el tiempo de demora aproximado y el c'odigo de pedido para realizar consultas sobre el mismo}{5. Sino el sistema le env'ia un mensaje al cliente avis'andole que el pedido no podr'a ser satisfecho, informando adem'as qu'e producto/s no est'an disponibles}
+\op{5. El sistema verifica si es posible satisfacer el pedido}{}
+\op{6. Si es posible se ingresa el pedido al sistema y se envia al usuario un mensaje, notific'andole que su pedido est'a ingresado, el importe total, el tiempo de demora aproximado y el c'odigo de pedido para realizar consultas sobre el mismo}{6. Sino el sistema le env'ia un mensaje al cliente avis'andole que el pedido no podr'a ser satisfecho, informando adem'as qu'e producto/s no est'an disponibles}
 \op{5. Fin CU}{}
 \cu{Realizando pedido via sms}{Cliente}{$\infty$}{TRUE}{Pedido ingresado al sistema}{El cliente hace un pedido via sms}
 
@@ -362,8 +297,8 @@ de producción, la politica de asignación, etc.}
 \op{1. El cliente ingresa a la página web de feedback}{}
 \op{2. Se incluye CU logueando usuario}{}
 \op{3. Ingresa al apartado de feedback}{}
-\op{4. Ingresa el número de pedido sobre el que va a emitir feedback}{}
-\op{5. El sistema verifica que el número de pedido corresponda con un pedido enviado por delivery}{}
+\op{4. Ingresa el número de pedido}{}
+\op{5. El sistema verifica que el número de pedido corresponda con un pedido enviado por delivery a ese cliente, y obre el cual el mismo no halla ingresado feedback}{}
 \op{6. Si el número era valido, se muestra un formulario al usuario para que envia sus opinión}{5. Si el número no coincide se envia un mensaje de error al usuario}
 \op{7. Fin CU}{}
 \cu{Ingresando feedback}{Cliente}{28}{TRUE}{Comentario ingresado}{Permite que el usuario envie al sistema su opinión sobre un pedido recibido por delivery}
@@ -371,27 +306,15 @@ de producción, la politica de asignación, etc.}
 %Consultando estado de su pedido
 \op{1. INCLUYE autentificando usuario}{}
 \op{2. El cliente selecciona consultar estado de pedidos}{}
-\op{3. El sistema muestra al cliente la lista de los pedidos del usuario pendientes de entrega cada uno con su estado correspondiente}{}
+\op{3. El sistema muestra al cliente la lista de los pedidos del usuario pendientes de entrega cada uno con su estado correspondiente y demora estimada}{}
 \op{4. Fin CU}{}
 \cu{Consultando estado de pedido}{Cliente}{$\infty$}{}{Se muestra el estado del pedido}{Permite al cliente ver en que estado se encuentran sus pedidos en un momento dado}
-
-%TODO: FALTA EXPLICAR EN OPERATORIA SOBRE QUE PASA CON PEDIDOS DIFERIDOS, POR LO TANTO FALTA REVISAR ESTE CU
-%ingresando pedidos diferidos
-\op{1. El encargado de pedidos selecciona ingresar pedido diferido}{}
-\op{2. El sistema muestra la pantalla para el ingreso del pedido}{}
-\op{3. El encargado ingresa los datos que conoce sobre el pedido (por ejemplo: cantidad de empanadas, pizzas, estado actual del pedido)}{}
-\op{4. El encargado presiona ingresar pedido}{}
-\op{5. El pedido queda ingresado}{}
-\op{6. Fin CU}{}
-%FIXME: ojo con este cu porque nos puede traer dolor de pelotas en el diagrama de conceptos, notar que algunos atributos que posiblemente tenga la clase pedido, este tipo de pedidos no los va a tener.
-
-\cu{Ingresando pedido diferido}{Encargado de pedidos}{15}{}{El pedido diferido queda registrado}{Permite ingresar un pedido que no pudo ser ingresado al sistema cuando se originó, por ejemplo porque el sistema estaba caido}
 
 %TODO: Este caso de uso deberia volar? Si no vuela, verificar si hay que  agregar o no para que el encargado setee lo que es un pedido chico
 % Modificando politica del horno
 \op{1. El encargado de pedidos selecciona modificar pol'itica de horno}{}
 \op{2. El sistema muestra las pol'iticas posibles y espera que el encargado elija una}{}
-\op{3. El encargado elige una pol'itica}
+\op{3. El encargado elige una pol'itica}{}
 \op{4. Si el encargado eligi'o la pol'itica de cola normal, el sistema registra que la pol'itica de horno a usar ser'a cola. Ir a Fin CU}{}
 \op{5. Si el encargado eligi'o la pol'itica de colas con sector 'agil, el sistema le pide que ingrese cuales son los m'odulos 'agiles}{}
 \op{6. El encargado ingresa los m'odulos 'agiles}{}
@@ -407,17 +330,32 @@ de producción, la politica de asignación, etc.}
 \op{3. El cliente informa al encargado de pedidos sus datos}{}
 \op{4. El encargado indica al sistema que desea ingresar un pedido y luego ingresa los datos del cliente al sistema}{}
 \op{5. El sistema verifica si el cliente est'a registrado}{}
-\op{6. Si el cliente est'a registrado, el sistema muestra al encargado el perfil del cliente}{6. Sino el encargado de pedidos le sugiere al cliente la posibilidad de registrarse. Si el cliente no lo desea entonces Ir a fin CU, sino se procede a registrarlo (EXTIENDE Registrando cliente)} %FIXME: este extiende parece ser razonable, pero no esta, revisar por favor
+\op{6. Si el cliente est'a registrado, el sistema muestra al encargado el perfil del cliente}{6. Sino el encargado de pedidos le sugiere al cliente la posibilidad de registrarse. Si el cliente no lo desea entonces Ir a fin CU, sino se procede a registrarlo (EXTIENDE Registrando cliente e ir a paso 9 )} %FIXME: este extiende parece ser razonable, pero no esta, revisar por favor
 \op{7. El encargado de pedidos verifica el tel'efono del cliente registrado con el tel'efono desde el cual cliente est'a llamando}{}
-\op{8. Si el tel'efono registrado no coincide con el tel'efono desde el cual est'a llamando pero el cliente tiene usuario y clave, el encargado le pide al cliente que este indique usuario y clave y verifica}{7. Si el tel'efono registrado no coincide con el tel'efono desde el cual el cliente est'a llamando y el cliente no tiene usuario y clave ir a Fin CU}
+\op{8. Si el tel'efono registrado no coincide con el tel'efono desde el cual est'a llamando pero el cliente tiene usuario y clave, el encargado le pide al cliente que este indique usuario y clave y verifica}{8. Si el tel'efono registrado no coincide con el tel'efono desde el cual el cliente est'a llamando y el cliente no tiene usuario y clave informar que no es posible tomar el pedido e ir a Fin CU}
 \op{9. El encargado de pedidos indica al cliente que le dicte el pedido}{}
 \op{10. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema}{}
 \op{11. El sistema verifica si es posible satisfacer el pedido}{}
-\op{12. Si el pedido es posible el sistema estima el tiempo del mismo, calcula el costo total y el encargado se lo comunica al cliente, sino el sistema indica mediante un mensaje de error que producto/s no estaba/n disponible/s, para que el encargado se lo comunique al cliente. Ir a paso 9}
-\op{13. Si el cliente desea cambiar el pedido, ir al paso 9, sino el encargado confirma el pedido al sistema para que proceda a registrarlo}{}
-\op{14. Si el pedido es mixto, el sistema pide al encargado de pedidos que asigne un horno}{}
-\op{15. El sistema genera el identificador de pedido y notifica al encargado de pedidos sobre estos datos, para que el encargado se lo notifique al cliente}{}
-\op{16. Fin CU}{}
+\op{12. Si el pedido es posible el sistema estima el tiempo del mismo, calcula el costo total y el encargado se lo comunica al cliente, sino el sistema indica mediante un mensaje de error que producto/s no estaba/n disponible/s, para que el encargado se lo comunique al cliente. Ir a paso 9}{}
+\op{13. Si el pedido es mixto, el sistema pide al encargado de pedidos que asigne un horno}{}
+\op{14. El sistema genera el identificador de pedido y notifica al encargado de pedidos sobre estos datos, para que el encargado se lo notifique al cliente}{}
+\op{15. Fin CU}{}
+
+\cu{Registrando pedido telef'onico}{Encargado de pedidos}{23}{}{Pedido ingresado al sistema}{El cliente quiere hacer un pedido por v'ia telef'onica, el encargado de pedidos lo atiende y luego de verificar los datos ingresa el pedido al sistema}
+
+% Registrando pedido mostrador
+%FIXME: agregar a casos de uso
+\op{1. El cliente comunica al encargado de pedidos que desea hacer un pedido}{}
+\op{2. El encargado pregunta si el cliente esta registrado}{}
+\op{3. Si es asi el cliente da sus datos al encargado, si no el pedido se registrara sin cliente}{}
+\op{4. El encargado indica al sistema que desea ingresar un pedido de mostrador}{}
+\op{5. El encargado de pedidos indica al cliente que le dicte el pedido}{}
+\op{6. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema}{}
+\op{7. El sistema verifica si es posible satisfacer el pedido}{}
+\op{8. Si el pedido es posible el sistema estima el tiempo del mismo, calcula el costo total y el encargado se lo comunica al cliente, sino el sistema indica mediante un mensaje de error que producto/s no estaba/n disponible/s, para que el encargado se lo comunique al cliente. Ir a paso 5}{}
+\op{9. Si el pedido es mixto, el sistema pide al encargado de pedidos que asigne un horno}{}
+\op{10. El sistema genera el identificador de pedido y notifica al encargado de pedidos sobre estos datos, para que el encargado se lo notifique al cliente}{}
+\op{11. Fin CU}{}
 
 \cu{Registrando pedido telef'onico}{Encargado de pedidos}{23}{}{Pedido ingresado al sistema}{El cliente quiere hacer un pedido por v'ia telef'onica, el encargado de pedidos lo atiende y luego de verificar los datos ingresa el pedido al sistema}
 
@@ -439,11 +377,10 @@ de producción, la politica de asignación, etc.}
 
 \cu{Notificando pedido entregado}{Delivery}{$\infty$}{True}{El pedido se registra como entregado}{Permite que el delivery mediante SMS informe inmediatamente la entrega o no entrega de un pedido}
 
-%TODO: alto bache: tipo de despacho MOSTRADOR?????
 % Generando archivo para factura
 \op{1. Si la factura es para un cliente en el local, el mozo le pregunta al cliente sobre la forma de pago y procede a ingresarlo al sistema para su posterior facturaci'on}{}
-\op{2. Si la factura es para pedido SMS o telef'onico, la forma de pago ser;a
-\op{1. El sistema genera en el cajero el archivo con los datos necesarios para el sistema de facturación
+\op{2. Si la factura es para pedido SMS o telef'onico, la forma de pago sera}{}
+\op{1. El sistema genera en el cajero el archivo con los datos necesarios para el sistema de facturación %FIXME: aca hay algo como el orto
 \begin{itemize}
 \item Código del cliente
 \item Apellido del Cliente
