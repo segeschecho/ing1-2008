@@ -1,7 +1,7 @@
-\chapter{Operatoria de la cocina:}
+\chapter{Aspectos particulares de la solución}
 
 \section{Ingreso de pedidos}
-Los pedidos basicamente pueden ser remotos o locales. Los pedidos remotos se pueden realizar via telefonica, via web, o via sms. Un pedido local se realiza siempre a un mozo.
+Los pedidos basicamente pueden ser remotos o locales. Los pedidos remotos se pueden realizar via telefonica, via web, o via sms.
 
 \subsection{Pedidos remotos}
 Los pedidos remotos requieren que los usuarios esten registrados en el sistema. Esto se hace por cuestiones de seguridad, a fin de evitar la realización de pedidos por parte de usuarios anonimos que podrian cancelar constantemente o dar direcciones falsas. La registracion de usuarios se realiza personalmente o telefonicamente. Decidimos no permitir regitro de usuarios via web, ya que consideramos que el método no era del todo fiable (es facil crear usuarios ficticios y hacer pedidos en broma).
@@ -42,9 +42,11 @@ Para identificar los productos que desea pedir, el cliente cuenta con un catálog
 El sistema verifica si es posible satisfacer el pedido. En caso de no ser posible el sistema le envia un mensaje al cliente para avisar que el pedido no podra ser satisfecho, indicando que producto no esta disponible. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido, estima el tiempo del mismo, calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de sms con esos datos al cliente. 
 
 \subsection{Pedidos locales}
-Como dijimos previamente, los pedidos locales se realizan a los mozos, quienes cuentan con una PDA para realizar el registro de los pedidos. Un cliente dicta su pedido a algún mozo, el cual marca los productos y sus cantidades en su PDA. una vez que el cliente dictó su pedido el mozo ingresa el pedido. El sistema verifica la factibilidad del mismo, si no es posible tomarlo, notifica al mozo para que informe de la situación al cliente.
+Los pedidos locales pueden realizarse a los mozos, quienes cuentan con una PDA para realizar el registro de los pedidos. Un cliente dicta su pedido a algún mozo, el cual marca los productos y sus cantidades en su PDA. una vez que el cliente dictó su pedido el mozo ingresa el pedido. El sistema verifica la factibilidad del mismo, si no es posible tomarlo, notifica al mozo para que informe de la situación al cliente.
 
 Si es posible ingresar el pedido el sistema genera el id del pedido, se estima el tiempo del mismo y se calcula el costo total. La asignación del horno es también responsabilidad del sistema.
+
+Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedidos, quien registra los productos del pedido de manera similar a como registra los pedidos telefonicos, con le excepción de que en este caso podía no tener los datos del usuario.
 
 \section{Pedidos diferidos}
 Durante una caida del sistema, la pizzería puede seguir funcionando manualmente. Luego de que el sistema se levanta, el encargado de pedidos podrá ingresar los pedidos tomados durante la caida de sistema.  %TODO: super consulta
@@ -67,9 +69,9 @@ Para registrar a un usuario el encargado de pedidos debe tomar los siguientes da
 La facturación de los pedidos de la pizzería esta a cargo del software de facturación que posee el establecimiento. El sistema solo provee de la facilidad de generar un archivo con los datos necesarios para realizar la factura cuando el cajero lo determine adecuado. 
 Lo unico que registra el sistema por si solo es que ya se ha generado un archivo para facturar el pedido.
 
-El archivo se genera cuando un pedido esta listo para salir a entrega en el caso de que el mismo sea con delivery o en el momento en el que el cliente pide la cuenta al mozo. %TODO: caso de uso
+El archivo se genera cuando un pedido esta listo para salir a entrega en el caso de que el mismo sea con delivery o mostrador, o en el momento en el que el cliente pide la cuenta al mozo. %TODO: caso de uso
 
-A la hora de generar el archivo la forma de pago de los pedidos en el local debe ser ingresada por el mozo, tras preguntarsela al cliente. Es este caso, el archivo se genera con los campos nombre de usuario, apellido y número de cliente en blanco. En el caso de los pedidos via SMS o telefonicos, estos se pagan en efectivo al delivery. Por otro lado, para los pedidos via web, la forma de pago la determina el usuario.
+A la hora de generar el archivo la forma de pago de los pedidos en alguna mesa debe ser ingresada por el mozo, tras preguntarsela al cliente. Es este caso, el archivo se genera con los campos nombre de usuario, apellido y número de cliente en blanco. En el caso de los pedidos via SMS o telefonicos, estos se pagan en efectivo al delivery. Por otro lado, para los pedidos via web, la forma de pago la determina el usuario.
 
 \section{Cancelación}
 La cancelación de un pedido se realiza via telefonica o personalmente. Una cancelación se puede realizar siempre y cuando no se haya entregado el pedido, es decir que el pedido no se encuente en estado finalizado. 
@@ -77,7 +79,7 @@ La cancelación de un pedido se realiza via telefonica o personalmente. Una cance
 Los productos ya elaborados, se descartan al cancelarse el pedido. En cambio los insumos no utilizados regresan al stock.
 Dado que no se informa cada producto que se prepara, por ejemplo si hay que hacer 6 empanadas el maestro no notifica cada vez que arma una, podria ocurrir que el pedido se cancele mientras esta siendo preparado. En este caso el sistema muestra almaestro un mensaje informandole que el pedido se cancelo, y pidiendole que indique que parte de los insumos se puede reutilizar. Para pedidos mixtos el tratamiento de esta situación es individual para cada cocinero. %TODO:agregar flecha al diag de contexto
 
-Para cancelar un pedido via telefonica el usuario debe identificarse, y luego debe indicar que pedido quiere cancelar. En caso de un pedido hecho en el local, el cliente debe avisar al mozo, que notifica al encargado de pedidos, quien cancela el pedido.
+Para cancelar un pedido via telefonica el usuario debe identificarse, y luego debe indicar que pedido quiere cancelar. En caso de un pedido hecho en el local, el cliente debe avisar al mozo, que notifica al encargado de pedidos, quien cancela el pedido, o directamente al encargado de pedidos.
 
 También se considera cancelado un pedido que no se pudo entregar por delivery.
 
