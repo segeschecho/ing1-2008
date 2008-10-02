@@ -109,6 +109,26 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 %{Luego de una caida del sistema debería ser posible lograr cargar manualmente los pedidos que ocurrieron durante el tiempo en el que el sistema estuvo caido.}
 %{Lograr un software mas tolerante a fallos, de esta forma los pedidos que no se pudieron registrar directamente en el sistema se podrán ingresar una vez que éste se encuentre nuevamente operable en condiciones normales.}
 
+%TODO: completar
+%NOTA: funcional e importante esta por copy y paste pero hay q decidir q va en estos
+\desreq{Sistema informa que preparar}
+{Funcional}
+{Importante}
+{}
+{}
+
+\desreq{Es posible modificar la politica}
+{Funcional}
+{Importante}
+{}
+{}
+
+\desreq{Sistema informa que cocinar a continuación}
+{Funcional}
+{Importante}
+{}
+{}
+
 \desreq{El encargado puede hacer en modo de contingencia las cosas que hace en modo normal}
 {Funcional}
 {Importante}
@@ -123,14 +143,14 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {}
 
 %TODO: completar
-\desreq{El encargado puede actualizar precios}
+\desreq{El encargado puede actualizar precios en caso de contingencia}
 {Funcional}
 {Importante}
 {}
 {}
 
 %TODO: completar
-\desreq{se pueden ingresar cancelaciones}
+\desreq{Se pueden ingresar cancelaciones}
 {Funcional}
 {Importante}
 {}
@@ -213,6 +233,13 @@ envía el mensaje, y que éste corresponda con algun cliente que se encuentre regi
 {}
 {}
 
+%TODO: completar
+\desreq{Es posible preguntar por el estado de un pedido}
+{Funcional}
+{Importante}
+{}
+{}
+
 \desreq{Poder identificar a un pedido de forma unica}
 {Funcional}
 {Importante}
@@ -240,7 +267,6 @@ de producción, la politica de asignación, etc.}
 \centering
 \includegraphics[height=15.5cm]{casosdeuso.png}
 \end{figure}
-\subsection{Descripción de los casos de uso}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plantilla para casos de uso %%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -251,6 +277,8 @@ de producción, la politica de asignación, etc.}
 %\cu{hola}{colo}{trolo}{fonolo}{rqqq}
 %
 
+
+\subsection{Descripción de los casos de uso}
 % Realizando pedido web
 \op{1. INCLUYE autentificando usuario}{}
 \op{2. Cliente selecciona de una lista los productos qu'e desea y su cantidad}{}
@@ -476,6 +504,132 @@ de producción, la politica de asignación, etc.}
 \op{12. Fin CU}{}
 
 \cu{Registrando pedido mostrador}{Encargado de pedidos}{23}{}{Pedido ingresado al sistema}{El cliente quiere hacer un pedido en el local para llevar}
+\subsection{Matriz de trazabilidad}
+\begin{landscape}
+% Vista preliminar del código fuente para el párrafo 4
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline 
+Requerimiento\textbackslash{}Caso de uso & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25\tabularnewline
+\hline
+\hline 
+1 &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+2 &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+3 & X &  &  &  & X &  &  &  &  & X & X &  &  &  &  &  &  &  &  &  &  & X &  &  & X\tabularnewline
+\hline
+\hline 
+4 & X &  &  &  & X &  &  &  &  &  & X &  &  &  &  &  &  &  &  &  &  & X &  &  & X\tabularnewline
+\hline
+\hline 
+5 & X &  &  &  & X &  &  &  &  &  & X &  &  &  &  &  &  &  &  &  &  & X &  &  & X\tabularnewline
+\hline
+\hline 
+6 & X &  &  &  & X &  &  &  &  &  & X &  &  &  &  &  &  &  &  &  &  & X &  &  & X\tabularnewline
+\hline
+\hline 
+7 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+8 &  & X &  &  &  & X & X & X & X &  &  &  & X &  &  & X &  &  &  & X  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+9 &  & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+10 &  &  &  &  &  & X &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+11 &  &  &  &  &  &  & X &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+12 &  &  &  &  &  &  & X &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+13 &  &  &  &  &  & X &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+14 &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+15 &  &  &  &  &  &  & X &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+16 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+17 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+18 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+19 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & \tabularnewline
+\hline
+\hline 
+20 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+21 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+22 &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  & X &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+23 &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+24 & X &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+25 &  &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  & \tabularnewline
+\hline
+\hline 
+26 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  & \tabularnewline
+\hline
+\hline 
+27 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  & \tabularnewline
+\hline
+\hline 
+28 &  &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  & \tabularnewline
+\hline
+\hline 
+29 & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+30 & X &  &  &  & X &  &  &  &  &  & X & X &  &  &  &  &  &  &  & X &  & X &  &  & \tabularnewline
+\hline
+\hline 
+31 &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  &  & \tabularnewline
+\hline
+\hline 
+32 &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  & \tabularnewline
+\hline
+\hline 
+33 & X &  &  & X & X & X &  & X &  &  & X &  & X &  &  &  &  & X &  &  &  & X & X & X & X\tabularnewline
+\hline
+\hline 
+34 &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  & X &  & \tabularnewline
+\hline
+\hline 
+35 &  &  &  & x &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  & X &  & \tabularnewline
+\hline
+\hline 
+\end{tabular}
+\end{landscape}
+
+%TODO: agregar a la realización de pedidos, que el stock se actualiza
+
+%En fila 8 intervienen por el tema de los tiempos
+%
+%Ojo con el req 11
+%
+%El requerimiento 16 (tb 17 y 18) se desarrollan aparte
+%
+%Explicar que el req 30 aparece en los casos de uso donde aparece porq
+%en esos casos de uso se ingresan datos para armar el archivo
 
 \newpage
 \section{Descripcion de operaciones} %NOTA: es opcional
