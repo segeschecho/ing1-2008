@@ -1,0 +1,14 @@
+- Terminar descripción/clasificación de requerimientos -> Sergio
+- Revisar los requerimientos con su clasificación ->Gonza
+- Terminar descripcion de casos de uso -> Emilio
+- Diagrama de conceptos -> Gonza
+- Ocl -> Todos
+- Meter diagramas de actividad/fsm en todos lados -> Todos
+- Describir las mejoras que son extensiones, chamuyar algo de porq estan como extensiones, dar contexto en objetivos -> Gonza y Fede
+- Describir estadisticas -> Gonza y Fede
+- Ciclo de vida de pedido > Gonza
+- Chamuyo inicial -> Todos
+- Actualizar los diagramas de contexto de acuerdo a la operatoria/casos de uso -> Emilio
+- Conclusion -> Todos
+- Actualizar Glosario -> Todos
+- Matriz de trazabilidad -> Fede

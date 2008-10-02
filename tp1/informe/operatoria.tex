@@ -34,12 +34,16 @@ Una vez que el pedido fue ingresado, si se pagaba con tarjeta, se hace efectivo 
 
 El pedido será encolado automáticamente tratando de balancear la carga de los hornos. 
 
+%TODO:diagrama de actividad
+
 \subsubsection{Pedidos SMS}
 El cliente que desee realizar un pedido via sms debe enviar un mensaje al servidor sms de la pizzeria, junto con el pedido que quiere hacer. Si el celular no estaba registrado, el sistema descarta el pedido y le envia un mensaje sms al mismo sugiriendole registrarse por telefono o personalmente.
 
 Para identificar los productos que desea pedir, el cliente cuenta con un catálogo con códigos de producto y de ``combos'' populares ya sea en papel o consultable via Internet.
 
 El sistema verifica si es posible satisfacer el pedido. En caso de no ser posible el sistema le envia un mensaje al cliente para avisar que el pedido no podra ser satisfecho, indicando que producto no esta disponible. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido, estima el tiempo del mismo, calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de sms con esos datos al cliente. 
+
+%TODO:diagrama de actividad
 
 \subsection{Pedidos locales}
 Los pedidos locales pueden realizarse a los mozos, quienes cuentan con una PDA para realizar el registro de los pedidos. Un cliente dicta su pedido a algún mozo, el cual marca los productos y sus cantidades en su PDA. una vez que el cliente dictó su pedido el mozo ingresa el pedido. El sistema verifica la factibilidad del mismo, si no es posible tomarlo, notifica al mozo para que informe de la situación al cliente.
@@ -48,8 +52,7 @@ Si es posible ingresar el pedido el sistema genera el id del pedido, se estima e
 
 Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedidos, quien registra los productos del pedido de manera similar a como registra los pedidos telefonicos, con le excepción de que en este caso podía no tener los datos del usuario.
 
-\section{Pedidos diferidos}
-Durante una caida del sistema, la pizzería puede seguir funcionando manualmente. Luego de que el sistema se levanta, el encargado de pedidos podrá ingresar los pedidos tomados durante la caida de sistema.  %TODO: super consulta
+%TODO:diagrama de actividad de ambos casos
 
 \section{Registro de usuarios}
 El registro de usuarios es responsabilidad del encargado de pedidos, y se realiza por via telefonica asi como también personalmente. 
@@ -64,6 +67,7 @@ Para registrar a un usuario el encargado de pedidos debe tomar los siguientes da
 \item E-Mail (opcional)
 \item Célular (opcional, solo necesario para poder hacer pedidos vis SMS)
 \end{itemize}
+
 
 \section{Facturacion}
 La facturación de los pedidos de la pizzería esta a cargo del software de facturación que posee el establecimiento. El sistema solo provee de la facilidad de generar un archivo con los datos necesarios para realizar la factura cuando el cajero lo determine adecuado. 
@@ -86,7 +90,6 @@ También se considera cancelado un pedido que no se pudo entregar por delivery.
 \section{Cola de pedidos}
 Por cola de pedidos se entiende la cola que determina el orden en el cual se prepararan los pedidos ingresados al sistema. La cola es la que determina que pedido ingresado debe comenzar a preparse a continuación. Dicha cola se gestiona de manera automatica, pero puede ser modificada por el encargado de pedidos. Ni bien un producto pasa a preparse, es decir se comienza a preparar cualquiera de sus partes el mismo deja de estar en esta cola.
 
-%El primer elemento de la cola se considera lo proximo que el maestro debe preparar. El sistema muestra este pedido al maestro para que lo prepare. Cuando este lo preparó completamente, se lo indica al sistema el cual muestra el proximo pedido en caso de que halla. Si no lo habia, en cuanto llegue uno se lo muestra al maestro.
 Cuando todas las partes de un pedido fueron preparados, el pedido deja de estar en preparación para pasar a estar en estado de preparado.
 
 \section{Cola de horno} 
@@ -148,3 +151,8 @@ El ABM de stock permite realizar altas, bajas y modificaciones de los kits y dem
 
 \section{Ciclo de vida de un pedido}
 %TODO: chamuyar aca
+
+\chapter{Extensiones}
+\section{Pedidos diferidos}
+
+\section{Productos preparados de antemano}
