@@ -273,6 +273,7 @@ de producción, la politica de asignación, etc.}
 %
 
 
+
 \subsection{Descripción de los casos de uso}
 % Realizando pedido web
 \op{1. INCLUYE autentificando usuario}{}
@@ -320,14 +321,14 @@ de producción, la politica de asignación, etc.}
 
 \cu{Autenticando usuario}{Cliente}{1,2}{TRUE}{Cliente logueado}{Autentificación de un cliente web}
 
-%Consultando estado de su pedido
+% Consultando estado de su pedido
 \op{1. INCLUYE autentificando usuario}{}
 \op{2. El cliente selecciona consultar estado de pedidos}{}
 \op{3. El sistema muestra al cliente la lista de los pedidos del usuario pendientes de entrega cada uno con su estado correspondiente y demora estimada}{}
 \op{4. Fin CU}{}
-\cu{Consultando estado de pedido}{Cliente}{$\infty$}{}{Se muestra el estado del pedido}{Permite al cliente ver en que estado se encuentran sus pedidos en un momento dado}
+\cu{Consultando estado de su pedido}{Cliente}{$\infty$}{}{Se muestra el estado del pedido}{Permite al cliente ver en que estado se encuentran sus pedidos en un momento dado}
 
-%Realizando pedido via SMS
+% Realizando pedido via SMS
 \op{1. El cliente consulta el cat'alogo de c'odigos de producto y combos, publicados en la web del sistema junto con el formato que debe tener el mensaje}{}
 \op{2. El cliente env'ia un mensaje al sistema con el pedido a solicitar}{}
 \op{3. El sistema verifica si el número desde donde proviene el mensaje est'a registrado con algún cliente}{}
@@ -335,14 +336,47 @@ de producción, la politica de asignación, etc.}
 \op{5. El sistema verifica si es posible satisfacer el pedido}{}
 \op{6. Si es posible se ingresa el pedido al sistema y se envia al usuario un mensaje, notific'andole que su pedido est'a ingresado, el importe total, el tiempo de demora aproximado y el c'odigo de pedido para realizar consultas sobre el mismo}{6. Sino el sistema le env'ia un mensaje al cliente avis'andole que el pedido no podr'a ser satisfecho, informando adem'as qu'e producto/s no est'an disponibles}
 \op{5. Fin CU}{}
-\cu{Realizando pedido via sms}{Cliente}{$\infty$}{TRUE}{Pedido ingresado al sistema}{El cliente hace un pedido via sms}
+\cu{Realizando pedido sms}{Cliente}{$\infty$}{TRUE}{Pedido ingresado al sistema}{El cliente hace un pedido via sms}
 
-%TODO: completar todos estos 
-\cu{Indicando pedido preparado}{Maestro}{}{}{}{}
-\cu{Indicando producto cocinado}{Maestro}{}{}{}{}
-\cu{Siendo informado de proximo pedido a preparar}{Maestro}{}{}{}{}
-\cu{Siendo informado de proximo pedido a cocinar}{Maestro}{}{}{}{}
-\cu{Siendo requerido ingreso de stock reutilizable}{Maestro}{}{}{}{}
+% Indicando pedido preparado
+\op{1. El maestro indica al sistema que finaliz'o la preparaci'on del 'ultimo pedido que le pidi'o}{}
+\op{2. El sistema registra el 'ultimo pedido que le orden'o preparar al maestro como preparado}{}
+\op{3. Fin CU}{}
+\cu{Indicando producto preparado}{Maestro}{}{La cola de pedidos a preparar no est'a vac'ia}{El pedido se registra como preparado}{El maestro, luego de preparar un pedido, indica al sistema que el mismo est'a preparado}
+
+% Indicando producto cocinado
+\op{1. El maestro indica al sistema que finaliz'o la cocci'on de una parte}{}
+\op{2. El sistema muestra al maestro un men'u de partes que deb'ian cocinarse y espera que el maestro indique la parte}{}
+\op{3. El maestro indica al sistema qu'e parte finaliz'o la cocci'on}{}
+\op{4. El sistema registra la parte como cocinada}{}
+\op{5. El sistema verifica si la 'ultima parte cocinada completa el pedido}{}
+\op{6. Si es as'i, el sistema registra al pedido como listo}{}
+\op{7. Fin CU}{}
+\cu{Indicando producto cocinado}{Maestro}{}{La cola de pedidos a cocinar no est'a vac'ia}{La parte de pedido se registra como cocinada}{El maestro, luego de cocinar una parte de un pedido, indica al sistema que la misma est'a cocinada}
+
+% Siendo informado de proximo pedido a preparar
+\op{1. El sistema indica al maestro preparar el primer pedido en la cola de pedidos a preparar y espera que el maestro confirme}{}
+\op{2. El maestro indica al sistema que empezar'a a preparar la parte pedida}{}
+\op{3. El pedido cambia su estado a "en preparacion" y sale de la cola de pedidos}{}
+\op{4. Si hay m'as pedidos a preparar, ir a paso 1}{}
+\op{5. Fin CU}{}
+\cu{Siendo informado de proximo pedido a preparar}{Maestro}{}{La cola de pedidos a preparar no est'a vac'ia}{La parte de pedido comienza a prepararse}{El sistema le ordena al maestro que parte de pedido preparar}
+
+% Siendo informado de proximo producto a cocinar
+\op{1. El maestro pide al sistema que pedido debe cocinar a continuaci'on}{}
+\op{2. El sistema indica al maestro una parte a cocinar}{}
+\op{3. Si es la primera parte de un pedido, el sistema cambia el estado del mismo a "en horno"}{}
+\op{4. Fin CU}{}
+\cu{Siendo informado de proximo producto a cocinar}{Maestro}{}{La cola del horno no est'a vac'ia}{La parte comienza a cocinarse}{El sistema le ordena al maestro que parte de pedido debe cocinar}
+
+% Siendo requerido ingreso de stock reutilizable
+\op{1. El sistema indica al maestro que el pedido en preparaci'on fue cancelado}{}
+\op{2. El sistema pide al maestro que indique que parte de los insumos se puede reutilizar para reingresar al stock}{}
+\op{3. El maestro ingresa las cantidades y tipo de los insumos reutilizables}{}
+\op{4. El maestro confirma reingresar insumos}{}
+\op{5. El sistema lo registra y actualiza el stock}{}
+\op{6. Fin CU}{}
+\cu{Siendo requerido ingreso de stock reutilizable}{Maestro}{}{Hay cancelaci'on de un pedido que est'a en preparaci'on}{Los insumos reutilizables son reingresados al stock}{Cuando el maestro esta preparando un pedido que es cancelado, este debe reingresar al sistema los insumos reutilizables}
 
 % Realizando pedidos mesa
 \op{1. El cliente informa al mozo lo que quiere pedir}{}
@@ -354,16 +388,16 @@ de producción, la politica de asignación, etc.}
 
 \cu{Realizando pedidos mesa}{Mozo}{23}{}{El pedido de la mesa queda registrado}{El cliente del local hace un pedido a un mozo, quien ingresa el pedido}
 
-%cerrando mesa
+% Cerrando pedido de mesa
 \op{1. El cliente llama al mozo}{}
 \op{2. El cliente dice al mozo que va a pagar}{} %TODO: mesas como concepto??
 \op{3. El mozo selecciona el/los pedidos de la mesa, y pide al cliente forma de pago}{}
 \op{4. El mozo ingresa la forma de pago que el cliente comunica y cierra la mea}{}
 \op{5. Fin CU}{}
 
-\cu{Cerrando mesa}{Mozo}{}{True}{Se registra la forma de pago del pedido y se cierra la mesa}{Permite que el cliente le informe al mozo su forma de pago, que el mozo la registre y el pedido este listo para ser facturado}
+\cu{Cerrando pedido de mesa}{Mozo}{}{True}{Se registra la forma de pago del pedido y se cierra la mesa}{Permite que el cliente le informe al mozo su forma de pago, que el mozo la registre y el pedido este listo para ser facturado}
 
-%notificando pedido entregado
+% Notificando pedido entregado
 \op{1. El delivery entrega el pedido al cliente}{1. Si es imposible entregar el pedido, el delivery env'ia un mensaje para que quede cancelado}
 \op{2. El delivery envia un mensaje con el codigo del pedido}{}
 \op{3. El sistema recibe el mensaje y el estado del pedido cambia a entregado}{}
@@ -391,17 +425,15 @@ de producción, la politica de asignación, etc.}
 \op{15. El sistema modifica la cantidad en stock del insumo}{}
 \op{16. Fin CU}{}
 
-%TODO: verificar requerimientos!!!!!!!!!
 \cu{Haciendo ABM de stock}{Encargado de stock}{15, 20}{TRUE}{El stock queda actualizado con las modificaciones}{Se puede hacer alta, baja y modificaci'on de insumos y kits comprados o caducados}
 
-% Notificando stock critico
+% Siendo notificado de stock critico
 \op{1. El sistema detecta que la cantidad de un insumo es por debajo del nivel cr'itico}{}
 \op{2. El sistema advierte al encargado de stock qu'e insumo es cr'itico hasta que este confirme que el mensaje le ha llegado}{}
 \op{3. El encargado de stock confirma al sistema que el mensaje le lleg'o}{}
 \op{4. Fin CU}{}
 
-%TODO: 14 es REQ?
-\cu{Siendo notificado stock cr'itico}{Encargado de stock}{19}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
+\cu{Siendo notificado de stock cr'itico}{Encargado de stock}{19}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
 
 % Consultando informacion estadistica
 \op{1. Si el dueño desea observar información estadistica sobre un producto ir a paso 2, sino ir a paso 6}{}
@@ -415,6 +447,7 @@ de producción, la politica de asignación, etc.}
 
 \cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{14, 27, 28}{TRUE}{Las estad'isticas son mostradas en pantalla}{El dueño puede consultar la informaci'on estad'istica sobre los productos y pedidos gestionados}
 
+% Realizando ABM de productos
 \op{1. El dueño o cajero eligen si desean hacer un alta, baja o modificación}{}
 \op{2. Si quieren hacer un alta, ingresan el nombre del producto, precio, ingredientes y tiempo de cocción y preparación (que deben ser dichos al dueño o cajero por el maestro). Si terminaron ir a Fin CU, sino ir a 1}{}
 \op{3. Si quieren hacer una baja, eligen hacer baja y el prducto que quieren dar de baja. Si terminaron ir a Fin CU, sino ir a 1}{}
@@ -423,7 +456,7 @@ de producción, la politica de asignación, etc.}
 
 \cu{Realizando ABM de productos}{Cajero, Dueño}{}{True}{Se realizan las altas, bajas o modificaciones pedidas por el Dueño o cajero}{Permite ingresar nuevos productos a la carta de la pizzaría, indicar tiempos estimados de cocción y preparación, modificar precios y dar de baja productos}
 
-% modificando orden de preparación de pedidos
+% Modificando orden de la cola de preparacion
 \op{1. El encargado de pedido selecciona modificar cola de pedidos}{}
 \op{2. Selecciona de la lista asigando a cada maestro un pedido y lo mueve hacia la posición deseada}{}
 \op{3. Ingresa aceptar}{}
@@ -444,14 +477,29 @@ de producción, la politica de asignación, etc.}
 
 \cu{Modificando pol'itica del horno}{Encargado de pedidos}{10,11}{No hay pedidos hechos}{Pol'itica de cola modificada}{El encargado de pedidos modifica la pol'itica de cola del horno. Este caso de uso se lleva a cabo cuando inicia el sistema}
 
-%notificando pedido despachado
+% Notificando pedido despachado
 \op{1. El encargado de pedidos selecciona al pedido que se va a despachar de entre los pedidos listos}{}
 \op{2. Notifica que el pedido fue despachado}{} %TODO: explicar semantica de despacho: salio con la motito, o era local y se entregó
 \op{3. Fin CU}{}
 
 \cu{Notificando pedido despachado}{Encargado de pedidos}{}{El pedido debe estar listo}{Pedido marcado como despachado (o entregado en el caso de que sea local)}{Permite indicar que un pedido salió con el delivery o que fue entregado al cliente en mostrador o por el mozo en la mesa}
 
-\cu{Registrando cliente}{Encargado de pedidos}{}{}{}{} %TODO: completar
+\op{1. El cliente solicita al encargado de pedidos registrarse (por via telef'onica o personalmente){}
+\op{2. El encargado pide al cliente los datos:
+\begin{itemize}
+\item Nombre
+\item Apellido
+\item Dirección
+\item Tel'efono
+\item Usuario, password (opcional, solo necesario para hacer pedidos via Web)
+\item E-Mail (opcional)
+\item Célular (opcional, solo necesario para poder hacer pedidos vis SMS)
+\end{itemize}
+}{}
+\op{3. El cliente informa al encargado de pedidos sus datos}{}
+\op{4. El encargado de pedidos registra estos datos en el sistema}{}
+\op{5. El sistema registra el usuario en la lista de usuarios}{}
+\cu{Registrando cliente}{Encargado de pedidos}{}{El cliente no esta registrado en el sistema}{El cliente esta registrado en el sistema}{El cliente desea registrarse en la pizzer'ia y el encargado de pedidos lo atiende y registra}
 
 % Registrando pedido telefonico
 \op{1. El cliente llama al n'umero telef'onico de la pizzer'ia y lo atiende el encargado de pedidos}{}
@@ -484,7 +532,7 @@ de producción, la politica de asignación, etc.}
 
 \cu{Cancelando pedido}{Encargado de pedido}{$\infty$}{Pedido no entregado}{Pedido cancelado}{Un cliente solicita cancelar un pedido, por tel'efono o personalmente, y el encargado de pedidos se encarga de esta cancelaci'on.} 
 
-% Registrando pedido mostrador
+% Registrando pedido de mostrador
 \op{1. El cliente comunica al encargado de pedidos que desea hacer un pedido}{}
 \op{2. El encargado pregunta si el cliente esta registrado}{}
 \op{3. Si es asi el cliente da sus datos al encargado, si no el pedido se registrara sin cliente}{}
