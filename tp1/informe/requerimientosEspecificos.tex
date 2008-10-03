@@ -47,7 +47,7 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Los pedidos realizados pueden ingresarse al sistema y registrarse.}
 {Este requerimiento ayuda controlar el stock de insumos y conocer el estado de los pedidos.}
 
-\desreq{Operaciones de ingreso de pedido y baja de stock son atomicas}
+\desreq{Operaciones de ingreso de pedido y baja de stock son atómicas}
 {No funcional} %TODO: no se
 {Importante}
 {Al momento de ingresar un pedido deberia ser posible hacer un lockeo de los productos necesarios, de modo que al momento de confirmar el mismo los recursos a utilizar esten efectivamente disponibles.}
@@ -67,14 +67,14 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 
 \desreq{Mantener estadisticas sobre productos gestionados}
 {Funcional}
-{Escencial} %TODO: mmmmmmm
-{El sistema debe ser capaz de retener la información estadistica sobre los pedidos asi como también calcular los diferentes indicadores estadisticos}%FIXME: completar esto
+{Esencial} %TODO: mmmmmmm
+{El sistema debe ser capaz de retener la información sobre los productos que se gestionan para poder realizar estadisticas sobre los pedidos, y de esta forma conocer mas el funcionamiento de la pizzeria}%FIXME: completar esto
 {Se pide de forma explicita tener información estadistica sobre el funcionamiento de la pizzeria, los pedidos, las cancelaciones, y productos mas vendidos para hacer promociones.}
 
 \desreq{Lograr que el usuario pueda ingresar comentarios sobre el servicio via web}
-{Funional}
+{Funcional}
 {Deseable}
-{Como aporte original proponemos que el usuario pueda ingresar comentarios sobre el servicio, luego de recibir un pedido. El sistema debe ser capaz de registrar esos comentarios}
+{Como aporte original proponemos que el usuario pueda ingresar comentarios sobre el servicio, luego de recibir un pedido. El sistema debe ser capaz de registrar esos comentarios via web.}
 {Este requerimiento ayuda a generar información estadistica, con el objetivo de mejorar el servicio.}
 
 \begin{landscape}
@@ -88,12 +88,12 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Funcional}
 {Importante}
 {Cuando se prepara un pedido, o una parte de él, debe ser posible indicar al sistema que se ha preparado.}
-{Permite llevar el estado del pedido, ademas de contribuir a la funcionalidad de poder cambiar el estado del pedido a lo largo de su ciclo de vida.}
+{Permite llevar el estado del pedido, ademas de contribuir a la funcionalidad de poder cambiar el estado del mismo a lo largo de su ciclo de vida.}
 
 \desreq{Es posible indicar que se esta cocinando un pedido o una parte}
 {Funcional}
 {Importante}
-{Cuando un pedido esta preparado, el maestro puede comenzar a cocinar el pedido completo o una parte de el, en cualquiera de los dos casos se debe poder indicar al sistema que ese pedido o parte de pedido se comenzo a cocinar.}
+{Cuando un pedido esta preparado, el maestro puede comenzar a cocinar el pedido completo o una parte de el, en cualquiera de los dos casos se debe poder indicar al sistema que ese pedido o parte del mismo se comenzó a cocinar.}
 {Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, y ademas de llevar el estado del mismo.}
 
 \desreq{Es posible indicar que se cocinó un pedido o una parte}
@@ -102,32 +102,25 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Cuando el maestro termina de cocinar un pedido o una parte de el, debe poder indicarlo al sistema.}
 {Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, y ademas de llevar el estado del mismo.}
 
-%TODO: este requ deberia volar
-%\desreq{Es posible ingresar datos ocurridos fuera del sistema para su registro y facturación}
-%{Funcional}
-%{Deseable}
-%{Luego de una caida del sistema debería ser posible lograr cargar manualmente los pedidos que ocurrieron durante el tiempo en el que el sistema estuvo caido.}
-%{Lograr un software mas tolerante a fallos, de esta forma los pedidos que no se pudieron registrar directamente en el sistema se podrán ingresar una vez que éste se encuentre nuevamente operable en condiciones normales.}
-
 %TODO: completar
 %NOTA: funcional e importante esta por copy y paste pero hay q decidir q va en estos
 \desreq{Sistema informa que preparar}
 {Funcional}
 {Importante}
-{}
-{}
+{El sistema administra los pedidos que se encuentran esperando a ser preparados en una cola de preparación de los mismos, de esta se forma indica que pedido es el que sigue y por ende, cual es el que se tiene que preparar.}
+{Permite manejar la cola de pedidos que se encuentran esperando para ser preparados, y además contribuye a tener un orden eficiente de los pedidos que requieren ingresar a la cocina.}
 
 \desreq{Es posible modificar la politica}
 {Funcional}
 {Importante}
-{}
-{}
+{El encargado de pedidos puede realizar una modificación de la política que administra los pedidos que requieren ingresar al horno para ser cocinados.}
+{Permite tener un mejor control de los pedidos que ingresarán al horno, y contribuir asi a tener un buen rendimiento en la cocina.}
 
 \desreq{Sistema informa que cocinar a continuación}
 {Funcional}
 {Importante}
-{}
-{}
+{El sistema le indica al maestro que es lo que se debe cocinar a continuación cuando este tiene la oportunidad de hacerlo.}
+{Este requerimiento contribuye al manejo del ingreso de los pedidos al horno, para lograr tener un buen rendimiento de la cocina.}
 
 \desreq{El encargado puede hacer en modo de contingencia las cosas que hace en modo normal}
 {Funcional}
@@ -135,44 +128,41 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Cuando el sistema se encuentra en modo de contingencia, el encargado de pedidos va a poder continuar haciendo las funciones que tiene asignadas en modo normal.}
 {Este requerimiento aporta al funcionamiento del sistema en modo de contingencia permitiendo que el mismo sea tolerable a fallas.}
 
-%TODO: Completar
 \desreq{El encargado puede ingresar cambios en los estados de los pedidos y sus partes}
 {Funcional}
 {Importante}
-{}
-{}
+{Cuando el sistema se encuentra en modo de contingencia, es el encargado de pedidos el responsable de realizar las funcionalidades no disponibles para los actores adecuados. En este caso el encargado de pedidos deberá poder realizar los cambios de estado de los diferentes pedidos y sus respectivas partes. }
+{Este requerimiento ayuda a que no se pierda la funcionalidad del sistema en modo de contingencia, ayudando a que el mismo sea tolerable a fallas.}
 
-%TODO: completar
 \desreq{El encargado puede actualizar precios en caso de contingencia}
 {Funcional}
 {Importante}
-{}
-{}
+{El encargado puede realizar los cambios en los precios de los productos cuando el sistema se encuentra en modo de contingencia.}
+{Ayuda a que la funcionalidad del sistema no se pierda en modo de contingencia, lo que contribuye a que sea tolerable a fallas.}
 
-%TODO: completar
 \desreq{Se pueden ingresar cancelaciones}
 {Funcional}
 {Importante}
-{}
-{}
+{El sistema debe permitir que un pedido pueda ser cancelado, sin importar el estado en el que se encuentre, salvo en el estado finalizado, que caracteriza al mismo cuando el mozo llevó el pedido a la mesa, el cliente retiró el pedido del mostrador o cuando el delivery logro entregar el pedido.}
+{Este requerimiento contribuye al control de las cancelaciones, que permite mantener información sobre el estado de los pedidos.}
 
 %TODO: completar
 \desreq{Al recibir SMS el sistema registra entrega de pedidos}
 {Funcional}
 {Importante}
-{}
-{}
+{Cuando el delivery manda un mensaje de tipo SMS al sistema con el pedido que se entregó, este registra al pedido como entregado.}
+{Este requerimiento contribuye a conocer cuando un pedido fue entregado, para mantener información de el estados de los pedidos.}
 
-\desreq{Al cancelar un pedido se elimina el stock si se cancela despues de preparar o cocinar}%FIXME: es a nivel de productos
+\desreq{Al cancelar un pedido se elimina el stock si se cancela despues de preparar o cocinar}
 {Funcional}
 {Importante}
 {Los productos ya preparados o cocinados de un pedido no se pueden reutilizar, por lo que deben ser descartados. Este requerimiento esta relacionado con que este descarte sea automatico, es decir que no se tenga que ingresar las bajas manualmente.}
 {Provee un metodo para controlar las cancelaciones de pedidos, y llevar el estado de los mismos. Como el descarte es automatico, ayuda tambien a llevar el estado del stock.}
 
-\desreq{Se restaura el stock si el pedido no estaba preparado, al cancelarlo}%FIXME:  es a nivel de prod
+\desreq{Se restaura el stock si el pedido no estaba preparado, al cancelarlo}
 {Funcional}
 {Importante}
-{Si se cancela antes de preparlo, las materias primas que no se usaron deben volver al stock a fin de que puedan ser usadas para preparar un nuevo pedido, esta funcionalidad es automatica.}
+{Si se cancela un pedido antes de preparlo, las materias primas que no se usaron deben volver al stock a fin de que puedan ser usadas para preparar un nuevo pedido, esta funcionalidad es automatica.}
 {Permite controlar las cancelaciones, mejorar la eficiencia de la cocina, y contribuye a llevar el estado del stock.}
 
 \begin{landscape}
@@ -182,17 +172,23 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 \end{figure}
 \end{landscape}
 
-%FIXME: falta el req de se pueden ingresar cancelaciones
-
 \desreq{El sistema registra los pedidos hechos con PDA.}
 {Funcional}
 {Importante}
 {Cuando un mozo toma un pedido desde una mesa, este puede ingresarlo al sistema utilizando una computadora de mano. Estos pedidos quedan registrados en el sistema.}
 {Contribuye a lograr una atención eficiente de los clientes locales.}
 
-\desreq{Poder hacer pedido desde pagina web}{Funcional}{Importante}{El usuario tiene que poder ingresar un pedido desde la interfaz que brinda la página web de la pizzería.}{Para ampliar las formas de venta,	el cliente debe poder hacer pedidos via web, considerados como remotos.}
+\desreq{Poder hacer pedido desde pagina web}
+{Funcional}
+{Importante}
+{El usuario tiene que poder ingresar un pedido desde la interfaz que brinda la página web de la pizzería.}
+{Para ampliar las formas de venta, el cliente debe poder hacer pedidos via web, considerados como remotos.}
 
-\desreq{Poder identificar al usuario cuando se loguea}{Funcional}{Importante}{Es necesario poder identificar al usuario que quiere utilizar algun servicio de la pizzeria via web, para ello tendrá asignado un usuario y una contraseña para ingresar a su cuenta}{Cada usuario tendra una cuenta,donde realizará pedidos y podrá revisar el estado de los mismos. Esto se requiere para poder proveer una mejor atención a los clientes.}
+\desreq{Poder identificar al usuario cuando se loguea}
+{Funcional}
+{Importante}
+{Es necesario poder identificar al usuario que quiere utilizar algun servicio de la pizzeria via web, para ello tendrá asignado un usuario y una contraseña para ingresar a su cuenta.}
+{Cada usuario tendra una cuenta, donde realizará pedidos y podrá revisar el estado de los mismos. Esto se requiere para poder proveer una mejor atención a los clientes.}
 
 \desreq{Mantener base de datos de clientes actualizada}
 {Funcional}
@@ -212,7 +208,7 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Asi como para el caso web, para poder hacer un
 pedido via SMS es necesario poder identificar el número del celular que 
 envía el mensaje, y que éste corresponda con algun cliente que se encuentre registrado en el sistema.}
-{Contribuye a brindar el servicio de pedidos via SMS, lo que hace que se mejore la atención a los clientes.}
+{Contribuye a brindar el servicio de pedidos via SMS, ampliando las formas de pedido, lo que hace que se mejore la atención a los clientes.}
 
 \desreq{Interactuar con servicio externo de cobros con tarjeta de credito}
 {Funcional}
@@ -220,25 +216,24 @@ envía el mensaje, y que éste corresponda con algun cliente que se encuentre regi
 {El sistema debe ser capaz de interactuar con algun servicio similar a paypal, para permitir que un usuario realice el pago de su pedido utilizando una tarjeta de credito.}
 {Contribuye a tener una mayor variedad formas de pago, y dejar al cliente que opte por la opción que mas le convenga.}
 
-\desreq{Generar un archivo con los datos de un pedido a facturar.} %TODO: en el diagrama dice venta pero no me gusta
+\desreq{Generar un archivo con los datos para el sistema de facturación.}
 {Funcional}
 {Importante}
-{Cuando se completa un pedido, es decir cuando ya se encuentra cocinado y con las bebidas, el sistema genera un archivo con los datos necesarios para el funcionamiento del sistema.}
+{Cuando se completa un pedido, es decir cuando se encuentra en estado listo, cocinado y con las bebidas, el sistema genera un archivo con los datos necesarios para realizar la fatura cuando el cajero lo crea adecuado.}
 {Contribuye a brindar la funcionalidad de pagos con efectivo o con tarjeta de credito de clientes.}
 
-%TODO: completar
 \desreq{Mozo puede cerrar mesas e introducir forma de pago}
 {Funcional}
 {Importante}
-{}
-{}
+{Cuando se cierra una mesa, el mozo que la atiende debe preguntarle al cliente que forma de pago untilizará e indicarleselo al sistema.}
+{Este requerimiento contribuye a permitir diferentes formas de pago.}
 
 %TODO: completar
 \desreq{Es posible preguntar por el estado de un pedido}
 {Funcional}
 {Importante}
-{}
-{}
+{Un cliente tiene la posibilidad de consultar el estado de su pedido en cualquier momento.}
+{Contribuye a permitir la consulta del estado de un pedido, y ademas a lograr una interaccion fluida del sistema con el usuario.}
 
 \desreq{Poder identificar a un pedido de forma unica}
 {Funcional}
@@ -247,7 +242,7 @@ envía el mensaje, y que éste corresponda con algun cliente que se encuentre regi
 {Teniendo una unica forma de identificar un pedido, se puede brindar la opcion al cliente de verificar el estado de su pedido de forma remota, lo que mejora la interacción del sistema con el usuario y brinda una mejor atención.}
 
 \desreq{Estimar tiempos de preparacion de pedidos de forma dinamica}
-{No funcional} %TODO:dice como tiene q hacerse, verificar
+{No funcional}
 {Deseable}
 {En vez de ingresar a mano el tiempo de preparación de pedidos, una alternativa es ir estimando dinamicamente los tiempos
 de preparación, de este modo se puede adaptar la estimación según la cantidad de pedidos que tenga que atender la cocina}
@@ -255,7 +250,7 @@ de preparación, de este modo se puede adaptar la estimación según la cantidad de
 
 \desreq{Calcular tiempo total de cocción de un pedido en base a estimaciones individuales}
 {Funcional} %TODO: no se si es func o no
-{Importante} %todo: no se tampoco
+{Deseable} %todo: no se tampoco
 {Los tiempos individuales para los productos deben usarse para poder estimar el tiempo de un pedido teniendo en cuenta la cola
 de producción, la politica de asignación, etc.}
 {Se desea estimar el tiempo de preparación de los pedidos, para contribuir a una mejor atención de los clientes.}

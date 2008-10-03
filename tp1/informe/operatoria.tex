@@ -75,7 +75,7 @@ Lo unico que registra el sistema por si solo es que ya se ha generado un archivo
 
 El archivo se genera cuando un pedido esta listo para salir a entrega en el caso de que el mismo sea con delivery o mostrador, o en el momento en el que el cliente pide la cuenta al mozo. %TODO: caso de uso
 
-A la hora de generar el archivo la forma de pago de los pedidos en alguna mesa debe ser ingresada por el mozo, tras preguntarsela al cliente. Es este caso, el archivo se genera con los campos nombre de usuario, apellido y número de cliente en blanco. En el caso de los pedidos via SMS o telefonicos, estos se pagan en efectivo al delivery. Por otro lado, para los pedidos via web, la forma de pago la determina el usuario.
+A la hora de generar el archivo la forma de pago de los pedidos en alguna mesa debe ser ingresada por el mozo, tras preguntarsela al cliente. En este caso, el archivo se genera con los campos nombre de usuario, apellido y número de cliente en blanco. En el caso de los pedidos via SMS o telefonicos, estos se pagan en efectivo al delivery. Por otro lado, para los pedidos via web, la forma de pago la determina el usuario.
 
 \section{Cancelación}
 La cancelación de un pedido se realiza via telefonica o personalmente. Una cancelación se puede realizar siempre y cuando no se haya entregado el pedido, es decir que el pedido no se encuente en estado finalizado. 
@@ -93,7 +93,7 @@ Por cola de pedidos se entiende la cola que determina el orden en el cual se pre
 Cuando todas las partes de un pedido fueron preparados, el pedido deja de estar en preparación para pasar a estar en estado de preparado.
 
 \section{Cola de horno} 
-La cola del horno es la cola que establece que pedido (que parte del mismo) se cocinara a continuación. La cola se gestiona también de manera automatica. El maestro pide al sistema que pedido debe cocinar a continuación. El sistema informa que parte del mismo debe colocar al horno. A partir de este momento, el pedido pasa a ser considerado al horno. El sistema identifica que parte esta realmente en el horno, que parte aun no ingreso y que parte ya fue cocinada. Cuando todas las partes del pedido fueron cocinadas, se considera que el pedido fue cocinado. 
+La cola del horno es la cola que establece que pedido (que parte del mismo) se cocinara a continuación. La cola se gestiona también de manera automática. El maestro pide al sistema que pedido debe cocinar a continuación. El sistema informa que parte del mismo debe colocar al horno. A partir de este momento, el pedido pasa a ser considerado al horno. El sistema identifica que parte esta realmente en el horno, que parte aun no ingreso y que parte ya fue cocinada. Cuando todas las partes del pedido fueron cocinadas, se considera que el pedido fue cocinado. 
 
 El sistema muestra que debe de colocarse en el horno y donde. Cuando el maestro saca algo del horno, debe indicarselo al sistema a fin de que este pueda establecer que poner a continuación.
 
