@@ -524,7 +524,16 @@ de producción, la politica de asignación, etc.}
 
 \cu{Registrando pedido telef'onico}{Encargado de pedidos}{3, 4, 6}{}{Pedido ingresado al sistema}{El cliente quiere hacer un pedido por v'ia telef'onica, el encargado de pedidos lo atiende y luego de verificar los datos ingresa el pedido al sistema}
 
-\cu{Consultando estado de pedido}{Encargado de pedidos}{}{}{}{}%TODO: completar
+\op{1. El encargado de pedidos indica al sistema que desea consultar el estado de un pedido}{}
+\op{2. El sistema pide al encargado que ingrese el identificador o cliente del pedido quiere consultar}{}
+\op{3. El encargado de pedidos indica al sistema que pedido desea consultar}{}
+\op{4. El verifica si el pedido existe}{}
+\op{5. Si es asi, seguir al siguiente paso}{Sino, ir a Fin CU}
+\op{6. Si el encargado pidi'o consultar un pedido identificando al cliente, el sistema mostrar'a toda la informaci'on de los pedidos pendientes de entrega del cliente}{}
+\op{7. Si el encargado pidi'o consultar un pedido identificando al mismo mediante el identificador, el sistema mostrar'a toda la informaci'on correspondiente al pedido que tiene tal identificador}{}
+\op{8. Fin CU}{}
+
+\cu{Consultando estado de pedido}{Encargado de pedidos}{32, 33}{TRUE}{Se muestra la informaci'on del pedido consultado}{El encargado le pide informaci'on al sistema sobre un pedido en particular o sobre el cliente que haya hecho el pedido}
 
 % Cancelando pedido
 \op{1. El cliente informa al encargado de pedido su nombre o nombre de usuario y el id de pedido, o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
