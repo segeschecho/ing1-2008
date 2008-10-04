@@ -1,0 +1,33 @@
+1. Se alerta al responsable en caso de que el stock de un producto sea critico
+2. Disponer de ABM de stock
+3. Al ingresar pedido se actualiza el stock
+4. Todos los pedidos pueden registrarse en el sistema
+5. Operaciones de ingreso de pedido y baja de stock son atomicas
+6. Rechazar ingreso de pedidos si la cantidad de ingredientes son insuficientes
+7. Disponer de ABM de productos
+8. Mantener estadisticas sobre productos gestionados
+9. Lograr que el usuario pueda ingresar comentarios sobre el servicio via web
+10. Es posible indicar que se termino de preparar un pedido o una parte
+11. Es posible indicar que se esta cocinando un pedido o una parte
+12. Es posible indicar que se cocino un pedido o una parte
+13. Sistema informa que preparar
+14. Es posible modificar la politica
+15. Sistema informa que cocinar a continuacion
+16. El encargado puede hacer en modo de contingencia las cosas que hace en modo normal
+17. El encargado puede ingresar cambios en los estados de los pedidos y sus partes
+18. El encargado puede actualizar precios en caso de contingencia
+19. Se pueden ingresar cancelaciones
+20. Al recibir sms el sistema registra entrega de pedidos
+21. Al cancelar un pedido se elimina el stock si se cancela despues de preparar o cocinar
+22. Se restaura el stock si el pedido no estaba preparado, al cancelarlo
+23. El sistema registra los pedidos hechos con PDA
+24. Poder hacer pedido desde pagina web
+25. Poder identificar al usuario cuando se loguea
+26. Mantener base de datos de clientes actualizada
+27. Lograr que el cliente se pueda registrar en la base de datos
+28. Identificar al cliente por su numero de celular
+29. Interactuar con el servicio externo de cobros con tarjeta de credito
+30. Generar un archivo con los datos para el sistema de facturacion
+31. Mozo puede cerrar mesas e introducir forma de pago
+32. Es posible preguntar por el estado de un pedido
+33. Poder identificar a un pedido de forma unica
