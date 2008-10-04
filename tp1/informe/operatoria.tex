@@ -11,7 +11,7 @@ Si un usuario desea poder hacer pedidos vía web, deberá elegir un nombre de usua
 A continuación describiremos los procedimientos para la realización de pedidos remotos.
 
 \subsubsection{Pedidos telefonicos}
-El cliente que desee realizar un pedido telefonico debe llamar al número de la pizzería. El encargado de pedidos es el responsable de atender los llamados telefonicos. El cliente debe brindar información de identificación al encargado para permitir individualizarlo (nombre, dirección o nombre de usuario). El encargado corrobora entoces el número desde el que está llamando el usuario para verificar su identidad (eventualmente si llama desde otro número puede identificarse con usuario y password si lo tuviera).
+El cliente que desee realizar un pedido telefonico debe llamar al número de la pizzería. El encargado de pedidos es el responsable de atender los llamados telefonicos. El cliente debe brindar información de identificación al encargado para permitir individualizarlo (nombre, dirección o nombre de usuario). El encargado corrobora entonces el número desde el que está llamando el usuario para verificar su identidad (eventualmente si llama desde otro número puede identificarse con usuario y password si lo tuviera).
 
 Si el usuario no estaba registrado, el encargado debe sugerirle la posibilidad de registrarse. Si el usuario no esta registrado y no desea registrarse, no se toma el pedido. %TODO: caso de uso chequear datos de usuario
 
@@ -24,7 +24,7 @@ Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido c
 \subsubsection{Pedidos web}
 Para que los clientes puedan realizar pedidos via web, la pizzería contara con una página web. El cliente que desee hacer un pedido por esta vía debe ingresar a la página y autentificarse con usuario y contraseña.
 
-Una vez autentificado, tendra la posibilidad de elegir ingresar pedido. Entonces podra elegir que productos desea y con que cantidad a partir de una lista en línea. Dicha lista solo contiene productos que están disponibles (los que ya están fuera de stock no se incluyen). Cuando marco lo que deseaba puede ingresar el pedido. Entonces el sistema verifica la viabilidad del pedido, y en caso de no ser posible de realizar lo informa mediante un mensaje indicando que producto no se encuentra disponible. El cliente puede volver a ingresar un pedido diferente si lo desea.
+Una vez autentificado, tendra la posibilidad de elegir ingresar pedido. Entonces podra elegir que productos desea y con que cantidad a partir de una lista en línea. Dicha lista solo contiene productos que están disponibles (los que ya están fuera de stock no se incluyen). Cuando marcó lo que deseaba puede ingresar el pedido. Entonces el sistema verifica la viabilidad del pedido, y en caso de no ser posible de realizar lo informa mediante un mensaje indicando que producto no se encuentra disponible. El cliente puede volver a ingresar un pedido diferente si lo desea.
 
 En caso de que sea posible registrar el pedido, se estima el tiempo del mismo y se calcula el costo total. Esta información se muestra al usuario por pantalla. A continuación se le permite al usuario elegir si prefiere pagar contra entrega al delivery o con tarjeta de crédito. Si la operación con tarjeta falla, se muestra un mensaje de error y se permite al usuario reingresar los datos de la misma o cambiar de forma de pago. Hecho esto, se confirma todo el pedido.
 
