@@ -45,10 +45,10 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.0864"
-     inkscape:cx="2053.2482"
-     inkscape:cy="-93.875951"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4"
+     inkscape:cx="1167.4714"
+     inkscape:cy="670.01294"
+     inkscape:window-x="0"
+     inkscape:window-y="52"
      inkscape:current-layer="svg2"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -462,34 +462,6 @@
          id="tspan3491"
          sodipodi:role="line">Cliente</tspan></text>
   </g>
-  <g
-     id="g4819"
-     transform="translate(531.8125,547.51563)"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27">
-    <rect
-       y="544.35931"
-       x="740.14838"
-       height="93.156357"
-       width="184.23448"
-       id="rect3493"
-       style="opacity:1;fill:#a19ede;fill-opacity:1;stroke:#0051cb;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <text
-       id="text3495"
-       y="582.03906"
-       x="757.9375"
-       style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       xml:space="preserve"><tspan
-         y="582.03906"
-         x="757.9375"
-         id="tspan3497"
-         sodipodi:role="line">Encargado </tspan><tspan
-         id="tspan3499"
-         y="622.03906"
-         x="757.9375"
-         sodipodi:role="line"> de Stock</tspan></text>
-  </g>
   <rect
      style="opacity:1;fill:#e4e7a6;fill-opacity:1;stroke:#e9ef00;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      id="rect5878"
@@ -590,60 +562,6 @@
        id="tspan10665"
        x="642.52942"
        y="1387.3729">Delivery</tspan></text>
-  <rect
-     style="opacity:1;fill:#e6afe2;fill-opacity:1;stroke:#ea00c4;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect11198"
-     width="184.23448"
-     height="93.156357"
-     x="-1427.1195"
-     y="-74.74102"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27" />
-  <text
-     xml:space="preserve"
-     style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-1421.3992"
-     y="-36.014393"
-     id="text11200"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27"><tspan
-       sodipodi:role="line"
-       x="-1421.3992"
-       y="-36.014393"
-       id="tspan11204">Sistema de </tspan><tspan
-       sodipodi:role="line"
-       x="-1421.3992"
-       y="3.9856074"
-       id="tspan11208"> facturación</tspan></text>
-  <g
-     id="g7638"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27">
-    <rect
-       y="-750.75299"
-       x="185.27008"
-       height="93.156357"
-       width="184.23448"
-       id="rect11226"
-       style="opacity:1;fill:#e5c98a;fill-opacity:1;stroke:#b78011;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <text
-       id="text11228"
-       y="-714.13837"
-       x="220.58621"
-       style="font-size:32px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       xml:space="preserve"><tspan
-         y="-714.13837"
-         x="220.58621"
-         id="tspan11230"
-         sodipodi:role="line">Sistema</tspan><tspan
-         id="tspan11232"
-         y="-674.13837"
-         x="220.58621"
-         sodipodi:role="line">bancario</tspan></text>
-  </g>
   <rect
      style="opacity:1;fill:#bfbec9;fill-opacity:1;stroke:#545d5d;stroke-width:6.05951166;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      id="rect11234"
@@ -820,27 +738,6 @@
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
   <path
-     style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#ea00c4;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M -1340.7757,21.445092 C -1580.9977,414.59637 -1496.987,879.79935 -1492.7507,1327.2747"
-     id="path7654"
-     inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27"
-     inkscape:connection-start="#rect11198" />
-  <path
-     style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M 457.64512,274.40613 C 607.83774,-97.213556 558.67655,-406.07371 317.76142,-654.56688"
-     id="path7656"
-     inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc"
-     inkscape:connection-start="#g4825"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27"
-     inkscape:connection-end="#g7638" />
-  <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#90009e;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -573.95679,-463.90123 C -753.95786,87.897028 -674.49911,556.66814 -494.00933,993.10933"
      id="path7660"
@@ -883,16 +780,6 @@
      id="path7674"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27" />
-  <path
-     style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#0051cb;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M 1268.9311,1135.6546 C 734.5185,1231.3726 197.58213,1310.8665 -386.54938,1086.963"
-     id="path7676"
-     inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc"
-     inkscape:connection-start="#g4819"
      inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
@@ -950,26 +837,6 @@
      inkscape:export-xdpi="27"
      inkscape:export-ydpi="27" />
   <path
-     style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#e9ef00;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M 1461.286,-409.4702 C 2426.3018,240.22812 1939.9738,665.56412 1440.353,1088.8452"
-     id="path2676"
-     inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc"
-     inkscape:connection-start="#rect5878"
-     inkscape:connection-end="#g4819"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27" />
-  <path
-     style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M -419.14198,1086.963 C -147.16537,1279.6347 860.81252,1433.0177 1272.9568,1171.1605"
-     id="path2688"
-     inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27" />
-  <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M -1331.7346,1355.8519 C -371.90487,1413.2883 -1061.4444,1234.6808 -499.99643,1074.7034"
      id="path2714"
@@ -1012,21 +879,16 @@
        style="font-size:33px">Cambia estado de pedido</tspan><tspan
        sodipodi:role="line"
        x="-151.27477"
-       y="446.12939"
-       id="tspan2685"
-       style="font-size:33px">Modifica precios</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
        y="487.37939"
        id="tspan2695"
-       style="font-size:33px">Ingresa cambios al stock</tspan></text>
+       style="font-size:33px">Modifica precios</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.28533333;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856,9.856;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.04383016;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.13149062, 9.13149062;stroke-dashoffset:0;stroke-opacity:1"
      id="rect2734"
-     width="417.87271"
-     height="304.09506"
-     x="-166.49599"
-     y="199.17381" />
+     width="418.11423"
+     height="260.87976"
+     x="-166.61674"
+     y="199.05305" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1046,25 +908,20 @@
        sodipodi:role="line"
        x="-124.45765"
        y="667.21954"
-       style="font-size:33px"
-       id="tspan3639">Notifica stock critico</tspan><tspan
+       id="tspan3566"
+       style="font-size:33px">Informa proximo pedido a preparar</tspan><tspan
        sodipodi:role="line"
        x="-124.45765"
        y="708.46954"
-       id="tspan3566"
-       style="font-size:33px">Informa proximo producto a preparar</tspan><tspan
-       sodipodi:role="line"
-       x="-124.45765"
-       y="749.71954"
        style="font-size:33px"
        id="tspan2696">Informa proximo producto a cocinar</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.28533333;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856,9.856;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.91433167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8.74299491, 8.74299491;stroke-dashoffset:0;stroke-opacity:1"
      id="rect3568"
-     width="562.36469"
-     height="214.40834"
-     x="-137.79117"
-     y="549.74274" />
+     width="562.73566"
+     height="168.60651"
+     x="-137.97667"
+     y="549.55725" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1078,13 +935,9 @@
        id="tspan3657">Notifica pedidos hechos</tspan><tspan
        sodipodi:role="line"
        x="-542.17438"
-       y="557.79041"
-       style="font-size:33px"
-       id="tspan3691">Indica cancelacion</tspan><tspan
-       sodipodi:role="line"
-       x="-542.17438"
        y="599.04041"
-       id="tspan3659" /></text>
+       style="font-size:33px"
+       id="tspan3465">Indica cancelacion</tspan></text>
   <rect
      style="fill:none;fill-rule:evenodd;stroke:#389a2e;stroke-width:3.28533333;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856,9.856;stroke-dashoffset:0;stroke-opacity:1"
      id="rect3661"
@@ -1130,7 +983,7 @@
        x="-14.721871"
        y="746.52795"
        style="font-size:33px"
-       id="tspan3510">Ordena proximo producto a preparar</tspan><tspan
+       id="tspan3510">Ordena proximo pedido a preparar</tspan><tspan
        sodipodi:role="line"
        x="-14.721871"
        y="787.77795"
@@ -1155,7 +1008,7 @@
        x="13.710896"
        y="889.28662"
        style="font-size:32.99999619px"
-       id="tspan3741">Consulta proximo producto a preparar</tspan><tspan
+       id="tspan3741">Consulta proximo pedido a preparar</tspan><tspan
        sodipodi:role="line"
        x="13.710896"
        y="930.53662"
@@ -1194,52 +1047,6 @@
      x="337.35654"
      y="1159.3347"
      transform="matrix(0.9140086,-0.4056947,0.4020446,0.9156201,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="314.41843"
-     y="1240.473"
-     id="text3801"
-     transform="matrix(0.9984031,-5.6491321e-2,5.6491321e-2,0.9984031,0,0)"><tspan
-       sodipodi:role="line"
-       x="314.41843"
-       y="1240.473"
-       style="font-size:33px"
-       id="tspan3807">Informa cambios de stock</tspan><tspan
-       sodipodi:role="line"
-       x="314.41843"
-       y="1281.723"
-       id="tspan3809" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#0051cb;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3811"
-     width="393.93829"
-     height="40.832527"
-     x="303.97165"
-     y="1208.3831"
-     transform="matrix(0.9984031,-5.6491321e-2,5.6491321e-2,0.9984031,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="439.21997"
-     y="1295.318"
-     id="text3818"><tspan
-       sodipodi:role="line"
-       x="439.21997"
-       y="1295.318"
-       style="font-size:33px"
-       id="tspan3822">Informa stock critico</tspan><tspan
-       sodipodi:role="line"
-       x="439.21997"
-       y="1336.568"
-       id="tspan3824" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.08219743;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.24659193, 9.24659193;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3826"
-     width="315.19565"
-     height="40.605766"
-     x="428.28412"
-     y="1262.7389" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1388,28 +1195,6 @@
        id="flowPara3920" /></flowRoot>  <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-1506.2823"
-     y="232.06419"
-     id="text3924"><tspan
-       sodipodi:role="line"
-       x="-1506.2823"
-       y="232.06419"
-       style="font-size:33px"
-       id="tspan3928">Factura</tspan><tspan
-       sodipodi:role="line"
-       x="-1506.2823"
-       y="273.31421"
-       id="tspan3930" /></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#ea00c4;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3932"
-     width="133.2576"
-     height="43.039257"
-     x="-1517.4747"
-     y="199.22862" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-868.35956"
      y="68.424469"
      id="text3936"><tspan
@@ -1533,26 +1318,6 @@
      y="-262.02481" />
   <text
      xml:space="preserve"
-     style="font-size:40.00002289px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="415.36398"
-     y="-242.92117"
-     id="text4068"
-     transform="matrix(0.9999987,1.5996366e-3,-1.5996366e-3,0.9999987,0,0)"><tspan
-       sodipodi:role="line"
-       x="415.36398"
-       y="-242.92117"
-       id="tspan4074"
-       style="font-size:33px">Ordena pago tarjeta</tspan></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.28533554;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.8560041, 9.8560041;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4076"
-     width="313.078"
-     height="46.170017"
-     x="407.90085"
-     y="-274.38138"
-     transform="matrix(0.9999987,1.5996366e-3,-1.5996366e-3,0.9999987,0,0)" />
-  <text
-     xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="107.89111"
      y="1542.2676"
@@ -1601,49 +1366,24 @@
      transform="matrix(0.6450692,0.7641242,-0.7641242,0.6450692,0,0)" />
   <text
      xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="310.23834"
-     y="1765.2784"
-     id="text4104"
-     transform="matrix(0.7132823,-0.7008768,0.7008768,0.7132823,0,0)"><tspan
-       sodipodi:role="line"
-       x="310.23834"
-       y="1765.2784"
-       id="tspan4110"
-       style="font-size:33px">Informa ingredientes de nuevo producto</tspan></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#e9ef00;stroke-width:3.28533292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599918, 9.85599918;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect4112"
-     width="606.57922"
-     height="46.907539"
-     x="299.78793"
-     y="1733.1848"
-     transform="matrix(0.7132823,-0.7008768,0.7008768,0.7132823,0,0)" />
-  <text
-     xml:space="preserve"
      style="font-size:39.99999619px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-1074.2496"
-     y="1335.3706"
+     x="-1207.2881"
+     y="1354.7159"
      id="text4127"
-     transform="matrix(0.9999969,2.5020605e-3,-2.5020605e-3,0.9999969,0,0)"><tspan
+     transform="matrix(0.9999969,2.5020603e-3,-2.5020603e-3,0.9999969,0,0)"><tspan
        sodipodi:role="line"
-       x="-1074.2496"
-       y="1335.3706"
-       id="tspan4133"
-       style="font-size:33px">Modifica precios</tspan><tspan
-       sodipodi:role="line"
-       x="-1074.2496"
-       y="1376.6206"
+       x="-1207.2881"
+       y="1354.7159"
        style="font-size:33px"
-       id="tspan3500">Solicita imprimir factura</tspan></text>
+       id="tspan3500">Ordena modificar precios</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.28533518;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600555,9.85600555;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#545d5d;stroke-width:3.28533506;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600498, 9.85600498;stroke-dashoffset:0;stroke-opacity:1"
      id="rect4135"
-     width="362.01682"
-     height="85.090218"
-     x="-1086.0111"
-     y="1303.5629"
-     transform="matrix(0.9999956,2.9565255e-3,-1.4452816e-3,0.999999,0,0)" />
+     width="386.97623"
+     height="45.373772"
+     x="-1217.413"
+     y="1318.1857"
+     transform="matrix(0.9999989,1.4748571e-3,-2.8972387e-3,0.9999958,0,0)" />
   <flowRoot
      xml:space="preserve"
      id="flowRoot2679"
@@ -1654,58 +1394,7 @@
          height="127.65432"
          x="254.43828"
          y="-309.08643" /></flowRegion><flowPara
-       id="flowPara2685" /></flowRoot>  <path
-     style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#b78011;stroke-width:3.51999998000000010;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M 227.11302,-656.41123 C 63.830797,-121.93044 386.31999,-17.781728 371.2284,272.14815"
-     id="path2690"
-     inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc"
-     inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
-     inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27" />
-  <text
-     xml:space="preserve"
-     style="font-size:40.00002289px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="80.371117"
-     y="-333.6713"
-     id="text2692"
-     transform="matrix(0.9999987,1.5996366e-3,-1.5996366e-3,0.9999987,0,0)"><tspan
-       sodipodi:role="line"
-       x="80.371117"
-       y="-333.6713"
-       id="tspan2694"
-       style="font-size:33px">Confirma pago tarjeta</tspan></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#b78011;stroke-width:3.28533323999999990;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599971000000070, 9.85599971000000070;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect2696"
-     width="331.99149"
-     height="46.076675"
-     x="72.918541"
-     y="-367.79358"
-     transform="matrix(0.9999989,1.5054557e-3,-1.6997095e-3,0.9999986,0,0)" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-400.24796"
-     y="1205.9176"
-     id="text3488"
-     transform="matrix(0.8377283,0.5460872,-0.5460872,0.8377283,0,0)"
-     inkscape:transform-center-x="-335.42694"
-     inkscape:transform-center-y="336.61531"><tspan
-       sodipodi:role="line"
-       x="-400.24796"
-       y="1205.9176"
-       id="tspan3492"
-       style="font-size:33px">Ordena imprimir factura</tspan></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599986, 9.85599986;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3494"
-     width="364.29388"
-     height="51.340794"
-     x="-386.897"
-     y="1171.2209"
-     transform="matrix(0.8295843,0.5583814,-0.5584914,0.8295103,0,0)" />
-  <flowRoot
+       id="flowPara2685" /></flowRoot>  <flowRoot
      xml:space="preserve"
      id="flowRoot3514"
      style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:normal;font-weight:normal;font-size:40px"><flowRegion
@@ -1717,11 +1406,12 @@
          y="-194.81128" /></flowRegion><flowPara
        id="flowPara3520" /></flowRoot>  <path
      style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M -495.19136,1048.9383 C -1048.528,940.49727 -1269.5934,572.20316 -1258.4012,22.271605"
+     d="M -495.19136,1048.9383 C -940.39028,1177.4819 -1170.5023,1367.0346 -1330.1657,1344.7993"
      id="path3470"
      inkscape:connector-type="polyline"
      sodipodi:nodetypes="cc"
      inkscape:export-filename="C:\Documents and Settings\Federico\Escritorio\2 cuatri 2008\ing1\ContextoContingencia.png"
      inkscape:export-xdpi="27"
-     inkscape:export-ydpi="27" />
+     inkscape:export-ydpi="27"
+     inkscape:connection-end="#rect11234" />
 </svg>
