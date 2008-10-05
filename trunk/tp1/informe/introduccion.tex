@@ -10,9 +10,12 @@ En este documento CU se entiende como Caso de Uso.
 %\textcolor{ForestGreen}{ 	CdC: En el presente documento figurarán con la presente notación los comentarios especiales a la cátedra respecto del presente informe.}
 
 \section{Destinatarios del documento}
-%\textcolor{Blue}{Aquí se espera una enumeración de los stakeholders del software.}
-%
-%\textcolor{ForestGreen}{ CdC: Considerar que los clientes pueden contar con un área de Calidad de Software, que también podría  recibir el presente documento. Cualquier comentario específico para lectura de los docentes deberá presentarse en el informe como dirigido a esta área.}
+El presente documento está dirigido a los integrantes directivos de la pizzería,
+así como también, de haberlos, a los responsables de supervisión del proyecto y finalmente al
+personal del área de Calidad de Software asignados al seguimiento del mismo. 
+
+Ademas, también puede ser de utilidad para los asesores del proyecto, y aquellos que vayan a tener contacto con
+el mismo, empleados de la pizzería, servicio de delivery, etc.
 
 % Empleados de la pizzería (que lo van a usar)
 % Dueño de la pizzería (que se va a beneficiar de un mejor conocimiento del negocio)
@@ -20,6 +23,18 @@ En este documento CU se entiende como Caso de Uso.
 % Algo mas?
 
 \section{Descripción del problema }
+El proyeco del que trata este documento consiste en la informatización de una pizzería. La misma presenta al día de la fecha problemas para manejar el manejo de pedidos, asi como también la operatoria general de la pizzería.
+
+Por otro lado se manifiesta una intención de expansión del negocio mediante la generación de nuevas formas de acceso a potenciales clientes, ya sea mediante un servicio de delivery, como de pedido mediante internet o SMS.
+
+Basicamente el problema a resolver consiste en lograr:
+\begin{itemize}
+\item Terminar con la perdida de pedidos, asi como también la toma pedidos que no se pueden satisfacer, lo cual implica una automatización por lo menos parcial de la operatoria de la cocina, asi como también un control constante del stock de productos
+\item Ampliar las formas de ingreso de pedido con la intención de llegar a un mayor número de clientes
+\item Mejorar el conocimiento del funcionamiento del negocio a fin de lograr precios competitivos y atraer de esa manera a mas clientes, para lo cual es necesario registrar estadisticas del funcionamiento del local, asi como también perfiles de clientes o seguimiento de productos
+\end{itemize}
+
+Basicamente esos son los problemas que se intentan resolver en este proyecto.
 %\textcolor{Blue}{Breve descripción del problema al que se refiere el proyecto.}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -37,9 +52,24 @@ En este documento CU se entiende como Caso de Uso.
 % Estas mejoras deberían permitir "agrandar" el negocio atendiendo a más clientes y con mayor calidad.
 
 \section{Documentos relacionados}
+El principal documento a tener en cuenta es \textit{Enunciado TP V1}.
+Basicamente no se poseen otros documentos como minutas de reuniones, sin embargo si se pueden consultar los correos intercambiados con el area de calidad de software (El plantel docente).
+
+%TODO: los ponemos?
+
 %\textcolor{Blue}{Se deberían enumerar aquí los diferentes documentos relacionados con el presente y que pueden ser de interés para el lector de este informe.}
 %
 %\textcolor{ForestGreen}{CdC: No se espera aquí que detallen bibliografía sino documentación de interés directo con el proyecto. Por ej., aquí podrían estar mencionadas las minutas de reuniones de relevamiento.}
 
 \section{Organización del informe}
+El presente documento se organiza de la siguiente manera:
+\begin{enumerate}
+\item Introducción: Sección donde se presentan  los objetivos del documento, asi como también se presenta una breve descripción del problema y una descripción de los destinatarios del documento.
+\item Descripción: Se brinda una descripcción general de la solución, su alcance y perspectiva, al tiempo que se presentan las caracteristicas de los usuarios, limitaciones, supuestos y dependencias de la solución.
+\item Consideraciones globales de la solución: Se describe la solución desde un punto de vista unitario, es decir los distintos aspectos de la solución analizados globalmente. En este analisis se encuentran los requerimientos del sistema, los principales casos de uso, conceptos y contexto del software.
+\item Aspectos particulares de la solución: En este apartado se analizan los distintos aspectos de la solución desde una optica mas especifica a cada aspecto de la solución. Asi en esta sección se analiza el ingreso de pedidos, ciclo de vida de un pedido, entre otros factores.
+\item Apendice de Extensiones: Se muestran posibles extensiones al software o propuestas de mejora que quedaron fuera del proyecto, pero que podrían ser de interes para futuras revisiones del producto
+\item Glosario: Se pretende presentar los principales terminos y conceptos relacionados con la solución
+\end{enumerate}
+
 %\textcolor{Blue}{Breve descripción del documento, aclaraciones sobre cómo se debe leer, etc, etc.}
