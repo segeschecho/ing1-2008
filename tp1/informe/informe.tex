@@ -49,7 +49,7 @@
 
 %%---- Caratula -------------------------------------------------------------%%
 \materia{Ingeniería de Software I (2do cuatrimestre de 2008)}
-\titulo{Trabajo Práctico 0}
+\titulo{Trabajo Práctico 1}
 
 \integrante{Gonzalez, Emiliano}{426/06}{xjesse\_jamesx@hotmail.com}
 \integrante{Gonzalez, Sergio}{481/06}{seges.ar@gmail.com}
@@ -57,10 +57,19 @@
 \integrante{Sainz-Trápaga, Gonzalo}{454/06}{gonzalo@sainztrapaga.com.ar}
 \grupo{Grupo 5}
 \resumen{
+El siguiente trabajo brinda una especificación completa a la solución presentada para el proyecto de la pizzería. En la misma
+se utilizan diversas tecnicas de modelado tales como caso de uso, diagramas de contexto, actividad, objetivos entre otros a fin de lograr una mejor comprension del software propuesto.
 }
 
 \newcommand{\negrita}[1]{{\bf #1}}
+\newcounter{restriccion}
+\setcounter{restriccion}{1}
+\newcommand{\restr}[2]{ \negrita{\therestriccion . #1:}
 
+Invariante: $#2 $
+
+\stepcounter{restriccion}
+}
 
 % ----- Token list para las instrucciones ------------------------------------
 \newtoks\oplist\oplist={}
@@ -169,6 +178,7 @@
 \input{descripcion}
 \input{requerimientosEspecificos}
 \input{operatoria}
+\input{extensiones}
 \input{glosario}
 \label{LastPage}
 \end{document}

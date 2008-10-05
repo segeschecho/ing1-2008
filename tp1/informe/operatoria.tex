@@ -3,6 +3,9 @@
 \section{Ingreso de pedidos}
 Los pedidos basicamente pueden ser remotos o locales. Los pedidos remotos se pueden realizar via telefonica, via web, o via sms.
 
+Todos los pedidos tienen un único horno asignado, con la excepción de los pedidos de solo bebidas, a los que no se les asigna ningún horno.
+
+A continuación detalleremos los distintos tipos de pedidos
 \subsection{Pedidos remotos}
 Los pedidos remotos requieren que los usuarios esten registrados en el sistema. Esto se hace por cuestiones de seguridad, a fin de evitar la realización de pedidos por parte de usuarios anonimos que podrian cancelar constantemente o dar direcciones falsas. La registracion de usuarios se realiza personalmente o telefonicamente. Decidimos no permitir regitro de usuarios via web, ya que consideramos que el método no era del todo fiable (es facil crear usuarios ficticios y hacer pedidos en broma).
 
@@ -18,6 +21,13 @@ Si el usuario no estaba registrado, el encargado debe sugerirle la posibilidad d
 Una vez autentificado el usuario, el mismo procede a dictar su pedido al encargado de pedidos. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema, el cual se encarga de verificar si es posible satisfacer dicho pedido. En caso de no ser posible el sistema indicara mediante un mensaje de error que el pedido no fue posible de realizar e indicara que producto/s no estaba/n disponible/s. El cliente puede entonces dar un pedido diferente.
 
 Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido como ingresado. Se genera un identificador de pedido, se estima el tiempo del mismo y se calcula el costo total. Ademas si el pedido es mixto se brinda la posibilidad de que el encargado de pedidos asigne un horno. %TODO: caso de uso loco
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{diagramaActividadTelefono}
+\caption{Diagrama de actividad del ingreso de un pedido telefonico}
+\end{figure}
+
 %TODO: poner diagrama de actividad
 %NOTA: estos casos de uso q aparecen son medio especificos del caso, tonces se podria hacer un diagrama aparte
 
@@ -34,6 +44,11 @@ Una vez que el pedido fue ingresado, si se pagaba con tarjeta, se hace efectivo 
 
 El pedido será encolado automáticamente tratando de balancear la carga de los hornos. 
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{diagramaActividadWeb}
+\caption{Diagrama de actividad del ingreso de un pedido telefonico}
+\end{figure}
 %TODO:diagrama de actividad
 
 \subsubsection{Pedidos SMS}
@@ -47,6 +62,12 @@ El sistema verifica si es posible satisfacer el pedido. En caso de no ser posibl
 
 \subsection{Pedidos locales}
 Los pedidos locales pueden realizarse a los mozos, quienes cuentan con una PDA para realizar el registro de los pedidos. Un cliente dicta su pedido a algún mozo, el cual marca los productos y sus cantidades en su PDA. una vez que el cliente dictó su pedido el mozo ingresa el pedido. El sistema verifica la factibilidad del mismo, si no es posible tomarlo, notifica al mozo para que informe de la situación al cliente.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=12cm]{figuras/pantallaBotonesMozo.png}
+\caption{Interfaz del mozo para ingreso y cierre de pedido}
+\end{figure}
 
 Si es posible ingresar el pedido el sistema genera el id del pedido, se estima el tiempo del mismo y se calcula el costo total. La asignación del horno es también responsabilidad del sistema.
 
@@ -68,6 +89,7 @@ Para registrar a un usuario el encargado de pedidos debe tomar los siguientes da
 \item Célular (opcional, solo necesario para poder hacer pedidos vis SMS)
 \end{itemize}
 
+%TODO: pantalla
 
 \section{Facturacion}
 La facturación de los pedidos de la pizzería esta a cargo del software de facturación que posee el establecimiento. El sistema solo provee de la facilidad de generar un archivo con los datos necesarios para realizar la factura cuando el cajero lo determine adecuado. 
@@ -91,6 +113,26 @@ También se considera cancelado un pedido que no se pudo entregar por delivery.
 Por cola de pedidos se entiende la cola que determina el orden en el cual se prepararan los pedidos ingresados al sistema. La cola es la que determina que pedido ingresado debe comenzar a preparse a continuación. Dicha cola se gestiona de manera automatica, pero puede ser modificada por el encargado de pedidos. Ni bien un producto pasa a preparse, es decir se comienza a preparar cualquiera de sus partes el mismo deja de estar en esta cola.
 
 Cuando todas las partes de un pedido fueron preparados, el pedido deja de estar en preparación para pasar a estar en estado de preparado.
+
+A continuación, mostramos algunos prototipos de pantalla de la interfaz que tendra el encargado de pedidos con la cola
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\subfigure[El encargado ve los pedidos ingresados. El primer elemento de la cola es el elemento superior]{
+\includegraphics[scale=0.45]{./figuras/pantallaColaPedido1.png} }
+\subfigure[Aqui vemos como la lista se actualiza cuando ingresa un pedido]{
+\includegraphics[scale=0.45]{./figuras/pantallaColaPedido2.png}}
+\subfigure[El encargado puede mover un pedido dandole mas o menos prioridad]{
+\includegraphics[scale=0.45]{./figuras/pantallaColaPedido3.png} }
+\subfigure[El maestro pizzero pide algo para preparar y el pedido se va de la cola]{
+\includegraphics[scale=0.45]{./figuras/pantallaColaPedido4.png}}
+\label{fig:pantallaCola}
+\caption{Interfaz con la cola de pedidos}
+\setcounter{subfigure}{0}
+\end{figure}
+\end{landscape}
+
+Es de notar que si el encargado llevara a segundo lugar el pedido mixto, quedando debajo del de empanadas, y el maestro pizzero estuviera listo para preparar un pedido, el que desaparece será el mixto, de modo que al maestro empanadero cuando este listo para preparar se le mostraran las empanadas del pedido mixto.
 
 \section{Cola de horno} 
 La cola del horno es la cola que establece que pedido (que parte del mismo) se cocinara a continuación. La cola se gestiona también de manera automática. El maestro pide al sistema que pedido debe cocinar a continuación. El sistema informa que parte del mismo debe colocar al horno. A partir de este momento, el pedido pasa a ser considerado al horno. El sistema identifica que parte esta realmente en el horno, que parte aun no ingreso y que parte ya fue cocinada. Cuando todas las partes del pedido fueron cocinadas, se considera que el pedido fue cocinado. 
@@ -150,9 +192,5 @@ El ABM de productos, permite ingresar nuevos productos, es decir nuevas variedad
 El ABM de stock permite realizar altas, bajas y modificaciones de los kits y demas insumos para la elaboración de productos. Ademas permite modificar el valor critico de cada insumo, de modo que el sistema pueda utilizar dicho valor para alertar al encargado de stock cuando la cantidad disponible de un producto descienda por debajo de dicho valor. La notificación se realiza con un mensaje en pantalla  
 
 \section{Ciclo de vida de un pedido}
-%TODO: chamuyar aca
-
-\chapter{Extensiones}
-\section{Pedidos diferidos}
-
-\section{Productos preparados de antemano}
+\subsection{Pedido simple}
+\subsection{Pedido Mixto}
