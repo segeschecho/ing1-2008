@@ -171,13 +171,24 @@ De manera similar, los maestros deberan pedirle al encargado de pedidos que debe
 El delivery que en general utiliza SMS para informar al sistema la entrega de un pedido, ahora debera hacerlo comunicandose con el encargado de pedidos.
 
 Finalmente el dueño deberá informar al encargado de pedido los precios que pretende modificar.
+
 \subsection{Diagrama de contexto del funcionamiento de contingencia}
 \begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=16cm]{ContextoContingencia.png}
+\includegraphics[height=17cm]{ContextoContingencia.png}
 \end{figure}
 \end{landscape}
+
+
+\subsection{Casos de uso}
+A continuación se presentan brevemente los casos de uso presentes cuando el sistema esta en estado de contingencia
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=16cm]{casosDeUsoContingencia.png}
+\end{figure}
+
 
 \section{Informacion estadistica}
 %TODO: chamuyar aqui
@@ -192,5 +203,6 @@ El ABM de productos, permite ingresar nuevos productos, es decir nuevas variedad
 El ABM de stock permite realizar altas, bajas y modificaciones de los kits y demas insumos para la elaboración de productos. Ademas permite modificar el valor critico de cada insumo, de modo que el sistema pueda utilizar dicho valor para alertar al encargado de stock cuando la cantidad disponible de un producto descienda por debajo de dicho valor. La notificación se realiza con un mensaje en pantalla  
 
 \section{Ciclo de vida de un pedido}
+%TODO: ojo tener en cuenta lo de despachado, que significa que el pedido salio en delivery o q el mozo se lo llevo o q el cliente se lo llevo!.
 \subsection{Pedido simple}
 \subsection{Pedido Mixto}
