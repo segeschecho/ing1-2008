@@ -46,9 +46,9 @@
      showgrid="false"
      inkscape:zoom="0.0864"
      inkscape:cx="1167.4714"
-     inkscape:cy="670.01294"
-     inkscape:window-x="0"
-     inkscape:window-y="52"
+     inkscape:cy="207.04998"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
      inkscape:current-layer="svg2"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -859,14 +859,9 @@
        style="font-size:33px">Registra usuarios</tspan><tspan
        sodipodi:role="line"
        x="-151.27477"
-       y="281.12939"
-       id="tspan2675"
-       style="font-size:33px">Ingresa pedidos</tspan><tspan
-       sodipodi:role="line"
-       x="-151.27477"
        y="322.37939"
        id="tspan2677"
-       style="font-size:33px">Cambia politica de colas</tspan><tspan
+       style="font-size:33px">Ingresa pedidos</tspan><tspan
        sodipodi:role="line"
        x="-151.27477"
        y="363.62939"
@@ -883,12 +878,12 @@
        id="tspan2695"
        style="font-size:33px">Modifica precios</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.04383016;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.13149062, 9.13149062;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:2.78132176;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8.34396558, 8.34396558;stroke-dashoffset:0;stroke-opacity:1"
      id="rect2734"
-     width="418.11423"
-     height="260.87976"
-     x="-166.61674"
-     y="199.05305" />
+     width="418.37674"
+     height="217.68549"
+     x="-166.748"
+     y="198.9218" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"

@@ -44,8 +44,8 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.08"
-     inkscape:cx="1558.9566"
-     inkscape:cy="2154.4042"
+     inkscape:cx="-1141.0434"
+     inkscape:cy="491.9042"
      inkscape:window-x="0"
      inkscape:window-y="52"
      inkscape:current-layer="svg2"
@@ -1405,28 +1405,24 @@
        y="1400.8696"
        id="tspan3821">Entrega factura</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.28533435;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600291, 9.85600291;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.28534436;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85603346, 9.85603346;stroke-dashoffset:0;stroke-opacity:1"
      id="rect3823"
-     width="510.79553"
-     height="104.5927"
-     x="-1360.985"
-     y="1031.8947"
-     transform="matrix(0.9891767,-0.1467292,0.1477486,0.989025,0,0)" />
+     width="313.11011"
+     height="55.187084"
+     x="-1335.3151"
+     y="1076.103"
+     transform="matrix(0.9878806,-0.155216,0.1588365,0.9873049,0,0)" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-1349.2804"
-     y="1070.1482"
+     x="-1321.2954"
+     y="1115.5369"
      id="text3825"
-     transform="matrix(0.989096,-0.1472723,0.1472723,0.989096,0,0)"><tspan
+     transform="matrix(0.9876167,-0.1568863,0.1568863,0.9876167,0,0)"><tspan
        sodipodi:role="line"
-       x="-1349.2804"
-       y="1070.1482"
-       id="tspan3935">Modifica precios</tspan><tspan
-       sodipodi:role="line"
-       x="-1349.2804"
-       y="1120.1482"
-       id="tspan2652">Requiere archivo de factura</tspan></text>
+       x="-1321.2954"
+       y="1115.5369"
+       id="tspan2652">Modifica precios</tspan></text>
   <rect
      style="fill:none;fill-rule:evenodd;stroke:#00b7cd;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600023, 9.85600023;stroke-dashoffset:0;stroke-opacity:0.96862745"
      id="rect3829"
