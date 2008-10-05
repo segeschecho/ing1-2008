@@ -44,8 +44,8 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.08"
-     inkscape:cx="408.28821"
-     inkscape:cy="1016.9042"
+     inkscape:cx="1558.9566"
+     inkscape:cy="2154.4042"
      inkscape:window-x="0"
      inkscape:window-y="52"
      inkscape:current-layer="svg2"
@@ -1048,7 +1048,7 @@
        sodipodi:role="line"
        x="598.38953"
        y="367.2981"
-       id="tspan3566">Informa proximo producto a preparar</tspan><tspan
+       id="tspan3566">Informa proximo pedido a preparar</tspan><tspan
        sodipodi:role="line"
        x="598.38953"
        y="417.2981"
@@ -1542,7 +1542,7 @@
        sodipodi:role="line"
        x="594.50244"
        y="482.80469"
-       id="tspan3871">Consulta proximo producto a preparar</tspan><tspan
+       id="tspan3871">Consulta proximo pedido a preparar</tspan><tspan
        sodipodi:role="line"
        x="594.50244"
        y="532.80469"
