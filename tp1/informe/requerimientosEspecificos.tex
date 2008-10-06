@@ -23,13 +23,16 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 \end{figure}
 \end{landscape}
 
-\desreq{Se alerta al responsable en caso de que el stock de un producto sea critico}
+% FIXME: hay que revisar todas las clasificaciones de esencial/importante y funciona/no funcional
+% FIXME: hay que reordenar los requerimientos para que el orden tenga alguna lógica
+
+\desreq{Se alerta al responsable en caso de que el stock de un producto sea crítico}
 {Funcional}
 {Esencial}
-{Cuando el stock de un producto queda por debajo de un limite preestablecido se debe generar algun mensaje dirigido al responsable de stock a fin de notificar esta situación.}
-{Es una funcionalidad pedida explicitamente, y ayuda a mantener un stock apropiado de los distintos productos, y evitar asi la falta de insumos para realizar pedidos.}
+{Cuando el stock de un producto queda por debajo de un límite preestablecido, se debe generar un mensaje dirigido al responsable de stock a fin de notificar esta situación.}
+{Es una funcionalidad pedida explícitamente, que ayuda a mantener un stock apropiado de los distintos productos y evitar así la falta de insumos para realizar pedidos.}
 
-\desreq{Disponer de ABM de stock}
+\desreq{Se dispone de ABM de stock}
 {Funcional}
 {Importante}
 {El sistema debe permitir que las altas, bajas y modificaciones de productos se registren en el sistema, para de esta manera controlar el stock de las materias primas y bebidas.}
@@ -48,33 +51,33 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Este requerimiento ayuda controlar el stock de insumos y conocer el estado de los pedidos.}
 
 \desreq{Operaciones de ingreso de pedido y baja de stock son atómicas}
-{No funcional} %TODO: no se
+{No funcional}
 {Importante}
-{Al momento de ingresar un pedido deberia ser posible hacer un lockeo de los productos necesarios, de modo que al momento de confirmar el mismo los recursos a utilizar esten efectivamente disponibles.}
+{El ingreso de un pedido y la disminución del stock de sus materias primas son indisociables. Esto garantiza la consistencia del sistema de stock asegurando así que los recursos necesarios para la realización de un pedido estén efectivamente disponibles al momento de su ingreso.}
 {Evitar tomar pedidos si no se dispone de los recursos para satisfacerlos.}
 
-\desreq{Rechazar ingreso de pedido si la cantidad de ingredientes son insuficientes}
+\desreq{Rechazar ingreso de pedido si no hay insumos suficientes para su realización}
 {Funcional}
 {Esencial}
-{Si cuando se realiza un pedido no se dispone de los recursos necesarios para completarlo, el mismo no debe ingresar al sistema y se debe notificar a quien este intentando realizar el pedido de la situación}
+{Si cuando se realiza un pedido no se dispone de los recursos necesarios para completarlo, el mismo no debe ingresar al sistema y se debe notificar a quien esté intentando realizar el pedido de dicha situación}
 {Evitar tomar pedidos si no se dispone de los recursos para satisfacerlos.}
 
 \desreq{Disponer de ABM de productos}
 {Funcional}
 {Importante}
-{Se debe proveer de una interfaz para registrar nuevos productos (por ejemplo nuevas variedades de pizza) al menú asi como también modificar precios de productos ya registrados o sacarlos del menú. Por otro lado, este ABM sirve para registrar la cantidad de materias primas que utiliza un producto}
-{Conocer la cantidad de materia prima que usa un producto a fin de poder evitar tomar pedidos insatisfacibles. Y permitir modificar la lista de precios.}
+{Se debe proveer de una interfaz para registrar nuevos productos al menú (por ejemplo, nuevas variedades de pizza) así como también modificar precios de productos ya registrados o sacarlos del menú.}
+{Permitir modificaciones al menú y a la lista de precios.}
 
-\desreq{Mantener estadisticas sobre productos gestionados}
+\desreq{Mantener estadísticas sobre productos gestionados}
 {Funcional}
-{Esencial} %TODO: mmmmmmm
-{El sistema debe ser capaz de retener la información sobre los productos que se gestionan para poder realizar estadisticas sobre los pedidos, y de esta forma conocer mas el funcionamiento de la pizzeria}%FIXME: completar esto
-{Se pide de forma explicita tener información estadistica sobre el funcionamiento de la pizzeria, los pedidos, las cancelaciones, y productos mas vendidos para hacer promociones.}
+{Esencial}
+{El sistema debe ser capaz de retener la información sobre los productos que se gestionan para poder realizar estadísticas sobre los pedidos, y de esta forma conocer más el funcionamiento de la pizzería.}
+{Se pide de forma explícita tener información estadística sobre el funcionamiento de la pizzería, los pedidos, las cancelaciones, y productos más vendidos para hacer promociones.}
 
-\desreq{Lograr que el usuario pueda ingresar comentarios sobre el servicio via web}
+\desreq{Lograr que el usuario pueda ingresar comentarios sobre el servicio vía web}
 {Funcional}
 {Deseable}
-{Como aporte original proponemos que el usuario pueda ingresar comentarios sobre el servicio, luego de recibir un pedido. El sistema debe ser capaz de registrar esos comentarios via web.}
+{Como aporte original proponemos que el usuario pueda ingresar comentarios sobre el servicio luego de recibir un pedido. El sistema debe ser capaz de registrar esos comentarios vía Web.}
 {Este requerimiento ayuda a generar información estadistica, con el objetivo de mejorar el servicio.}
 
 \begin{landscape}
@@ -84,74 +87,73 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 \end{figure}
 \end{landscape}
 
-\desreq{Es posible indicár que se terminó de preparar un pedido o una parte}
+\desreq{Es posible indicar que se terminó de preparar un pedido o una parte}
 {Funcional}
 {Importante}
-{Cuando se prepara un pedido, o una parte de él, debe ser posible indicar al sistema que se ha preparado.}
-{Permite llevar el estado del pedido, ademas de contribuir a la funcionalidad de poder cambiar el estado del mismo a lo largo de su ciclo de vida.}
+{Cuando se prepara un pedido (o una parte de él), debe ser posible indicar al sistema la tarea que se ha realizado.}
+{Permite mantener actualizado el estado del pedido, además de contribuir a la funcionalidad de poder cambiar el estado del mismo a lo largo de su ciclo de vida.}
 
-\desreq{Es posible indicar que se esta cocinando un pedido o una parte}
+\desreq{Es posible indicar que se está cocinando un pedido o una parte}
 {Funcional}
 {Importante}
-{Cuando un pedido esta preparado, el maestro puede comenzar a cocinar el pedido completo o una parte de el, en cualquiera de los dos casos se debe poder indicar al sistema que ese pedido o parte del mismo se comenzó a cocinar.}
-{Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, y ademas de llevar el estado del mismo.}
+{Cuando un pedido está preparado, el maestro puede comenzar a cocinar el pedido completo o una parte de él. En cualquiera de los dos casos se debe poder indicar al sistema que ese pedido o parte del mismo se comenzó a cocinar.}
+{Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, además de controlar el estado del mismo.}
 
 \desreq{Es posible indicar que se cocinó un pedido o una parte}
 {Funcional}
 {Importante}
-{Cuando el maestro termina de cocinar un pedido o una parte de el, debe poder indicarlo al sistema.}
-{Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida, y ademas de llevar el estado del mismo.}
+{Cuando el maestro termina de cocinar un pedido o una parte de él, debe poder indicarlo al sistema.}
+{Ayuda a poder modificar el estado del pedido a lo largo de su ciclo de vida y controlar el estado del mismo.}
 
-%TODO: completar
-%NOTA: funcional e importante esta por copy y paste pero hay q decidir q va en estos
-\desreq{Sistema informa que preparar}
+\desreq{Brindar información sobre el siguiente pedido a preparar}
 {Funcional}
 {Importante}
 {El sistema administra los pedidos que se encuentran esperando a ser preparados en una cola de preparación de los mismos, de esta se forma indica que pedido es el que sigue y por ende, cual es el que se tiene que preparar.}
-{Permite manejar la cola de pedidos que se encuentran esperando para ser preparados, y además contribuye a tener un orden eficiente de los pedidos que requieren ingresar a la cocina.}
+{Permite manejar la cola de pedidos que se encuentran esperando para ser preparados, y además contribuye a tener un orden eficiente de los pedidos que deben ingresar a la cocina.}
 
-\desreq{Es posible modificar la politica}
+\desreq{Es posible modificar la política de ingreso al horno}
 {Funcional}
 {Importante}
 {El encargado de pedidos puede realizar una modificación de la política que administra los pedidos que requieren ingresar al horno para ser cocinados.}
-{Permite tener un mejor control de los pedidos que ingresarán al horno, y contribuir asi a tener un buen rendimiento en la cocina.}
+{Permite tener un mejor control de los pedidos que ingresarán al horno, y contribuir así a tener un buen rendimiento en la cocina.}
 
-\desreq{Sistema informa que cocinar a continuación}
+\desreq{Indicar siguiente pedido a cocinar}
 {Funcional}
 {Importante}
-{El sistema le indica al maestro que es lo que se debe cocinar a continuación cuando este tiene la oportunidad de hacerlo.}
-{Este requerimiento contribuye al manejo del ingreso de los pedidos al horno, para lograr tener un buen rendimiento de la cocina.}
+{El sistema le indica al maestro que es lo que se debe cocinar a continuación cuando éste tenga la oportunidad de hacerlo.}
+{Este requerimiento contribuye al manejo del ingreso de los pedidos al horno, con el fin de tener un buen rendimiento de la cocina.}
 
-\desreq{El encargado puede hacer en modo de contingencia las cosas que hace en modo normal}
+\desreq{Contingencia: El encargado puede hacer las cosas que hace en modo normal}
 {Funcional}
 {Importante}
 {Cuando el sistema se encuentra en modo de contingencia, el encargado de pedidos va a poder continuar haciendo las funciones que tiene asignadas en modo normal.}
-{Este requerimiento aporta al funcionamiento del sistema en modo de contingencia permitiendo que el mismo sea tolerable a fallas.}
+{Este requerimiento aporta al funcionamiento del sistema en modo de contingencia permitiendo que el mismo sea tolerante a fallas.}
 
-\desreq{El encargado puede ingresar cambios en los estados de los pedidos y sus partes}
+\desreq{Contingencia: El encargado puede ingresar cambios en los estados de los pedidos y sus partes}
 {Funcional}
 {Importante}
-{Cuando el sistema se encuentra en modo de contingencia, es el encargado de pedidos el responsable de realizar las funcionalidades no disponibles para los actores adecuados. En este caso el encargado de pedidos deberá poder realizar los cambios de estado de los diferentes pedidos y sus respectivas partes. }
-{Este requerimiento ayuda a que no se pierda la funcionalidad del sistema en modo de contingencia, ayudando a que el mismo sea tolerable a fallas.}
+{Cuando el sistema se encuentra en modo de contingencia, es el encargado de pedidos el responsable de realizar las funcionalidades no disponibles para los actores que normalmente son responsables. En este caso, el encargado de pedidos deberá poder realizar los cambios de estado de los diferentes pedidos y sus respectivas partes. }
+{Este requerimiento ayuda a que no se pierda la funcionalidad del sistema en modo de contingencia, ayudando a que el mismo sea tolerante a fallas.}
 
-\desreq{El encargado puede actualizar precios en caso de contingencia}
+\desreq{Contingencia: El encargado puede actualizar precios}
 {Funcional}
 {Importante}
-{El encargado puede realizar los cambios en los precios de los productos cuando el sistema se encuentra en modo de contingencia.}
-{Ayuda a que la funcionalidad del sistema no se pierda en modo de contingencia, lo que contribuye a que sea tolerable a fallas.}
+{El encargado puede realizar cambios en los precios de los productos cuando el sistema se encuentra en modo de contingencia.}
+{Ayuda a que la funcionalidad del sistema no se pierda en modo de contingencia, lo que contribuye a que éste sea tolerante a fallas.}
 
 \desreq{Se pueden ingresar cancelaciones}
 {Funcional}
 {Importante}
-{El sistema debe permitir que un pedido pueda ser cancelado, sin importar el estado en el que se encuentre, salvo en el estado finalizado, que caracteriza al mismo cuando el mozo llevó el pedido a la mesa, el cliente retiró el pedido del mostrador o cuando el delivery logro entregar el pedido.}
+{El sistema debe permitir que un pedido pueda ser cancelado, sin importar el estado en el que se encuentre. La excepción es el estado finalizado, que caracteriza al mismo cuando el mozo llevó el pedido a la mesa, el cliente retiró el pedido del mostrador o cuando el delivery logró entregar el pedido.}
 {Este requerimiento contribuye al control de las cancelaciones, que permite mantener información sobre el estado de los pedidos.}
 
-%TODO: completar
-\desreq{Al recibir SMS el sistema registra entrega de pedidos}
+\desreq{El sistema registra entrega de pedido cuando recibe SMS}
 {Funcional}
 {Importante}
-{Cuando el delivery manda un mensaje de tipo SMS al sistema con el pedido que se entregó, este registra al pedido como entregado.}
-{Este requerimiento contribuye a conocer cuando un pedido fue entregado, para mantener información de el estados de los pedidos.}
+{Cuando el delivery manda un mensaje SMS al sistema con el pedido que se entregó, éste registra al pedido como finalizado.}
+{Este requerimiento contribuye a conocer cuando un pedido fue entregado, para mantener información de estado de los pedidos.}
+
+% FIXME: revisado hasta aca (Gonza)
 
 \desreq{Al cancelar un pedido se elimina el stock si se cancela despues de preparar o cocinar}
 {Funcional}
