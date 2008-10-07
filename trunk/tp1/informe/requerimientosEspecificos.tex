@@ -24,7 +24,7 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 \end{landscape}
 
 % FIXME: hay que revisar todas las clasificaciones de esencial/importante y funciona/no funcional
-% FIXME: hay que reordenar los requerimientos para que el orden tenga alguna lógica
+% FIXME: hay que reordenar los requerimientos para que el orden tenga alguna lógica (OJO CON ESTO QUE ROMPE TODA LA TRAZABILIDAD)
 
 \desreq{Se alerta al responsable en caso de que el stock de un producto sea crítico}
 {Funcional}
@@ -153,18 +153,16 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Cuando el delivery manda un mensaje SMS al sistema con el pedido que se entregó, éste registra al pedido como finalizado.}
 {Este requerimiento contribuye a conocer cuando un pedido fue entregado, para mantener información de estado de los pedidos.}
 
-% FIXME: revisado hasta aca (Gonza)
-
-\desreq{Al cancelar un pedido se elimina el stock si se cancela despues de preparar o cocinar}
+\desreq{Se elimina el stock si el pedido estaba preparado cuando se cancela}
 {Funcional}
 {Importante}
-{Los productos ya preparados o cocinados de un pedido no se pueden reutilizar, por lo que deben ser descartados. Este requerimiento esta relacionado con que este descarte sea automatico, es decir que no se tenga que ingresar las bajas manualmente.}
-{Provee un metodo para controlar las cancelaciones de pedidos, y llevar el estado de los mismos. Como el descarte es automatico, ayuda tambien a llevar el estado del stock.}
+{Los productos ya preparados o cocinados de un pedido no se pueden reutilizar, por lo que deben ser descartados. Este requerimiento está relacionado con que este descarte sea automatico, es decir que no se tengan que ingresar las bajas de stock correspondientes de forma manual.}
+{Provee un método para controlar las cancelaciones de pedidos y seguir el stock con facilidad. Como el descarte es automático, ayuda también a llevar el estado del stock.}
 
-\desreq{Se restaura el stock si el pedido no estaba preparado, al cancelarlo}
+\desreq{Se restaura el stock si el pedido no estaba preparado cuando se cancela}
 {Funcional}
 {Importante}
-{Si se cancela un pedido antes de preparlo, las materias primas que no se usaron deben volver al stock a fin de que puedan ser usadas para preparar un nuevo pedido, esta funcionalidad es automatica.}
+{Si se cancela un pedido antes de prepararlo, las materias primas que no se usaron deben volver al stock a fin de que puedan ser usadas para preparar un nuevo pedido. Dicha funcionalidad es automática.}
 {Permite controlar las cancelaciones, mejorar la eficiencia de la cocina, y contribuye a llevar el estado del stock.}
 
 \begin{landscape}
@@ -174,75 +172,79 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 \end{figure}
 \end{landscape}
 
-\desreq{El sistema registra los pedidos hechos con PDA.}
+\desreq{El sistema registra los pedidos de los mozos a través de sus PDA}
 {Funcional}
 {Importante}
 {Cuando un mozo toma un pedido desde una mesa, este puede ingresarlo al sistema utilizando una computadora de mano. Estos pedidos quedan registrados en el sistema.}
 {Contribuye a lograr una atención eficiente de los clientes locales.}
 
-\desreq{Poder hacer pedido desde pagina web}
+% FIXME: objetivo de procesar pagos con tarjeta?
+
+\desreq{Se permite registrar pedido desde página web}
 {Funcional}
 {Importante}
 {El usuario tiene que poder ingresar un pedido desde la interfaz que brinda la página web de la pizzería.}
-{Para ampliar las formas de venta, el cliente debe poder hacer pedidos via web, considerados como remotos.}
+{Para ampliar las formas de venta, el cliente debe poder hacer pedidos vía web.}
 
-\desreq{Poder identificar al usuario cuando se loguea}
+\desreq{Se puede identificar al usuario cuando se loguea}
 {Funcional}
 {Importante}
-{Es necesario poder identificar al usuario que quiere utilizar algun servicio de la pizzeria via web, para ello tendrá asignado un usuario y una contraseña para ingresar a su cuenta.}
-{Cada usuario tendra una cuenta, donde realizará pedidos y podrá revisar el estado de los mismos. Esto se requiere para poder proveer una mejor atención a los clientes.}
+{Es necesario poder identificar al usuario que quiere utilizar algun servicio de la pizzeria vía web. Para ello tendrá asignado un usuario y una contraseña para ingresar a su cuenta.}
+{Cada usuario tendrá una cuenta, que utilizará para realizar pedidos y revisar el estado de los mismos. Esto se requiere para poder proveer una mejor atención a los clientes.}
 
-\desreq{Mantener base de datos de clientes actualizada}
+\desreq{Se mantiene la base de datos de clientes actualizada}
 {Funcional}
 {Importante}
 {Una base de datos actualizada es necesaria para poder tener información de los usuarios y permitirles realizar pedidos remotos.}
-{Mantener una base de datos de clientes actualizada permite identificar de forma correcta a cada uno de ellos, y de esta forma, mejorar la calidad del sistema.}
+{Mantener una base de datos de clientes actualizada permite identificar de forma correcta a cada uno de ellos, y de esta manera registrar correctamente sus pedidos, permitiendo así conocer información estadística sobre la distribución de los pedidos. Esta información puede servir para crear promociones efectivas y mejorar la atención al cliente.}
 
-\desreq{Lograr que el cliente se pueda registrar en la base de datos}
+% FIXME: revisar que este coherente este requerimiento con el caso de uso y el diagrama de casos de uso y objetivos
+\desreq{Disponer de ABM de clientes}
 {Funcional}
 {Importante}
-{los usuarios nuevos que no se encuentren registrados en el sistema, podrán hacerlo, y de esta forma accederán a la posibilidad de realizar pedidos remotos.}
-{Esto ayuda a mantener la base de datos de los clientes actualizada, y de esta forma poder dar un mejor servicio.}
+{Deberá ser posible que el encargado de pedidos registre nuevos usuarios que se lo piden ya sea personal o telefónicamente. De esta forma accederán a la posibilidad de realizar pedidos remotos.}
+{Ayuda a mantener la base de datos de los clientes actualizada, permitiendo recibir pedidos remotos.}
 
 \desreq{Identificar al cliente por su número de celular}
 {Funcional}
 {Importante}
-{Asi como para el caso web, para poder hacer un
-pedido via SMS es necesario poder identificar el número del celular que 
-envía el mensaje, y que éste corresponda con algun cliente que se encuentre registrado en el sistema.}
-{Contribuye a brindar el servicio de pedidos via SMS, ampliando las formas de pedido, lo que hace que se mejore la atención a los clientes.}
+{Análogamente al caso Web, para poder hacer un pedido vía SMS es necesario poder identificar el número del celular que 
+envía el mensaje, y que éste corresponda con algún cliente que se encuentre registrado en el sistema.}
+{Contribuye a brindar el servicio de pedidos vía SMS, ampliando las formas de pedido, lo que hace que se mejore la atención a los clientes.}
 
-\desreq{Interactuar con servicio externo de cobros con tarjeta de credito}
+\desreq{Interactuar con servicio externo de cobros con tarjeta de crédito}
 {Funcional}
 {Importante}
-{El sistema debe ser capaz de interactuar con algun servicio similar a paypal, para permitir que un usuario realice el pago de su pedido utilizando una tarjeta de credito.}
-{Contribuye a tener una mayor variedad formas de pago, y dejar al cliente que opte por la opción que mas le convenga.}
+{El sistema debe ser capaz de interactuar con algun servicio externo tipo PayPal para permitir que un usuario realice el pago de su pedido utilizando una tarjeta de crédito.}
+{Contribuye a tener una mayor variedad formas de pago, dejando que el cliente opte por la opción que más le convenga.}
 
-\desreq{Generar un archivo con los datos para el sistema de facturación.}
+\desreq{Generar un archivo con los datos para el sistema de facturación}
 {Funcional}
 {Importante}
-{Cuando se completa un pedido, es decir cuando se encuentra en estado listo, cocinado y con las bebidas, el sistema genera un archivo con los datos necesarios para realizar la fatura cuando el cajero lo crea adecuado.}
-{Contribuye a brindar la funcionalidad de pagos con efectivo o con tarjeta de credito de clientes.}
+{Cuando se completa un pedido que deberá ser entregado por el delivery (cuando se encuentra en estado Listo, cocinado y con las bebidas), el sistema genera un archivo con los datos necesarios para realizar la factura cuando el cajero lo crea adecuado.}
+{Contribuye a brindar la funcionalidad de pagos en efectivo o con tarjeta de crédito por parte de los clientes, interactuando con el sistema de facturación existente.}
 
 \desreq{Mozo puede cerrar mesas e introducir forma de pago}
 {Funcional}
 {Importante}
-{Cuando se cierra una mesa, el mozo que la atiende debe preguntarle al cliente que forma de pago untilizará e indicarleselo al sistema.}
+{Cuando se cierra una mesa, el mozo que la atiende debe preguntarle al cliente que forma de pago untilizará e indicarselo al sistema.}
 {Este requerimiento contribuye a permitir diferentes formas de pago.}
 
 %TODO: completar
-\desreq{Es posible preguntar por el estado de un pedido}
+\desreq{Es posible consultar el estado de un pedido}
 {Funcional}
 {Importante}
-{Un cliente tiene la posibilidad de consultar el estado de su pedido en cualquier momento.}
-{Contribuye a permitir la consulta del estado de un pedido, y ademas a lograr una interaccion fluida del sistema con el usuario.}
+{Tanto un cliente como el encargado deben tener la posibilidad de consultar el estado de un pedido en cualquier momento. Para el caso de un usuario, lo podrá hacer directamente a través de la Web pero siempre y cuando se trate de un pedido que le corresponda a él.}
+{Contribuye a permitir la consulta del estado de un pedido, y a lograr una interacción fluida del sistema con el usuario.}
 
-\desreq{Poder identificar a un pedido de forma unica}
+\desreq{Poder identificar un pedido de forma única}
 {Funcional}
 {Importante}
-{Debe ser posible referenciar a un pedido ingresado al sistema de forma univoca}
-{Teniendo una unica forma de identificar un pedido, se puede brindar la opcion al cliente de verificar el estado de su pedido de forma remota, lo que mejora la interacción del sistema con el usuario y brinda una mejor atención.}
+{Debe ser posible referenciar a un pedido ingresado al sistema de forma unívoca para fines diversos (consultas de estado, modificaciones, etc)}
+{Teniendo una única forma de identificar un pedido, se puede brindar la opción al cliente de verificar el estado de su pedido de forma remota, lo que mejora la interacción del sistema con el usuario y brinda una mejor atención.}
 
+% FIXME: esto volo ??
+% FIXME: verificar que esté en el diagrama de objetivos
 \desreq{Estimar tiempos de preparacion de pedidos de forma dinamica}
 {No funcional}
 {Deseable}
@@ -251,13 +253,15 @@ de preparación, de este modo se puede adaptar la estimación según la cantidad de
 {Permitir tener una estimación del tiempo de preparación para los productos individuales y de esta forma contribuir a brindar una aproximación del tiempo total que llevará en realizarse el pedido.}
 
 \desreq{Calcular tiempo total de cocción de un pedido en base a estimaciones individuales}
-{Funcional} %TODO: no se si es func o no
-{Deseable} %todo: no se tampoco
+{Funcional}
+{Importante}
 {Los tiempos individuales para los productos deben usarse para poder estimar el tiempo de un pedido teniendo en cuenta la cola
 de producción, la politica de asignación, etc.}
 {Se desea estimar el tiempo de preparación de los pedidos, para contribuir a una mejor atención de los clientes.}
 
 %FIXME: los numeros de req estan desactualizados, actualizar.
+%FIXME: revisado hasta aca (Gonza)
+
 \section{Casos de uso}
 \subsection{Diagrama}
 \begin{figure}[H]
