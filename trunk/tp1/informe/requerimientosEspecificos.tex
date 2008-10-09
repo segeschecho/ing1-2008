@@ -491,8 +491,9 @@ de producción, la politica de asignación, etc.}
 
 \cu{Notificando pedido despachado}{Encargado de pedidos}{8, 30}{El pedido debe estar listo}{Pedido marcado como despachado (o entregado en el caso de que sea local)}{Permite indicar que un pedido salió con el delivery o que fue entregado al cliente en mostrador o por el mozo en la mesa}
 
-\op{1. El cliente solicita al encargado de pedidos registrarse (por via telef'onica o personalmente)}{}
-\op{2. El encargado pide al cliente los datos:
+\op{1. Si el cliente quiere actualizar sus datos ir a paso 7}{}
+\op{2. El cliente solicita al encargado de pedidos registrarse (por via telef'onica o personalmente)}{}
+\op{3. El encargado pide al cliente los datos:
 \begin{itemize}
 \item Nombre
 \item Apellido
@@ -503,9 +504,14 @@ de producción, la politica de asignación, etc.}
 \item Célular (opcional, solo necesario para poder hacer pedidos vis SMS)
 \end{itemize}
 }{}
-\op{3. El cliente informa al encargado de pedidos sus datos}{}
-\op{4. El encargado de pedidos registra estos datos en el sistema}{}
-\op{5. El sistema registra el usuario en la lista de usuarios}{}
+\op{4. El cliente informa al encargado de pedidos sus datos}{}
+\op{5. El encargado de pedidos registra estos datos en el sistema}{}
+\op{6. El sistema registra el usuario en la lista de usuarios, ir a fin CU}{}
+\op{7. El encargado de pedidos verifica los datos del usuario}{}
+\op{8. El usuario indica que datos modificar, y con que valores}{}
+\op{9. El encargado ingresa dichos datos}{}
+\op{10. El sistema actualiza los datos}{}
+\op{11. Fin CU}{}
 \cu{Registrando cliente}{Encargado de pedidos}{25, 26, 27, 28}{El cliente no esta registrado en el sistema}{El cliente esta registrado en el sistema}{El cliente desea registrarse en la pizzer'ia y el encargado de pedidos lo atiende y registra}
 
 % Registrando pedido telefonico
@@ -691,8 +697,6 @@ Requerimiento\textbackslash{}Caso de uso & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 1
 %
 %Explicar que el req 30 aparece en los casos de uso donde aparece porq
 %en esos casos de uso se ingresan datos para armar el archivo
-
-\newpage
 \include{conceptos}
 \section{Descripcion de operaciones} %NOTA: es opcional
 \section{Diagrama de actividad}
