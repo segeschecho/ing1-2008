@@ -347,23 +347,25 @@ de producción, la politica de asignación, etc.}
 % Indicando pedido preparado
 \op{1. El maestro indica al sistema que finaliz'o la preparaci'on del 'ultimo pedido que le pidi'o}{}
 \op{2. El sistema registra el 'ultimo pedido que le orden'o preparar al maestro como preparado}{}
-\op{3. Fin CU}{}
+\op{3. Si hay pedido para prepar el sistema le informa que debe preparar a continuación}{} 
+\op{4. Fin CU}{}
 \cu{Indicando producto preparado}{Maestro}{8, 10, 13, 33}{La cola de pedidos a preparar no est'a vac'ia}{El pedido se registra como preparado}{El maestro, luego de preparar un pedido, indica al sistema que el mismo est'a preparado}
 
 % Indicando producto cocinado
-\op{1. El maestro indica al sistema que finaliz'o la cocci'on de una parte}{}
+\op{1. El maestro indica al sistema que finaliz'o la cocci'on de ciertas partes de un pedido}{}
 \op{2. El sistema muestra al maestro un men'u de partes que deb'ian cocinarse y espera que el maestro indique la parte}{}
 \op{3. El maestro indica al sistema qu'e parte finaliz'o la cocci'on}{}
 \op{4. El sistema registra la parte como cocinada}{}
 \op{5. El sistema verifica si la 'ultima parte cocinada completa el pedido}{}
 \op{6. Si es as'i, el sistema registra al pedido como listo}{}
-\op{7. Fin CU}{}
+\op{7. Si hay productos para cocinar el sistema le informa al maestro que de debe poner a continuación}{}
+\op{8. Fin CU}{}
 \cu{Indicando producto cocinado}{Maestro}{8, 11, 12, 14, 15}{La cola de pedidos a cocinar no est'a vac'ia}{La parte de pedido se registra como cocinada}{El maestro, luego de cocinar una parte de un pedido, indica al sistema que la misma est'a cocinada}
 
 % Siendo informado de proximo pedido a preparar
 \op{1. El sistema indica al maestro preparar el primer pedido en la cola de pedidos a preparar y espera que el maestro confirme}{}
 \op{2. El maestro indica al sistema que empezar'a a preparar la parte pedida}{}
-\op{3. El pedido cambia su estado a "en preparacion" y sale de la cola de pedidos}{}
+\op{3. El pedido cambia su estado a ``en preparacion'' y sale de la cola de pedidos}{}
 \op{4. Si hay m'as pedidos a preparar, ir a paso 1}{}
 \op{5. Fin CU}{}
 \cu{Siendo informado de proximo pedido a preparar}{Maestro}{8, 10, 13, 33}{La cola de pedidos a preparar no est'a vac'ia}{La parte de pedido comienza a prepararse}{El sistema le ordena al maestro que parte de pedido preparar}
@@ -371,7 +373,7 @@ de producción, la politica de asignación, etc.}
 % Siendo informado de proximo producto a cocinar
 \op{1. El maestro pide al sistema que pedido debe cocinar a continuaci'on}{}
 \op{2. El sistema indica al maestro una parte a cocinar}{}
-\op{3. Si es la primera parte de un pedido, el sistema cambia el estado del mismo a "en horno"}{}
+\op{3. Si es la primera parte de un pedido, el sistema cambia el estado del mismo a ``en horno''}{}
 \op{4. Fin CU}{}
 \cu{Siendo informado de proximo producto a cocinar}{Maestro}{8, 11, 12, 14, 15}{La cola del horno no est'a vac'ia}{La parte comienza a cocinarse}{El sistema le ordena al maestro que parte de pedido debe cocinar}
 
