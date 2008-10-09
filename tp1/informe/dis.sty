@@ -1,0 +1,303 @@
+%*************************************************************************
+% Package Dis - versión 0.01 - Algoritmos y Estructuras de Datos II
+%*************************************************************************
+%  Muchas gracias a Brian Blackmore <blb8@math.washington.edu> por su enorme ayuda con TeX en general, y en particular por las macros \parsearparams y \funcrestr, que (más allá de modificaciones menores) son de su autoría.
+%
+%**********************************************************************
+
+% Información sobre el package para el sistema
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dis}[2006/05/06 v0.01 Para diseniar TADs en formato AED2]
+
+% Imprimir un mensajito al procesar un .tex que use este package
+\typeout{Cargando package 'dis' v0.01 (06/05/2006)}
+
+%************************************************************************
+% Parámetros que permiten ajustar el aspecto final de los TADs
+%************************************************************************
+
+% Margen para el TAD. Todos los títulos y encabezados,
+% excepto el primero y el último, llevan esta sangría.
+\newdimen\tadmargen\tadmargen=2em
+
+% Margen secundario. Las funciones y axiomas llevan esta sangría,
+% es decir que estan a \tadmargen + \tadsubmargen del borde izq.
+% Si esto vale cero, las funcs y axiomas quedan al mismo nivel
+% que los títulos en negrita del TAD.
+\newdimen\tadsubmargen\tadsubmargen=1em
+
+% El ancho del encabezado más largo, donde 'encabezado' se refiere
+% a los títulos usa, exporta, generos, etc.  Esto sirve para que el
+% texto a la derecha de estos encabezados quede alineado.
+\newdimen\tadmaxenc\tadmaxenc=16em
+
+% Espacio vertical extra antes de cada título o encabezado.
+% Este skip se adiciona al parskip standard. Afecta a todos
+% los títulos y encabezados, pero no a las funcs ni axiomas.
+\newdimen\tadtitskip\tadtitskip=6pt
+
+% Separación antes y después de la flechita y del : (en las funcs)
+\newdimen\tadfuncsep\tadfuncsep=6pt
+
+% Separación antes y después del equivalente (en axiomas)
+\newdimen\tadaxisep\tadaxisep=6pt
+
+% Tipo de flechita a usar
+\def\tadflecha{\longrightarrow}
+\def\abrefunc{$($}
+\def\cierrafunc{$)$}
+% Separación (espacio en blanco anterior y posterior) para los
+% símbolos de prod. cartesiano (\times) en las aridades.
+\def\timessep{ }
+%************************************************************************
+% Macros que implementan las distintas componentes del TAD
+%************************************************************************
+%
+% ------- Apertura del TAD ----------------------------
+%
+% Uso:  \discom{nombre del Modulo}
+%
+% Compone el título "Diseño del Tipo XXX". Este es un buen lugar para inicializaciones.
+% Ahora tomamos dos parámetros para poder soportar "preámbulos" (tadx).
+%
+\def\discom#1#2{#2\parindent=\tadmargen\vskip\tadtitskip\noindent%
+\hbox to \hsize{{\Large\bfseries\sffamily Dise\~no del Tipo} #1\hfil}}
+%
+% ------- Clausura del Modulo ---------------------------
+%
+% Uso:  \disfin
+%
+% Compone el título "Fin TAD". Restaurar aquí todo lo que hayamos pisado.
+% (PEND: Restaurar aquí el parskip que había antes de empezar el TAD)
+%
+\def\disfin{\vskip\tadtitskip\par\noindent%
+\hbox to \hsize{{\Large\bfseries\sffamily Fin Dise\~no}\hfil}\vskip\tadtitskip}
+%
+% ------- Encabezado (con texto a derecha) --------------
+%
+% Uso:  \tadenc{título}{texto posiblemente largo que va a la derecha}
+%
+% Compone un título en negrita con cierta cantidad de texto (que puede
+% ocupar varias líneas) a su derecha. Para usa, exporta, generos, etc.
+%
+\def\tadenc#1#2{\dimen0=\tadmaxenc\advance\dimen0 by \tadmargen%
+\vskip\tadtitskip\par\hangindent=\dimen0\hangafter=1\hskip0pt%
+\hbox to \tadmaxenc{{\bfseries\sffamily #1}\hfil}#2}
+
+% ------- Los tres encabezados standard -------------------
+%
+% Uso:  \usa{tal cosa}, \exporta{esto, aquello}, \generos{fulano}, etc.
+%
+\def\interface#1{\tadenc{interfaz}{#1}}
+\def\seexplica#1{\tadenc{se explica con especificaci\'on}{#1}}
+\def\usa#1{\tadenc{usa interfaces}{#1}}
+\def\exporta#1{\tadenc{exporta}{#1}}
+\def\genero#1{\tadenc{g\'enero}{#1}}
+
+% ------- título simple -------------------------------
+%
+% Uso:  \tadtit{título}
+%
+% Compone un título simple en negrita sin nada a su derecha. Esto es para
+% implementar títulos como 'observadores básicos', 'generadores', etc.
+%
+\def\tadtit#1{\vskip\tadtitskip\par{\large\bfseries\sffamily #1}}
+
+% ------- Los tres títulos standard -----------------------------
+%
+% Uso:  \observadores, \generadores, \otrasops
+%
+\def\especif{\tadtit{Especificaci\'on}}
+\def\aspectos{\tadtit{Aspectos de la Interfaz}}
+\def\serviciosexp{\tadtit{Servicios Exportados}}
+\def\interfaz{\tadtit{Interfaz}}
+\def\intfin{\tadtit{Fin Interfaz}}
+\def\operaciones{\tadtit{Operaciones} \\}
+\def\pautas{\tadtit{Pautas de Implementaci\'on}}
+\def\estructura{\tadtit{Estructura de Datos}}
+\def\invariante{\tadtit{Invariante de Representaci\'on}}
+\def\funcabs{\tadtit{Funci\'on de Abstraci\'on}}
+\def\algoritmos{\tadtit{Algoritmos} \\}
+\def\serviciosusa{\tadtit{Servicios Usados}\\}
+\def\justificaord{\tadtit{Justificaci\'on de los Ordenes de Complejidad} \\}
+
+% ------- MACROS PARA LAS FUNCIONES ---------------------------
+
+% ------- Alineamiento de las funciones -----------------------
+%
+% Cantidad de espacio reservado para el nombre de una función (es decir,
+% el máximo ancho que tendrá la función de nombre más largo). Esto
+% permite que los símbolos ':' queden alineados. Si es cero (default),
+% no alinear.
+%
+\newdimen\funcmaxnom\funcmaxnom=0cm
+%
+% Cantidad de espacio reservado para la aridad de una función (en particu-
+% lar, entiendase aquí 'aridad' como los argumentos que recibe la función,
+% por ejemplo 'persona x nat a x nat b'). Esto permite que las flechitas
+% queden alineadas. Si es cero (default), no alinear.
+%
+\newdimen\funcmaxari\funcmaxari=0cm
+%
+% Esta macro permite setear rápidamente las dos medidas anteriores usando
+% texto en lugar de medidas numéricas. Por ejemplo, si se ingresa esto:
+%
+%   \alinearfuncs{NombreLargo}{MuchosMuchosArgumentos}
+%
+% todas las funciones de ahí en adelante serán alineadas respetando los
+% anchos máximos de NombreLargo y MuchosMuchosArgumentos.
+%
+\def\alinearfuncs#1#2{\setbox0=\hbox{#1}%
+\funcmaxnom=\wd0\setbox0=\hbox{#2}\funcmaxari=\wd0}
+%
+% Parseo de aridades (listas de argumentos) de funciones ----
+%
+% Uso:  \funcparams{fulano/f, nat, bool/b} --> 'fulano $f$ x nat x bool $b$'
+%
+% La idea es que esto permita listas de parámetros como {banco b, banco c}
+% donde la cant. de params es arbitrariamente larga. El tipo de cada param
+% es obligatorio, pero el nombre de la instancia es opcional. El cambio a
+% math mode para los nombres de instancia, cuando existan, es automático
+% (esto evita tener que poner los signos $). Los símbolos de producto car-
+% tesiano (\times) también son automáticos. La idea es que esto sea fácil
+% de leer y de tipear, automatizando todo lo que es repetitivo.
+%
+% Actualmente esto usa sintaxis con barras, ej: {banco/b, banco/c, nat}.
+% Sigue pendiente lograr manejar el cambio de categoría del carácter space
+% para poder parsearlo como un token cualquiera (y de ese modo chau barras)
+% Eso todavía necesita un poco de trabajo para que ande bien y no tenga
+% efectos colaterales indeseados, así que por ahora, las barras quedan.
+%
+% Esta macro fue escrita por Brian Blackmore <blb8@math.washington.edu>.
+%
+\def\finparams{zMqtPfKkJ}
+
+\def\parsearparams#1{\ifx#1\finparams\ifmmode$\fi\else\if#1/{ }$%
+\else\if#1,\ifmmode$\fi{\timessep$,\timessep}\else#1\fi\fi%
+\expandafter\parsearparams\fi}
+
+\def\funcparams#1{\parsearparams#1\finparams}
+%
+% Composición de restriciones al lado o debajo de la func.
+%
+% Uso:  \funcrestr{bloque de decl. de función}{restr}
+%
+% Esto recibe un bloque completo, ya compuesto, como 'f : t1 x t2 --> t3'
+% y una restricción para f. Si la restr. entra en el espacio que queda a
+% la derecha de la declaración, se la coloca allí, alineada contra el
+% borde derecho de la página o del entorno en el que estemos. Si NO entra
+% por ser demasiado larga, entonces se la coloca en el renglón siguiente
+% (sin dejar parskip ni titskip entre la función y su restr, que se
+% consideran parte de una misma cosa). La restricción puede ser larga,
+% en cuyo caso se la compone en varias líneas, todas alineadas contra el
+% margen derecho.
+%
+% Esta macro fue escrita por Brian Blackmore <blb8@math.washington.edu>.
+%
+\def\funcrestr#1#2{{\par\hskip0pt#1\parskip=0pt\hfill%
+\setbox1=\hbox{#1\hskip1.5em#2}\ifdim\wd1>\hsize\par\hfill%
+\setbox1=\hbox{#2}\ifdim\wd1>\hsize%
+\hbox{\vtop{\hsize0.9\hsize \leftskip0pt plus0.4\hsize \spaceskip0.3em
+\xspaceskip.5em\rightskip0pt \parfillskip0pt #2\par}}%
+\else#2\fi\par\else#2\par\fi}}
+
+% Macro para componer una función completa 
+%
+% Uso:  \func{nombre}{tipo/a, tipo/b, tipo}{tipo devuelto}{(restr)}
+%
+% Componer una función. Esto usa \funcparams para procesar los parámetros
+% pasados como 2do argumento, y \funcrestr para componer la restricción
+% y decidir automáticamente si ponerla a la derecha o abajo.
+%
+\def\funcppalret#1#2#3{\hbox{\hskip\tadsubmargen%
+\setbox2=\hbox{\funcparams{#2}}\ifdim\funcmaxnom>0pt%
+\hbox to \funcmaxnom{#1\hfil}\else\hbox{#1}\fi%
+\hbox{\hskip\tadfuncsep\ensuremath{\abrefunc}\hskip\tadfuncsep}%
+\ifdim\funcmaxari>0pt\hbox to \funcmaxari{\box2\hfil}\else\box2\fi%
+\hbox{\hskip\tadfuncsep\ensuremath{\cierrafunc}\hskip\tadfuncsep}%
+\hbox{\hskip\tadfuncsep\ensuremath{\tadflecha}\hskip\tadfuncsep}#3}}
+
+\def\func#1#2#3#4{\funcrestr{\funcppalret{#1}{#2}{#3}}{#4}}
+
+\def\funcppalnoret#1#2{\hbox{\hskip\tadsubmargen%
+\setbox2=\hbox{\funcparams{#2}}\ifdim\funcmaxnom>0pt%
+\hbox to \funcmaxnom{#1\hfil}\else\hbox{#1}\fi%
+\hbox{\hskip\tadfuncsep\ensuremath{\abrefunc}\hskip\tadfuncsep}%
+\ifdim\funcmaxari>0pt\hbox to \funcmaxari{\box2\hfil}\else\box2\fi%
+\hbox{\hskip\tadfuncsep\ensuremath{\cierrafunc}\hskip\tadfuncsep}}}
+
+\def\funcnoret#1#2#3{\funcrestr{\funcppalnoret{#1}{#2}}{#3}}
+
+% -- sacado de algo1-comands
+
+% Para problemas con resultado:
+% \begin{problema}{nombre}{argumentos}{resultado}
+%       \modifica{variables}
+%       \precond[nombre]{condicion}
+%       \precond[nombre]{condicion}
+%       ...
+%       \poscond[nombre]{condicion}
+%       \poscond[nombre]{condicion}
+%       ...
+% \end{funcion}
+
+% Para problemas sin resultado:
+% \begin{problema*}{nombre}{argumentos}
+%       \modifica{variables}
+%       \precond[nombre]{condicion}
+%       \precond[nombre]{condicion}
+%       ...
+%       \poscond[nombre]{condicion}
+%       \poscond[nombre]{condicion}
+%       ...
+% \end{funcion}
+
+\newenvironment{funcion}[3]{
+    \vspace{0.2cm}
+    \hspace{1em} \textbf{Operation: #1\timessep}\ensuremath{\abrefunc#2\cierrafunc\timessep:\timessep#3}\\
+    \begin{tabular}{p{0.02\textwidth} p{0.85 \textwidth}}
+}{
+    \end{tabular}
+    \vspace{0.15cm}
+}
+
+\newenvironment{problema*}[2]{
+    \vspace{0.2cm}
+    \hspace{1em} \textbf{#1\timessep}\ensuremath{\abrefunc#2\cierrafunc\timessep}\\
+    \begin{tabular}{p{0.02\textwidth} p{0.85 \textwidth}}
+}{
+    \end{tabular}
+    \vspace{0.15cm}
+}
+
+\newcommand{\precond}[1]{& \small \textbf{pre\timessep} \{ #1 \} \\}
+\newcommand{\poscond}[1]{& \small \textbf{post\timessep} \{ #1 \} \\}
+
+% ---------------------------
+
+% ------- comandos para los ordenes -------------
+% en servicios exportados:
+% Uso: \orden{nombre de la funcion}{orden de la funcion}
+% 
+% genera el campo "La funcion <nombre> tiene orden <orden> en negrita y tabulado.
+\newcommand{\orden}[2]{ \hspace*{4em} \textbf{La funcion} \ensuremath{#1} \textbf{tiene orden} \ensuremath{#2} \\}
+
+% en justificacion de ordenes
+% Uso: \justorden{nombre}{explicacion}
+% 
+\newcommand{\justord}[2]{ \hspace*{4em} \textbf{Orden de la funci\'on} \hspace*{8em} \ensuremath{#1} \\ #2 \\}
+
+% ------- DECLARACIÓN DEL ENTORNO 'diseño' ---------------------
+%
+% Uso:  \begin{dis}{nombre del Modulo} (Requiere LaTeX)
+%          ...
+%       \end{dis}
+%
+% Para agregar un preámbulo, usar
+%
+%       \begin{disx}{nombre del Modulo}{preámbulo}
+%          ...
+%       \end{disx}
+%
+\newenvironment{dis}[1]{\discom{#1}{}}{\disfin}
+\newenvironment{disx}[2]{\discom{#1}{#2}}{\disfin}
