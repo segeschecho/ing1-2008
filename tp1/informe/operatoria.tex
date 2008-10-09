@@ -93,7 +93,6 @@ Para registrar a un usuario el encargado de pedidos debe tomar los siguientes da
 
 \section{Facturacion}
 La facturación de los pedidos de la pizzería esta a cargo del software de facturación que posee el establecimiento. El sistema solo provee de la facilidad de generar un archivo con los datos necesarios para realizar la factura cuando el cajero lo determine adecuado. 
-Lo unico que registra el sistema por si solo es que ya se ha generado un archivo para facturar el pedido.
 
 El archivo se genera cuando un pedido esta listo para salir a entrega en el caso de que el mismo sea con delivery o mostrador, o en el momento en el que el cliente pide la cuenta al mozo. %TODO: caso de uso
 
@@ -150,6 +149,8 @@ El tamaño y cantidad de los módulos del horno es configurable, sin embargo no se
 Tanto el cliente como el encargado de pedidos pueden consultar el estado de un pedido determinado. El cliente puede hacerlo via web o mediante el encargado de pedidos por una llamada telefonica. Para consultar el estado de un pedido via web, el usuario tiene que autentificarse primero. Una vez autentificado podra acceder a la opción de consultar estado de sus pedidos. El sistema lista entonces los pedidos del usuario pendientes de entrega con su estado. 
 
 Por otro lado, de manera similar el encargado de pedidos puede ingresar un número de pedido para revisar su estado o ver los pedidos de un cliente.
+
+%TODO:calculo de tiempo estimado
 
 \section{Delivery}
 
