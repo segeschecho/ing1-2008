@@ -334,8 +334,23 @@ A continuación se presentan brevemente los casos de uso presentes cuando el sist
 \end{figure}
 
 
-\section{Informacion estadistica}
-%TODO: chamuyar aqui
+\section{Informacion estadística}
+
+Con el fin de comprender más profundamente el comportamiento del negocio, desarrollamos para la pizzería un conjunto de indicadores que permitan analizar su rendimiento y predecir algunos de los parámetros que afectan su comportamiento, así como optimizar algunas estrategias de venta y producción.
+
+Los indicadores de rendimiento tienen por objetivo caracterizar el funcionamiento de la pizzería en un período dado. Mediante el monitoreo del ingreso y salida de los pedidos, es posible realizar un seguimiento de algunos parámetros interesantes:
+\begin{itemize}
+\item \textbf{Tasa de producción de la cocina}: Permite evaluar el la capacidad de la cocina de atender pedidos, con el objeto de determinar sus posibilidades de producción y evaluar si en un momento dado la cocina funciona por debajo o por encima de su nivel habitual.
+\item \textbf{Tasa de ingreso de pedidos}: Permite conocer la demanda que hubo en un momento dado y con esa información inferir la demanda de momentos futuros. Puede medirse de forma global o discriminada por origen de pedido, permitiendo observar cual es la forma más utilizada para ingresarlos.
+\item \textbf{Tiempo medio de espera por un pedido}: Permite conocer el tiempo que debe esperar un cliente por su pedido en función del momento en que realizó su pedido. Puede medirse de forma discriminada para clientes locales o remotos.
+\item \textbf{``Combos'' más populares}: Permite conocer algunos conjuntos de productos que suelen ser ordenados juntos por los clientes. 
+\item \textbf{ ``Perfiles'' de cliente}: Permite evaluar los tipos de compras que realiza cada cliente gracias a la información personalizada que se tiene sobre cada uno. 
+\item \textbf{Productos más populares}: Permite conocer cuales son los productos que circulan con mayor frecuencia y por tanto deberían ser considerados más importantes para cuestiones tales como la ubicación de los mismos en la carta.
+\end{itemize}
+
+En particular, el conocimiento sobre la demanda permite mantener un menor stock de productos, disminuyendo así el costo financiero y manteniendo una mayor eficiencia en la administración de los recursos. A su vez, determinar los productos y combinaciones más populares puede conducir a promociones más efectivas, así como a disminuciones de costos por un mejor conocimiento de los insumos necesarios para su producción. Por último, los perfiles de cliente permiten ejecutar estrategias de fidelización: al conocer en detalle y de forma individual las compras que realiza cada cliente se puede determinar cuales son los clientes más importantes y en función de eso ofrecerles algún tipo de beneficio.
+
+
 
 \section{Modificación de precios}
 La modificación de precios puede ser realizada por el dueño, o por el cajero. Para modificar precios se utiliza el sistema de ABM de productos que provee el sistema. (ver ABM de productos)
