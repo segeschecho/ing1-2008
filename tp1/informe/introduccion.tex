@@ -2,7 +2,16 @@
 \section{Objetivo del documento}
 %\textcolor{Blue}{Aquí se espera una breve introducción con respecto a este informe.}
 
+% FIXME: completar
+% sirve para
+% validar que el software haga lo que piden
+% especificar el comoportamiento para permitir el testing
+% servir de lineamiento general para todo el desarrollo posterior
+% servir  de introduccion y descripción general al problema para quienes necesiten entenderlo
+% servir de documento de base para la creación de otros documentos más precisos
+
 \section{Convenciones de notación}
+%FIXME: papelon
 En este documento CU se entiende como Caso de Uso.
 %\textcolor{Blue}{Describir aquí cualquier convención de notación que se utilice en el presente documento, de manera de facilitar la lectura y comprensión del mismo por parte de los destinatarios. Notar que esta sección no se refiere a la sintaxis de las técnicas a utilizar, sino de definir las condiciones, siglas, simbología o abreviaturas utilizadas específicamente por los autores en el documento. 
 %Por ej.}
@@ -10,31 +19,27 @@ En este documento CU se entiende como Caso de Uso.
 %\textcolor{ForestGreen}{ 	CdC: En el presente documento figurarán con la presente notación los comentarios especiales a la cátedra respecto del presente informe.}
 
 \section{Destinatarios del documento}
-El presente documento está dirigido a los integrantes directivos de la pizzería,
-así como también, de haberlos, a los responsables de supervisión del proyecto y finalmente al
-personal del área de Calidad de Software asignados al seguimiento del mismo. 
+El presente documento está dirigido en primer lugar al dueño y los empleados de la pizzería, con el objetivo de que lo revean y examinen la dinámica de uso del sistema para validar que las funcionalidades propuestas son correctas. A su vez, estas personas son idóneas para sugerir mejoras o modificaciones a la operatoria propuesta, ya que son las que en el futuro deberán interactuar fluidamente con el software.
 
-Ademas, también puede ser de utilidad para los asesores del proyecto, y aquellos que vayan a tener contacto con
-el mismo, empleados de la pizzería, servicio de delivery, etc.
+En segunda instancia, también son destinatarios del documento aquellas personas que supervisarán el desarrollo del software por parte del cliente que lo encargó, en particular el área de Calidad de Software designado por éste, que utilizará este documento como referencia de comportamiento del software a los efectos de realizar pruebas de funcionamiento y desempeño.
 
 % Empleados de la pizzería (que lo van a usar)
 % Dueño de la pizzería (que se va a beneficiar de un mejor conocimiento del negocio)
 % QA ("clientes" simulados por el área de calidad de software, deben conocer el funcionamiento teórico del sistema)
 % Algo mas?
 
-\section{Descripción del problema }
-El proyeco del que trata este documento consiste en la informatización de una pizzería. La misma presenta al día de la fecha problemas para manejar el manejo de pedidos, asi como también la operatoria general de la pizzería.
+\section{Descripción del problema}
 
-Por otro lado se manifiesta una intención de expansión del negocio mediante la generación de nuevas formas de acceso a potenciales clientes, ya sea mediante un servicio de delivery, como de pedido mediante internet o SMS.
+El problema a abordar es la introducción de mejoras en la administración de una pizzería. En particular, se deberán resolver algunos problemas que con el mecanismo actual de organización son recurrentes y representan una dificultad importante en el día a día del negocio. Por otro lado, el sistema deberá mejorar todo el proceso de gestión y manejo de pedidos, con el objeto de acrecentar su rendimiento mediante el mejor uso de los recursos tanto físicos como humanos. Finalmente, el sistema debe tener en cuenta el proyecto de expansión de la pizzería mediante la generación de nuevas formas de pedido y cobro, así como la incorporación de un servicio de \textit{delivery}. Es de crucial importancia que el sistema utilice su capacidad de registro para realizar estadísticas que permitan conocer el rendimiento y las limitaciones en la producción de la pizzería.
 
-Basicamente el problema a resolver consiste en lograr:
+Contamos entonces cuatro objetivos principales:
 \begin{itemize}
-\item Terminar con la perdida de pedidos, asi como también la toma pedidos que no se pueden satisfacer, lo cual implica una automatización por lo menos parcial de la operatoria de la cocina, asi como también un control constante del stock de productos
-\item Ampliar las formas de ingreso de pedido con la intención de llegar a un mayor número de clientes
-\item Mejorar el conocimiento del funcionamiento del negocio a fin de lograr precios competitivos y atraer de esa manera a mas clientes, para lo cual es necesario registrar estadisticas del funcionamiento del local, asi como también perfiles de clientes o seguimiento de productos
+\item Resolver los problemas de operación actuales (evitar que se pierdan pedidos, evitar tomar pedidos que no pueden ser satisfechos)
+\item Mejorar la administración de la pizzería (gestión del stock, planeamiento eficaz del uso de hornos y cocina, informatización de las comunicaciones entre los participantes del proceso)
+\item Ampliar las formas de pedido y pago, permitiendo ingresar pedidos por teléfono, Web o SMS
+\item Realizar análisis estadísticos en base a la información registrada
 \end{itemize}
 
-Basicamente esos son los problemas que se intentan resolver en este proyecto.
 %\textcolor{Blue}{Breve descripción del problema al que se refiere el proyecto.}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -52,10 +57,8 @@ Basicamente esos son los problemas que se intentan resolver en este proyecto.
 % Estas mejoras deberían permitir "agrandar" el negocio atendiendo a más clientes y con mayor calidad.
 
 \section{Documentos relacionados}
-El principal documento a tener en cuenta es \textit{Enunciado TP V1}.
-Basicamente no se poseen otros documentos como minutas de reuniones, sin embargo si se pueden consultar los correos intercambiados con el area de calidad de software (El plantel docente).
+El principal documento a tener en cuenta es \textit{Enunciado TP V1}, donde se detallan los requerimientos e intenciones de los clientes a los efectos del sistema. Como no se hicieron reuniones formales para discutir la funcionalidad del sistema, no se dispone de minutas de reuniones ni ninguna otra fuente primaria de información. La gran mayoría de las cuestiones que conciernen a la funcionalidad del sistema fueron explicadas en clase o discutidas por correo electrónico con los docentes de la materia.
 
-%TODO: los ponemos?
 
 %\textcolor{Blue}{Se deberían enumerar aquí los diferentes documentos relacionados con el presente y que pueden ser de interés para el lector de este informe.}
 %
@@ -64,12 +67,12 @@ Basicamente no se poseen otros documentos como minutas de reuniones, sin embargo
 \section{Organización del informe}
 El presente documento se organiza de la siguiente manera:
 \begin{enumerate}
-\item Introducción: Sección donde se presentan  los objetivos del documento, asi como también se presenta una breve descripción del problema y una descripción de los destinatarios del documento.
-\item Descripción: Se brinda una descripcción general de la solución, su alcance y perspectiva, al tiempo que se presentan las caracteristicas de los usuarios, limitaciones, supuestos y dependencias de la solución.
-\item Consideraciones globales de la solución: Se describe la solución desde un punto de vista unitario, es decir los distintos aspectos de la solución analizados globalmente. En este analisis se encuentran los requerimientos del sistema, los principales casos de uso, conceptos y contexto del software.
-\item Aspectos particulares de la solución: En este apartado se analizan los distintos aspectos de la solución desde una optica mas especifica a cada aspecto de la solución. Asi en esta sección se analiza el ingreso de pedidos, ciclo de vida de un pedido, entre otros factores.
-\item Apendice de Extensiones: Se muestran posibles extensiones al software o propuestas de mejora que quedaron fuera del proyecto, pero que podrían ser de interes para futuras revisiones del producto
-\item Glosario: Se pretende presentar los principales terminos y conceptos relacionados con la solución
+\item Introducción: se presentan  los objetivos del documento, así como una breve descripción del problema a resolver y del alcance de este documento.
+\item Descripción: se presenta una descripción general de la solución, su alcance y perspectiva, al tiempo que se presentan las características de los usuarios, limitaciones, supuestos y dependencias que pudieran afectar al software a desarrollar.
+\item Consideraciones globales de la solución: se describe la solución desde un punto de vista global. En este apartado se encuentran los requerimientos del sistema, los principales casos de uso, conceptos y contexto de funcionamiento del software.
+\item Aspectos particulares de la solución: se analizan los distintos aspectos de la solución desde una óptica mas especifica a cada componente de la solución. En este inciso se detallan cuestiones tales como el el ingreso de pedidos, el ciclo de vida de un pedido y la administración de los hornos, entre otros.
+\item Apéndice I - Extensiones: se detallan posibles extensiones y mejoras al software descripto previamente, que si bien están por fuera de la solución propuesta podrían ser de interés para futuras revisiones del producto.
+\item Apéndice II - Glosario: se describe la terminología utilizada en todo el documento para referirse a agentes, componentes y otros términos relevantes que aparecen en este documento.
 \end{enumerate}
 
 %\textcolor{Blue}{Breve descripción del documento, aclaraciones sobre cómo se debe leer, etc, etc.}
