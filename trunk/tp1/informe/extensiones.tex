@@ -5,12 +5,15 @@ Se detallan a continuación algunas propuestas de mejora que consideramos pueden 
 La implementación de estas funcionalidades podrá ser objeto de mejoras posteriores al sistema propuesto.
 
 \section{Seguimiento de módulos del horno }
-% FIXME: queda o no??
 
+Una mejora sencilla de implementar es el seguimiento individual de cada módulo del horno así como de qué pedido lo ocupa en un momento dado. En la implementación requerida, el sistema no puede determinar en qué lugar del horno se encuentra un pedido.
+
+Esto no representa una limitación seria en contextos donde los tamaños y cualidades de los módulos son idénticas en todos ellos. El seguimiento individual de cada módulo permitiría tener divisiones irregulares del horno, lo cual puede ser necesario para algunos tipos de horno.
+
+En cualquier caso, el seguimiento individual del módulo del horno permite ofrecer una mejora sustancial desde el punto de vista de usabilidad, ya que el individualizar cada módulo permite a un maestro indicar al sistema qué pedido se ha terminado de cocinar sencillamente eligiendo cuál es el módulo del horno que acaba de vaciar. Si los módulos son indistinguibles, el maestro deberá identificar el pedido dentro de una lista de pedidos en proceso de cocción, tarea que podría ser no trivial para pedidos similares.
 
 
 \section{Seguimiento de tiempos por estado}
-% FIXME: queda o no??
 
 El hecho de seguir individualmente los tiempos que un pedido insume en cada estado ofrece una mejora importante desde un punto de vista estadístico ya que permite individualizar los tiempos de cada parte del proceso de atención de un pedido.
 
@@ -19,7 +22,7 @@ Si se dispone de esta información, se pueden hacer predicciones mucho más precis
 La implementación de esta funcionalidad se ve extendida por la característica de seguimiento individual de productos detallada más abajo
 
 
-\section{reparación adelantada}
+\section{Preparación adelantada}
 
 Al disponer de estadísticas precisas sobre la demanda que recibe el local es posible, en función de las predicciones hechas por el sistema, optimizar el uso de los recursos de producción del local abaratando así costos.
 
