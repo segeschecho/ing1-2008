@@ -81,7 +81,7 @@ Invariante: $#2 $
 
 \newcommand{\op}[2]
 {
-\oplist=\expandafter{\the\oplist #1 & #2\\}
+\oplist=\expandafter{\the\oplist #1 & #2 \\ \hline}
 \stepcounter{PasoCu}
 }
 
@@ -113,7 +113,6 @@ Invariante: $#2 $
 \multicolumn{1}{>{\columncolor{light-gray}}X|}{\negrita{Curso alternativo}}\\
 \hline
 \the\oplist
-\hline
 \end{tabularx}
 \stepcounter{casoUso}
 }
@@ -140,10 +139,10 @@ Invariante: $#2 $
 \multicolumn{1}{|l|}{#3}\\
 \hline
 \multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Descripción:}} &
-\multicolumn{1}{|p{15cm}|}{#4}\\
+\multicolumn{1}{|p{13cm}|}{#4}\\
 \hline
 \multicolumn{1}{|>{\columncolor{light-gray}}c|}{\negrita{Motivo:}} &
-\multicolumn{1}{|p{15cm}|}{#5}\\\hline
+\multicolumn{1}{|p{13cm}|}{#5}\\\hline
 \end{tabular}
 \stepcounter{req}
 }
