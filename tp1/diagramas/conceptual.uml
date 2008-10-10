@@ -1285,7 +1285,7 @@
 <XPD:ATTR name="Left" type="integer">160</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">24</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">215</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">138</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">156</XPD:ATTR>
 <XPD:REF name="Model">l1ucIEdT0UG7fm6zHg+RdgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="44Pcd3T1xkCaqpsA/ZKa4wAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="EIOC82cRRk2mEzFHRCXDagAA">
@@ -1314,7 +1314,7 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00FEE9FC</XPD:ATTR>
 <XPD:ATTR name="FontSize" type="integer">11</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">985,248;912,120;374,97</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">985,248;912,120;374,104</XPD:ATTR>
 <XPD:REF name="Model">H1HXg3kf/0yco4n2VClTRQAA</XPD:REF>
 <XPD:REF name="Head">uSVxBjUJAkilCZ59UB2pxQAA</XPD:REF>
 <XPD:REF name="Tail">/lPcVabvtkmOJrJQ0Wqy7wAA</XPD:REF>
@@ -2611,7 +2611,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#OwnedElements" type="integer">78</XPD:ATTR>
+<XPD:ATTR name="#OwnedElements" type="integer">79</XPD:ATTR>
 <XPD:OBJ name="OwnedElements[0]" type="UMLClass" guid="Hdmg/NH9T02MQo7sWNWN+gAA">
 <XPD:ATTR name="Name" type="string">Pedido</XPD:ATTR>
 <XPD:REF name="Namespace">5cK8AxdRIU+lqV6oLXpTtgAA</XPD:REF>
@@ -4106,6 +4106,10 @@
 <XPD:ATTR name="Name" type="string">Agil</XPD:ATTR>
 <XPD:REF name="Enumeration">qBFbVqgCS0KwkSsskpLr3QAA</XPD:REF>
 </XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[78]" type="UMLClass" guid="du3UZRNNdkO0IDiFXtRMNAAA">
+<XPD:ATTR name="Name" type="string">Informacion de politica</XPD:ATTR>
+<XPD:REF name="Namespace">5cK8AxdRIU+lqV6oLXpTtgAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[3]" type="UMLModel" guid="IV4B5g1lDEyHXVsGg3ADRAAA">

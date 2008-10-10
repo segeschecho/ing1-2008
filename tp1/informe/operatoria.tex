@@ -32,7 +32,7 @@ stock empanada e : $[0...Max_{STOCK}]$,
 stock stock bollo : $[0...MAX_{STOCK}]$,
 stock stock tapas : $[0...Max_{STOCK}]$,
 
-todas ellas comenznado con un valor arbitrario en dicho rango,
+todas ellas comenznado con un valor CONSSTOCK constante.
 
 pizza 1 1 : $[0...MAX]$
 ...
@@ -88,7 +88,7 @@ A continuación detalleremos los distintos tipos de pedidos, asi como también des
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{./figuras/chequeoStock}
+\includegraphics[scale=0.4]{./figuras/chequeoStock}
 \caption{FSM chequeo de stock}
 \label{fsmChequeoStock}
 \end{figure}
@@ -277,11 +277,11 @@ A continuación veremos en un diagrama de actividad las actividades que se produc
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.45]{figuras/actividadProxPedido.png}
+\includegraphics[scale=0.4]{figuras/actividadProxPedido.png}
 \caption{Diagrama de actividad al informar productos cocinados}
 \end{figure}
 
-%FSM comportamiento del cocinero
+Lo que observamos es que en caso de politica agil el sistema debe ser informado de cuantos modulos agiles fueron liberados, esto podria evitarse si el sistema tuviera noción de que hay en cada modulo (ver posibilidades de mejora \ref{Extensiones}). Cuando se esta en politica agil lo que hace el sistema es buscar ocupar los modulos agiles, en la medida que se liberan, con pedidos chicos. En el caso de politica agil, puede ocurrir que existan dos pedidos con productos afuera del horno y dentro del horno. Por eso en el diagrama dice pedido actual y pedido chico actual. El pedido chico actual es un pedido chico que entro a cocinarse porque se libero algun modulo agil, pero quedo con alguno/s de sus productos sin cocinar
 
 %Diagrama de actividad pedir proximo pedido
 
@@ -324,7 +324,9 @@ Finalmente el dueño deberá informar al encargado de pedido los precios que prete
 \end{figure}
 \end{landscape}
 
+Del diagrama observamos como las funciones principales en las que antes interactuaban otros agentes con el sistema, ahora son responsabilidad del encargado de pedidos, el cual suma a sus responsabilidades previas, tales como el ingreso de pedidos telefonicos, otras antes ajenas como informar pedidos preparados, etc.
 
+Es muy importante notar la sobrecarga de trabajo del encargado de pedidos. La cantidad de tareas que debe desarrollar lo convierten en un cuello de botella para el funcionamiento de la pizzería, sin embargo dado que este escenario es para un caso de contingencia, en teoria un caso improbable, esta sobrecarga del encargado puede ser tolerada.
 \subsection{Casos de uso}
 A continuación se presentan brevemente los casos de uso presentes cuando el sistema esta en estado de contingencia
 
@@ -350,8 +352,6 @@ Los indicadores de rendimiento tienen por objetivo caracterizar el funcionamient
 
 En particular, el conocimiento sobre la demanda permite mantener un menor stock de productos, disminuyendo así el costo financiero y manteniendo una mayor eficiencia en la administración de los recursos. A su vez, determinar los productos y combinaciones más populares puede conducir a promociones más efectivas, así como a disminuciones de costos por un mejor conocimiento de los insumos necesarios para su producción. Por último, los perfiles de cliente permiten ejecutar estrategias de fidelización: al conocer en detalle y de forma individual las compras que realiza cada cliente se puede determinar cuales son los clientes más importantes y en función de eso ofrecerles algún tipo de beneficio.
 
-
-
 \section{Modificación de precios}
 La modificación de precios puede ser realizada por el dueño, o por el cajero. Para modificar precios se utiliza el sistema de ABM de productos que provee el sistema. (ver ABM de productos)
 
@@ -365,8 +365,8 @@ El ABM de stock permite realizar altas, bajas y modificaciones de los kits y dem
 
 Para ver como funciona el control por stock critico, analicemos las siguientes FSM, en las que se modela un ingreso de pedidos que consumen cierta cantidad de un stock determinado (figura \ref{ingresoDePedidos}) por simplicidad estamos usando que solo consume cierta cantidad de un insumo, pero se puede extender relativamente facil a varios insumos. El control de stock esta modelado en la FSM de la figura \ref{stockCritico}, como vemos, el sistema permite que se ingresen pedidos, pero cuando la cantidad de stock es menor al valor critico se produce un aviso, y luego se permite igualmente seguir ingresando pedidos. Cuando el encargado de stock \ref{encargadoStock} observa el aviso puede ingresar nuevos productos aumentando el stock. Entonces el sistema vuelve a monitorear el valor del stock para avisar si queda bajo el valor critico. En particula si el encargado deja el stock en un valor inferior al critico, el sistema volvera a mostrar el mensaje de stock critico.
 
-En estas FSM utilizamos la variable, $stock : [0..MAX]$ que comienza inicializada en un valor arbitrario del rango.
-Por otro lado $critico$ puede considerarse una constante al igual que $n$.
+En estas FSM utilizamos la variable, $stock : [0..MAX]$ que comienza inicializada en STOCK un valor constante.
+Por otro lado $critico$ y $n$ son valores constantes.
 
 \begin{figure}[H]
 \centering
@@ -390,5 +390,4 @@ Por otro lado $critico$ puede considerarse una constante al igual que $n$.
 \end{figure}
  
 
-%FSM control de stock critico
 
