@@ -1,11 +1,12 @@
-\chapter{Glosario}
-% FIXME: mover el glosario a algun luga razonable
+\chapter{Apéndice II: Glosario}
+
 \section{Terminología}
 \begin{itemize}
 \item \textbf{Pedido:} Se denomina ``pedido'' a todo pedido realizado por un cliente 
 (a través de alguno de los medios de contacto disponibles) y que ya ha sido 
 procesado por el sistema. Un pedido no es tal, y no se registra información sobre él,
 hasta el momento en que se da de alta en el sistema.
+\item \textbf{Pedido chico:} Se denomina pedido ``chico'' a un pedido que está por debajo de un tamaño prefijado (como por ejemplo, un pedido que puede cocinarse completamente en un solo módulo del horno). Esta definición es de interés para la política ágil de cola de horno, y debe ser configurable en el sistema (aunque no es necesario que pueda cambiar durante la ejecución).
 \item \textbf{Encargado de pedidos:} El encargado de pedidos es un empleado cuya labor es la de administrar los pedidos y el funcionamiento generascontrola la facturación y supervisa la distribución de los pedidos. Además tiene privilegios para situaciones especiales (reorganización de la cola de pedidos, cambios de política de pedidos, cancelaciones y acceso al ABM de usuarios). En caso de contingencia (sistema caído o con funcionalidad limitada), este agente deberá controlar el funcionamiento manual del sistema y posteriormente ingresar los datos de los pedidos recibidos para su registro en el sistema.
 \item \textbf{Encargado de stock:} El encargado de stock es la persona responsable de
 recibir las notificaciones relacionadas a los niveles de stock e ingresar los datos
@@ -14,11 +15,9 @@ hay un encargado de stock definido. Si bien su papel será desempeñado por alguno
 de los otros agentes (dueño o encargado de pedidos), decidimos separar su rol puesto 
 que se trata de una tarea independiente de las demás.
 
-% FIXME: el cajero al parecer ahora no hace nada
-\item \textbf{Cajero:} El cajero se encarga de modificar los precios (capacidad que
-comparte con el dueño), registrar los pagos que se hacen en el local, recibir el dinero
-del \textit{delivery} e ingresar los pagos en el sistema, y solicitar la facturación
-de pedidos cuando sea necesario.
+\item \textbf{Cajero:} El cajero se encarga únicamente de modificar los precios de los
+productos. El resto de sus labores (cobrar a los clientes, imprimir facturas, etc) no 
+involucran al sistema.
 
 \item \textbf{Dueño:} El dueño es responsable de la gestión de la carta de la pizzería, sus precios y es el interesado en acceder a las estadísticas sobre el funcionamiento del negocio.
 \item \textbf{Cocinero:} El cocinero es cualquier persona que trabaja en la cocina. En principio es ya sea el maestro pizzero o el maestro empanadero, pero podría ser un ayudante de cocina en general.
