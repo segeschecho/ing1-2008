@@ -301,20 +301,20 @@ Si el pedido no se pudo entregar el delivery debe notificarselo al encargado de 
 
 %todo: diagrama de actividad de entrega de pedidos
 
-\section{Alternativa de contingencia}
-El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para premitir que el sistema siga siendo funcional aun cuando solo este disponible el puesto del encargado de pedidos.
+%\section{Alternativa de contingencia}
+%El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para premitir que el sistema siga siendo funcional aun cuando solo este disponible el puesto del encargado de pedidos.
   
-El sistema permite que toda la operatoria relacionada con la gestión y seguimiento de pedidos (recepción, asignación de horno, armado, ingreso y salida de horno, despacho, control de entrega, actualización de lista de precios) se lleve adelante en el puesto del encargado de pedidos.
+%El sistema permite que toda la operatoria relacionada con la gestión y seguimiento de pedidos (recepción, asignación de horno, armado, ingreso y salida de horno, despacho, control de entrega, actualización de lista de precios) se lleve adelante en el puesto del encargado de pedidos.
 
-En el modo de contingencia se considera que el software de facturación no esta disponible, por lo cual la facturación se realiza manualmente. Queda ademas fuera de este modo la consulta de estadisticas, asi como también la interacción directa del sistema con mozos, clientes y delivery.
+%En el modo de contingencia se considera que el software de facturación no esta disponible, por lo cual la facturación se realiza manualmente. Queda ademas fuera de este modo la consulta de estadisticas, asi como también la interacción directa del sistema con mozos, clientes y delivery.
 
-De esta manera el encargado de pedidos es el único agente que utiliza el sistema cuando se encuentra en este modo. Los clientes pueden hacer pedidos solo telefonicamente o en local a un mozo, mientras que los mozos deben comunicar el pedido al encargado para que este lo ingrese.
+%De esta manera el encargado de pedidos es el único agente que utiliza el sistema cuando se encuentra en este modo. Los clientes pueden hacer pedidos solo telefonicamente o en local a un mozo, mientras que los mozos deben comunicar el pedido al encargado para que este lo ingrese.
 
-De manera similar, los maestros deberan pedirle al encargado de pedidos que deben cocinar,preparar, asi como también informarle cuando terminaron de preparar algo o de cocinarlo.
+%De manera similar, los maestros deberan pedirle al encargado de pedidos que deben cocinar,preparar, asi como también informarle cuando terminaron de preparar algo o de cocinarlo.
 
-El delivery que en general utiliza SMS para informar al sistema la entrega de un pedido, ahora debera hacerlo comunicandose con el encargado de pedidos.
+%El delivery que en general utiliza SMS para informar al sistema la entrega de un pedido, ahora debera hacerlo comunicandose con el encargado de pedidos.
 
-Finalmente el dueño deberá informar al encargado de pedido los precios que pretende modificar.
+%Finalmente el dueño deberá informar al encargado de pedido los precios que pretende modificar.
 
 \subsection{Diagrama de contexto del funcionamiento de contingencia}
 \begin{landscape}
@@ -327,7 +327,9 @@ Finalmente el dueño deberá informar al encargado de pedido los precios que prete
 Del diagrama observamos como las funciones principales en las que antes interactuaban otros agentes con el sistema, ahora son responsabilidad del encargado de pedidos, el cual suma a sus responsabilidades previas, tales como el ingreso de pedidos telefonicos, otras antes ajenas como informar pedidos preparados, etc.
 
 Es muy importante notar la sobrecarga de trabajo del encargado de pedidos. La cantidad de tareas que debe desarrollar lo convierten en un cuello de botella para el funcionamiento de la pizzería, sin embargo dado que este escenario es para un caso de contingencia, en teoria un caso improbable, esta sobrecarga del encargado puede ser tolerada.
-\subsection{Casos de uso}
+
+\subsection{Casos de uso contingencia}
+
 A continuación se presentan brevemente los casos de uso presentes cuando el sistema esta en estado de contingencia
 
 \begin{figure}[H]
@@ -335,6 +337,22 @@ A continuación se presentan brevemente los casos de uso presentes cuando el sist
 \includegraphics[height=16cm]{casosDeUsoContingencia.png}
 \end{figure}
 
+\section{Alternativa de contingencia}
+
+El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para permitir que el sistema siga siendo funcional aun cuando solo este disponible el puesto del encargado de pedidos. Como vemos en los diagramas de caso de uso y contexto, el encargado de pedidos ser'a el actor principal en el modo contingencia. Todas las responsabilidades que ten'ian los dem'as actores y que eran llevadas a cabo desde otras terminales del sistema ahora son tareas que los mismos deber'an llevar a cabo a trav'es del encargado de pedidos, ya que solo su terminal se mantiene en funcionamiento. A continuaci'on, a fin de aclarar su comportamiento, describiremos brevemente los casos de uso en modo contingencia:
+
+\begin{itemize}
+\item Indicando pedido preparado y Indicando producto cocinado: el maestro le avisa al encargado de pedidos que termin'o la preparaci'on/cocci'on del pedido o producto y luego el encargado de pedidos procede a registrar tal evento en el sistema.
+\item Siendo informado de proximo pedido a preparar y Siendo informado de proximo producto a cocinar: el encargado de pedidos solicita al sistema el proximo pedido/producto a preparar/cocinar y luego se lo informa al maestro.
+\item Notificando pedido entregado: el delivery, al no poder enviar un mensaje al sistema para que registre la entrega (o cancelaci'on) del pedido, deber'a avisarle al encargado de pedidos para que este cambie el estado del mismo.
+\item Modificando precios: el cajero o dueño desea cambiar el precio de los productos, para esto debe informarle al encargado de pedidos los datos necesarios para realizar la operaci'on. Este caso de uso reemplaza a Realizando ABM de productos, ya que hacer baja o alta de un producto no es una operacion cr'itica durante contingencia.
+\item Notificando pedido despachado, Registrando cliente, Consultando estado de pedido y Cancelando pedido: estos casos de uso quedan igual a los casos en modo normal.
+\item Registrando pedido: este caso de uso reemplaza a Registrando pedido telef'onico y Registrando pedido de mostrador. Su funcionamiento es igual a los anteriores.
+\end{itemize}
+
+Notese que la facturaci'on en modo contingencia no est'a a cargo del sistema, por lo cual se realiza manualmente y est'a a cargo del cajero, como se puede ver en el diagrama de contexto de contingencia. Tambi'en queda fuera de este modo la consulta de estad'isticas, los pedidos por sms y, como ya fue dicho, el alta y baja de productos, ya que no son necesidades cr'iticas durante contingencia.
+%TODO: esto esta bien?
+El ABM de stock tambi'en queda fuera. En su lugar el stock quedar'a totalmente a cargo del encargado de stock, y el mismo tendr'a la responsabilidad de hacer ABM apenas el sistema salga de modo contingencia.
 
 \section{Informacion estadística}
 
