@@ -301,6 +301,7 @@ Si el pedido no se pudo entregar el delivery debe notificarselo al encargado de 
 
 %todo: diagrama de actividad de entrega de pedidos
 
+
 %\section{Alternativa de contingencia}
 %El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para premitir que el sistema siga siendo funcional aun cuando solo este disponible el puesto del encargado de pedidos.
   
@@ -315,6 +316,7 @@ Si el pedido no se pudo entregar el delivery debe notificarselo al encargado de 
 %El delivery que en general utiliza SMS para informar al sistema la entrega de un pedido, ahora debera hacerlo comunicandose con el encargado de pedidos.
 
 %Finalmente el dueño deberá informar al encargado de pedido los precios que pretende modificar.
+\section{Alternativa de contingencia}
 
 \subsection{Diagrama de contexto del funcionamiento de contingencia}
 \begin{landscape}
@@ -336,8 +338,6 @@ A continuación se presentan brevemente los casos de uso presentes cuando el sist
 \centering
 \includegraphics[height=16cm]{casosDeUsoContingencia.png}
 \end{figure}
-
-\section{Alternativa de contingencia}
 
 El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para permitir que el sistema siga siendo funcional aun cuando solo este disponible el puesto del encargado de pedidos. Como vemos en los diagramas de caso de uso y contexto, el encargado de pedidos ser'a el actor principal en el modo contingencia. Todas las responsabilidades que ten'ian los dem'as actores y que eran llevadas a cabo desde otras terminales del sistema ahora son tareas que los mismos deber'an llevar a cabo a trav'es del encargado de pedidos, ya que solo su terminal se mantiene en funcionamiento. A continuaci'on, a fin de aclarar su comportamiento, describiremos brevemente los casos de uso en modo contingencia:
 
@@ -374,16 +374,16 @@ En particular, el conocimiento sobre la demanda permite mantener un menor stock 
 La modificación de precios puede ser realizada por el dueño, o por el cajero. Para modificar precios se utiliza el sistema de ABM de productos que provee el sistema. (ver ABM de productos)
 
 \section{ABM de productos}
-El ABM de productos, permite ingresar nuevos productos, es decir nuevas variedades de pizzas, empanadas, etc. Al ingresar un nuevo producto se deben ingresar su receta, asi como un tiempo estimado de cocción. Por otro lado también se puede modificar los precios de los productos existentes, que no afectan a los pedidos ya registrados. Finalmente, también se puede dar de baja productos, por ejemplo productos que se venden muy poco.
+El ABM de productos, permite ingresar nuevos productos, es decir nuevas variedades de pizzas, empanadas, etc. Al ingresar un nuevo producto se debe ingresar un tiempo estimado de cocción y preparación. Por otro lado también se puede modificar los precios de los productos existentes, que no afectan a los pedidos ya registrados. Finalmente, también se puede dar de baja productos, por ejemplo productos que se venden muy poco.
 
-%TODO: aca no tengo idea como completar esto, alguna operacion tal vez. Ojo dar de baja una pizza tiene q hacer q se den de baja los kits no?
+%TODO: hacer operaciones abm
 
 \section{ABM de stock}
 El ABM de stock permite realizar altas, bajas y modificaciones de los kits y demas insumos para la elaboración de productos. Ademas permite modificar el valor critico de cada insumo, de modo que el sistema pueda utilizar dicho valor para alertar al encargado de stock cuando la cantidad disponible de un producto descienda por debajo de dicho valor. La notificación se realiza con un mensaje en pantalla 
 
 Para ver como funciona el control por stock critico, analicemos las siguientes FSM, en las que se modela un ingreso de pedidos que consumen cierta cantidad de un stock determinado (figura \ref{ingresoDePedidos}) por simplicidad estamos usando que solo consume cierta cantidad de un insumo, pero se puede extender relativamente facil a varios insumos. El control de stock esta modelado en la FSM de la figura \ref{stockCritico}, como vemos, el sistema permite que se ingresen pedidos, pero cuando la cantidad de stock es menor al valor critico se produce un aviso, y luego se permite igualmente seguir ingresando pedidos. Cuando el encargado de stock \ref{encargadoStock} observa el aviso puede ingresar nuevos productos aumentando el stock. Entonces el sistema vuelve a monitorear el valor del stock para avisar si queda bajo el valor critico. En particula si el encargado deja el stock en un valor inferior al critico, el sistema volvera a mostrar el mensaje de stock critico.
 
-En estas FSM utilizamos la variable, $stock : [0..MAX]$ que comienza inicializada en STOCK un valor constante.
+En estas FSM utilizamos la variable, $stock : [0..MAX]$ que comienza inicializada en STOCK un valor constante. %TODO: ver q esta inicializacion aparezca en el diagrama
 Por otro lado $critico$ y $n$ son valores constantes.
 
 \begin{figure}[H]
@@ -396,16 +396,17 @@ Por otro lado $critico$ y $n$ son valores constantes.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{./figuras/fsmstockcritico.png}
-\caption{FSM ingresar pedidos}
+\caption{FSM aviso stock critico}
 \label{fsmIngresoPedidos}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{./figuras/fsmreponerstock.png}
-\caption{FSM ingresar pedidos}
+\caption{FSM responsable de stock}
 \label{fsmIngresoPedidos}
 \end{figure}
  
+Entonces FSM Control de stock critico = FSM ingresar pedidos $||$ FSM aviso stock critico $||$ FSM responsable de stock
 
 
