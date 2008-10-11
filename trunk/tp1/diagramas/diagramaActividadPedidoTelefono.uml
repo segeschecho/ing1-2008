@@ -586,9 +586,9 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="FontSize" type="integer">11</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">764</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">196</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">200</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">561</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">1429</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">1425</XPD:ATTR>
 <XPD:REF name="Model">ImCQGu/oukGKY2gLc/hxLAAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="LabelView" guid="qTYMRLibh0eSPTBdCf1BrQAA">
 <XPD:ATTR name="Text" type="string">¿Pedido mixto?</XPD:ATTR>
@@ -610,9 +610,9 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="FontSize" type="integer">11</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">60</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">196</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">200</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">337</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">1429</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">1425</XPD:ATTR>
 <XPD:REF name="Model">Ibmimuf/wESL1EggyEYJRgAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Og/IZcoaoUuVAIv5ZXZawgAA">
 <XPD:ATTR name="Text" type="string">Cliente</XPD:ATTR>
@@ -940,8 +940,8 @@
 <XPD:REF name="Tail">oIiYEM+eg0y/HF0enRRKvgAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="JCHpCWzgfkOUGcfGzixRYgAA">
 <XPD:ATTR name="FontSize" type="integer">11</XPD:ATTR>
-<XPD:ATTR name="Alpha" type="real">-1,89254692694819</XPD:ATTR>
-<XPD:ATTR name="Distance" type="real">28,4604989415154</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">-1,84496379400804</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">33,2415402771893</XPD:ATTR>
 <XPD:ATTR name="Text" type="string">¿Hay insumos suficientes para el pedido?</XPD:ATTR>
 <XPD:REF name="Model">WVb+YETEkEq0DRsHDLdGLAAA</XPD:REF>
 </XPD:OBJ>
