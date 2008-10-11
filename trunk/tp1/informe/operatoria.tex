@@ -3,6 +3,23 @@
 \section{Ciclo de vida de un pedido}
 Desde que el pedido es ingresado de alguna de las diversas maneras posibles, hasta que el cliente puede disfrutarlo, se suceden diversos estados, en lo que denominamos el ciclo de vida de un pedido.
 
+Los estados en los que puede encontrarse un pedido una vez que ingresó al sistema son:
+\begin{itemize}
+\item Ingresado: El pedido pasó los chequeos necesarios, se determinó que es posible llevarlo a cabo con éxito y se ingresó al sistema, yendo a parar a una cola donde espera a que la cocina esté lista para prepararlo.
+\item	En preparación: El pedido ya fue recibido por la cocina y está siendo preparado por un cocinero.
+\item	Preparado: El pedido ya fue preparado en su totalidad y está listo para ingresar al horno cuando haya lugar disponible.
+\item	En el horno: El pedido (o al menos una de sus partes) está en el horno.
+\item	Listo: El pedido está listo para ser entregado al cliente.
+\item	Enviado: El pedido fue entregado al delivery para su entrega a domicilio.
+\item	Finalizado: El pedido fue entregado con éxito (ya sea a la mesa o a domicilio).
+\item	Cancelado: El pedido fue cancelado antes de su entrega.
+\end{itemize}
+
+En breve, un proceso ingresa al sistema cuando es requerido por un cliente por algún medio de comunicación. Enseguida se indica a la cocina que el pedido debe ser preparado. Una vez completada la preparación de la comida, los responsables de cocina lo indican al sistema que planifica de forma independiente la asignación de lugares en los hornos. Finalmente, después de que el pedido es horneado, se entrega a la mesa o al delivery según corresponda. Por último cuando existe confirmación de la entrega se marca el pedido como finalizado y se almacena con fines de registro. El pedido puede ser cancelado en cualquier punto (salvo después de ser finalizado), con implicaciones varias en el sistema de control de stock.
+
+Los estados presentados tienen utilidad para el sistema puesto que hay necesidad de indicar al cliente sobre el estado de su pedido. Así, se podrá indicar si un pedido está siendo preparado o ya fue enviado al destinatario. Si bien para estos fines alcanza con 3 estados (preparando, enviando, finalizado), se agregan los demás con fines de control para el sistema. Además, la granularidad más fina permite al sistema hacer predicciones y organizaciones más eficientes del uso de los recursos. Por ejemplo, al controlar los tiempos de preparación por separado de los de horneado resulta más sencillo, en caso de un cuello de botella en la cocina, determinar cual es el factor limitante.
+
+
 La figura \ref{cicloPedido} nos ilustra este ciclo de vida.
 
 \begin{figure}[H]
