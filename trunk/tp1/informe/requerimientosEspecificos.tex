@@ -18,11 +18,10 @@ Por último tenemos agentes que son de menor jerarquía por la cantidad de operaci
 En razón de estas observaciones, será razonable destinar un tiempo acorde a la importancia de cada agente a pulir las interfases que lo conciernen. Esto es particularmente crítico para el caso de los clientes, en que disponer de una buena interfaz amigable y práctica en lugar de una mala puede ser la diferencia entre realizar o no una venta.
 
 Por últmo cabe aclarar que este diagrama representa el modo de operación normal. Existe un modo de operatoria de contingencia donde las interacciones se ven modificadas. Esta alternativa de contingencia se discute en la sección 4.10, donde se incluye un segundo diagrama de contexto representativo de ese escenario.
-% FIXME: verificar seccion de alternativa de contingencia
 
 \begin{figure}[H]
 \centering
-\includegraphics[angle=90,width=16cm]{ContextoNormal.png}
+\includegraphics[angle=90,width=16cm]{./figuras/ContextoNormal.png}
 \end{figure}
 
 \section{Objetivos de la solución y requerimientos del sistema}
@@ -31,13 +30,13 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=13cm,angle=90]{DiagramaObjetivos4.png}
+\includegraphics[height=13cm,angle=90]{./figuras/DiagramaObjetivos4.png}
 \end{figure}
 
 \begin{landscape}
 \begin{figure}
 \centering
-\includegraphics[height=17cm]{DiagramaObjetivos3.png}
+\includegraphics[height=17cm]{./figuras/DiagramaObjetivos3.png}
 \end{figure}
 \end{landscape}
 
@@ -101,7 +100,7 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 \begin{landscape}
 \begin{figure}
 \centering
-\includegraphics[height=15cm]{DiagramaObjetivos2.png}
+\includegraphics[height=15cm]{./figuras/DiagramaObjetivos2.png}
 \end{figure}
 \end{landscape}
 
@@ -186,7 +185,7 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 \begin{landscape}
 \begin{figure}
 \centering
-\includegraphics[height=13cm]{DiagramaObjetivos1.png}
+\includegraphics[height=13cm]{./figuras/DiagramaObjetivos1.png}
 \end{figure}
 \end{landscape}
 
@@ -267,7 +266,7 @@ de producción, la politica de asignación, etc.}
 \subsection{Diagrama}
 \begin{figure}[H]
 \centering
-\includegraphics[height=21cm]{casosdeuso.png}
+\includegraphics[height=21cm]{./figuras/casosdeuso.png}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plantilla para casos de uso %%%%%%%%%%%%
@@ -303,12 +302,11 @@ de producción, la politica de asignación, etc.}
 \op{20. El sistema brinda al cliente un id de pedido para que luego consulte el estado del pedido si lo necesita}{}
 \op{21. Fin CU}{}
 
-%TODO: Cliente autentificado va como PRE e INCLUYE o solo INCLUYE?
 \cu{Realizando pedido web}{Cliente, Sistema bancario}{3, 4, 5, 6, 24, 29, 30, 33}{TRUE}{Pedido registrado}{El cliente ingresa un pedido al sistema desde la pagina web}
 
 %Ingresando feedback
 \op{1. El cliente ingresa a la página web de feedback}{}
-\op{2. Se incluye CU logueando usuario}{}
+\op{2. Se incluye CU autentificando usuario}{}
 \op{3. Ingresa al apartado de feedback}{}
 \op{4. Ingresa el número de pedido}{}
 \op{5. El sistema verifica que el número de pedido corresponda con un pedido enviado por delivery a ese cliente, y obre el cual el mismo no halla ingresado feedback}{}
@@ -320,10 +318,9 @@ de producción, la politica de asignación, etc.}
 \op{1. El cliente ingresa su nombre de usuario en el campo correspondiente}{}
 \op{2. El cliente ingresa su contraseña en el campo correspondiente}{}
 \op{3. El cliente presiona el boton de ingresar}{}
-\op{4. El sistema valida los datos.}
+\op{4. El sistema valida los datos}{}
 \op{5. Si los datos ingresados son validos, cliente autentificado}{5. Los datos no son validos, se muestra al cliente mensaje informativo y se le permite re ingresar los datos}
 \op{6. Fin CU}{}
-
 \cu{Autenticando usuario}{Cliente}{9, 24, 25}{TRUE}{Cliente logueado}{Autentificación de un cliente web}
 
 % Consultando estado de su pedido
@@ -347,20 +344,9 @@ de producción, la politica de asignación, etc.}
 % Indicando pedido preparado
 \op{1. El maestro indica al sistema que finaliz'o la preparaci'on del 'ultimo pedido que le pidi'o}{}
 \op{2. El sistema registra el 'ultimo pedido que le orden'o preparar al maestro como preparado}{}
-\op{3. Si hay pedido para preparar el sistema le informa que debe preparar a continuación (Se extiende con caso de uso Siendo informado}{} 
+\op{3. Si hay pedido para preparar el sistema le informa que debe preparar a continuación. EXTIENDE caso de uso Siendo informado de proximo pedido a preparar}{} 
 \op{4. Fin CU}{}
 \cu{Indicando pedido preparado}{Maestro}{8, 10, 13, 33}{El maestro tiene un pedido en preparación}{El pedido se registra como preparado}{El maestro, luego de preparar un pedido, indica al sistema que el mismo est'a preparado}
-
-% Indicando producto cocinado
-\op{1. El maestro indica al sistema que finaliz'o la cocci'on de ciertas partes de un pedido}{}
-\op{2. El sistema muestra al maestro un men'u de partes que deb'ian cocinarse y espera que el maestro indique la parte}{}
-\op{3. El maestro indica al sistema qu'e parte finaliz'o la cocci'on}{}
-\op{4. El sistema registra la parte como cocinada}{}
-\op{5. El sistema verifica si la 'ultima parte cocinada completa el pedido}{}
-\op{6. Si es as'i, el sistema registra al pedido como listo}{}
-\op{7. Si hay productos para cocinar el sistema le informa al maestro que de debe poner a continuación (se extiende con caso de uso Siendo informado de proximo producto a cocinar) }{}
-\op{8. Fin CU}{}
-\cu{Indicando producto cocinado}{Maestro}{8, 11, 12, 14, 15}{True}{La parte de pedido se registra como cocinada}{El maestro, luego de cocinar una parte de un pedido, indica al sistema que la misma est'a cocinada}
 
 % Siendo informado de proximo pedido a preparar
 \op{1. El sistema indica al maestro preparar el primer pedido en la cola de pedidos a preparar y espera que el maestro confirme}{}
@@ -369,6 +355,17 @@ de producción, la politica de asignación, etc.}
 \op{4. Si hay m'as pedidos a preparar, ir a paso 1}{}
 \op{5. Fin CU}{}
 \cu{Siendo informado de proximo pedido a preparar}{Maestro}{8, 10, 13, 33}{La cola de pedidos a preparar no est'a vac'ia}{La parte de pedido comienza a prepararse}{El sistema le ordena al maestro que parte de pedido preparar}
+
+% Indicando producto cocinado
+\op{1. El maestro indica al sistema que finaliz'o la cocci'on de ciertas partes de un pedido}{}
+\op{2. El sistema muestra al maestro un men'u de partes que deb'ian cocinarse y espera que el maestro indique la parte}{}
+\op{3. El maestro indica al sistema qu'e parte finaliz'o la cocci'on}{}
+\op{4. El sistema registra la parte como cocinada}{}
+\op{5. El sistema verifica si la 'ultima parte cocinada completa el pedido}{}
+\op{6. Si es as'i, el sistema registra al pedido como listo}{}
+\op{7. Si hay productos para cocinar el sistema le informa al maestro que de debe poner a continuación. EXTIENDE caso de uso Siendo informado de proximo producto a cocinar}{}
+\op{8. Fin CU}{}
+\cu{Indicando producto cocinado}{Maestro}{8, 11, 12, 14, 15}{True}{La parte de pedido se registra como cocinada}{El maestro, luego de cocinar una parte de un pedido, indica al sistema que la misma est'a cocinada}
 
 % Siendo informado de proximo producto a cocinar
 \op{1. El maestro pide al sistema que pedido debe cocinar a continuaci'on}{}
@@ -399,7 +396,7 @@ de producción, la politica de asignación, etc.}
 
 % Cerrando pedido de mesa
 \op{1. El cliente llama al mozo}{}
-\op{2. El cliente dice al mozo que va a pagar}{} %TODO: mesas como concepto??
+\op{2. El cliente dice al mozo que va a pagar}{}
 \op{3. El mozo selecciona el/los pedidos de la mesa, y pide al cliente forma de pago}{}
 \op{4. El mozo ingresa la forma de pago que el cliente comunica y cierra la mea}{}
 \op{5. Fin CU}{}
@@ -418,7 +415,7 @@ de producción, la politica de asignación, etc.}
 \op{1. El encargado de stock elige que operación realizar}{}
 \op{2. El sistema le pide al encargado de stock que ingrese el nombre o n'umero del insumo}{}
 \op{3. El encargado de stock ingresa el nombre o el n'umero identificador}{}
-\op{4.1. Si se trata de un alta ir a paso 6}{}% el sistema verifica que el insumo no exista en la lista de insumos, sino se procede a paso 10}{}
+\op{4.1. Si se trata de un alta ir a paso 6}{}
 \op{4.2. Si se trata de una modificación ir a paso 9}{}
 \op{4.3. Si se trata de una baja ir a paso 9.}{}
 \op{5. El sistema permite ingresar la cantidad y otros datos del insumo}{}
@@ -465,6 +462,16 @@ de producción, la politica de asignación, etc.}
 
 \cu{Realizando ABM de productos}{Cajero, Dueño}{7, 20, 21, 22, 34}{TRUE}{Se realizan las altas, bajas o modificaciones pedidas por el Dueño o cajero}{Permite ingresar nuevos productos a la carta de la pizzaría, indicar tiempos estimados de cocción y preparación, modificar precios y dar de baja productos}
 
+% Cancelando pedido
+\op{1. El cliente informa al encargado de pedido su nombre o nombre de usuario y el id de pedido, o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
+\op{2. El encargado ingresa al sistema el nombre proporcionado por el cliente y el id de pedido}{}
+\op{3. Se verifica que el pedido no haya sido entregado}{3. Si ya fue entregado, no se puede cancelar. Ir a fin CU}
+\op{4. El sistema verifica que el pedido exista y que el cliente haya hecho el pedido}{}
+\op{5. Si el pedido existe y est'a en estado preparando, se deben reingresar los insumos reutilizables. EXTIENDE caso de uso Agregando insumos reutilizables}{}
+\op{6. Fin CU}{}
+
+\cu{Cancelando pedido}{Encargado de pedido}{19, 33}{Pedido no entregado}{Pedido cancelado}{Un cliente solicita cancelar un pedido, por tel'efono o personalmente, y el encargado de pedidos se encarga de esta cancelaci'on.} 
+
 % Modificando orden de la cola de preparacion
 \op{1. El encargado de pedido selecciona modificar cola de pedidos}{}
 \op{2. Selecciona de la lista asigando a cada maestro un pedido y lo mueve hacia la posición deseada}{}
@@ -487,7 +494,9 @@ de producción, la politica de asignación, etc.}
 
 % Notificando pedido despachado
 \op{1. El encargado de pedidos selecciona al pedido que se va a despachar de entre los pedidos listos}{}
-\op{2. Notifica que el pedido fue despachado}{} %TODO: explicar semantica de despacho: salio con la motito, o era local y se entregó
+\op{2. Si el pedido era para delivery, el pedido pasa a estado enviado y se despachar'a a cargo del delivery}{}
+\op{3. Si el pedido era para el local, el pedido pasa a estado finalizado y se despachar'a a cargo del mozo para que le entregue el pedido al cliente}{}
+\op{4. Si el pedido era de mostrador, el pedido pasa a estado finalizado}{}
 \op{3. Fin CU}{}
 
 \cu{Notificando pedido despachado}{Encargado de pedidos}{8, 30}{El pedido debe estar listo}{Pedido marcado como despachado (o entregado en el caso de que sea local)}{Permite indicar que un pedido salió con el delivery o que fue entregado al cliente en mostrador o por el mozo en la mesa}
@@ -521,7 +530,7 @@ de producción, la politica de asignación, etc.}
 \op{3. El cliente informa al encargado de pedidos sus datos}{}
 \op{4. El encargado indica al sistema que desea ingresar un pedido y luego ingresa los datos del cliente al sistema}{}
 \op{5. El sistema verifica si el cliente est'a registrado}{}
-\op{6. Si el cliente est'a registrado, el sistema muestra al encargado el perfil del cliente}{6. Sino el encargado de pedidos le sugiere al cliente la posibilidad de registrarse. Si el cliente no lo desea entonces Ir a fin CU, sino se procede a registrarlo (EXTIENDE Registrando cliente e ir a paso 9 )} 
+\op{6. Si el cliente est'a registrado, el sistema muestra al encargado el perfil del cliente}{6. Sino el encargado de pedidos le sugiere al cliente la posibilidad de registrarse. Si el cliente no lo desea entonces ir a fin CU, sino se procede a registrarlo (EXTIENDE Registrando cliente e ir a paso 9 )} 
 \op{7. El encargado de pedidos verifica el tel'efono del cliente registrado con el tel'efono desde el cual cliente est'a llamando}{}
 \op{8. Si el tel'efono registrado no coincide con el tel'efono desde el cual est'a llamando pero el cliente tiene usuario y clave, el encargado le pide al cliente que este indique usuario y clave y verifica}{8. Si el tel'efono registrado no coincide con el tel'efono desde el cual el cliente est'a llamando y el cliente no tiene usuario y clave informar que no es posible tomar el pedido e ir a Fin CU}
 \op{9. El encargado de pedidos indica al cliente que le dicte el pedido}{}
@@ -546,16 +555,6 @@ de producción, la politica de asignación, etc.}
 \op{8. Fin CU}{}
 
 \cu{Consultando estado de pedido}{Encargado de pedidos}{32, 33, 34}{TRUE}{Se muestra la informaci'on del pedido consultado}{El encargado le pide informaci'on al sistema sobre un pedido en particular o sobre el cliente que haya hecho el pedido}
-
-% Cancelando pedido
-\op{1. El cliente informa al encargado de pedido su nombre o nombre de usuario y el id de pedido, o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
-\op{2. El encargado ingresa al sistema el nombre proporcionado por el cliente y el id de pedido}{}
-\op{3. Se verifica que el pedido no haya sido entregado}{3. Si ya fue entregado, no se puede cancelar. Ir a fin CU}
-\op{4. El sistema verifica que el pedido exista y que el cliente haya hecho el pedido}{}
-\op{5. Si el pedido existe y est'a en estado preparando, se deben reingresar los insumos reutilizables. EXTIENDE caso de uso Agregando insumos reutilizables}{}
-\op{6. Fin CU}{}
-
-\cu{Cancelando pedido}{Encargado de pedido}{19, 33}{Pedido no entregado}{Pedido cancelado}{Un cliente solicita cancelar un pedido, por tel'efono o personalmente, y el encargado de pedidos se encarga de esta cancelaci'on.} 
 
 % Registrando pedido de mostrador
 \op{1. El cliente comunica al encargado de pedidos que desea hacer un pedido}{}
