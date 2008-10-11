@@ -44,10 +44,10 @@
      id="base"
      showgrid="false"
      inkscape:zoom="0.08"
-     inkscape:cx="-1141.0434"
-     inkscape:cy="491.9042"
-     inkscape:window-x="0"
-     inkscape:window-y="52"
+     inkscape:cx="767.44183"
+     inkscape:cy="1204.4042"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
      inkscape:current-layer="svg2"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -847,17 +847,6 @@
      inkscape:export-ydpi="5.5615478" />
   <path
      style="fill:none;fill-rule:evenodd;stroke:#e9ef00;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
-     d="M 1461.286,-409.4702 C 1653.632,263.82901 1351.4785,589.40673 1440.353,1088.8452"
-     id="path4991"
-     inkscape:connector-type="polyline"
-     sodipodi:nodetypes="cc"
-     inkscape:connection-end="#g4819"
-     inkscape:connection-start="#rect5878"
-     inkscape:export-filename="D:\Facultad\Ingenieria de Software I\TP Entrega 0\ContextoNormalSimplificado.png"
-     inkscape:export-xdpi="5.5615478"
-     inkscape:export-ydpi="5.5615478" />
-  <path
-     style="fill:none;fill-rule:evenodd;stroke:#e9ef00;stroke-width:3.51999998;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline"
      d="M 1509.4297,-413.98296 C 2092.3997,696.08026 2392.7868,1668.8889 -450.67026,1114.6876"
      id="path4993"
      inkscape:connector-type="polyline"
@@ -918,13 +907,13 @@
      inkscape:export-xdpi="5.5615478"
      inkscape:export-ydpi="5.5615478" />
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.28533316;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599951, 9.85599951;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#9e0021;stroke-width:3.28563478;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85690433,9.85690433;stroke-dashoffset:0;stroke-opacity:1"
      id="rect2674"
-     width="501.26224"
-     height="310.59558"
-     x="-950.77478"
-     y="146.63791"
-     transform="matrix(0.7736392,-0.6336263,0.6336263,0.7736392,0,0)" />
+     width="509.82736"
+     height="314.68896"
+     x="-951.48175"
+     y="154.77641"
+     transform="matrix(0.7796611,-0.6262017,0.6410214,0.767523,0,0)" />
   <text
      xml:space="preserve"
      style="font-size:39.99999619px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -935,14 +924,14 @@
        sodipodi:role="line"
        id="tspan3454"
        x="-939.21033"
-       y="187.53575">Registra usuario</tspan><tspan
+       y="187.53575">Registra cliente</tspan><tspan
        sodipodi:role="line"
        x="-939.21033"
        y="237.53575"
-       id="tspan3456">Cambia politica de colas</tspan><tspan
+       id="tspan3456">Cambia orden de colas</tspan><tspan
        sodipodi:role="line"
        x="-939.21033"
-       y="287.53577"
+       y="287.53574"
        id="tspan3458">Ingresa pedido</tspan><tspan
        sodipodi:role="line"
        x="-939.21033"
@@ -951,7 +940,7 @@
        sodipodi:role="line"
        x="-939.21033"
        y="387.53574"
-       id="tspan3462">Notifica pedido saliendo</tspan><tspan
+       id="tspan3462">Notifica pedido despachado</tspan><tspan
        sodipodi:role="line"
        x="-939.21033"
        y="437.53574"
@@ -1275,7 +1264,7 @@
        sodipodi:role="line"
        x="-603.35455"
        y="-460.15161"
-       id="tspan3779">Ingresa comentario</tspan><tspan
+       id="tspan3779">Ingresa feedback</tspan><tspan
        sodipodi:role="line"
        x="-603.35455"
        y="-410.15164"
@@ -1405,13 +1394,13 @@
        y="1400.8696"
        id="tspan3821">Entrega factura</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.28534436;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85603346, 9.85603346;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.28534861;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85604583,9.85604583;stroke-dashoffset:0;stroke-opacity:1"
      id="rect3823"
-     width="313.11011"
-     height="55.187084"
-     x="-1335.3151"
-     y="1076.103"
-     transform="matrix(0.9878806,-0.155216,0.1588365,0.9873049,0,0)" />
+     width="453.20804"
+     height="54.547802"
+     x="-1328.1687"
+     y="1086.5779"
+     transform="matrix(0.9885168,-0.1511113,0.1553902,0.9878532,0,0)" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1422,7 +1411,7 @@
        sodipodi:role="line"
        x="-1321.2954"
        y="1115.5369"
-       id="tspan2652">Modifica precios</tspan></text>
+       id="tspan2652">Hace ABM de productos</tspan></text>
   <rect
      style="fill:none;fill-rule:evenodd;stroke:#00b7cd;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600023, 9.85600023;stroke-dashoffset:0;stroke-opacity:0.96862745"
      id="rect3829"
@@ -1481,13 +1470,13 @@
        y="1501.8951"
        id="tspan3851">Entrega dinero</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#0051cb;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85599934, 9.85599934;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#0051cb;stroke-width:3.28555554;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85666661,9.85666661;stroke-dashoffset:0;stroke-opacity:1"
      id="rect3853"
-     width="460.1373"
-     height="56.099625"
-     x="884.65161"
-     y="-100.23519"
-     transform="matrix(0.7452515,0.6667834,-0.6667834,0.7452515,0,0)" />
+     width="386.96341"
+     height="47.0919"
+     x="879.31451"
+     y="-89.22242"
+     transform="matrix(0.7507039,0.6606388,-0.6728942,0.7397387,0,0)" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1498,14 +1487,14 @@
        sodipodi:role="line"
        x="896.83209"
        y="-62.006924"
-       id="tspan3857">Ingresa cambios al stock</tspan></text>
+       id="tspan3857">Hace ABM de stock</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#ff7115;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#ff7115;stroke-width:3.28533333;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856,9.856;stroke-dashoffset:0;stroke-opacity:1"
      id="rect3859"
-     width="403.30899"
-     height="100.90611"
-     x="896.05054"
-     y="294.71384" />
+     width="455.90488"
+     height="100.70199"
+     x="896.15259"
+     y="294.81589" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1519,47 +1508,34 @@
        sodipodi:role="line"
        x="907.81824"
        y="382.52939"
-       id="tspan3865">Modifica precios</tspan></text>
+       id="tspan3865">Hace ABM de productos</tspan></text>
   <rect
-     style="fill:none;fill-rule:evenodd;stroke:#e8ed29;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600025, 9.85600025;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-rule:evenodd;stroke:#e8ed29;stroke-width:3.28534961;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85604869, 9.85604869;stroke-dashoffset:0;stroke-opacity:1"
      id="rect3867"
-     width="702.64197"
-     height="105.70559"
-     x="583.44629"
-     y="445.70068"
-     transform="matrix(0.876676,-0.4810813,0.4810813,0.876676,0,0)" />
+     width="702.02759"
+     height="150.17393"
+     x="593.94574"
+     y="449.01892"
+     transform="matrix(0.8687599,-0.4952335,0.4913514,0.8709614,0,0)" />
   <text
      xml:space="preserve"
      style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="594.50244"
-     y="482.80469"
+     x="603.87146"
+     y="482.41406"
      id="text3869"
-     transform="matrix(0.876676,-0.4810813,0.4810813,0.876676,0,0)"><tspan
+     transform="matrix(0.8700545,-0.4929556,0.4929556,0.8700545,0,0)"><tspan
        sodipodi:role="line"
-       x="594.50244"
-       y="482.80469"
-       id="tspan3871">Consulta proximo pedido a preparar</tspan><tspan
+       x="603.87146"
+       y="482.41406"
+       id="tspan3871">Indica pedido preparado</tspan><tspan
        sodipodi:role="line"
-       x="594.50244"
-       y="532.80469"
-       id="tspan3875">Consulta proximo producto a cocinar</tspan></text>
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#e8ed29;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.856, 9.856;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect3885"
-     width="728.45551"
-     height="52.700291"
-     x="1033.1963"
-     y="600.90527" />
-  <text
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="1044.7141"
-     y="638.47095"
-     id="text3887"><tspan
+       x="603.87146"
+       y="532.41406"
+       id="tspan3875">Indica producto cocinado</tspan><tspan
        sodipodi:role="line"
-       x="1044.7141"
-       y="638.47095"
-       id="tspan3891">Informa ingredientes de nuevo producto</tspan></text>
+       x="603.87146"
+       y="582.41406"
+       id="tspan2653">Ingresa stock reutilizable</tspan></text>
   <rect
      style="fill:none;fill-rule:evenodd;stroke:#e8ed29;stroke-width:3.2853334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:9.85600035, 9.85600035;stroke-dashoffset:0;stroke-opacity:1"
      id="rect3903"
