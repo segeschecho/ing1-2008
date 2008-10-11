@@ -339,8 +339,10 @@ A continuación se presentan brevemente los casos de uso presentes cuando el sist
 \includegraphics[height=16cm]{casosDeUsoContingencia.png}
 \end{figure}
 
-El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para permitir que el sistema siga siendo funcional aun cuando solo este disponible el puesto del encargado de pedidos. Como vemos en los diagramas de caso de uso y contexto, el encargado de pedidos ser'a el actor principal en el modo contingencia. Todas las responsabilidades que ten'ian los dem'as actores y que eran llevadas a cabo desde otras terminales del sistema ahora son tareas que los mismos deber'an llevar a cabo a trav'es del encargado de pedidos, ya que solo su terminal se mantiene en funcionamiento. A continuaci'on, a fin de aclarar su comportamiento, describiremos brevemente los casos de uso en modo contingencia:
+El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para permitir que siga siendo funcional a'un cuando solo est'e disponible el puesto del encargado de pedidos.
+Podemos ver en el diagrama de contexto de contingencia el aumento de la densidad de eventos, con respecto al modo normal, que son controlados y monitoreados por el encargado de pedidos. Todas las responsabilidades que ten'ian los dem'as actores y que eran llevadas a cabo desde otras terminales del sistema ahora son tareas que los mismos deber'an llevar a cabo a trav'es del encargado de pedidos, ya que solo su terminal se mantiene en funcionamiento.
 
+A continuaci'on describiremos brevemente los casos de uso en modo contingencia:
 \begin{itemize}
 \item Indicando pedido preparado y Indicando producto cocinado: el maestro le avisa al encargado de pedidos que termin'o la preparaci'on/cocci'on del pedido o producto y luego el encargado de pedidos procede a registrar tal evento en el sistema.
 \item Siendo informado de proximo pedido a preparar y Siendo informado de proximo producto a cocinar: el encargado de pedidos solicita al sistema el proximo pedido/producto a preparar/cocinar y luego se lo informa al maestro.
@@ -348,11 +350,10 @@ El sistema posee la capacidad de funcionar en lo que denominamos modo de conting
 \item Modificando precios: el cajero o dueño desea cambiar el precio de los productos, para esto debe informarle al encargado de pedidos los datos necesarios para realizar la operaci'on. Este caso de uso reemplaza a Realizando ABM de productos, ya que hacer baja o alta de un producto no es una operacion cr'itica durante contingencia.
 \item Notificando pedido despachado, Registrando cliente, Consultando estado de pedido y Cancelando pedido: estos casos de uso quedan igual a los casos en modo normal.
 \item Registrando pedido: este caso de uso reemplaza a Registrando pedido telef'onico y Registrando pedido de mostrador. Su funcionamiento es igual a los anteriores.
+\item Haciendo ABM de stock y Siendo notificado de stock cr'itico: ahora el encargado de pedidos asume las responsabilidades del encargado de stock. Estos son los mismos casos de uso que antes, aunque el actor es el encargado de pedidos.
 \end{itemize}
 
 Notese que la facturaci'on en modo contingencia no est'a a cargo del sistema, por lo cual se realiza manualmente y est'a a cargo del cajero, como se puede ver en el diagrama de contexto de contingencia. Tambi'en queda fuera de este modo la consulta de estad'isticas, los pedidos por sms y, como ya fue dicho, el alta y baja de productos, ya que no son necesidades cr'iticas durante contingencia.
-%TODO: esto esta bien?
-El ABM de stock tambi'en queda fuera. En su lugar el stock quedar'a totalmente a cargo del encargado de stock, y el mismo tendr'a la responsabilidad de hacer ABM apenas el sistema salga de modo contingencia.
 
 \section{Informacion estadística}
 
