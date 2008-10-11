@@ -132,6 +132,10 @@ Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido c
 \caption{Diagrama de actividad del ingreso de un pedido telefónico}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[heigt=12cm]{./figuras/diagramaParteEnComunRegistrandoPedido.png}
+\caption{Partes comunes en el ingreso de pedido
 %TODO: poner diagrama de actividad
 %NOTA: estos casos de uso q aparecen son medio especificos del caso, tonces se podria hacer un diagrama aparte
 
@@ -185,7 +189,7 @@ Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedido
 \begin{figure}[H]
 \centering
 \includegraphics[height=12cm]{./figuras/pantallaBotonesMozo.png}
-\caption{Interfaz del mozo para ingreso y cierre de pedido}
+\caption{Interfaz del mozo: Puede ingresar o cerrar pedidos}
 \end{figure}
 
 \section{Registro de usuarios}
@@ -208,12 +212,16 @@ Veamos operacionalmente como funciona el registro de un usuario:
 
 La siguiente operación permite registrar un usuario nuevo sin datos web ni SMS
 
-\begin{funcion}{RegistroUsuario}{nombreC: String, apellidoC: String, CalleC: String, NumeroC: Integer}{}{}
-   \precond{True}
+\begin{funcion}{RegistroUsuario}{nombreC: String, apellidoC: String, CalleC: String, NumeroC: Integer, LocalidadC: String, DepartamentoC: String, TelefonoC: Integer}{}{}
+   \precond{Direccion.allInstances()->forall(d $|$ d.telefono \noig TelefonoC}
    
-   \poscond{Cliente.allinstances() $\rightarrow$ size() = Cliente@pre.allinstances() $\rightarrow$ size+1}
+   \poscond{Cliente.allInstances() \flecha size() = Cliente@pre.allinstances() \flecha size()+1}
    
-   \poscond{(Cliente.allinstances() -  Cliente@pre.allinstances()) $\rightarrow$ forall(c | c.oclIsNew() and c.Nombre = nombreC and c.apellido = apellidoC and c.calle = CalleC and c.Numero = NumeroC)} 
+   \poscond{(Cliente.allInstances() -  Cliente@pre.allInstances()) $\rightarrow$ forall(c | c.oclIsNew() and c.Nombre = nombreC and c.apellido = apellidoC) }
+   
+   \poscond{Direccion.allInstances() \flecha size() = Direccion@pre.allInstances() \flecha size() +1}
+   
+   \poscond{(Direccion.allInstances() - Direccion@pre.allInstances()) \flecha forall(d | d.oclIsNew() and d.calle = CalleC and d.numero = NumercoC and d.localidad = LocalidadCand d.departamento = DepartamentoC and c.telefono = TelefonoC)}
    
 \end{funcion}
 
@@ -223,7 +231,7 @@ Si queremos agregar datos web a un usuario, se utiliza la siguiente operacion
    \precond{DatoWeb@pre.allinstances().pass$\rightarrow$ includes(nick)}
    \precond{c.userYPass()$\rightarrow$ isEmpty()}
    
-   \poscond{DatoWeb.allinstances() $\rightarrow$ size() = DatoWeb@pre.allinstances() $\rightarrow$ size+1}
+   \poscond{DatoWeb.allinstances() $\rightarrow$ size() = DatoWeb@pre.allinstances() $\rightarrow$ size()+1}
    \poscond{(DatoWeb.allinstances() - DatoWeb@pre.allinstances())$\rightarrow$ forall(d | d.usr = nick and d.pass = clave and d.datosDe = c)}
 \end{funcion}
 
@@ -248,6 +256,13 @@ Para cancelar un pedido via telefonica el usuario debe identificarse, y luego de
 
 También se considera cancelado un pedido que no se pudo entregar por delivery.
 
+A continuacion presentamos un diagrama de actividad donde se pone de manifiesto las actividades que se llevan a cabo cuando el cliente desea cancelar un pedido.
+
+\begin{figure}
+\centering
+\includegraphics[height=19cm]{./figuras/DiagramaActividadCancelacionPersonalYTelefonica.png}
+\caption{Diagrama de actividad de las cancelaciones personales y telefonicas}
+\end{figure}
 %FSM de como es la onda de las cancelaciones
 
 \section{Cola de pedidos}
@@ -323,12 +338,12 @@ Si el pedido no se pudo entregar el delivery debe notificarselo al encargado de 
 \section{Alternativa de contingencia}
 \label{alternativacontingencia}
 \subsection{Diagrama de contexto del funcionamiento de contingencia}
-%\begin{landscape}
-%\begin{figure}[H]
-%\centering
-%\includegraphics[height=17cm]{ContextoContingencia.png}
-%\end{figure}
-%\end{landscape}
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[height=17cm]{./figuras/ContextoContingencia.png}
+\end{figure}
+\end{landscape}
 
 Del diagrama observamos como las funciones principales en las que antes interactuaban otros agentes con el sistema, ahora son responsabilidad del encargado de pedidos, el cual suma a sus responsabilidades previas, tales como el ingreso de pedidos telefonicos, otras antes ajenas como informar pedidos preparados, etc.
 
