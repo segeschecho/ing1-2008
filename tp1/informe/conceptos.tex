@@ -1,45 +1,61 @@
-\section{Modelo conceptual}
+\section{Conceptos del Sistema}
 A continuacion presentaremos un diagrama de conceptos que pretende modelar los principales conceptos visibles en nuestra solución. El mismo pretende brindar una visión completa de lo que el sistema puede observar
 
-\begin{landscape}
-\subsection{Diagrama}
-\begin{figure}[H]
+\subsection{Diagrama de modelo conceptual}
+\begin{figure}
 \centering
-\includegraphics[scale=.5]{conceptos}
+\includegraphics[angle=90,height=23cm]{conceptos}
 \end{figure}
-\end{landscape}
-%TODO: controlar esta descripción.
-En el diagrama lo que observamos primeramente es que los pedidos son el concepto principal. Un pedido tiene una fecha de ingreso, un identificador unico en el sistema, y un estado. El pedido esta asociado a varios productos (Pizzas de muzzarella, napolitana, empanadas de carne, coca cola), y lleva una cierta cantidad de cada uno de ellos. Ademas estos productos se ligaron al pedido con un precio particular, que no necesariamente es el precio actual ya que los precios pueden cambiar.
-Segun el estado que posea un pedido, esta relacionado con diferentes clases conceptuales. Por ejemplo un pedido cancelado, tiene una razon de cancelación, un pedido ingresado tiene un orden en la cola de ingreso de pedidos a la cocina, el cual determina cuando pasa a ser preparado; una preparación parcial esta relacionado con un pedido mixto que posee alguno de sus subproductos (pizzas o empanadas) ya preparados.
 
-Los productos pueden ser comida (pizzas o empanadas) o bebidas. Para cada uno de ellos el sistema controla la cantidad disponible de insumos, en el caso de la comida es masa y kit, mientras que en el caso de las bebidas es la cantidad de bebidas en stock.
+\textbf{Aclaraciones sobre el diagrama}:
+\begin{itemize}
+\item Todas las herencias son de tipo \textbf{Disjoint Complete}, se omitió la etiqueta por simplicidad.
+\item El tipo \verb0Date0 debe almacenar no solo la fecha sino también la hora (técnicamente es un \verb0DateTime0).
+\end{itemize}
 
-Los pedidos pueden ser locales o remotos segun su origen. Los pedidos remotos siempre tienen asociados a un cliente registrado, en cambio los pedidos locales podrían estar vinculados a un cliente cuyos datos son desconocidos, por eso podemos considerar que pueden estar vinculados a 0 clientes. Un pedio remoto tiene necesariamente un forma de pago vinculada, mientras que un pedido local puede no tenerla, ya que si el cliente esta en una mesa, la forma de pago se decide cuando el cliente este dispuesto a pagar.
+El diagrama ilustra en primer lugar que el concepto central del que depende el resto es el \textbf{Pedido}. Un pedido consta de una fecha de ingreso (el momento en que fue registrado en el sistema), un identificador único y un estado. A su vez, un pedido tiene asociados \textbf{Productos} que lo constituyen, y estos se cuantifican mediante la clase de asociación \textbf{Items} (que registra cuantas unidades de cada producto hay en el pedido, así como el precio unitario del producto en el momento de la venta). Si bien el precio está registrado en cada \textbf{Producto}, la distinción del precio de dicha clase y de la clase \textbf{Items} está dada porque los productos pueden cambiar de precio en cualquier momento y por lo tanto es necesario registrar el valor correspondiente al momento de ingreso del pedido.
 
-Un cliente registrado tiene cierta información basica, pero ademas puede registrar en algún momento otra información extra que lo habilita a hacer pedidos web, o pedidos SMS.
+En función del estado en que se encuentra un \textbf{Pedido}, puede tener asociadas varias clases cuya relación es condicional. Muchas de estas clases tienen una fecha que registra el momento en que el pedido ingresó al estado. Esta fecha puede ser necesaria por fines estadísticos (caso de FechaFinalización o FechaCancelación) o para identificación de los pedidos (FechaComienzo en la clase \textbf{Preparación}). A su vez, estas clases asociadas pueden registrar información adicional referente a un estado. Por ejemplo, un pedido cancelado tiene una razón de cancelación, mientras que un pedido finalizado podría eventualmente tener un \textit{feedback} asociado, con el comentario del cliente sobre su pedido.
 
-Cuando un pedido esta cocinandose, algunos de sus items estan en el horno, otros ya fueron cocinados. Esta información se encuentra en la clase cocción relacionada con los items de un producto.
+Un pedido puede ser \textbf{Remoto} o \textbf{Local} (la distinción precisa está disponible en el Glosario). Un pedido remoto debe estar asociado necesariamente a un cliente, que será aquel al que se le haga la entrega del pedido. Esta relación es opcional para los pedidos hechos en el local. La \textbf{Forma de Pago} se asocia de forma diferenciada a un pedido según si este es remoto o local puesto que en el caso de pedidos remotos siempre se conoce al momento de ingresar el pedido el medio de pago que utilizará el cliente, mientras que para los pedidos locales esta información no estará disponible hasta tanto el mozo no la averigue.
 
-Un pedido tiene uno o cero hornos porque el pedido podria ser exclusivamente de bebidas.
-\subsection{Diccionario de datos} %TODO: no se q es
+Las clases \textbf{Orden de cocción} y \textbf{Orden de preparación} identifican el orden asignado a los pedidos en las colas de pedidos y de horno respectivamente. Almacenan un número que sirve únicamente como criterio de comparación entre pedidos para establecer un orden relativo entre ellos. La clase \textbf{Preparación} tiene una función parecida, y permite identificar qué parte de un pedido está preparada en el caso de pedidos mixtos (para pedidos simples un pedido no puede estar parcialmente preparado a los ojos del sistema). Todas estas son clases \textit{ad hoc} que permiten registrar detalles propios de cada estado.
 
-\subsection{Restricciones al MC en OCL}
-\restr{Un pedido tiene un conjunto de estados valido}{}
-\restr{Un pedido llega a los estado en orden valido}{}
-\restr{Si el pedido no era en el local o ya fue entregado, entonces tiene una forma de pago}{}
-\restr{Forma de pago tarjeta si y solo si pedido local o web}{}
-\restr{Cliente tiene pedidos remotos web si tiene datos web y remotos sms si tiene numero de celular}{}
-\restr{Si el pedido tiene solo pizzas y se esta preparando, empanadaspreparadas es true}{}
-\restr{Si el pedido tiene solo empanadas y se esta preparando, pizzaspreparadas es true}{}
-\restr{Un pedido tiene feedback si era remoto}{}
-\restr{Cada estado se relaciona con un estado-pedido adecuado}{}
-\restr{Todos los datos web son diferentes}{}
-%TODO: q onda con los numeros?
-\restr{Todos los numeros de celular son diferentes}{}
-\restr{Todos los numeros de telefono son diferentes}{}
-%TODO: dudoso
-\restr{Para los pedidos de la misma fecha, los precios de sus items son iguales}{}
-\restr{Un pedido tiene un horno si y solo si no es de solo bebidas}{}
-\restr{Hay solo siete estados y tienen los nombres de los estados de pedido}{}
-\restr{No hay dos pedidos con el mismo identificador}{}
-\restr{}{}
+Un \textbf{Producto} puede ser una \textbf{Comida} o una \textbf{Bebida}. Las comidas constan de dos insumos para su preparación: un bollo de pizza o tapa de empanada dependiendo del caso, y un kit de ingredientes que se combinan con el bollo o tapa al momento de preparar el pedido. Las bebidas tienen un único insumo (la propia botella o lata de la bebida). La clase \textbf{Insumo} tiene por objetivo contabilizar la cantidad remanente en \textit{stock} que hay de cada uno de los insumos involucrados.
+
+Un \textbf{Cliente} puede o no tener asociadas las clases \textbf{Datos SMS} y \textbf{Datos Web}. Estas clases registran información adicional que es necesaria para que el cliente puede hacer pedidos a través de dichos medios. En este sentido, todo pedido cuyo origen sea Web deberá estar asociado a un cliente que tenga esta información asociada. En cualquier caso, la información básica (nombre, apellido y una dirección para hacer entregas) es común a todos los clientes registrados.
+
+
+Por último, en la parte superior izquierda del diagrama está registrada información referente a la cocción de los pedidos. En particular, se asocia un pedido a un \textbf{Horno}(o a ninguno en caso de que el pedido estuviera compuesto únicamente de bebidas). Dicho horno tiene una \textbf{Política} donde se almacenan datos de interés para el cálculo de operaciones e invariantes. La clase \textbf{Cocción} es la que almacena información sobre cocciones parciales, y debe estar asociada a un pedido siempre que este esté en estado \textit{Al Horno}. Esta clase indica qué cantidad de qué productos ya fueron cocinados o se encuentran en el horno.
+
+%FIXME: esto lo vuelo, no tiene sentido total
+%\subsection{Diccionario de datos}
+
+\subsection{Restricciones al modelo conceptual}
+
+A continuación se detallan una serie de restricciones adicionales al modelo conceptual que no son aparentes sobre el diagrama. Para especificarlas se utiliza OCL, y completan el modelo conceptual de sistema ajustando algunos invariantes que deben preservarse en él.
+
+% Feduchin acá podés separar en subsubsection por contexto
+
+%\subsubsection{Pedidos}
+%\subsubsection{Politica} etc etc
+
+% Acá te dejé el listado viejo por si te sirve
+
+%\restr{Un pedido tiene un conjunto de estados valido}{}
+%\restr{Un pedido llega a los estado en orden valido}{}
+%\restr{Si el pedido no era en el local o ya fue entregado, entonces tiene una forma de pago}{}
+%\restr{Forma de pago tarjeta si y solo si pedido local o web}{}
+%\restr{Cliente tiene pedidos remotos web si tiene datos web y remotos sms si tiene numero de celular}{}
+%\restr{Si el pedido tiene solo pizzas y se esta preparando, empanadaspreparadas es true}{}
+%\restr{Si el pedido tiene solo empanadas y se esta preparando, pizzaspreparadas es true}{}
+%\restr{Un pedido tiene feedback si era remoto}{}
+%\restr{Cada estado se relaciona con un estado-pedido adecuado}{}
+%\restr{Todos los datos web son diferentes}{}
+%\restr{Todos los numeros de celular son diferentes}{}
+%\restr{Todos los numeros de telefono son diferentes}{}
+%\restr{Para los pedidos de la misma fecha, los precios de sus items son iguales}{}
+%\restr{Un pedido tiene un horno si y solo si no es de solo bebidas}{}
+%\restr{Hay solo siete estados y tienen los nombres de los estados de pedido}{}
+%\restr{No hay dos pedidos con el mismo identificador}{}
+%\restr{}{}

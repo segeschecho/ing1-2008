@@ -1,16 +1,34 @@
 \chapter{Consideraciones globales de la solución}
-En esta sección se procede a la realización de una especificación completa de la solución. Para ello presentaremos una visión general de la solución, para posteriormente presentar un analisis mas detallado de los distintos aspectos de la misma. Consideramos que de esta manera es posible trabajar con un nivel de detalle mayor en cuestiones particulares, sin generar que la visión de la solución como un todo sea engorrosa.
 
-\begin{landscape}
-\section{Diagrama de contexto}
+El objetivo de esta sección es evaluar el problema en su totalidad y describir la solución propuesta desde un punto de vista holístico. En la sección siguiente se detallarán de forma más precisa varios aspectos técnicamente importantes de lo aquí descripto. Sin embargo, optamos por realizar esta descripción de lo general a lo particular para ofrecer una mayor claridad en la explicación sin resignar detalle en los puntos importantes.
+
+\section{Contexto del sistema}
+
+A continuación presentamos el contexto y las interacciones que realiza el sistema con el mundo exterior mediante el diagrama de contexto de nuestra solución.
+
+El objetivo de este diagrama es modelar la interfaz del sistema con sus usuarios y con los demás agentes involucrados en su funcionamiento.
+Las flechas están coloreadas del mismo color que los agentes responsables de controlar los eventos representados por esas flechas, para mayor claridad en la lectura del diagrama.
+
+Rápidamente puede verse que los agentes que más trascendencia tienen son el encargado de pedidos y el cliente. Desde el punto de vista del sistema, estos dos agentes tienen una gran participación. El encargado de pedidos se encarga de toda la coordinación de la producción y de la priorización de pedidos antes de su entrada a la cocina. Los clientes, por su parte, en razón de que pueden autogestionarse ingresando pedidos a través de la Web o de SMS, necesitan también una interfaz rica en funcionalidades.
+
+Otros agentes de importancia son el Mozo, el Cajero, el Delivery  y los Maestros, que también tienen interacción directa con el sistema y participan activamente en toda la dinámica de la pizzería, incluyendo también muchas actividades que no pasan por el sistema pero que son esenciales para su funcionamiento.
+
+Por último tenemos agentes que son de menor jerarquía por la cantidad de operaciones que realizan. Podemos contar entre estos al encargado de stock, al dueño y a los sistemas bancario y de facturación, que tienen roles más tangenciales y solo interactúan con el sistema de forma más esporádica.
+
+En razón de estas observaciones, será razonable destinar un tiempo acorde a la importancia de cada agente a pulir las interfases que lo conciernen. Esto es particularmente crítico para el caso de los clientes, en que disponer de una buena interfaz amigable y práctica en lugar de una mala puede ser la diferencia entre realizar o no una venta.
+
+Por últmo cabe aclarar que este diagrama representa el modo de operación normal. Existe un modo de operatoria de contingencia donde las interacciones se ven modificadas. Esta alternativa de contingencia se discute en la sección 4.10, donde se incluye un segundo diagrama de contexto representativo de ese escenario.
+% FIXME: verificar seccion de alternativa de contingencia
+
 \begin{figure}[H]
 \centering
-\includegraphics[height=16cm]{ContextoNormal.png}
+\includegraphics[angle=90,width=16cm]{ContextoNormal.png}
 \end{figure}
-\end{landscape}
 
 \section{Objetivos de la solución y requerimientos del sistema}
-A continuación se presenta el diagrama de objetivos de la solución, junto con un detalle de los requerimientos del sistema.
+A continuación se presenta el diagrama de objetivos de la solución, junto con un detalle de los requerimientos del sistema. 
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[height=13cm,angle=90]{DiagramaObjetivos4.png}
@@ -573,6 +591,18 @@ de producción, la politica de asignación, etc.}
 
 \cu{Registrando pedido mostrador}{Encargado de pedidos}{3, 4, 5, 6, 33}{}{Pedido ingresado al sistema}{El cliente quiere hacer un pedido en el local para llevar}
 \subsection{Matriz de trazabilidad}
+
+A continuación presentamos una matriz donde se pueden observar las relaciones entre requerimientos y casos de uso.
+Dicha tabla contiene en sus filas a los requerimientos y en sus columnas a los casos de uso. Se indica con una cruz cuando
+un caso de uso contribuye a satisfacer un cierto requerimiento. Esto permite visualizar rápidamente la completitud
+del sistema en lo que a requerimientos refiere.
+
+Es de notar que hay tres filas en la tabla que no tienen ningún caso de uso asociado. Se trata de los requerimientos 16, 17 y 18, y
+la razón de esta anomalía es que los requerimientos afectan al modo de operación de contingencia. Los casos de uso correspondientes
+a este modo no se encuentran listados en esta sección, sino que se discuten más adelante en la sección 4.10, y por tanto no
+aparecen en esta tabla.
+%FIXME: verificar que la sección alternativa de contingencia sea 4.10 o arreglar el ultimo parrafo
+
 \begin{landscape}
 % Vista preliminar del código fuente para el párrafo 4
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -682,12 +712,13 @@ Requerimiento\textbackslash{}Caso de uso & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 1
 34 &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  & X &  & \tabularnewline
 \hline
 \hline 
-35 &  &  &  & x &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  & X &  & \tabularnewline
+35 &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  & X &  & \tabularnewline
 \hline
 \hline 
 \end{tabular}
 \end{landscape}
 
+%FIXME: estos comentarios sirven para algo?
 %En fila 8 intervienen por el tema de los tiempos
 %
 %Ojo con el req 11
@@ -696,9 +727,5 @@ Requerimiento\textbackslash{}Caso de uso & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 1
 %
 %Explicar que el req 30 aparece en los casos de uso donde aparece porq
 %en esos casos de uso se ingresan datos para armar el archivo
-\include{conceptos}
-\section{Descripcion de operaciones} %NOTA: es opcional
-\section{Diagrama de actividad}
-\section{Maquinas de estado finito}
 
-\section{Prototipos de pantalla} %WTF :S
+\include{conceptos}
