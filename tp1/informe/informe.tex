@@ -64,14 +64,17 @@ y nuestra propuesta para su resolución. En primer lugar se plantea una descripci
 continuación se detallan algunos aspectos importantes haciendo uso de herramientas desarrolladas en clase como
 diagramas de actividad, máquinas de estado finito y otras.
 }
-
+\newcommand{\noig}{$<>$}
 \newcommand{\negrita}[1]{{\bf #1}}
 \newcounter{restriccion}
 \setcounter{restriccion}{1}
-\newcommand{\restr}[2]{ \negrita{\therestriccion . #1:}
-
-Invariante: $#2 $
-
+\newcommand{\flecha}{$\rightarrow$}
+\newcommand{\restr}[3]{
+%\begin{tabularx}{14cm}{X}
+\negrita{\therestriccion . #1:} \\
+\negrita{Context #2} \\
+\negrita{Inv:} \textsl{#3} \\
+%\end{tabularx}
 \stepcounter{restriccion}
 }
 

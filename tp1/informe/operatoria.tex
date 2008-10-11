@@ -32,7 +32,7 @@ stock empanada e : $[0...Max_{STOCK}]$,
 stock stock bollo : $[0...MAX_{STOCK}]$,
 stock stock tapas : $[0...Max_{STOCK}]$,
 
-todas ellas comenznado con un valor CONSSTOCK constante.
+todas ellas comenznado con un valor SSTOCK constante.
 
 pizza 1 1 : $[0...MAX]$
 ...
@@ -111,7 +111,7 @@ Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido c
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{diagramaActividadTelefono}
+\includegraphics[scale=0.5]{./figuras/diagramaActividadTelefono}
 \caption{Diagrama de actividad del ingreso de un pedido telefonico}
 \end{figure}
 
@@ -133,7 +133,7 @@ El pedido será encolado automáticamente tratando de balancear la carga de los ho
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{diagramaActividadWeb}
+\includegraphics[scale=0.5]{./figuras/diagramaActividadWeb}
 \caption{Diagrama de actividad del ingreso de un pedido telefonico}
 \end{figure}
 %TODO:diagrama de actividad
@@ -147,7 +147,7 @@ El sistema verifica si es posible satisfacer el pedido. En caso de no ser posibl
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.5]{figuras/diagramaActividadSMS}
+\includegraphics[scale=.5]{./figuras/diagramaActividadSMS}
 \caption{Diagrama de actividad para pedidos SMS}
 \end{figure}
 
@@ -156,7 +156,7 @@ Los pedidos locales pueden realizarse a los mozos, quienes cuentan con una PDA p
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=12cm]{figuras/diagramaActividadMozo.png}
+\includegraphics[height=12cm]{./figuras/diagramaActividadMozo.png}
 \caption{Diagrama de actividad de toma de un pedido por parte del mozo}
 \end{figure}
 
@@ -167,7 +167,7 @@ Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedido
 %TODO:diagrama de actividad de ambos casos
 \begin{figure}[H]
 \centering
-\includegraphics[height=12cm]{figuras/pantallaBotonesMozo.png}
+\includegraphics[height=12cm]{./figuras/pantallaBotonesMozo.png}
 \caption{Interfaz del mozo para ingreso y cierre de pedido}
 \end{figure}
 
@@ -239,24 +239,11 @@ Por cola de pedidos se entiende la cola que determina el orden en el cual se pre
 Cuando todas las partes de un pedido fueron preparados, el pedido deja de estar en preparación para pasar a estar en estado de preparado.
 
 A continuación, mostramos algunos prototipos de pantalla de la interfaz que tendra el encargado de pedidos con la cola
-\begin{landscape}
 \begin{figure}[H]
 \centering
-\subfigure[El encargado ve los pedidos ingresados. El primer elemento de la cola es el elemento superior]{
-\includegraphics[scale=0.45]{./figuras/pantallaColaPedido1.png} }
-\subfigure[Aqui vemos como la lista se actualiza cuando ingresa un pedido]{
-\includegraphics[scale=0.45]{./figuras/pantallaColaPedido2.png}}
-\subfigure[El encargado puede mover un pedido dandole mas o menos prioridad]{
-\includegraphics[scale=0.45]{./figuras/pantallaColaPedido3.png} }
-\subfigure[El maestro pizzero pide algo para preparar y el pedido se va de la cola]{
-\includegraphics[scale=0.45]{./figuras/pantallaColaPedido4.png}}
-\label{fig:pantallaCola}
-\caption{Interfaz con la cola de pedidos}
-\setcounter{subfigure}{0}
+\includegraphics[scale=0.6]{./figuras/pantallaColaPedido3.png}
+\caption{Prototipo de la vista de la cola de pedidos del encargado. El puede mover un pedido dandole mas o menos prioridad, en el ejemplo dio mas prioridad al pedido 4 recien ingresado}
 \end{figure}
-\end{landscape}
-
-Es de notar que si el encargado llevara a segundo lugar el pedido mixto, quedando debajo del de empanadas, y el maestro pizzero estuviera listo para preparar un pedido, el que desaparece será el mixto, de modo que al maestro empanadero cuando este listo para preparar se le mostraran las empanadas del pedido mixto.
 
 %operacion pedir proximo pedido a preparar
 %TODO: aca hay que hacer diagramas seguro, pero no se me ocurren
@@ -317,14 +304,14 @@ Si el pedido no se pudo entregar el delivery debe notificarselo al encargado de 
 
 %Finalmente el dueño deberá informar al encargado de pedido los precios que pretende modificar.
 \section{Alternativa de contingencia}
-
+\label{alternativacontingencia}
 \subsection{Diagrama de contexto del funcionamiento de contingencia}
-\begin{landscape}
-\begin{figure}[H]
-\centering
-\includegraphics[height=17cm]{ContextoContingencia.png}
-\end{figure}
-\end{landscape}
+%\begin{landscape}
+%\begin{figure}[H]
+%\centering
+%\includegraphics[height=17cm]{ContextoContingencia.png}
+%\end{figure}
+%\end{landscape}
 
 Del diagrama observamos como las funciones principales en las que antes interactuaban otros agentes con el sistema, ahora son responsabilidad del encargado de pedidos, el cual suma a sus responsabilidades previas, tales como el ingreso de pedidos telefonicos, otras antes ajenas como informar pedidos preparados, etc.
 
@@ -336,7 +323,7 @@ A continuación se presentan brevemente los casos de uso presentes cuando el sist
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=16cm]{casosDeUsoContingencia.png}
+\includegraphics[height=16cm]{./figuras/casosDeUsoContingencia.png}
 \end{figure}
 
 El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para permitir que siga siendo funcional a'un cuando solo est'e disponible el puesto del encargado de pedidos.
@@ -353,10 +340,12 @@ A continuaci'on describiremos brevemente los casos de uso en modo contingencia:
 \item Haciendo ABM de stock y Siendo notificado de stock cr'itico: ahora el encargado de pedidos asume las responsabilidades del encargado de stock. Estos son los mismos casos de uso que antes, aunque el actor es el encargado de pedidos.
 \end{itemize}
 
-Notese que la facturaci'on en modo contingencia no est'a a cargo del sistema, por lo cual se realiza manualmente y est'a a cargo del cajero, como se puede ver en el diagrama de contexto de contingencia. Tambi'en queda fuera de este modo la consulta de estad'isticas, los pedidos por sms y, como ya fue dicho, el alta y baja de productos, ya que no son necesidades cr'iticas durante contingencia.
+Notese que la geeración de archivo para facturaci'on en modo contingencia no est'a a cargo del sistema, por lo cual se realiza manualmente y est'a a cargo del cajero, como se puede ver en el diagrama de contexto de contingencia. Tambi'en queda fuera de este modo la consulta de estad'isticas, los pedidos por sms y, como ya fue dicho, el alta y baja de productos, ya que no son necesidades cr'iticas durante contingencia.
+
+Los casos de uso de la alternativa de contingencia, son los que permiten satisfacer los requerimientos 16,17 y 18, ya que estos requerimientos eran los que establecian que el sistema debería ser capaz de funcionar con solo el puesto del encargado en estado funcional.
 
 \section{Informacion estadística}
-
+%FIXME: hay cosas q para calcularlas necesitamos info q no tenemos (segun el diag de concepto)
 Con el fin de comprender más profundamente el comportamiento del negocio, desarrollamos para la pizzería un conjunto de indicadores que permitan analizar su rendimiento y predecir algunos de los parámetros que afectan su comportamiento, así como optimizar algunas estrategias de venta y producción.
 
 Los indicadores de rendimiento tienen por objetivo caracterizar el funcionamiento de la pizzería en un período dado. Mediante el monitoreo del ingreso y salida de los pedidos, es posible realizar un seguimiento de algunos parámetros interesantes:
@@ -385,7 +374,7 @@ El ABM de stock permite realizar altas, bajas y modificaciones de los kits y dem
 Para ver como funciona el control por stock critico, analicemos las siguientes FSM, en las que se modela un ingreso de pedidos que consumen cierta cantidad de un stock determinado (figura \ref{ingresoDePedidos}) por simplicidad estamos usando que solo consume cierta cantidad de un insumo, pero se puede extender relativamente facil a varios insumos. El control de stock esta modelado en la FSM de la figura \ref{stockCritico}, como vemos, el sistema permite que se ingresen pedidos, pero cuando la cantidad de stock es menor al valor critico se produce un aviso, y luego se permite igualmente seguir ingresando pedidos. Cuando el encargado de stock \ref{encargadoStock} observa el aviso puede ingresar nuevos productos aumentando el stock. Entonces el sistema vuelve a monitorear el valor del stock para avisar si queda bajo el valor critico. En particula si el encargado deja el stock en un valor inferior al critico, el sistema volvera a mostrar el mensaje de stock critico.
 
 En estas FSM utilizamos la variable, $stock : [0..MAX]$ que comienza inicializada en STOCK un valor constante. %TODO: ver q esta inicializacion aparezca en el diagrama
-Por otro lado $critico$ y $n$ son valores constantes.
+Por otro lado $critico$, $k$ y $n$ son valores constantes.
 
 \begin{figure}[H]
 \centering
@@ -410,4 +399,63 @@ Por otro lado $critico$ y $n$ son valores constantes.
  
 Entonces FSM Control de stock critico = FSM ingresar pedidos $||$ FSM aviso stock critico $||$ FSM responsable de stock
 
+\section{Estimación de tiempos}
+A continuación detallaremos las operaciones que permiten estimar el tiempo de finalización de un pedido. Notar que la misma es una estimación, no intenta ser exacta, de hecho dado que no era requerido no se tiene en cuenta el tiempo de delivery, que en general podría no ser despreciable.
 
+Para la estimación utilizamos los tiempos de preparación y de cocción aproximados dados por el maestro al momento que se ingresa un producto al sistema.
+
+Veamos como es para el caso de un pedido recien ingresado, ya que para los otros casos es similar solo que no se cuenta el tiempo de las etapas que ya paso.
+
+Primero se estima su tiempo de preparacion y coccion
+ 
+Luego se estima el tiempo de preparacion y coccion de los productos que estan adelante de el en la cola de ingreso.
+
+Luego se hace lo mismo para los pedidos que se estan preparando
+
+Y finalmente se estima el tiempo de cocción de los pedidos que estan en la cola del horno correspondiente al pedido y de los que se estan cocinando.
+
+Como vemos este valor dista de ser exacto, pero de hecho no pretende serlo, sino que sirve como una estimación para el cliente.
+
+Presentamos las operaciones a modo de quieries sin contexto que permiten estimar estos tiempos
+
+Esta operacion nos permite obtener los pedidos que estan adelante del pedido p en la cola de preparacion
+
+\textbf{pedidosAdelantePreparacion (p1:Pedido):set(pedido)\\}
+Pedido.allInstances() \flecha  select (p $|$ p.estado = ingresado and p.posicionPreparación \flecha  asOrderedSet() \flecha  first() $<$ p.posicionPreparación \flecha asOrderedSet()\flecha first())
+
+Esta calcula el tiempo de preparación de un pedido en base a los tiempos de sus productos
+
+\textbf{TiempoPreparacion(p:Pedido):Integer\\}
+p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p)  \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoPreparacion) \flecha sum()
+
+Esta operacion permite calcular el tiempo de coccion de un pedido que tiene partes ya cocinadas
+
+\textbf{TiempoDeCocciónAlHorno(p:Pedido): Integer\\}
+p.itemDe \flecha select(i $|$ i.producto.isKindOf(com)) \flecha collect(coccionDe \flecha  asOrderedSet() \flecha first()) \flecha collect(c $|$ c.itemDe.productos.\\ asOclType(Comida).tiempoCoccion * (c.itemDe.cantidad - c.cantidadCocinada)) \flecha sum() 
+
+Esta nos permite obtener el tiempo de cocción de un pedido en base a los de sus productos
+
+\textbf{TiempoDeCoccion(p:Pedido): Integer\\ }
+p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p) \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoCocion) \flecha sum()
+
+Estas 3 operacinoes nos permiten conseguir a los pedidos que estan en preparacion, preparados (y esperan para el mismo horno que p tiene asignado) y por ultimo los pedidos que se estan cocinando en el horno asignado a p
+
+
+\textbf{PedidosEnPreparacion() : Set(Pedido)\\}
+Pedido.allInstances() \flecha select(p $|$ p.estado = En Preparacion)
+
+
+\textbf{PedidosColaHorno(p:Pedido) : Set(Pedido)\\}
+Pedido.allInstances() \flecha select(p1 $|$ p1.estado = Preparado and p.hornoDe = p1.hornoDe)
+
+
+\textbf{PedidosHorno(p:pedido) : Set(Pedido)\\}
+Pedido.allInstances() \flecha select(p1 $|$ p1.estado = Al horno and p.hornoDe = p1.hornoDe)
+
+Estimamos entonces el tiempo hasta que p este listo
+
+\textbf{EstimarTiempo(p: Pedido): Integer \\}
+pedidosAdelantePreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPrepracion(p1)) \flecha Sum() + pedidosEnPreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPreparacion(p1)) \flecha Sum() + 
+PedidosColaHorno(p) \flecha collect(p1 $|$ TiempoDeCoccion(p1)) +
+PedidosHorno(p) \flecha collect(p1 $|$ TiempoDeCocionAlHorno(p1))
+TiempoPreparacion(p) + TiempoCoccion(p)

@@ -13,7 +13,7 @@ A continuacion presentaremos un diagrama de conceptos que pretende modelar los p
 \item El tipo \verb0Date0 debe almacenar no solo la fecha sino también la hora (técnicamente es un \verb0DateTime0).
 \end{itemize}
 
-El diagrama ilustra en primer lugar que el concepto central del que depende el resto es el \textbf{Pedido}. Un pedido consta de una fecha de ingreso (el momento en que fue registrado en el sistema), un identificador único y un estado. A su vez, un pedido tiene asociados \textbf{Productos} que lo constituyen, y estos se cuantifican mediante la clase de asociación \textbf{Items} (que registra cuantas unidades de cada producto hay en el pedido, así como el precio unitario del producto en el momento de la venta). Si bien el precio está registrado en cada \textbf{Producto}, la distinción del precio de dicha clase y de la clase \textbf{Items} está dada porque los productos pueden cambiar de precio en cualquier momento y por lo tanto es necesario registrar el valor correspondiente al momento de ingreso del pedido.
+El diagrama ilustra en primer lugar que el concepto central del que depende el resto es el \textbf{Pedido}. Un pedido consta de una fecha de ingreso (el momento en que fue registrado en el sistema), un identificador único y un estado. A su vez, un pedido tiene asociados \textbf{Productos} que lo constituyen, y estos se cuantifican mediante la clase de asociación \textbf{Items} (que registra cuantas unidades de cada producto hay en el pedido, así como el precio unitario del producto en el momento de la venta). Si bien el precio está registrado en cada \textbf{Producto}, la distinción del precio de dicha clase y de la clase \textbf{Item} está dada porque los productos pueden cambiar de precio en cualquier momento y por lo tanto es necesario registrar el valor correspondiente al momento de ingreso del pedido. Notar que el producto hace entonces referencia por ejemplos a ``pizza de muzzarella'' y no a una ``pizza de muzzarella'' en particular.
 
 En función del estado en que se encuentra un \textbf{Pedido}, puede tener asociadas varias clases cuya relación es condicional. Muchas de estas clases tienen una fecha que registra el momento en que el pedido ingresó al estado. Esta fecha puede ser necesaria por fines estadísticos (caso de FechaFinalización o FechaCancelación) o para identificación de los pedidos (FechaComienzo en la clase \textbf{Preparación}). A su vez, estas clases asociadas pueden registrar información adicional referente a un estado. Por ejemplo, un pedido cancelado tiene una razón de cancelación, mientras que un pedido finalizado podría eventualmente tener un \textit{feedback} asociado, con el comentario del cliente sobre su pedido.
 
@@ -28,6 +28,9 @@ Un \textbf{Cliente} puede o no tener asociadas las clases \textbf{Datos SMS} y \
 
 Por último, en la parte superior izquierda del diagrama está registrada información referente a la cocción de los pedidos. En particular, se asocia un pedido a un \textbf{Horno}(o a ninguno en caso de que el pedido estuviera compuesto únicamente de bebidas). Dicho horno tiene una \textbf{Política} donde se almacenan datos de interés para el cálculo de operaciones e invariantes. La clase \textbf{Cocción} es la que almacena información sobre cocciones parciales, y debe estar asociada a un pedido siempre que este esté en estado \textit{Al Horno}. Esta clase indica qué cantidad de qué productos ya fueron cocinados o se encuentran en el horno.
 
+%FIXME: aclarar que no se guarda historia
+%FIXME: aclarar otras versiones q se descartaron por consulta con docentes: por ejemplo clase cola de preparación descartada por ser solo una instancia, herencia de pedidos, estados rel con pedidos, etc
+
 %FIXME: esto lo vuelo, no tiene sentido total
 %\subsection{Diccionario de datos}
 
@@ -37,7 +40,223 @@ A continuación se detallan una serie de restricciones adicionales al modelo conc
 
 % Feduchin acá podés separar en subsubsection por contexto
 
-%\subsubsection{Pedidos}
+\subsubsection{Finalizacion}
+\restr{Un pedido tiene finalización si y solo si su estado es finalizado}
+{Finalización}
+{self.PedidoFinalizado.estado = Finalizado and (Pedido.allInstances() \flecha select(p $|$ p.estado = finalizado) = Pedido.allInstances() \flecha select(p $|$ p.estado = finalizado and p.FinalizacionDePedido \flecha notEmpty()))}
+
+\restr{Solo los pedidos remotos tienen feedback}
+{Finalización}
+{self.FeedbackPedido\flecha notEmpty() implies self.PedidoFinalizado.isKindOf(Pedido Remoto)}
+
+\subsubsection{Cancelación}
+\restr{Todos los pedidos cancelados y solo los cancelados tienen razón de cancelación}
+{Cancelación}
+{self.PedidoCancelado.estado = Cancelado and (Pedido.allInstances() \flecha select(p $|$ p.estado = cancelado) = Pedido.allInstances() \flecha select(p $|$ p.estado = cancelado and p.Cancelacion \flecha notEmpty()))}
+
+\subsubsection{Cliente}
+\restr{Solo puede tener pedidos remotos del tipo web un cliente regitrado con datos web}
+{Cliente}
+{self.PedidosRemotos\flecha select(p $|$ p.Origen = Web)\flecha notEmpty() implies self.UserYPass\flecha notEmpty()}
+
+\restr{Solo pueden tener pedidos remotoso del tipo SMS un cliente con celular registrado}
+{Cliente}
+{self.PedidosRemotos\flecha select(p $|$ p.Origen = SMS)\flecha notEmpty() implies self.DatosSMS\flecha notEmpty()}
+
+\subsubsection{DatoSMS}
+\restr{Todos los números de célular son diferentes}
+{DatoSMS}
+{DatoSMS.allInstances() \flecha forall(d $|$ self \noig d implies self.NroCel \noig d.NroCel)}
+
+\subsubsection{DatoWeb}
+\restr{Todos los usuarios del servicio web tienen usuarios diferentes}
+{DatoWeb}
+{DatoWeb.allInstances() \flecha forall(d $|$ self \noig d implies self.User \noig d.User)}
+
+\subsubsection{Dirección}
+\restr{Los números de telefono son diferentes para todas las direcciones}
+{Dirección}
+{Direccíon.allInstances() \flecha forall(d $|$ self \noig d implies self.Telefono \noig d.Telefono)}
+
+\subsubsection{Insumo}
+\restr{La cantidad y la cantidad critica son cantidades, por lo cual deben ser valores no negativos}
+{Insumo}
+{self.cantidad $>=$ 0 and self.cantidadCritica $>=$ 0}
+
+\restr{Uno de los insumos es del tipo masa y otro es del tipo tapa}
+{Insumo}
+{Insumo.allInstances()\flecha select(i $|$ i.tipoDeInsumo = Bollo) \flecha size() = 1 and Insumo.allInstances() \flecha select(i $|$ i.tipoDeInsumo = Tapa) \flecha size() = 1}
+
+\restr{Los kits y los insumos de bebida estan vinculados con un unico producto}
+{Insumo}
+{(self.tipoDeInsumo = Kit implies self.productos\flecha size() = 1) and (self.tipoDeInsumo = Bebida implies self.BebidaDe  \flecha size() = 1)}
+
+\subsubsection{Bebida}
+\restr{Las bebidas tienen un insumo del tipo Bebida}
+{Bebida}
+{self.InsumoBebida.tipoDeInsumo = Bebida}
+
+\subsubsection{Pizza}
+\restr{Una pizza tiene dos insumos: kit y bollo de pizza}
+{Pizza}
+{self.InsumosComida.TipoInsumo.Includes(Bollo) and self.InsumosComida.TipoInsumo.Includes(Kit)}
+
+\subsubsection{Empanada}
+\restr{Una empanada tiene dos insumos: kit y tapa}
+{Empanada}
+{elf.InsumosComida.TipoInsumo.Includes(Tapa) and self.InsumosComida.TipoInsumo.Includes(Kit)}
+
+\subsubsection{Horno}
+\restr{El horno tiene por lo menos un modulo}
+{Horno}
+{self.CantidadDeModulos $>=$ 1}
+
+\restr{En cada modulo entra por lo menos una pizza y una empanada}
+{Horno}
+{self.PizzasXModulo $>=$ 1 and self.EmpanadasXModulo $>=$ 1}
+
+\restr{La cantidad de modulos agiles de un horno es una cantidad (es decir no negativo) y es a lo sumo igual al total de modulos del horno}
+{Horno}
+{self.ModulosAgiles $>=$ 0 and self.ModulosAgiles $<=$ self.CantidadDeModulos}
+
+\restr{En la pizzería hay solo 2 hornos}
+{Horno}
+{Horno.allInstances() \flecha size() = 2}
+
+\restr{Todos los hornos tienen la misma politica}
+{Horno}
+{Horno.allInstances() \flecha forall(h $|$ h.politicasDe = self.politicasDe)}
+
+\restr{Cada horno tiene un maestro distinto}
+{Horno}
+{Horno.allInstances() \flecha forall(h $|$ h \noig self implies h.Maestro \noig self.Maestro)}
+
+\subsubsection{Producto}
+\restr{Los precios son valores positivos}
+{Producto}
+{self.precioActual $>$ 0}
+
+\restr{Los nombres de los productos son unicos}
+{Producto}
+{Producto.allInstances() \flecha forall(p $|$ p \noig self implies p.nombre \noig self.nombre)}
+
+\subsubsection{Comida}
+\restr{Las comidas tardan algo en cocinarse y en prepararse}
+{Producto}
+{self.tiempoPreparacion $>$ 0 and self.tiempoCoccion $>$ 0}
+
+\subsubsection{Preparacion}
+\restr{Todos los pedidos en estado en preparacion y solo esos tienen Preparacíón}
+{Preparacion}
+{self.PedidoPreparado.estado = En Preracion and (Pedido.allInstances() \flecha select(p $|$ p.estado = En Preparacion) = Pedido.allInstances() \flecha select(p $|$ p.estado = En Prepracion and p.PrepracionDePedido \flecha notEmpty()))}
+
+\restr{Si la parte preparada no es ninguna entonces el pedido es mixto (si fuera por ejemplo de solo pizzas y las pizzas ya estan preparadas el pedido ya esta preparado totalmente)}
+{Preparacion}
+{self.PartePreparada \noig Ninguna implies (self.PedidoPreparado.Productos \flecha exists( p $|$ p.isKindOf(Pizza)) and \\ self.PedidoPreparado.Productos \flecha exists( p $|$ p.isKindOf(Empanada)))}
+
+\subsubsection{Item}
+\restr{El precio unitario es positivo}
+{Item}
+{self.precioActual $>$ 0}
+
+\restr{La cantidad es mayor que 0 (si fuera 0 el pedido no esta llevando nada de ese producto, por lo cual el item no debería existir)}
+{Item}
+{self.cantidad $>$ 0}
+
+\restr{Un item tiene una cocción si y solo si su pedido esta en estado Al Horno}
+{Item}
+{if self.CoccionDe \flecha notEmpty() then self.Pedidos.estado = Al Horno else (self.Pedidos.estado \noig Al Horno or \\
+ self.Productos.isKindOf(Bebida) )}
+
+\subsubsection{Cocción}
+\restr{La cantidad cocinada y la cantidad en el horno, son cantidades, es decir no negativas}
+{Coccion}
+{self.cantidadEnElHorno $>=$ 0 and self.cantidadCocinada $>=$ 0}
+
+\restr{En toda cocción la cantidad en el horno junto con la ya cocinada son menos que la cantidad de total que habia que cocinar para el pedido}
+{Coccion}
+{self.cantidadEnElHorno + self.cantidadCocinada $<=$ self.itemDe.cantidad}
+
+\subsubsection{Orden de preparación}
+\restr{Los pedidos que tienen un orden de preparación son todos los que estan en estado ingresado}
+{Orden de preparación}
+{self.PedidoEnPosición.estado = Ingresado and not (Pedido.allInstances() \flecha exists(p $|$ p.estado = ingresado and p.PosiciónPreparación \flecha isEmpty()))}
+
+\restr{Las posiciones en el orden son todas diferentes y estan en el rango de la cantidad de pedidos ingresados}
+{Orden de preparacion}
+{self.Posicion $<=$ Orden de preparacion.allInstances() \flecha size() and self.Posicion $>=$ 1 and Orden de preparacion.allInstances() \flecha forall(o $|$ o \noig self implies o.Posicion \noig self.Posicion)}
+
+\subsubsection{Orden de coción}
+\restr{Los pedidos que tienen un orden de preparación son todos los que estan en estado preparado}
+{Orden de coccion}
+{self.PedidoEnPosición.estado = Preparado and not (Pedido.allInstances() \flecha exists(p $|$ p.estado = preparado and p.PosiciónCoccion \flecha isEmpty()))}
+
+\restr{Si tomamos todos los pedidos que esperan por un horno, vale que las posiciones son unicas y ademas estan en el rango de la cantidad de pedidos que esperan por ese hornor}
+{Orden de cocción}
+{self.posición $>=$ 1 and self.posicion $<=$ Pedido.allInstances() \flecha select(p$|$p.hornoDe = self.pedido.hornoDe) \flecha size() and Orden de coccion.allInstances() \flecha forall(o$|$ (o \noig self and o.pedido.hornoDe = self.pedido.hornoDe) implies self.posición \noig o.posición)}
+
+\subsubsection{Pedido}
+\restr{Los identificadores de pedido son unicos}
+{Pedido}
+{Pedido.AllInstances() \flecha forall(p $|$ p \noig self implies p.identificardor \noig self.identificador)}
+
+\restr{Los pedidos que tienen solo bebidas no estan en los estados ingresados, en preparación, preparado o al horno }
+{Pedido}
+{self.productos() \flecha forall(p $|$ p.isKindOf(Bebida)) implies (self.estado \noig ingresado and self.estado \noig en preparacion and self.estado \noig ingresado and self.preparado \noig al horno)}
+
+\restr{Solo los pedidos que contienen unicamente bebidas no tienen horno asignado}
+{Pedido}
+{if self.productos()\flecha forall(p $|$ p.isKindOf(Bebida)) then self.hornoDe \flecha isEmpty() else self.hornoDe \flecha notEmpty()}
+
+\restr{Los pedidos de solo pizzas (sin empanadas) van al horno del maestro pizzero}
+{Pedido}
+{(self.productos() \flecha exists(p $|$ p.isKindOf(Pizza)) and not self.productos() \flecha exists(p $|$ p.isKindOf(Empanada))) implies self.hornoDe() \flecha forall(h $|$ h.maestro=pizzero)}
+
+\restr{Los pedidos de solo empanadas van al horno de solo empanadas}
+{Pedido}
+{(not self.productos() \flecha exists(p$|$p.isKindOf(Pizza)) and self.productos() \flecha exists(p$|$p.isKindOf(Empanada)))implies self.hornoDe() \flecha forall(h$|$h.maestro=Empanadero)}
+
+Query auxiliar (se utiliza solo con pedidos que tienen items de comida con cocción, es decir pedidos al horno):
+ 
+\textbf{context Pedido def:}
+\textbf{let getCocciones(com:Comida): Bag(Cocciones) =}
+body: self.itemDe \flecha select(i $|$ i.producto.isKindOf(com)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first())
+
+\restr{Un pedido al horno tiene por lo menos algo cocinado o en el horno}
+{Pedido}
+{self.estado = Al Horno implies self.getCocciones(comida)->exits(c $|$ c.cantidadAlHorno + c.cantidadCocinada $>$ 0)}
+
+\restr{La cantidad de productos cocinados no excede la capacidad del horno}
+{Horno}
+{Coccion.allInstances()\flecha select(c$|$c.itemDe.producto.isKindOf(comida) and c.itemDe.pedido.hornoDe.includes(self)) \flecha collect(c $|$ if c.itemDe.producto.isKindOf(empanda) then c.cantidadEnElHorno $/$ self.empanadasXModulo else c.cantidadEnElHorno $/$ self.pizzasXModulo).sum() $<=$ self.cantidadDeModulos}
+%TODO: numeros de telefono positivos?
+
+\restr{La cantidad de empandas de un pedido que se estan cocinando es multiplo del tamaño del modulo del horno salvo que no queden mas empanadas por cocinar (por ejemplo si al pedido solo le quedaban 3 empanadas y entran 4 por modulo)}
+{Pedido}
+{pedido.estado = Al Horno implies ( getCocciones(Empanada) \flecha collect(cantidadEnElHorno).sum().mod(self.horno \flecha  asOrderedSet() \flecha first().empanadasXModulo ) = 0 or getCocciones(Empanada) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadEnElHorno - c.cantidadCocinada = 0))}
+
+\restr{La cantidad de pizzs de un pedido que se estan cocinando es multiplo del tamaño del modulo del horno salvo que no queden mas pizzas por cocinar}
+{Pedido}
+{pedido.estado = Al Horno implies (getCocciones(Pizza) \flecha collect(cantidadEnElHorno).sum().mod(self.horno \flecha asOrderedSet() \flecha first().pizzasXModulo) = 0 or getCocciones(Pizza) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadEnElHorno - c.cantidadCocinada = 0))}
+
+\restr{La cantidad de empanadas cocinadas de un pedido es multiplo del tamaño del modulo del horno, salvo que se cocinaran todas las del pedido}
+{Pedido}
+{pedido.estado = Al Horno implies (getCocciones(Empanada) \flecha collect(cantidadCocinada).sum().mod(self.horno\flecha asOrderedSet() \flecha first().empanadasXModulo) = 0 or getCocciones(Empanada) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadCocinada = 0))}
+
+\restr{La cantidad de pizzas cocinadas de un pedido es multiplo del tamaño del modulo del horno, salvo que se cocinaran todas las pizzas del mismo}
+{Pedido}
+{pedido.estado = Al Horno implies (getCocciones(Pizza) \flecha collect(cantidadCocinada).sum().mod(self.horno \flecha asOrderedSet() \flecha first().PizzasXModulo) = 0 or getCocciones(Pizza) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadCocinada = 0))}
+
+\restr{Si hay politica normal, en cada horno hay a lo sumo un pedido en cocción parcial, es decir con cosas cocinadas y cosas sin cocinar}
+{Pedido}
+{(self.estado = Al horno and self.hornoDe\flecha asOrderedSet().first().politica = Normal ) implies (self.getCocciones(Comida) \flecha exists(c $|$ c.itemDe.cantidad = c.cantidadCocinada + c.cantidadAlHorno) implies Pedidos.allInstances() \flecha forall(p $|$ (p \noig self and p.estado = self.estado and p.hornoDe = self.hornoDe)  implies (p.itemDe \flecha select(i $|$ i.producto.isKindOf(com)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first())).forall(c $|$ c.itemDe.cantidad = c.cantidadCocinada + c.cantidadAlHorno)))}
+
+Hay una restriccion similar que vale para la politica agil, en cuyo caso hay a lo sumo 2 pedidos al horno a medio cocinar y uno de ellos es chico. Dicho invariante es muy largo y engorroso de escribir en ocl por lo que decidimos no escribirlo
+
+\restr{Un pedido local sin forma de pago es de tipo mesa}
+{Pedido Local}
+{Self.formaDePago \flecha isEmpty() implies self.origen = Mesa}
+
 %\subsubsection{Politica} etc etc
 
 % Acá te dejé el listado viejo por si te sirve
