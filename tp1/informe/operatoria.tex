@@ -19,8 +19,7 @@ En breve, un proceso ingresa al sistema cuando es requerido por un cliente por a
 
 Los estados presentados tienen utilidad para el sistema puesto que hay necesidad de indicar al cliente sobre el estado de su pedido. Así, se podrá indicar si un pedido está siendo preparado o ya fue enviado al destinatario. Si bien para estos fines alcanza con 3 estados (preparando, enviando, finalizado), se agregan los demás con fines de control para el sistema. Además, la granularidad más fina permite al sistema hacer predicciones y organizaciones más eficientes del uso de los recursos. Por ejemplo, al controlar los tiempos de preparación por separado de los de horneado resulta más sencillo, en caso de un cuello de botella en la cocina, determinar cual es el factor limitante.
 
-
-La figura \ref{cicloPedido} nos ilustra este ciclo de vida.
+La figura \ref{cicloPedido} nos ilustra los estados del pedido
 
 \begin{figure}[H]
 \centering
@@ -31,7 +30,50 @@ La figura \ref{cicloPedido} nos ilustra este ciclo de vida.
 
 A lo largo de las siguientes secciones se desarrollaran los diferentes aspectos de cada momento en la vida de un pedido, asi como otros aspectos relaciones a los pedidos.
 
+Podemos considerar un caso simple donde un cliente ingresa un pedido y seguir al mismo hasta que termina. A continuación modelaremos mediante fsm el ciclo de vida de un pedido, sin entrar en grandes detalles, pero aun asi pudiendo ver cuestiones interesantes.
+
+El escenario que vamos a modelar consiste en un cliente que hace pedidos de a uno, pudiendo cancelarlos, el encargado de pedido que realiza el ingreso de los mismos, y despacha los pedidos, el maestro que prepara y cocina el pedido, el sistema que monitorea el estado de los pedidos y el delivery.
+
+\begin{figure}[H]
+\centering
+\subfigure[FSM cliente]{
+\includegraphics[scale=0.4]{./figuras/fsmCliente.png}}
+\subfigure[FSM sistema]{
+\includegraphics[scale=0.4]{./figuras/fsmSistema.png}}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\setcounter{subfigure}{2}
+\subfigure[FSM encargado de pedidos]{
+\includegraphics[scale=0.4]{./figuras/fsmencpedidos.png}}
+\end{figure}
+
+\begin{figure}[H]
+\setcounter{subfigure}{3}
+\subfigure[FSM delivery]{
+\includegraphics[scale=0.4]{./figuras/fsmDelivery}}
+\subfigure[FSM Maestro]{
+\includegraphics[scale=0.4]{./figuras/fsmmaestro}}
+\end{figure}
+
+
+Como dijimos esta version es simplificada, no tiene en cuenta la existencia de otros pedidos o clientes, otra formas de ingresar pedidos, composicion de los mismos, etc; sin embargo nos sirve para analizar ciertas cuestiones del ciclo de vida de un pedido.
+
+En estas FSM podemos ver en que partes del ciclo de vida tienen relevancia los distintos agentes, asi es que podemos ver como el sistema es el que permite o no el ingreso de un pedido, rechazandolo en el caso de que el stock sea insuficiente, asi como tambien se encarga de avisar al maestro que prepare o cocine. Podemos ver como el sistema permite que el pedido avance hasta llegar a estar listo para despachar, como ademas monitorea casi en su totalidad las transiciones del pedido.
+
+Otra cosa que debemos notar es como desde que ingresa hasta que es entregado el cliente puede todo el tiempo cancelar un pedido, y si bien en este diagrama se observa de una forma simplificada, la cancelación se verá mas adelante en la seccion Cancelación.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{./figuras/fsmPedido}
+\caption{FSM Pedido = FSM cliente $||$ FSM encargado de pedidos $||$ FSM delivery $||$ FSM Maestro $||$FSM sistema}
+\end{figure}
+
 \section{Ingreso de pedidos}
+
 Los pedidos basicamente pueden ser remotos o locales. Los pedidos remotos se pueden realizar via telefonica, via web, o via sms.
 
 Todos los pedidos tienen un único horno asignado, con la excepción de los pedidos de solo bebidas, a los que no se les asigna ningún horno.
@@ -126,16 +168,17 @@ Una vez autentificado el usuario, el mismo procede a dictar su pedido al encarga
 
 Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido como ingresado. Se genera un identificador de pedido, se estima el tiempo del mismo y se calcula el costo total. Ademas si el pedido es mixto se brinda la posibilidad de que el encargado de pedidos asigne un horno. %TODO: caso de uso loco
 
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[height=19cm]{./figuras/diagramaActividadTelefono}
+\includegraphics[height=18cm]{./figuras/diagramaActividadTelefono}
 \caption{Diagrama de actividad del ingreso de un pedido telefónico}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[heigt=12cm]{./figuras/diagramaParteEnComunRegistrandoPedido.png}
-\caption{Partes comunes en el ingreso de pedido
+\includegraphics[height=10cm]{./figuras/diagramaParteEnComunRegistrandoPedido.png}
+\caption{Partes comunes en el ingreso de pedido}
+\end{figure}
 %TODO: poner diagrama de actividad
 %NOTA: estos casos de uso q aparecen son medio especificos del caso, tonces se podria hacer un diagrama aparte
 
@@ -310,7 +353,66 @@ Tanto el cliente como el encargado de pedidos pueden consultar el estado de un p
 
 Por otro lado, de manera similar el encargado de pedidos puede ingresar un número de pedido para revisar su estado o ver los pedidos de un cliente.
 
-%TODO: operacion del calculo de los tiempos
+\subsection{Estimacion de tiempos}
+A continuación detallaremos las operaciones que permiten estimar el tiempo de finalización de un pedido. Notar que la misma es una estimación, no intenta ser exacta, de hecho dado que no era requerido no se tiene en cuenta el tiempo de delivery, que en general podría no ser despreciable.
+
+Para la estimación utilizamos los tiempos de preparación y de cocción aproximados dados por el maestro al momento que se ingresa un producto al sistema.
+
+Veamos como es para el caso de un pedido recien ingresado, ya que para los otros casos es similar solo que no se cuenta el tiempo de las etapas que ya paso.
+
+Primero se estima su tiempo de preparacion y coccion
+ 
+Luego se estima el tiempo de preparacion y coccion de los productos que estan adelante de el en la cola de ingreso.
+
+Luego se hace lo mismo para los pedidos que se estan preparando
+
+Y finalmente se estima el tiempo de cocción de los pedidos que estan en la cola del horno correspondiente al pedido y de los que se estan cocinando.
+
+Como vemos este valor dista de ser exacto, pero de hecho no pretende serlo, sino que sirve como una estimación para el cliente.
+
+Presentamos las operaciones a modo de quieries sin contexto que permiten estimar estos tiempos
+
+Esta operacion nos permite obtener los pedidos que estan adelante del pedido p en la cola de preparacion
+
+\textbf{pedidosAdelantePreparacion (p1:Pedido):set(pedido)\\}
+Pedido.allInstances() \flecha  select (p $|$ p.estado = ingresado and p.posicionPreparación \flecha  asOrderedSet() \flecha  first() $<$ p.posicionPreparación \flecha asOrderedSet()\flecha first())
+
+Esta calcula el tiempo de preparación de un pedido en base a los tiempos de sus productos
+
+\textbf{TiempoPreparacion(p:Pedido):Integer\\}
+p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p)  \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoPreparacion) \flecha sum()
+
+Esta operacion permite calcular el tiempo de coccion de un pedido que tiene partes ya cocinadas
+
+\textbf{TiempoDeCocciónAlHorno(p:Pedido): Integer\\}
+p.itemDe \flecha select(i $|$ i.producto.isKindOf(com)) \flecha collect(coccionDe \flecha  asOrderedSet() \flecha first()) \flecha collect(c $|$ c.itemDe.productos.\\ asOclType(Comida).tiempoCoccion * (c.itemDe.cantidad - c.cantidadCocinada)) \flecha sum() 
+
+Esta nos permite obtener el tiempo de cocción de un pedido en base a los de sus productos
+
+\textbf{TiempoDeCoccion(p:Pedido): Integer\\ }
+p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p) \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoCocion) \flecha sum()
+
+Estas 3 operacinoes nos permiten conseguir a los pedidos que estan en preparacion, preparados (y esperan para el mismo horno que p tiene asignado) y por ultimo los pedidos que se estan cocinando en el horno asignado a p
+
+
+\textbf{PedidosEnPreparacion() : Set(Pedido)\\}
+Pedido.allInstances() \flecha select(p $|$ p.estado = En Preparacion)
+
+
+\textbf{PedidosColaHorno(p:Pedido) : Set(Pedido)\\}
+Pedido.allInstances() \flecha select(p1 $|$ p1.estado = Preparado and p.hornoDe = p1.hornoDe)
+
+
+\textbf{PedidosHorno(p:pedido) : Set(Pedido)\\}
+Pedido.allInstances() \flecha select(p1 $|$ p1.estado = Al horno and p.hornoDe = p1.hornoDe)
+
+Estimamos entonces el tiempo hasta que p este listo
+
+\textbf{EstimarTiempo(p: Pedido): Integer \\}
+pedidosAdelantePreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPrepracion(p1)) \flecha Sum() + pedidosEnPreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPreparacion(p1)) \flecha Sum() + 
+PedidosColaHorno(p) \flecha collect(p1 $|$ TiempoDeCoccion(p1)) +
+PedidosHorno(p) \flecha collect(p1 $|$ TiempoDeCocionAlHorno(p1))
+TiempoPreparacion(p) + TiempoCoccion(p)
 
 \section{Delivery}
 
@@ -318,6 +420,11 @@ El delivery posee una unica interacción con el sistema. Cuando entrega un pedido
 
 Si el pedido no se pudo entregar el delivery debe notificarselo al encargado de pedidos, y el pedido pasara a ser considerado como cancelado
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{./figuras/diagramaDeliveryEntregaPedido.png}
+\caption{Diagrama de actividad de la entrega de un pedido por delivery}
+\end{figure}
 %todo: diagrama de actividad de entrega de pedidos
 
 
@@ -412,14 +519,14 @@ Por otro lado $critico$, $k$ y $n$ son valores constantes.
 \centering
 \includegraphics[scale=0.6]{./figuras/fsmingresador.png}
 \caption{FSM ingresar pedidos}
-\label{fsmIngresoPedidos}
+\label{fsmIngresador}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{./figuras/fsmstockcritico.png}
 \caption{FSM aviso stock critico}
-\label{fsmIngresoPedidos}
+\label{fsmstockcritico}
 \end{figure}
 
 \begin{figure}[H]
@@ -431,63 +538,3 @@ Por otro lado $critico$, $k$ y $n$ son valores constantes.
  
 Entonces FSM Control de stock critico = FSM ingresar pedidos $||$ FSM aviso stock critico $||$ FSM responsable de stock
 
-\section{Estimación de tiempos}
-A continuación detallaremos las operaciones que permiten estimar el tiempo de finalización de un pedido. Notar que la misma es una estimación, no intenta ser exacta, de hecho dado que no era requerido no se tiene en cuenta el tiempo de delivery, que en general podría no ser despreciable.
-
-Para la estimación utilizamos los tiempos de preparación y de cocción aproximados dados por el maestro al momento que se ingresa un producto al sistema.
-
-Veamos como es para el caso de un pedido recien ingresado, ya que para los otros casos es similar solo que no se cuenta el tiempo de las etapas que ya paso.
-
-Primero se estima su tiempo de preparacion y coccion
- 
-Luego se estima el tiempo de preparacion y coccion de los productos que estan adelante de el en la cola de ingreso.
-
-Luego se hace lo mismo para los pedidos que se estan preparando
-
-Y finalmente se estima el tiempo de cocción de los pedidos que estan en la cola del horno correspondiente al pedido y de los que se estan cocinando.
-
-Como vemos este valor dista de ser exacto, pero de hecho no pretende serlo, sino que sirve como una estimación para el cliente.
-
-Presentamos las operaciones a modo de quieries sin contexto que permiten estimar estos tiempos
-
-Esta operacion nos permite obtener los pedidos que estan adelante del pedido p en la cola de preparacion
-
-\textbf{pedidosAdelantePreparacion (p1:Pedido):set(pedido)\\}
-Pedido.allInstances() \flecha  select (p $|$ p.estado = ingresado and p.posicionPreparación \flecha  asOrderedSet() \flecha  first() $<$ p.posicionPreparación \flecha asOrderedSet()\flecha first())
-
-Esta calcula el tiempo de preparación de un pedido en base a los tiempos de sus productos
-
-\textbf{TiempoPreparacion(p:Pedido):Integer\\}
-p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p)  \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoPreparacion) \flecha sum()
-
-Esta operacion permite calcular el tiempo de coccion de un pedido que tiene partes ya cocinadas
-
-\textbf{TiempoDeCocciónAlHorno(p:Pedido): Integer\\}
-p.itemDe \flecha select(i $|$ i.producto.isKindOf(com)) \flecha collect(coccionDe \flecha  asOrderedSet() \flecha first()) \flecha collect(c $|$ c.itemDe.productos.\\ asOclType(Comida).tiempoCoccion * (c.itemDe.cantidad - c.cantidadCocinada)) \flecha sum() 
-
-Esta nos permite obtener el tiempo de cocción de un pedido en base a los de sus productos
-
-\textbf{TiempoDeCoccion(p:Pedido): Integer\\ }
-p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p) \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoCocion) \flecha sum()
-
-Estas 3 operacinoes nos permiten conseguir a los pedidos que estan en preparacion, preparados (y esperan para el mismo horno que p tiene asignado) y por ultimo los pedidos que se estan cocinando en el horno asignado a p
-
-
-\textbf{PedidosEnPreparacion() : Set(Pedido)\\}
-Pedido.allInstances() \flecha select(p $|$ p.estado = En Preparacion)
-
-
-\textbf{PedidosColaHorno(p:Pedido) : Set(Pedido)\\}
-Pedido.allInstances() \flecha select(p1 $|$ p1.estado = Preparado and p.hornoDe = p1.hornoDe)
-
-
-\textbf{PedidosHorno(p:pedido) : Set(Pedido)\\}
-Pedido.allInstances() \flecha select(p1 $|$ p1.estado = Al horno and p.hornoDe = p1.hornoDe)
-
-Estimamos entonces el tiempo hasta que p este listo
-
-\textbf{EstimarTiempo(p: Pedido): Integer \\}
-pedidosAdelantePreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPrepracion(p1)) \flecha Sum() + pedidosEnPreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPreparacion(p1)) \flecha Sum() + 
-PedidosColaHorno(p) \flecha collect(p1 $|$ TiempoDeCoccion(p1)) +
-PedidosHorno(p) \flecha collect(p1 $|$ TiempoDeCocionAlHorno(p1))
-TiempoPreparacion(p) + TiempoCoccion(p)
