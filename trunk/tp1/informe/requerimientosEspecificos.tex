@@ -141,19 +141,19 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {El sistema le indica al maestro que es lo que se debe cocinar a continuación cuando éste tenga la oportunidad de hacerlo.}
 {Este requerimiento contribuye al manejo del ingreso de los pedidos al horno, con el fin de tener un buen rendimiento de la cocina.}
 
-\desreq{Contingencia: El encargado puede hacer las cosas que hace en modo normal}
+\desreq{El encargado puede hacer en contingencia las cosas que hace en modo normal}
 {Funcional}
 {Importante}
 {Cuando el sistema se encuentra en modo de contingencia, el encargado de pedidos va a poder continuar haciendo las funciones que tiene asignadas en modo normal.}
 {Este requerimiento aporta al funcionamiento del sistema en modo de contingencia permitiendo que el mismo sea tolerante a fallas.}
 
-\desreq{Contingencia: El encargado puede ingresar cambios en los estados de los pedidos y sus partes}
+\desreq{El encargado puede ingresar cambios en los estados de los pedidos y sus partes}
 {Funcional}
 {Importante}
 {Cuando el sistema se encuentra en modo de contingencia, es el encargado de pedidos el responsable de realizar las funcionalidades no disponibles para los actores que normalmente son responsables. En este caso, el encargado de pedidos deberá poder realizar los cambios de estado de los diferentes pedidos y sus respectivas partes. }
 {Este requerimiento ayuda a que no se pierda la funcionalidad del sistema en modo de contingencia, ayudando a que el mismo sea tolerante a fallas.}
 
-\desreq{Contingencia: El encargado puede actualizar precios}
+\desreq{El encargado puede actualizar precios}
 {Funcional}
 {Importante}
 {El encargado puede realizar cambios en los precios de los productos cuando el sistema se encuentra en modo de contingencia.}
@@ -164,12 +164,6 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Importante}
 {El sistema debe permitir que un pedido pueda ser cancelado, sin importar el estado en el que se encuentre. La excepción es el estado finalizado, que caracteriza al mismo cuando el mozo llevó el pedido a la mesa, el cliente retiró el pedido del mostrador o cuando el delivery logró entregar el pedido.}
 {Este requerimiento contribuye al control de las cancelaciones, que permite mantener información sobre el estado de los pedidos.}
-
-\desreq{El sistema registra entrega de pedido cuando recibe SMS}
-{Funcional}
-{Importante}
-{Cuando el delivery manda un mensaje SMS al sistema con el pedido que se entregó, éste registra al pedido como finalizado.}
-{Este requerimiento contribuye a conocer cuando un pedido fue entregado, para mantener información de estado de los pedidos.}
 
 \desreq{Se elimina el stock si el pedido estaba preparado cuando se cancela}
 {Funcional}
@@ -182,6 +176,12 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Importante}
 {Si se cancela un pedido antes de prepararlo, las materias primas que no se usaron deben volver al stock a fin de que puedan ser usadas para preparar un nuevo pedido. Dicha funcionalidad es automática.}
 {Permite controlar las cancelaciones, mejorar la eficiencia de la cocina, y contribuye a llevar el estado del stock.}
+
+\desreq{El sistema registra entrega de pedido cuando recibe SMS}
+{Funcional}
+{Importante}
+{Cuando el delivery manda un mensaje SMS al sistema con el pedido que se entregó, éste registra al pedido como finalizado.}
+{Este requerimiento contribuye a conocer cuando un pedido fue entregado, para mantener información de estado de los pedidos.}
 
 \begin{landscape}
 \begin{figure}
@@ -196,9 +196,7 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Cuando un mozo toma un pedido desde una mesa, este puede ingresarlo al sistema utilizando una computadora de mano. Estos pedidos quedan registrados en el sistema.}
 {Contribuye a lograr una atención eficiente de los clientes locales.}
 
-% FIXME: objetivo de procesar pagos con tarjeta?
-
-\desreq{Se permite registrar pedido desde página web}
+\desreq{Poder hacer pedido desde p'agina web}
 {Funcional}
 {Importante}
 {El usuario tiene que poder ingresar un pedido desde la interfaz que brinda la página web de la pizzería.}
@@ -216,8 +214,7 @@ A continuación se presenta el diagrama de objetivos de la solución, junto con un
 {Una base de datos actualizada es necesaria para poder tener información de los usuarios y permitirles realizar pedidos remotos.}
 {Mantener una base de datos de clientes actualizada permite identificar de forma correcta a cada uno de ellos, y de esta manera registrar correctamente sus pedidos, permitiendo así conocer información estadística sobre la distribución de los pedidos. Esta información puede servir para crear promociones efectivas y mejorar la atención al cliente.}
 
-% FIXME: revisar que este coherente este requerimiento con el caso de uso y el diagrama de casos de uso y objetivos
-\desreq{Disponer de ABM de clientes}
+\desreq{El cliente puede ser registrado en la base de datos}
 {Funcional}
 {Importante}
 {Deberá ser posible que el encargado de pedidos registre nuevos usuarios que se lo piden ya sea personal o telefónicamente. De esta forma accederán a la posibilidad de realizar pedidos remotos.}
@@ -242,7 +239,7 @@ envía el mensaje, y que éste corresponda con algún cliente que se encuentre regi
 {Cuando se completa un pedido que deberá ser entregado por el delivery (cuando se encuentra en estado Listo, cocinado y con las bebidas), el sistema genera un archivo con los datos necesarios para realizar la factura cuando el cajero lo crea adecuado.}
 {Contribuye a brindar la funcionalidad de pagos en efectivo o con tarjeta de crédito por parte de los clientes, interactuando con el sistema de facturación existente.}
 
-\desreq{Mozo puede cerrar mesas e introducir forma de pago}
+\desreq{El mozo puede cerrar mesas e introducir forma de pago}
 {Funcional}
 {Importante}
 {Cuando se cierra una mesa, el mozo que la atiende debe preguntarle al cliente que forma de pago untilizará e indicarselo al sistema.}
@@ -251,7 +248,7 @@ envía el mensaje, y que éste corresponda con algún cliente que se encuentre regi
 \desreq{Es posible consultar el estado de un pedido}
 {Funcional}
 {Importante}
-{Tanto un cliente como el encargado deben tener la posibilidad de consultar el estado de un pedido en cualquier momento. Para el caso de un usuario, lo podrá hacer directamente a través de la Web pero siempre y cuando se trate de un pedido que le corresponda a él.}
+{Tanto un cliente como el encargado deben tener la posibilidad de consultar el estado de un pedido en cualquier momento. Para el caso de un usuario, lo podrá hacer directamente a través de la Web.}
 {Contribuye a permitir la consulta del estado de un pedido, y a lograr una interacción fluida del sistema con el usuario.}
 
 \desreq{Poder identificar un pedido de forma única}
@@ -260,24 +257,13 @@ envía el mensaje, y que éste corresponda con algún cliente que se encuentre regi
 {Debe ser posible referenciar a un pedido ingresado al sistema de forma unívoca para fines diversos (consultas de estado, modificaciones, etc)}
 {Teniendo una única forma de identificar un pedido, se puede brindar la opción al cliente de verificar el estado de su pedido de forma remota, lo que mejora la interacción del sistema con el usuario y brinda una mejor atención.}
 
-% FIXME FIXME: HAY QUE VOLAR ESTO Y ES UNA PAJA
-\desreq{Estimar tiempos de preparacion de pedidos de forma dinamica}
-{No funcional}
-{Deseable}
-{En vez de ingresar a mano el tiempo de preparación de pedidos, una alternativa es ir estimando dinamicamente los tiempos
-de preparación, de este modo se puede adaptar la estimación según la cantidad de pedidos que tenga que atender la cocina}
-{Permitir tener una estimación del tiempo de preparación para los productos individuales y de esta forma contribuir a brindar una aproximación del tiempo total que llevará en realizarse el pedido.}
-
-\desreq{Calcular tiempo total de cocción de un pedido en base a estimaciones individuales}
+\desreq{Calcular tiempo total del pedido en base a estimaciones individuales}
 {Funcional}
 {Importante}
 {Los tiempos individuales para los productos deben usarse para poder estimar el tiempo de un pedido teniendo en cuenta la cola
 de producción, la politica de asignación, etc.}
 {Se desea estimar el tiempo de preparación de los pedidos, para contribuir a una mejor atención de los clientes.}
 
-%FIXME: los numeros de req estan desactualizados, actualizar.
-
-\section{Casos de uso}
 \subsection{Diagrama}
 \begin{figure}[H]
 \centering
@@ -320,7 +306,6 @@ de producción, la politica de asignación, etc.}
 %TODO: Cliente autentificado va como PRE e INCLUYE o solo INCLUYE?
 \cu{Realizando pedido web}{Cliente, Sistema bancario}{3, 4, 5, 6, 24, 29, 30, 33}{TRUE}{Pedido registrado}{El cliente ingresa un pedido al sistema desde la pagina web}
 
-%TODO: FALTA EXPLICAR EN OPERATORIA SOBRE QUE PASA CON FEEDBACK, POR LO TANTO FALTA REVISAR ESTE CU
 %Ingresando feedback
 \op{1. El cliente ingresa a la página web de feedback}{}
 \op{2. Se incluye CU logueando usuario}{}
@@ -331,13 +316,13 @@ de producción, la politica de asignación, etc.}
 \op{7. Fin CU}{}
 \cu{Ingresando feedback}{Cliente}{8, 9}{TRUE}{Comentario ingresado}{Permite que el usuario envie al sistema su opinión sobre un pedido recibido por delivery}
 
-%TODO y FIXME: revisar los numeros de requerimiento que quedaron cambiados
 % Autenticando usuario
 \op{1. El cliente ingresa su nombre de usuario en el campo correspondiente}{}
 \op{2. El cliente ingresa su contraseña en el campo correspondiente}{}
 \op{3. El cliente presiona el boton de ingresar}{}
-\op{4. El sistema valida los datos. Si los datos ingresados son validos, cliente autentificado}{4. Los datos no son validos, se muestra al cliente mensaje informativo y se le permite re ingresar los datos}
-\op{5. Fin CU}{}
+\op{4. El sistema valida los datos.}
+\op{5. Si los datos ingresados son validos, cliente autentificado}{5. Los datos no son validos, se muestra al cliente mensaje informativo y se le permite re ingresar los datos}
+\op{6. Fin CU}{}
 
 \cu{Autenticando usuario}{Cliente}{9, 24, 25}{TRUE}{Cliente logueado}{Autentificación de un cliente web}
 
@@ -346,7 +331,7 @@ de producción, la politica de asignación, etc.}
 \op{2. El cliente selecciona consultar estado de pedidos}{}
 \op{3. El sistema muestra al cliente la lista de los pedidos del usuario pendientes de entrega cada uno con su estado correspondiente y demora estimada}{}
 \op{4. Fin CU}{}
-\cu{Consultando estado de su pedido}{Cliente}{32, 33, 34, 35}{TRUE}{Se muestra el estado del pedido}{Permite al cliente ver en que estado se encuentran sus pedidos en un momento dado}
+\cu{Consultando estado de su pedido}{Cliente}{32, 33, 34}{TRUE}{Se muestra el estado del pedido}{Permite al cliente ver en que estado se encuentran sus pedidos en un momento dado}
 
 % Realizando pedido via SMS
 \op{1. El cliente consulta el cat'alogo de c'odigos de producto y combos, publicados en la web del sistema junto con el formato que debe tener el mensaje}{}
@@ -469,7 +454,7 @@ de producción, la politica de asignación, etc.}
 \op{7. Cuando el dueño observo las estadisticas que deseaba, ir a fin CU}{}
 \op{8. Fin CU}{}
 
-\cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{8, 34}{TRUE}{Las estad'isticas son mostradas en pantalla}{El dueño puede consultar la informaci'on estad'istica sobre los productos y pedidos gestionados}
+\cu{Consultando informaci'on estad'istica}{Encargado/Dueño}{8}{TRUE}{Las estad'isticas son mostradas en pantalla}{El dueño puede consultar la informaci'on estad'istica sobre los productos y pedidos gestionados}
 
 % Realizando ABM de productos
 \op{1. El dueño o cajero eligen si desean hacer un alta, baja o modificación}{}
@@ -478,7 +463,7 @@ de producción, la politica de asignación, etc.}
 \op{4. Si lo que querían es hacer una modificación, pueden escoger el producto y modificar los datos del mismo. Si terminaron ir a Fin CU, sino ir a 1}{}
 \op{5. Fin CU}{}
 
-\cu{Realizando ABM de productos}{Cajero, Dueño}{7, 20, 21, 22, 35}{TRUE}{Se realizan las altas, bajas o modificaciones pedidas por el Dueño o cajero}{Permite ingresar nuevos productos a la carta de la pizzaría, indicar tiempos estimados de cocción y preparación, modificar precios y dar de baja productos}
+\cu{Realizando ABM de productos}{Cajero, Dueño}{7, 20, 21, 22, 34}{TRUE}{Se realizan las altas, bajas o modificaciones pedidas por el Dueño o cajero}{Permite ingresar nuevos productos a la carta de la pizzaría, indicar tiempos estimados de cocción y preparación, modificar precios y dar de baja productos}
 
 % Modificando orden de la cola de preparacion
 \op{1. El encargado de pedido selecciona modificar cola de pedidos}{}
@@ -488,7 +473,6 @@ de producción, la politica de asignación, etc.}
 
 \cu{Modificando orden de cola de preparación}{Encargado de pedidos}{33}{True}{Orden de preparación modificado}{Permite que el encargado de pedidos modifique la cola de pedidos}
 
-%TODO: es un caso de uso?
 % Modificando politica del horno
 \op{1. El encargado de pedidos selecciona modificar pol'itica de horno}{}
 \op{2. El sistema muestra las pol'iticas posibles y espera que el encargado elija una}{}
@@ -561,7 +545,7 @@ de producción, la politica de asignación, etc.}
 \op{7. Si el encargado pidi'o consultar un pedido identificando al mismo mediante el identificador, el sistema mostrar'a toda la informaci'on correspondiente al pedido que tiene tal identificador}{}
 \op{8. Fin CU}{}
 
-\cu{Consultando estado de pedido}{Encargado de pedidos}{32, 33, 34, 35}{TRUE}{Se muestra la informaci'on del pedido consultado}{El encargado le pide informaci'on al sistema sobre un pedido en particular o sobre el cliente que haya hecho el pedido}
+\cu{Consultando estado de pedido}{Encargado de pedidos}{32, 33, 34}{TRUE}{Se muestra la informaci'on del pedido consultado}{El encargado le pide informaci'on al sistema sobre un pedido en particular o sobre el cliente que haya hecho el pedido}
 
 % Cancelando pedido
 \op{1. El cliente informa al encargado de pedido su nombre o nombre de usuario y el id de pedido, o el cliente informa al mozo que desea cancelar un pedido y el mozo informa al encargado de pedidos el deseo de la mesa de cancelar el pedido}{}
@@ -709,23 +693,10 @@ Requerimiento\textbackslash{}Caso de uso & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 1
 33 & X &  &  & X & X & X &  & X &  &  & X &  & X &  &  &  &  & X &  &  &  & X & X & X & X\tabularnewline
 \hline
 \hline 
-34 &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  & X &  & \tabularnewline
-\hline
-\hline 
-35 &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  & X &  & \tabularnewline
+34 &  &  &  & X &  &  &  &  &  &  &  &  &  &  &  &  & X &  &  &  &  &  & X &  & \tabularnewline
 \hline
 \hline 
 \end{tabular}
 \end{landscape}
-
-%FIXME: estos comentarios sirven para algo?
-%En fila 8 intervienen por el tema de los tiempos
-%
-%Ojo con el req 11
-%
-%El requerimiento 16 (tb 17 y 18) se desarrollan aparte
-%
-%Explicar que el req 30 aparece en los casos de uso donde aparece porq
-%en esos casos de uso se ingresan datos para armar el archivo
 
 \include{conceptos}
