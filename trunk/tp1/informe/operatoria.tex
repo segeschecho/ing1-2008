@@ -1,44 +1,48 @@
 \chapter{Aspectos particulares de la solución}
 
-\section{Ciclo de vida de un pedido}
-Desde que el pedido es ingresado de alguna de las diversas maneras posibles, hasta que el cliente puede disfrutarlo, se suceden diversos estados, en lo que denominamos el ciclo de vida de un pedido.
+\section{Ciclo de Pedido}
+Desde que un pedido es ingresado al sistema, recorre una sucesión de estados hasta que llega a manos del cliente o eventualmente es cancelado. Esta sucesión de estados es lo que denominamos \textbf{ciclo de vida de pedido}. A continuación detallamos los estados que componen este ciclo y como es la dinámica de las transiciones entre estados.
 
 Los estados en los que puede encontrarse un pedido una vez que ingresó al sistema son:
 \begin{itemize}
-\item Ingresado: El pedido pasó los chequeos necesarios, se determinó que es posible llevarlo a cabo con éxito y se ingresó al sistema, yendo a parar a una cola donde espera a que la cocina esté lista para prepararlo.
-\item	En preparación: El pedido ya fue recibido por la cocina y está siendo preparado por un cocinero.
-\item	Preparado: El pedido ya fue preparado en su totalidad y está listo para ingresar al horno cuando haya lugar disponible.
-\item	En el horno: El pedido (o al menos una de sus partes) está en el horno.
-\item	Listo: El pedido está listo para ser entregado al cliente.
-\item	Enviado: El pedido fue entregado al delivery para su entrega a domicilio.
-\item	Finalizado: El pedido fue entregado con éxito (ya sea a la mesa o a domicilio).
-\item	Cancelado: El pedido fue cancelado antes de su entrega.
+\item \textbf{Ingresado}: El pedido pasó los chequeos necesarios, se determinó que es posible llevarlo a cabo con éxito y se ingresó al sistema, yendo a parar a una cola donde espera a que la cocina esté lista para prepararlo.
+\item \textbf{En preparación}: El pedido ya fue recibido por la cocina y está siendo preparado por un cocinero.
+\item \textbf{Preparado}: El pedido ya fue preparado en su totalidad y está listo para ingresar al horno cuando haya lugar disponible.
+\item \textbf{En el horno}: El pedido (o al menos una de sus partes) está en el horno.
+\item \textbf{Listo}: El pedido está listo para ser entregado al cliente.
+\item \textbf{Enviado}: El pedido fue entregado al delivery para su entrega a domicilio.
+\item \textbf{Finalizado}: El pedido fue entregado con éxito (ya sea a la mesa o a domicilio).
+\item \textbf{Cancelado}: El pedido fue cancelado antes de su entrega.
 \end{itemize}
 
-En breve, un proceso ingresa al sistema cuando es requerido por un cliente por algún medio de comunicación. Enseguida se indica a la cocina que el pedido debe ser preparado. Una vez completada la preparación de la comida, los responsables de cocina lo indican al sistema que planifica de forma independiente la asignación de lugares en los hornos. Finalmente, después de que el pedido es horneado, se entrega a la mesa o al delivery según corresponda. Por último cuando existe confirmación de la entrega se marca el pedido como finalizado y se almacena con fines de registro. El pedido puede ser cancelado en cualquier punto (salvo después de ser finalizado), con implicaciones varias en el sistema de control de stock.
+En breve, un proceso ingresa al sistema cuando es requerido por un cliente por algún medio de comunicación. Una vez que la cocina está disponible para prepararlo, se indica a los maestros la tarea que debe ser realizada. Una vez completada la preparación de la comida, los responsables de cocina lo indican al sistema, que planifica de forma independiente la asignación de lugares en los hornos. Finalmente, después de que el pedido es horneado, se entrega a la mesa o al delivery según corresponda. Por último, cuando existe confirmación de la entrega se marca el pedido como finalizado y se almacena con fines de registro. El pedido puede ser cancelado en cualquier punto (salvo después de ser finalizado), con implicaciones varias en el sistema de control de stock.
 
-Los estados presentados tienen utilidad para el sistema puesto que hay necesidad de indicar al cliente sobre el estado de su pedido. Así, se podrá indicar si un pedido está siendo preparado o ya fue enviado al destinatario. Si bien para estos fines alcanza con 3 estados (preparando, enviando, finalizado), se agregan los demás con fines de control para el sistema. Además, la granularidad más fina permite al sistema hacer predicciones y organizaciones más eficientes del uso de los recursos. Por ejemplo, al controlar los tiempos de preparación por separado de los de horneado resulta más sencillo, en caso de un cuello de botella en la cocina, determinar cual es el factor limitante.
+Los estados presentados tienen utilidad para el sistema puesto que existe la necesidad de indicar al cliente sobre el estado de su pedido. Así, se podrá indicar si un pedido está siendo preparado o ya fue enviado al destinatario. Si bien para estos fines alcanza con 3 estados (preparando, enviando, finalizado), se agregan los demás con fines de control para el sistema. Además, la granularidad más fina permite al sistema hacer predicciones y organizar de formas más eficientes el uso de los recursos. Por ejemplo, el controlar los tiempos de preparación por separado de los de horneado, resulta más sencillo, en caso de un cuello de botella en la cocina, determinar cual es el factor limitante.
 
-La figura \ref{cicloPedido} nos ilustra los estados del pedido
+En la figura \ref{cicloPedido} se observan los posibles estados de un pedido y las transiciones que pueden realizarse entre dos de ellos. Si bien este modelo carece de formalidad, es útil como una primera aproximación a la dinámica del sistema.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=17cm]{./figuras/ciclo_pedido}
-\caption{Ciclo de vida de un pedido}
+\caption{Ciclo de Vida de un pedido}
 \label{cicloPedido}
 \end{figure}
 
-A lo largo de las siguientes secciones se desarrollaran los diferentes aspectos de cada momento en la vida de un pedido, asi como otros aspectos relaciones a los pedidos.
 
-Podemos considerar un caso simple donde un cliente ingresa un pedido y seguir al mismo hasta que termina. A continuación modelaremos mediante fsm el ciclo de vida de un pedido, sin entrar en grandes detalles, pero aun asi pudiendo ver cuestiones interesantes.
+Resulta de interés considerar un caso simple donde un cliente ingresa un pedido con el objetivo de seguir al mismo hasta que éste finaliza. A continuación modelaremos mediante FSM el ciclo de vida de un pedido, sin entrar en grandes detalles, pero aún así pudiendo observar cuestiones interesantes.
 
-El escenario que vamos a modelar consiste en un cliente que hace pedidos de a uno, pudiendo cancelarlos, el encargado de pedido que realiza el ingreso de los mismos, y despacha los pedidos, el maestro que prepara y cocina el pedido, el sistema que monitorea el estado de los pedidos y el delivery.
+El escenario que vamos a modelar consiste en un cliente que hace pedidos de a uno (pudiendo cancelarlos), el encargado de pedidos que realiza el ingreso de los mismos y despacha los pedidos, el maestro que prepara y cocina el pedido, el sistema que monitorea el estado de los pedidos y el delivery que se ocupa de la entrega de los mismos. Si bien este modelo no tiene en cuenta la existencia de otros pedidos o clientes, nos sirve para analizar gran parte de la funcionalidad involucrada en el tratamiento de los pedidos.
+
+En estas FSM podemos ver en qué partes del ciclo de vida tienen relevancia los distintos agentes. De este modo observamos como el sistema es el que permite o no el ingreso de un pedido, rechazándolo en el caso de que el stock sea insuficiente, así como también se encarga de avisar al maestro que prepare o cocine un determinado pedido. Además vemos como el sistema permite que el pedido avance hasta llegar a estar listo para despachar y monitorea casi en su totalidad las transiciones de estado del pedido.
+
+Es interesante notar también que desde que ingresa hasta que es entregado un pedido, el cliente puede en todo momento cancelarlo. La dinámica de cancelación de un pedido es objeto de mayor detalle en la sección \ref{cancelacion}.
+
 
 \begin{figure}[H]
 \centering
-\subfigure[FSM cliente]{
+\subfigure[FSM Cliente]{
 \includegraphics[scale=0.4]{./figuras/fsmCliente.png}}
-\subfigure[FSM sistema]{
+\subfigure[FSM Sistema]{
 \includegraphics[scale=0.4]{./figuras/fsmSistema.png}}
 \end{figure}
 
@@ -46,52 +50,59 @@ El escenario que vamos a modelar consiste en un cliente que hace pedidos de a un
 \begin{figure}[H]
 \centering
 \setcounter{subfigure}{2}
-\subfigure[FSM encargado de pedidos]{
+\subfigure[FSM Encargado de Pedidos]{
 \includegraphics[scale=0.4]{./figuras/fsmencpedidos.png}}
 \end{figure}
 
 \begin{figure}[H]
 \setcounter{subfigure}{3}
-\subfigure[FSM delivery]{
+\subfigure[FSM Delivery]{
 \includegraphics[scale=0.4]{./figuras/fsmDelivery}}
 \subfigure[FSM Maestro]{
 \includegraphics[scale=0.4]{./figuras/fsmmaestro}}
 \end{figure}
 
-
-Como dijimos esta version es simplificada, no tiene en cuenta la existencia de otros pedidos o clientes, otra formas de ingresar pedidos, composicion de los mismos, etc; sin embargo nos sirve para analizar ciertas cuestiones del ciclo de vida de un pedido.
-
-En estas FSM podemos ver en que partes del ciclo de vida tienen relevancia los distintos agentes, asi es que podemos ver como el sistema es el que permite o no el ingreso de un pedido, rechazandolo en el caso de que el stock sea insuficiente, asi como tambien se encarga de avisar al maestro que prepare o cocine. Podemos ver como el sistema permite que el pedido avance hasta llegar a estar listo para despachar, como ademas monitorea casi en su totalidad las transiciones del pedido.
-
-Otra cosa que debemos notar es como desde que ingresa hasta que es entregado el cliente puede todo el tiempo cancelar un pedido, y si bien en este diagrama se observa de una forma simplificada, la cancelación se verá mas adelante en la seccion Cancelación.
+Por último, la FSM que resulta de la composición de las anteriores nos describe de forma global el ciclo de vida de un pedido, de forma análoga al primer diagrama presentado.
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{./figuras/fsmpedido}
-\caption{FSM Pedido = FSM cliente $||$ FSM encargado de pedidos $||$ FSM delivery $||$ FSM Maestro $||$FSM sistema}
+\caption{FSM Pedido = FSM Cliente $||$ FSM Encargado de Pedidos $||$ FSM Delivery $||$ FSM Maestro $||$ FSM Sistema}
 \end{figure}
+
+
+
+
+
 
 \section{Ingreso de pedidos}
 
-Los pedidos basicamente pueden ser remotos o locales. Los pedidos remotos se pueden realizar via telefonica, via web, o via sms.
+Los pedidos se distinguen en dos categorías esenciales:
+\begin{itemize}
+\item \textbf{Local}, si fue realizado en la pizzería por un cliente de forma personal
+\item \textbf{Remoto}, si fue ingresado al sistema por un cliente desde su hogar u otro lugar, por vía telefónica, Web o SMS.
+\end{itemize}
 
-Todos los pedidos tienen un único horno asignado, con la excepción de los pedidos de solo bebidas, a los que no se les asigna ningún horno.
+Todos los pedidos tienen un único horno asignado, a excepción de los pedidos que no incluyen comidas y por lo tanto no deben ser cocinados. Este horno se determina automáticamente, a excepción de los pedidos mixtos en que el encargado de pedidos decide a qué horno serán asignados.
 
-En todos los ingresos de pedidos, se realiza un chequeo de la disponibilidad del stock, a fin de evitar tomar pedidos que no se pueden satisfacer. La siguiente fsm presenta un modelo del control de stock para el ingreso de pedidos.
+Cada vez que se ingresa un pedido, se realiza un chequeo de la disponibilidad del stock, a fin de evitar tomar pedidos que no se pueden satisfacer. Los pedidos insatisfacibles son uno de los problemas mayores en la operación de la pizzería, y es un requerimiento importante atacar este problema. 
 
-Supongamos que en la pizzeria hay hasta $k$ pedidos, hay $e$ tipos de empanadas y $i$ pizzas,
-consideremos las siguientes variables:
+La siguiente FSM presenta un modelo del control de stock para el ingreso de pedidos.
+
+Supongamos que en la pizzeria hay hasta $k$ pedidos, hay $e$ tipos de empanadas y $i$ tipos de pizzas,
+Consideremos las siguientes variables, todas ellas comenzando con un valor $STOCK$ constante.
+
 stock pizza 1 : $[0...MAX_{STOCK}]$,
 ...
-stock pizza i : $[0...Max_{STOCK}]$,
+stock pizza i : $[0...MAX_{STOCK}]$,
 stock empanada 1 : $[0...MAX_{STOCK}]$,
 ...
-stock empanada e : $[0...Max_{STOCK}]$,
-stock stock bollo : $[0...MAX_{STOCK}]$,
-stock stock tapas : $[0...Max_{STOCK}]$,
+stock empanada e : $[0...MAX_{STOCK}]$,
+stock bollo : $[0...MAX_{STOCK}]$,
+stock tapas : $[0...MAX_{STOCK}]$,
 
-todas ellas comenznado con un valor SSTOCK constante.
+Análogamente, controlamos también el stock de los \textit{kits} necesarios para la preparación de pizzas y empanadas. \verb0pizza n m0 indica cuantos kits de pizza del tipo $n$ son necesarios para el pedido $m$. Análogamente tenemos la misma situación para los kits de empanadas:
 
 pizza 1 1 : $[0...MAX]$
 ...
@@ -100,10 +111,6 @@ pizza 2 1 : $[0...MAX]$
 ...
 pizza i k : $[0...MAX]$
 
-donde pizza n m tiene cuantos kits de pizza del tipo n quiere el pedido m
-
-de forma analoga tenemos las variables:
-
 empanada 1 1 : $[0...MAX]$
 ...
 empanada 1 k : $[0...MAX]$
@@ -111,39 +118,35 @@ empanada 2 1 : $[0...MAX]$
 ...
 empanada e k : $[0...MAX]$
 
-que guardan la cantidad de kits de empanadas de cada tipo que quiere cada pedido
+Por último, registramos también la cantidad de pizzas y empanadas que requiere cada pedido:
 
 pizzas 1 : $[0...MAX]$
 ...
 pizzas k : $[0...MAX]$
-indica cuantos bollos de pizza requiere cada pedido
 
 empanadas 1 : $[0...MAX]$
 ...
 empanadas k : $[0...MAX]$
-indica cuantas tapas requiere cada pedido.
 
-Entonces, la FSM de la figura \ref{fsmIngresoPedidos} modela el ingreso de pedidos para cada pedido $j = 0 ... k$
+Entonces, la FSM de la figura \ref{fsmIngresoPedidos} modela el ingreso de pedidos para cada pedido $j = 0 ... k$.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{./figuras/ingresoPedidos}
-\caption{FSM ingreso de pedidos j}
+\caption{FSM ingreso de pedido $j$}
 \label{fsmIngresoPedidos}
 \end{figure}
 
-Lo que nos muestra dicha FSM es que durante el estado de armado de un pedido se seleccionan distintos productos con una cantidad dada de cada uno de ellos. Cuando el pedido esta armado, se intenta hacer el pedido. Entonces el mismo puede ser ingresado, o puede ser cancelado, pudiendo intentar hacer un pedido diferente o desistir.
+Se observa en esta FSM que durante el estado de armado de un pedido se seleccionan distintos productos con una cantidad dada de cada uno de ellos. Cuando el pedido está armado, se intenta hacer el pedido. En esa situación, el mismo puede ser ingresado o puede ser cancelado, pudiendo intentar hacer un pedido diferente o desistir.
 
-En la figura \ref{fsmChequeoStock} vemos a la FSM que se encarga de controlar el stock para evitar el ingreso de pedidos no satisfacibles.
-
-Esta fsm se encarga de decidir si el pedido se puede ingresar o no en base a la cantidad de stock y de productos necesarios.
+En la figura \ref{fsmChequeoStock} vemos la FSM que se encarga de controlar el stock para evitar el ingreso de pedidos no satisfacibles. Esta FSM toma esta decisión en base a la cantidad de stock disponible y de los productos necesarios para preparar el pedido en cuestión.
 
 La FSM que regula el ingreso de pedidos en base al stock se obtiene como:
-FSM Ingreso Controlado de pedidos = FSM ingreso de pedidos 1 $||$ ... $||$ FSM ingreso de pedidos k $||$ FSM chequeo de stock
+FSM Ingreso Controlado de Pedidos = FSM ingreso de pedidos 1 $||$ ... $||$ FSM ingreso de pedidos k $||$ FSM chequeo de stock
 
-Analizando las trazas de la composición, podemos notar que cuando se hace un pedido, la decision de si se puede ingresar o no asi como el decremento del stock es un evento atomico, es decir no puede ocurrir que un pedido se este por ingresar y antes de decrementar el stock se ingresa otro. Situación que podría hacer que se tomen pedidos y luego no se puedan satisfacer.
+Analizando las trazas de la composición, podemos notar que cuando se hace un pedido, la decisión de si se puede ingresar o no, así como el decremento del stock componen un evento atomico. Esto implica que es imposible que un pedido esté a punto de ingresar y antes de que se decremente el stock un segundo pedido es ingresado. Dicha situación constituye una condición de competencia y podría hacer que se tomen pedidos que luego no se puedan satisfacer.
   
-A continuación detalleremos los distintos tipos de pedidos, asi como también describiremos las actividades propias de su ingreso
+A continuación detallaremos los distintos tipos de pedidos, asi como también describiremos las actividades propias de su ingreso.
 
 \begin{figure}[H]
 \centering
@@ -152,21 +155,25 @@ A continuación detalleremos los distintos tipos de pedidos, asi como también des
 \label{fsmChequeoStock}
 \end{figure}
 
-\subsection{Pedidos remotos}
-Los pedidos remotos requieren que los usuarios esten registrados en el sistema. Esto se hace por cuestiones de seguridad, a fin de evitar la realización de pedidos por parte de usuarios anonimos que podrian cancelar constantemente o dar direcciones falsas. La registracion de usuarios se realiza personalmente o telefonicamente. Decidimos no permitir regitro de usuarios via web, ya que consideramos que el método no era del todo fiable (es facil crear usuarios ficticios y hacer pedidos en broma).
 
-Si un usuario desea poder hacer pedidos vía web, deberá elegir un nombre de usuario y una contraseña al momento de registrarse, así como proveer una dirección de mail. Si se desean hacer pedidos SMS, el usuario deberá brindar un número de celular, al que se ``autoriza'' para efectuar pedidos a nombre de ese usuario. Para todo tipo de pedidos que involucren delivery, el usuario deberá registrar una dirección (aunque podría tener más de una, existe una única que es predeterminada).
+\subsection{Pedidos Remotos}
+
+Los pedidos remotos requieren que los usuarios estén registrados en el sistema. Esto se hace por cuestiones de seguridad, a fin de evitar la realización de pedidos por parte de usuarios anónimos que podrían cancelar constantemente o dar direcciones falsas. El registro de usuarios se realiza personal o telefónicamente. Fue una decisión de diseño no permitir el registro de usuarios vía Web, ya que consideramos que el método no era del todo fiable (una vez más, es fácil crear usuarios ficticios y hacer pedidos en broma).
+
+Si un usuario desea poder hacer pedidos vía Web, deberá elegir un nombre de usuario y una contraseña al momento de registrarse, así como proveer una dirección de correo electrónico. Si se desean hacer pedidos SMS, el usuario deberá brindar un número de celular, al que se ``autoriza'' para efectuar pedidos a nombre de ese usuario. Para todo tipo de pedidos que involucren \textit{delivery}, el usuario deberá registrar una dirección. Como no es necesario registrarse para comer en el local, esto redunda en que todos los usuarios registrados lo hacen inicialmente para recibir \textit{delivery} y por lo tanto todos los usuarios registrados deben tener esta información.
 
 A continuación describiremos los procedimientos para la realización de pedidos remotos.
 
-\subsubsection{Pedidos telefonicos}
-El cliente que desee realizar un pedido telefonico debe llamar al número de la pizzería. El encargado de pedidos es el responsable de atender los llamados telefonicos. El cliente debe brindar información de identificación al encargado para permitir individualizarlo (nombre, dirección o nombre de usuario). El encargado corrobora entonces el número desde el que está llamando el usuario para verificar su identidad (eventualmente si llama desde otro número puede identificarse con usuario y password si lo tuviera).
+\subsubsection{Pedidos Telefónicos}
+\label{pedidotelefonico}
 
-Si el usuario no estaba registrado, el encargado debe sugerirle la posibilidad de registrarse. Si el usuario no esta registrado y no desea registrarse, no se toma el pedido. %TODO: caso de uso chequear datos de usuario
+El cliente que desee realizar un pedido telefónico debe llamar al número que la pizzería ha dispuesto para tal fin. Allí es atendido por el encargado de pedidos, al que deberá brindar información de identificación. Esta información debe ser suficiente para individualizarlo entre los usuarios registrados (nombre, dirección o nombre de usuario). El encargado corrobora entonces el número desde el que está llamando el usuario para verificar su identidad (eventualmente, si el cliente llama desde otro número puede identificarse con usuario y password si lo tuviera).
 
-Una vez autentificado el usuario, el mismo procede a dictar su pedido al encargado de pedidos. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema, el cual se encarga de verificar si es posible satisfacer dicho pedido. En caso de no ser posible el sistema indicara mediante un mensaje de error que el pedido no fue posible de realizar e indicara que producto/s no estaba/n disponible/s. El cliente puede entonces dar un pedido diferente.
+Si el usuario no estaba registrado, el encargado debe sugerirle la posibilidad de registrarse. Si el usuario no está registrado y no desea registrarse, el encargado no tomará el pedido.
 
-Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido como ingresado. Se genera un identificador de pedido, se estima el tiempo del mismo y se calcula el costo total. Ademas si el pedido es mixto se brinda la posibilidad de que el encargado de pedidos asigne un horno. %TODO: caso de uso loco
+Una vez autentificado el usuario, el mismo procede a dictar su pedido al encargado. Hecho esto, el encargado de pedidos intenta ingresar el pedido al sistema, el cual verifica si es posible satisfacer dicho pedido. En caso de no ser posible, el sistema indicará mediante un mensaje de error que el pedido no es posible de realizar en ese momento e indicará que producto(s) no estaba(n) disponible(s). El cliente puede entonces optar por un pedido diferente.
+
+Si el pedido ingresa con éxito, el sistema lo registra en el estado Ingresado. Se genera además un identificador único de pedido, se estima el tiempo de entrega del mismo y se calcula el costo total. Además si el pedido es mixto, se brinda al encargado la posibilidad de seleccionar el horno donde se cocinará el pedido.
 
 \begin{figure}[H]
 \centering
@@ -179,35 +186,30 @@ Si el pedido sí podía ser tomado, el sistema se encarga de registrar el pedido c
 \includegraphics[height=10cm]{./figuras/diagramaParteEnComunRegistrandoPedido.png}
 \caption{Partes comunes en el ingreso de pedido}
 \end{figure}
-%TODO: poner diagrama de actividad
-%NOTA: estos casos de uso q aparecen son medio especificos del caso, tonces se podria hacer un diagrama aparte
 
-\subsubsection{Pedidos web}
-Para que los clientes puedan realizar pedidos via web, la pizzería contara con una página web. El cliente que desee hacer un pedido por esta vía debe ingresar a la página y autentificarse con usuario y contraseña.
 
-Una vez autentificado, tendra la posibilidad de elegir ingresar pedido. Entonces podra elegir que productos desea y con que cantidad a partir de una lista en línea. Dicha lista solo contiene productos que están disponibles (los que ya están fuera de stock no se incluyen). Cuando marcó lo que deseaba puede ingresar el pedido. Entonces el sistema verifica la viabilidad del pedido, y en caso de no ser posible de realizar lo informa mediante un mensaje indicando que producto no se encuentra disponible. El cliente puede volver a ingresar un pedido diferente si lo desea.
+\subsubsection{Pedidos Web}
+Para que los clientes puedan realizar pedidos vía Web, la pizzería contará con una sitio en línea. El cliente que desee hacer un pedido por esta vía debe ingresar a la página y autentificarse con su nombre de usuario y contraseña, que previamente habrá obtenido como se describió en \ref{pedidotelefonico}.
 
-En caso de que sea posible registrar el pedido, se estima el tiempo del mismo y se calcula el costo total. Esta información se muestra al usuario por pantalla. A continuación se le permite al usuario elegir si prefiere pagar contra entrega al delivery o con tarjeta de crédito. Si la operación con tarjeta falla, se muestra un mensaje de error y se permite al usuario reingresar los datos de la misma o cambiar de forma de pago. Hecho esto, se confirma todo el pedido.
+Una vez autentificado, el cliente tendrá la posibilidad de ingresar un pedido. Entonces, el cliente podrá elegir qué productos desea y en qué cantidad a partir de una lista en línea. Dicha lista solo contiene productos que están disponibles (los que ya están fuera de stock no se incluyen). Cuando marcó lo que deseaba puede finalizar el proceso de elección de productos y proceder a ingresar el pedido. El sistema verifica entonces la viabilidad del pedido, y en caso de no ser posible realizarlo notifica al cliente mediante un mensaje, indicando qué producto no se encuentra disponible. El cliente puede volver a ingresar un pedido diferente si así lo desea.
 
-Si entre la elección de los productos y la confirmación del pedido se acaba el stock de materias primas, se muestra un error y se vuelve a la pantalla de selección de productos (esto debería ser muy raro). 
+En caso de que sea posible registrar el pedido, se estima el tiempo del mismo y se calcula el costo total. Esta información se muestra al usuario por pantalla. A continuación se le permite al usuario elegir si prefiere pagar contra entrega al \textit{delivery} o con tarjeta de crédito. En este último caso, la operación se hace integramente a través de Internet, gracias a la interacción del sistema con un servicio adecuado. Si la operación con tarjeta falla, se muestra un mensaje de error y se permite al usuario reingresar los datos de la misma o cambiar de forma de pago. Hecho esto, se confirma todo el pedido. Si entre la elección de los productos y la confirmación del pedido se acaba el stock de materias primas, se muestra un error y se vuelve a la pantalla de selección de productos (esto debería ser muy raro). 
 
-Una vez que el pedido fue ingresado, si se pagaba con tarjeta, se hace efectivo el cobro.
-
-El pedido será encolado automáticamente tratando de balancear la carga de los hornos. 
+Una vez que el pedido fue ingresado, si se pagaba con tarjeta, se hace efectivo el cobro. El pedido se encola entonces automáticamente en la cola de pedidos donde es atendido regularmente.
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=23cm]{./figuras/diagramaActividadWeb}
 \caption{Diagrama de actividad del ingreso de un pedido Web}
 \end{figure}
-%TODO:diagrama de actividad
+
 
 \subsubsection{Pedidos SMS}
-El cliente que desee realizar un pedido via sms debe enviar un mensaje al servidor sms de la pizzeria, junto con el pedido que quiere hacer. Si el celular no estaba registrado, el sistema descarta el pedido y le envia un mensaje sms al mismo sugiriendole registrarse por telefono o personalmente.
+El cliente que desee realizar un pedido vía SMS debe enviar un mensaje al servidor SMS de la pizzería, junto con el pedido que quiere hacer. Para ésto, su número de celular debe estar registrado en la base de datos del sistema. Si el celular no estaba registrado, el sistema descarta el pedido y le envía al cliente un mensaje indicándole la necesidad de registrar su número de celular, y el número para comunicarse telefónicamente y proceder a dicho registro.
 
-Para identificar los productos que desea pedir, el cliente cuenta con un catálogo con códigos de producto y de ``combos'' populares ya sea en papel o consultable via Internet.
+Para identificar los productos que desea ordenar, el cliente cuenta con un catálogo con códigos de producto ya sea en papel o consultable vía Internet.
 
-El sistema verifica si es posible satisfacer el pedido. En caso de no ser posible el sistema le envia un mensaje al cliente para avisar que el pedido no podra ser satisfecho, indicando que producto no esta disponible. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido, estima el tiempo del mismo, calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de sms con esos datos al cliente. 
+Análogamente al pedido vía Web, el sistema verifica si es posible satisfacer el pedido. En caso de no ser posible, el sistema le envía un mensaje al cliente para avisar que el pedido no podrá ser satisfecho e indicando qué producto no está disponible. Si el pedido sí podía ser tomado, el sistema lo registra como ingresado, genera un identificador de pedido, estima el tiempo del mismo, calcula el costo total y luego de todo esto procede a enviarle un mensaje de respuesta de SMS con esos datos al cliente. 
 
 \begin{figure}[H]
 \centering
@@ -215,8 +217,15 @@ El sistema verifica si es posible satisfacer el pedido. En caso de no ser posibl
 \caption{Diagrama de actividad del ingreso de un pedido SMS}
 \end{figure}
 
+
 \subsection{Pedidos locales}
-Los pedidos locales pueden realizarse a los mozos, quienes cuentan con una PDA para realizar el registro de los pedidos. Un cliente dicta su pedido a algún mozo, el cual marca los productos y sus cantidades en su PDA. una vez que el cliente dictó su pedido el mozo ingresa el pedido. El sistema verifica la factibilidad del mismo, si no es posible tomarlo, notifica al mozo para que informe de la situación al cliente.
+
+Los pedidos locales pueden realizarse a los mozos, quienes cuentan con un PDA donde ingresan los datos de los mismos. Un cliente dicta su pedido a algún mozo, quien marca los productos y sus cantidades en su PDA. Hecho esto, el mozo ingresa el pedido, lo cual se realiza de forma inalámbrica dentro del local. En ese momento el sistema verifica la factibilidad del mismo, y si no es posible realizar el pedido alerta al mozo para que informe de la situación al cliente.
+
+Si es posible ingresar el pedido el sistema genera un identificador del pedido, estima el tiempo del mismo y calcula el costo total. Análogamente a las otras formas de ingreso de pedido, el sistema elige automáticamente el horno asociado al pedido si correspondiera, o en caso de pedidos mixtos permite al encargado realizar esa elección.
+
+Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedidos, quién registra los productos del pedido de manera similar a como registra los pedidos telefónicos, con la excepción de que en este caso podría no tener los datos del usuario.
+
 
 \begin{figure}[H]
 \centering
@@ -224,16 +233,15 @@ Los pedidos locales pueden realizarse a los mozos, quienes cuentan con una PDA p
 \caption{Diagrama de actividad de toma de un pedido por parte del mozo}
 \end{figure}
 
-Si es posible ingresar el pedido el sistema genera el id del pedido, se estima el tiempo del mismo y se calcula el costo total. La asignación del horno es también responsabilidad del sistema.
 
-Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedidos, quien registra los productos del pedido de manera similar a como registra los pedidos telefonicos, con le excepción de que en este caso podía no tener los datos del usuario.
-
-%TODO:diagrama de actividad de ambos casos
 \begin{figure}[H]
 \centering
 \includegraphics[height=12cm]{./figuras/pantallaBotonesMozo.png}
 \caption{Interfaz del mozo: Puede ingresar o cerrar pedidos}
 \end{figure}
+
+
+
 
 \section{Registro de usuarios}
 El registro de usuarios es responsabilidad del encargado de pedidos, y se realiza por via telefonica asi como también personalmente. 
@@ -244,69 +252,70 @@ Para registrar a un usuario el encargado de pedidos debe tomar los siguientes da
 \item Apellido
 \item Dirección
 \item Telefono
-\item Usuario, password (opcional, solo necesario para hacer pedidos via Web)
-\item E-Mail (opcional)
-\item Célular (opcional, solo necesario para poder hacer pedidos vis SMS)
+\item Usuario  y  Password (opcional, solo necesario para hacer pedidos vía Web)
+\item Célular (opcional, solo necesario para poder hacer pedidos vía SMS)
 \end{itemize}
 
-Una vez registrado el usuario puede en otro momento solicitar modificar algun dato, o agregar algun dato opcional.
-%TODO: pantalla
-Veamos operacionalmente como funciona el registro de un usuario:
+Una vez registrado, el usuario puede en otro momento solicitar modificar algún dato, o agregar algún dato opcional.
 
-La siguiente operación permite registrar un usuario nuevo sin datos web ni SMS
+Veamos operacionalmente como funciona el registro de un usuario. La siguiente operación permite registrar un usuario nuevo sin datos Web ni SMS:
 
 \begin{funcion}{RegistroUsuario}{nombreC: String, apellidoC: String, CalleC: String, NumeroC: Integer, LocalidadC: String, DepartamentoC: String, TelefonoC: Integer}{}{}
    \precond{Direccion.allInstances()->forall(d $|$ d.telefono \noig TelefonoC}
-   
-   \poscond{Cliente.allInstances() \flecha size() = Cliente@pre.allinstances() \flecha size()+1}
-   
+
+   \poscond{Cliente.allInstances() \flecha size() = Cliente@pre.allinstances() \flecha size() + 1}
    \poscond{(Cliente.allInstances() -  Cliente@pre.allInstances()) $\rightarrow$ forall(c | c.oclIsNew() and c.Nombre = nombreC and c.apellido = apellidoC) }
-   
-   \poscond{Direccion.allInstances() \flecha size() = Direccion@pre.allInstances() \flecha size() +1}
-   
+   \poscond{Direccion.allInstances() \flecha size() = Direccion@pre.allInstances() \flecha size() + 1}
    \poscond{(Direccion.allInstances() - Direccion@pre.allInstances()) \flecha forall(d | d.oclIsNew() and d.calle = CalleC and d.numero = NumercoC and d.localidad = LocalidadCand d.departamento = DepartamentoC and c.telefono = TelefonoC)}
-   
 \end{funcion}
 
-Si queremos agregar datos web a un usuario, se utiliza la siguiente operacion
+
+De forma análoga se pueden definir operaciones que agreguen datos para realizar pedidos por SMS o vía Web. A modo de ejemplo, veamos la operación para el agregado de datos Web:
 
 \begin{funcion}{RegistroUsuario}{c:Cliente, nick:String, clave:String}{}{}
    \precond{DatoWeb@pre.allinstances().pass$\rightarrow$ includes(nick)}
    \precond{c.userYPass()$\rightarrow$ isEmpty()}
-   
+
    \poscond{DatoWeb.allinstances() $\rightarrow$ size() = DatoWeb@pre.allinstances() $\rightarrow$ size()+1}
    \poscond{(DatoWeb.allinstances() - DatoWeb@pre.allinstances())$\rightarrow$ forall(d | d.usr = nick and d.pass = clave and d.datosDe = c)}
 \end{funcion}
 
-De forma similar se puede definir una operacion que agregue datos para realizar pedidos por SMS.
 
-\section{Facturacion}
-La facturación de los pedidos de la pizzería esta a cargo del software de facturación que posee el establecimiento. El sistema solo provee de la facilidad de generar un archivo con los datos necesarios para realizar la factura cuando el cajero lo determine adecuado. 
 
-El archivo se genera cuando un pedido esta listo para salir a entrega en el caso de que el mismo sea con delivery o mostrador, o en el momento en el que el cliente pide la cuenta al mozo. %TODO: caso de uso
 
-A la hora de generar el archivo la forma de pago de los pedidos en alguna mesa debe ser ingresada por el mozo, tras preguntarsela al cliente. En este caso, el archivo se genera con los campos nombre de usuario, apellido y número de cliente en blanco. En el caso de los pedidos via SMS o telefonicos, estos se pagan en efectivo al delivery. Por otro lado, para los pedidos via web, la forma de pago la determina el usuario.
 
-%FSM de cuando como es la generación de las facturas
+
+
+\section{Facturación}
+La facturación de los pedidos de la pizzería está a cargo del software de facturación que posee el establecimiento y por lo tanto no es responsabilidad del sistema aquí especificado. El sistema solo provee la facilidad de generar un archivo con los datos necesarios para realizar la factura en el momento adecuado.
+
+En el caso de que el pedido sea remoto o haya sido hecho en el mostrador, dicho archivo se genera cuando el pedido está listo para salir a entrega. En el caso de pedidos realizados por clientes que están sentados en el local, la facturación se hace cuando el cliente indica al mozo que desea pagar ya que es necesario determinar la forma de pago.
+
+Si el cliente está registrado, los datos del mismo son parte de este archivo. Para clientes que acudan en persona al local y no estén registrados, los campos de identificación simplemente son dejados en blanco.
+
 
 \section{Cancelación}
-La cancelación de un pedido se realiza via telefonica o personalmente. Una cancelación se puede realizar siempre y cuando no se haya entregado el pedido, es decir que el pedido no se encuente en estado finalizado. 
+\label{cancelacion}
 
-Los productos ya elaborados, se descartan al cancelarse el pedido. En cambio los insumos no utilizados regresan al stock.
-Dado que no se informa cada producto que se prepara, por ejemplo si hay que hacer 6 empanadas el maestro no notifica cada vez que arma una, podria ocurrir que el pedido se cancele mientras esta siendo preparado. En este caso el sistema muestra almaestro un mensaje informandole que el pedido se cancelo, y pidiendole que indique que parte de los insumos se puede reutilizar. Para pedidos mixtos el tratamiento de esta situación es individual para cada cocinero. %TODO:agregar flecha al diag de contexto
+La cancelación de un pedido se realiza únicamente por vía telefónica o personalmente. Esta decisión se tomó de forma análoga a la de solo permitir el registro de usuarios por estos medios: permitir hacer cancelaciones por Internet puede traer problemas a raíz del ciber vandalismo. Una cancelación se puede realizar siempre y cuando no se haya entregado el pedido, es decir que el pedido no se encuente en estado finalizado. 
 
-Para cancelar un pedido via telefonica el usuario debe identificarse, y luego debe indicar que pedido quiere cancelar. En caso de un pedido hecho en el local, el cliente debe avisar al mozo, que notifica al encargado de pedidos, quien cancela el pedido, o directamente al encargado de pedidos.
+Los productos ya preparados se descartan al cancelarse el pedido. En cambio, los insumos no utilizados regresan al stock.
+Dado que no se informa el estado de preparación de cada item del pedido por separado, el sistema no puede discernir frente a una cancelación exactamente cuantos insumos deben volver al stock. Por esta razón, el sistema muestra al maestro un mensaje informándole que el pedido se canceló y pidiéndole que indique qué parte de los insumos se puede reutilizar. Para pedidos mixtos, el tratamiento de esta situación es individual para cada cocinero. 
 
-También se considera cancelado un pedido que no se pudo entregar por delivery.
+Para cancelar un pedido vía telefónica el usuario debe identificarse, y luego debe indicar qué pedido quiere cancelar. El procedimiento de verificación de identidad es análogo al caso del ingreso de pedidos por esta vía. En el caso de un pedido hecho en el local, el cliente debe avisar al mozo, que notifica al encargado de pedidos, quien cancela el pedido, o bien puede avisar directamente al encargado de pedidos.
 
-A continuacion presentamos un diagrama de actividad donde se pone de manifiesto las actividades que se llevan a cabo cuando el cliente desea cancelar un pedido.
+Por último, también se considera cancelado un pedido que no puedo ser entregado por el delivery o que deberia abortarse por cualquier otra razón. El sistema permite al encargado de pedidos indicar la razón de esta cancelación para fines estadísticos.
+
+A continuación presentamos un diagrama de actividad donde se ponen de manifiesto las actividades que se llevan a cabo cuando el cliente desea cancelar un pedido.
 
 \begin{figure}
 \centering
 \includegraphics[height=19cm]{./figuras/DiagramaActividadCancelacionPersonalYTelefonica.png}
-\caption{Diagrama de actividad de las cancelaciones personales y telefonicas}
+\caption{Diagrama de actividad de cancelación (personal y telefónica)}
 \end{figure}
-%FSM de como es la onda de las cancelaciones
+
+
+% FIXME: comienzo de parte sin revisar
 
 \section{Cola de pedidos}
 Por cola de pedidos se entiende la cola que determina el orden en el cual se prepararan los pedidos ingresados al sistema. La cola es la que determina que pedido ingresado debe comenzar a preparse a continuación. Dicha cola se gestiona de manera automatica, pero puede ser modificada por el encargado de pedidos. Ni bien un producto pasa a preparse, es decir se comienza a preparar cualquiera de sus partes el mismo deja de estar en esta cola.
@@ -378,46 +387,41 @@ Tanto el cliente como el encargado de pedidos pueden consultar el estado de un p
 
 Por otro lado, de manera similar el encargado de pedidos puede ingresar un número de pedido para revisar su estado o ver los pedidos de un cliente.
 
-\subsection{Estimacion de tiempos}
-A continuación detallaremos las operaciones que permiten estimar el tiempo de finalización de un pedido. Notar que la misma es una estimación, no intenta ser exacta, de hecho dado que no era requerido no se tiene en cuenta el tiempo de delivery, que en general podría no ser despreciable.
+%% FIXME: fin parte sin revisar
 
-Para la estimación utilizamos los tiempos de preparación y de cocción aproximados dados por el maestro al momento que se ingresa un producto al sistema.
 
-Veamos como es para el caso de un pedido recien ingresado, ya que para los otros casos es similar solo que no se cuenta el tiempo de las etapas que ya paso.
+\subsection{Estimación de Tiempos}
 
-Primero se estima su tiempo de preparacion y coccion
- 
-Luego se estima el tiempo de preparacion y coccion de los productos que estan adelante de el en la cola de ingreso.
+A continuación detallaremos las operaciones que permiten estimar el tiempo de finalización de un pedido. Siendo que se trata de una estimación, la siguiente predicción no intenta ser exacta, sino más bien servir de referencia tanto para el cliente como para el encargado de pedidos que fiscaliza el funcionamiento de la pizzería. La estimación es aproximada a tal punto que, dado que no es controlable, no se tiene en cuenta el tiempo que le insume al \textit{delivery} entregar el pedido, y que en general no es despreciable.
 
-Luego se hace lo mismo para los pedidos que se estan preparando
+Para la estimación nos valemos de los tiempos de preparación cocción aproximados dados por el maestro al momento de ingresar un producto al sistema. Analizaremos el caso de un pedido recién ingresado, ya que para los otros casos el cálculo es similar con la salvedad de que no se contabiliza el tiempo de las etapas que ya fueron superadas.
 
-Y finalmente se estima el tiempo de cocción de los pedidos que estan en la cola del horno correspondiente al pedido y de los que se estan cocinando.
+En primer lugar, se estima el tiempo de preparación y cocción. Enseguida se estima el tiempo de preparación y cocción de los productos que están delante en la cola. A continuación se repite el proceso para los pedidos que están en preparación, y por último para los pedidos que están encolados para entrar a horno o que están siendo cocinados en este momento.
 
-Como vemos este valor dista de ser exacto, pero de hecho no pretende serlo, sino que sirve como una estimación para el cliente.
 
-Presentamos las operaciones a modo de quieries sin contexto que permiten estimar estos tiempos
+Presentamos las operaciones en forma de \textit{queries} sin contexto que permiten estimar estos tiempos.
 
-Esta operacion nos permite obtener los pedidos que estan adelante del pedido p en la cola de preparacion
+Esta operación nos permite obtener los pedidos que están adelante del pedido $p$ en la cola de preparación:
 
 \textbf{pedidosAdelantePreparacion (p1:Pedido):set(pedido)\\}
 Pedido.allInstances() \flecha  select (p $|$ p.estado = ingresado and p.posicionPreparación \flecha  asOrderedSet() \flecha  first() $<$ p.posicionPreparación \flecha asOrderedSet()\flecha first())
 
-Esta calcula el tiempo de preparación de un pedido en base a los tiempos de sus productos
+Esta operación calcula el tiempo de preparación de un pedido en base a los tiempos de sus productos:
 
 \textbf{TiempoPreparacion(p:Pedido):Integer\\}
 p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p)  \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoPreparacion) \flecha sum()
 
-Esta operacion permite calcular el tiempo de coccion de un pedido que tiene partes ya cocinadas
+Esta operación permite calcular el tiempo de cocción de un pedido que tiene partes ya cocinadas:
 
 \textbf{TiempoDeCocciónAlHorno(p:Pedido): Integer\\}
 p.itemDe \flecha select(i $|$ i.producto.isKindOf(com)) \flecha collect(coccionDe \flecha  asOrderedSet() \flecha first()) \flecha collect(c $|$ c.itemDe.productos.\\ asOclType(Comida).tiempoCoccion * (c.itemDe.cantidad - c.cantidadCocinada)) \flecha sum() 
 
-Esta nos permite obtener el tiempo de cocción de un pedido en base a los de sus productos
+Esta operación nos permite obtener el tiempo de cocción de un pedido en base a los de sus productos:
 
 \textbf{TiempoDeCoccion(p:Pedido): Integer\\ }
 p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p) \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoCocion) \flecha sum()
 
-Estas 3 operacinoes nos permiten conseguir a los pedidos que estan en preparacion, preparados (y esperan para el mismo horno que p tiene asignado) y por ultimo los pedidos que se estan cocinando en el horno asignado a p
+Por último estas 3 operaciones nos permiten obtener los pedidos que están en preparación, preparados (y esperan para el mismo horno que $p$ tiene asignado) y aquellos que se están cocinando en el horno asignado a $p$:
 
 
 \textbf{PedidosEnPreparacion() : Set(Pedido)\\}
@@ -431,7 +435,7 @@ Pedido.allInstances() \flecha select(p1 $|$ p1.estado = Preparado and p.hornoDe 
 \textbf{PedidosHorno(p:pedido) : Set(Pedido)\\}
 Pedido.allInstances() \flecha select(p1 $|$ p1.estado = Al horno and p.hornoDe = p1.hornoDe)
 
-Estimamos entonces el tiempo hasta que p este listo
+Con estas operaciones auxiliares, estimamos entonces el tiempo hasta que $p$ esté listo:
 
 \textbf{EstimarTiempo(p: Pedido): Integer \\}
 pedidosAdelantePreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPrepracion(p1)) \flecha Sum() + pedidosEnPreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPreparacion(p1)) \flecha Sum() + 
@@ -439,62 +443,60 @@ PedidosColaHorno(p) \flecha collect(p1 $|$ TiempoDeCoccion(p1)) +
 PedidosHorno(p) \flecha collect(p1 $|$ TiempoDeCocionAlHorno(p1))
 TiempoPreparacion(p) + TiempoCoccion(p)
 
+
+
+
 \section{Delivery}
 
-El delivery posee una unica interacción con el sistema. Cuando entrega un pedido, debe enviar un mensaje SMS al sistema notificando la entrega del mismo.
+La operatoria de \textit{delivery} es sencilla. El servicio de distribución se terceriza y la empresa en cuestión provee a la pizzería de personal responsable de las entregas, y los equipa con un teléfono celular.
 
-Si el pedido no se pudo entregar el delivery debe notificarselo al encargado de pedidos, y el pedido pasara a ser considerado como cancelado
+El \textit{delivery} posee una única interacción con el sistema: cuando el responsable entrega un pedido, debe enviar un mensaje SMS al sistema notificando la entrega del mismo. Con esta información, el sistema marca el pedido como finalizado y termina su ciclo de vida. Si el pedido no puede ser entregado, el \textit{delivery} notificará de la situación al encargado de pedidos que lo marcará como cancelado.
+
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.55]{./figuras/diagramaDeliveryEntregaPedido.png}
 \caption{Diagrama de actividad de la entrega de un pedido por delivery}
 \end{figure}
-%todo: diagrama de actividad de entrega de pedidos
 
 
-%\section{Alternativa de contingencia}
-%El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para premitir que el sistema siga siendo funcional aun cuando solo este disponible el puesto del encargado de pedidos.
-  
-%El sistema permite que toda la operatoria relacionada con la gestión y seguimiento de pedidos (recepción, asignación de horno, armado, ingreso y salida de horno, despacho, control de entrega, actualización de lista de precios) se lleve adelante en el puesto del encargado de pedidos.
 
-%En el modo de contingencia se considera que el software de facturación no esta disponible, por lo cual la facturación se realiza manualmente. Queda ademas fuera de este modo la consulta de estadisticas, asi como también la interacción directa del sistema con mozos, clientes y delivery.
 
-%De esta manera el encargado de pedidos es el único agente que utiliza el sistema cuando se encuentra en este modo. Los clientes pueden hacer pedidos solo telefonicamente o en local a un mozo, mientras que los mozos deben comunicar el pedido al encargado para que este lo ingrese.
-
-%De manera similar, los maestros deberan pedirle al encargado de pedidos que deben cocinar,preparar, asi como también informarle cuando terminaron de preparar algo o de cocinarlo.
-
-%El delivery que en general utiliza SMS para informar al sistema la entrega de un pedido, ahora debera hacerlo comunicandose con el encargado de pedidos.
-
-%Finalmente el dueño deberá informar al encargado de pedido los precios que pretende modificar.
-\section{Alternativa de contingencia}
+\section{Alternativa de Contingencia}
 \label{alternativacontingencia}
-\subsection{Diagrama de contexto del funcionamiento de contingencia}
+
+
+El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para premitir que el sistema siga siendo funcional aun cuando solo este disponible el puesto del encargado de pedidos.
+El sistema permite que toda la operatoria relacionada con la gestión y seguimiento de pedidos (recepción, asignación de horno, armado, ingreso y salida de horno, despacho, control de entrega, actualización de lista de precios) se lleve adelante en el puesto del encargado de pedidos.
+
+En el modo de contingencia se considera que el software de facturación no está disponible, por lo cual la facturación se realiza manualmente. Queda además fuera de este modo la consulta de estadísticas, así como también la interacción directa del sistema con mozos, clientes y delivery.
+
+De esta manera, el encargado de pedidos es el único agente que utiliza el sistema cuando se encuentra en este modo. Los clientes pueden hacer pedidos solo telefónicamente o en local a un mozo, mientras que los mozos deben comunicar verbalmente el pedido al encargado para que éste lo ingrese. Análogamente, los maestros deberán comunicarse con el encargado de pedidos para que éste actúe como interfaz entre ellos y el sistema (lo cual incluye preguntarle que pedidos deben preparar o cocinar, así como indicarle cada una de las tareas que han finalizado y normalmente ingresarían en el sistema). El \textit{delivery}, que en general utiliza SMS para informar al sistema la entrega de un pedido, ahora deberá hacerlo comunicándose con el encargado de pedidos. Finalmente, el dueño deberá informar al encargado de pedidos los precios que pretende modificar.
+
+
+\subsection{Contexto del funcionamiento de contingencia}
 \begin{landscape}
 \begin{figure}[H]
 \centering
 \includegraphics[height=17cm]{./figuras/ContextoContingencia.png}
+\caption{Diagrama de contexto de contingencia}
 \end{figure}
 \end{landscape}
 
-Del diagrama observamos como las funciones principales en las que antes interactuaban otros agentes con el sistema, ahora son responsabilidad del encargado de pedidos, el cual suma a sus responsabilidades previas, tales como el ingreso de pedidos telefonicos, otras antes ajenas como informar pedidos preparados, etc.
+Del diagrama se desprende que las funciones principales en las que antes interactuaban otros agentes con el sistema, ahora son responsabilidad del encargado de pedidos, el cual suma a sus responsabilidades previas otras previamente ajenas. Es muy importante notar la sobrecarga de trabajo del encargado de pedidos. Todas las responsabilidades que ten'ian los dem'as actores y que eran llevadas a cabo desde otras terminales del sistema ahora son tareas que los mismos deber'an llevar a cabo a trav'es del encargado de pedidos, ya que solo su terminal se mantiene en funcionamiento.
+ La cantidad de tareas que debe desarrollar lo convierten en un cuello de botella para el funcionamiento de la pizzería. Por otra parte esta ineficiencia es tolerable dado que la operación en este modo debería ser infrecuente.
 
-Es muy importante notar la sobrecarga de trabajo del encargado de pedidos. La cantidad de tareas que debe desarrollar lo convierten en un cuello de botella para el funcionamiento de la pizzería, sin embargo dado que este escenario es para un caso de contingencia, en teoria un caso improbable, esta sobrecarga del encargado puede ser tolerada.
 
-%FIXME: Leer esto y revisar, esta en BETA
-\subsection{Casos de uso contingencia}
+\subsection{Casos de Uso de contingencia}
 
-A continuación se presentan brevemente los casos de uso presentes cuando el sistema esta en estado de contingencia
+A continuación, se presentan brevemente los casos de uso presentes cuando el sistema está en estado de contingencia. Si bien la gran mayoría son idénticos al modo de operación normal, en algunos aparecen pequeñas diferencias que consideramos útil detallar por separado.
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=16cm]{./figuras/casosDeUsoContingencia.png}
 \end{figure}
 
-El sistema posee la capacidad de funcionar en lo que denominamos modo de contingencia. Este modo esta pensado para permitir que siga siendo funcional a'un cuando solo est'e disponible el puesto del encargado de pedidos.
-Podemos ver en el diagrama de contexto de contingencia el aumento de la densidad de eventos, con respecto al modo normal, que son controlados y monitoreados por el encargado de pedidos. Todas las responsabilidades que ten'ian los dem'as actores y que eran llevadas a cabo desde otras terminales del sistema ahora son tareas que los mismos deber'an llevar a cabo a trav'es del encargado de pedidos, ya que solo su terminal se mantiene en funcionamiento.
 
-A continuaci'on describiremos brevemente los casos de uso en modo contingencia:
 \begin{itemize}
 \item Indicando pedido preparado y Indicando producto cocinado: el maestro le avisa al encargado de pedidos que termin'o la preparaci'on/cocci'on del pedido o producto y luego el encargado de pedidos procede a registrar tal evento en el sistema.
 \item Siendo informado de proximo pedido a preparar y Siendo informado de proximo producto a cocinar: el encargado de pedidos solicita al sistema el proximo pedido/producto a preparar/cocinar y luego se lo informa al maestro.
@@ -506,12 +508,13 @@ A continuaci'on describiremos brevemente los casos de uso en modo contingencia:
 \item Siendo requerido ingreso de stock reutilizable: luego de cancelar un pedido en preparacion, el sistema pide al encargado de pedidos que ingrese el stock reutilizable. El encargado pregunta al maestro cual es el stock reutilizable y luego el encargado de pedidos lo ingresa, similar al caso de uso normal.
 \end{itemize}
 
-Notese que la generación de archivo para facturaci'on en modo contingencia no est'a a cargo del sistema, por lo cual se realiza manualmente y est'a a cargo del cajero, como se puede ver en el diagrama de contexto de contingencia. Tambi'en queda fuera de este modo la consulta de estad'isticas, los pedidos por sms y, como ya fue dicho, el alta y baja de productos, ya que no son necesidades cr'iticas durante contingencia.
+Notese que la generación de archivo para facturaci'on en modo contingencia no est'a a cargo del sistema, por lo cual se realiza manualmente y est'a a cargo del cajero, como se observa en el diagrama de contexto de contingencia. Tambi'en queda fuera de este modo la consulta de estad'isticas, los pedidos por SMS y el alta y baja de productos, ya que no son necesidades cr'iticas durante la operación de contingencia.
 
-Los casos de uso de la alternativa de contingencia, son los que permiten satisfacer los requerimientos 16,17 y 18, ya que estos requerimientos eran los que establecian que el sistema debería ser capaz de funcionar con solo el puesto del encargado en estado funcional.
+Los casos de uso de la alternativa de contingencia permiten satisfacer los requerimientos 16, 17 y 18, puesto que eran éstos  los que establecían que el sistema debería ser capaz de funcionar con solo el puesto del encargado en estado funcional.
 
-\section{Informacion estadística}
-%FIXME: hay cosas q para calcularlas necesitamos info q no tenemos (segun el diag de concepto)
+
+
+\section{Información estadística}
 Con el fin de comprender más profundamente el comportamiento del negocio, desarrollamos para la pizzería un conjunto de indicadores que permitan analizar su rendimiento y predecir algunos de los parámetros que afectan su comportamiento, así como optimizar algunas estrategias de venta y producción.
 
 Los indicadores de rendimiento tienen por objetivo caracterizar el funcionamiento de la pizzería en un período dado. Mediante el monitoreo del ingreso y salida de los pedidos, es posible realizar un seguimiento de algunos parámetros interesantes:
@@ -526,33 +529,36 @@ Los indicadores de rendimiento tienen por objetivo caracterizar el funcionamient
 
 En particular, el conocimiento sobre la demanda permite mantener un menor stock de productos, disminuyendo así el costo financiero y manteniendo una mayor eficiencia en la administración de los recursos. A su vez, determinar los productos y combinaciones más populares puede conducir a promociones más efectivas, así como a disminuciones de costos por un mejor conocimiento de los insumos necesarios para su producción. Por último, los perfiles de cliente permiten ejecutar estrategias de fidelización: al conocer en detalle y de forma individual las compras que realiza cada cliente se puede determinar cuales son los clientes más importantes y en función de eso ofrecerles algún tipo de beneficio.
 
-\section{Modificación de precios}
-La modificación de precios puede ser realizada por el dueño, o por el cajero. Para modificar precios se utiliza el sistema de ABM de productos que provee el sistema. (ver ABM de productos)
 
-\section{ABM de productos}
-El ABM de productos, permite ingresar nuevos productos, es decir nuevas variedades de pizzas, empanadas, etc. Al ingresar un nuevo producto se debe ingresar un tiempo estimado de cocción y preparación. Por otro lado también se puede modificar los precios de los productos existentes, que no afectan a los pedidos ya registrados. Finalmente, también se puede dar de baja productos, por ejemplo productos que se venden muy poco.
+% FIXME: esto voló porque así no tiene sentido, si alguien tiene ganas de expandirlo se puede devolver
+% Pero bueno, un ABM es un ABM, no se si merece estar acá
 
+%\section{ABM de productos}
+%El ABM de productos, permite ingresar nuevos productos, es decir nuevas variedades de pizzas, empanadas, etc. Al ingresar un nuevo %producto se debe ingresar un tiempo estimado de cocción y preparación. Por otro lado también se puede modificar los precios de los %productos existentes, que no afectan a los pedidos ya registrados. Finalmente, también se puede dar de baja productos, por ejemplo productos que se venden muy poco.
 %TODO: hacer operaciones abm
 
 \section{ABM de stock}
-El ABM de stock permite realizar altas, bajas y modificaciones de los kits y demas insumos para la elaboración de productos. Ademas permite modificar el valor critico de cada insumo, de modo que el sistema pueda utilizar dicho valor para alertar al encargado de stock cuando la cantidad disponible de un producto descienda por debajo de dicho valor. La notificación se realiza con un mensaje en pantalla 
+El ABM de stock permite realizar altas, bajas y modificaciones de los kits y demás insumos para la elaboración de productos. Además, permite modificar el valor crítico de cada insumo, de modo que el sistema pueda utilizar dicho valor para alertar al encargado de stock cuando la cantidad disponible de un producto descienda por debajo de dicho valor. La notificación se realiza con un mensaje en pantalla o mediante correo electrónico si esto se considerara conveniente.
 
-Para ver como funciona el control por stock critico, analicemos las siguientes FSM, en las que se modela un ingreso de pedidos que consumen cierta cantidad de un stock determinado (figura \ref{ingresoDePedidos}) por simplicidad estamos usando que solo consume cierta cantidad de un insumo, pero se puede extender relativamente facil a varios insumos. El control de stock esta modelado en la FSM de la figura \ref{stockCritico}, como vemos, el sistema permite que se ingresen pedidos, pero cuando la cantidad de stock es menor al valor critico se produce un aviso, y luego se permite igualmente seguir ingresando pedidos. Cuando el encargado de stock \ref{encargadoStock} observa el aviso puede ingresar nuevos productos aumentando el stock. Entonces el sistema vuelve a monitorear el valor del stock para avisar si queda bajo el valor critico. En particula si el encargado deja el stock en un valor inferior al critico, el sistema volvera a mostrar el mensaje de stock critico.
+Para ver como funciona el control por stock crítico, proponemos las siguientes FSM en las que se modela un ingreso de pedidos que consumen cierta cantidad de un stock determinado (figura \ref{ingresoDePedidos}). Por simplicidad, asumimos que solo consume cierta cantidad de un único insumo, pero se puede extender relativamente fácil el modelo para considerar el caso general, aunque a costa de claridad en la lectura. 
 
-En estas FSM utilizamos la variable, $stock : [0..MAX]$ que comienza inicializada en STOCK un valor constante. %TODO: ver q esta inicializacion aparezca en el diagrama
-Por otro lado $critico$, $k$ y $n$ son valores constantes.
+El control de stock esta modelado en la FSM de la figura \ref{stockCritico}. Como vemos, el sistema permite que se ingresen pedidos, pero cuando la cantidad de stock es menor al valor crítico, se produce un aviso y luego se permite igualmente seguir ingresando pedidos. Cuando el encargado de stock (\ref{encargadoStock}) observa el aviso puede incrementar los valores asociados a cada insumo, aumentando así el stock. Entonces, el sistema vuelve a monitorear el valor del stock para alertar si queda nuevamente bajo el valor crítico. En particula, si el encargado deja el stock en un valor inferior al crítico, el sistema volverá a mostrar el mensaje de stock crítico.
+
+En estas FSM utilizamos la variable $stock : [0..MAX]$ que comienza inicializada en $STOCK$ (un valor constante). 
+$critico$, $k$ y $n$ son valores constantes.
+%TODO: ver q esta inicializacion aparezca en el diagrama
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{./figuras/fsmingresador.png}
-\caption{FSM ingresar pedidos}
+\caption{FSM Ingreso de pedido}
 \label{fsmIngresador}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{./figuras/fsmstockcritico.png}
-\caption{FSM aviso stock critico}
+\caption{FSM Aviso de stock crítico}
 \label{fsmstockcritico}
 \end{figure}
 
@@ -563,5 +569,5 @@ Por otro lado $critico$, $k$ y $n$ son valores constantes.
 \label{fsmIngresoPedidos}
 \end{figure}
  
-Entonces FSM Control de stock critico = FSM ingresar pedidos $||$ FSM aviso stock critico $||$ FSM responsable de stock
+Finalmente FSM Control de stock crítico = FSM ingresar pedidos $||$ FSM aviso stock crítico $||$ FSM responsable de stock
 
