@@ -1,15 +1,13 @@
 \chapter{Descripción General}
-Dado que uno de los aspectos principales del problema es la organización de los pedidos, es una parte fundamental del producto controlar el estado de los mismo, permitir su ingreso controlado, asi como brindar un seguimiento que permita conocer que pasa con los pedidos ingresados. Por otro lado se espera que el software sea capaz de interactuar con diversos tipos de clientes a fin de lograr variadas formas de ingreso de pedidos.
 
-El sistema deberá ademas ser capaz de brindar estadisticas que permitan estudiar el funcionamiento del negocio, asi como también realizar un seguimiento de los productos vendidos a fin de lograr buenos precios.
-%\textcolor{Blue}{Esta sección busca describir los factores generales que afectan al producto y sus requerimientos. No se detallan aquí los requerimientos específicos, pero provee un conocimiento básico general para dichos requerimientos.}
+Dado que uno de los aspectos principales del problema es la organización de los pedidos, es una parte fundamental del producto controlar el estado de los mismos, permitir su ingreso controlado y brindar un seguimiento que permita conocer qué pasa con los mismos. Por otro lado, se espera que el software sea capaz de interactuar con diversos tipos de clientes a fin de lograr variadas formas de ingreso de pedidos.
+
+El sistema deberá además ser capaz de brindar estadísticas que permitan estudiar el funcionamiento del negocio, así como también de interactuar con diversos sistemas externos para lograr estos objetivos. En particular, son de interés el sistema de facturación del negocio y un sistema de pagos por tarjeta de crédito.
 
 \section{Perspectiva del producto}
-El producto es autocontenido en lo referente a la gestion de los pedidos, asi como también en el manejo del stock de productos e insumos. Sin embargo el software no se encarga de la facturación, ya que la misma
-%\textcolor{Blue}{Esta sección encuadra el producto en la perspectiva con otros productos relacionados. Si el producto es independiente y totalmente autocontenido, dicha situación debería explicitarse aquí.}
+El producto es autocontenido en lo referente a la gestion de los pedidos, así como también en el manejo del stock de productos e insumos. Sin embargo el software no se encarga de la facturación, ya que la misma es responsabilidad del sistema de facturación que está actualmente instalado en la pizzería.
 
 \section{Funciones principales del producto} 
-%\textcolor{Blue}{Esta sección debería proveer un resumen de las funciones principales que el producto debe realizar. }
 
 El sistema se encarga de monitorear el ciclo de vida de los pedidos que se realizan a la pizzería y el stock de las materias primas. Es responsable también de la optimización del uso del horno, la estimación de lapsos de producción y entrega, y por último de conservar un registro de los eventos de interés con fines estadísticos. 
 
@@ -24,7 +22,7 @@ En todo momento el encargado de pedidos puede reordenar la cola de pedidos, o ca
 El sistema no es responsable de la logística de la distribución ni de la interacción directa con los clientes que no utilizan los medios Web o SMS. Tampoco existen operaciones automatizadas que afecten al negocio: todo lo que el sistema hace es coordinar a los actores que participan. El proceso de preparación y cocción de los alimentos es totalmente manual, así como lo es la reposición del stock y el armado de los pedidos para su posterior entrega.
 
 \section{Características de los usuarios}
-%\textcolor{Blue}{Esta sección debería describir las características generales de los usuarios para los que está pensado el producto.} 
+
 
 Dadas las características mencionadas anteriormente sobre el producto, resulta imprescindible que los usuarios que interactúan con el sistema tengan conocimiento de como utilizarlo.
 
@@ -35,16 +33,12 @@ Si bien no se requieren empleados con conocimientos tecnicos, si se espera que e
 Con respecto a los clientes, aquellos que quieran realizar pedidos via WEB deberán saber como desempeñarse en internet, es decir tener mínimos conocimientos del uso de un navegador de internet y como ingresar a las distintas paginas. Los usuarios que quieran utilizar el servicio, haciendo un pedido mediante mensajes de tipo SMS deberán saber como utilizar un teléfono celular para enviar los mensajes, además saber cual es el número al cual deben enviarlos para que el sistema los reciba. Aquellos usuarios que utilicen el teléfono, deberán saber como realizar una llamada y cual es el número telefónico del local.
 
 \section{Restricciones}
-Dado que a nivel presupuestario no hay restricciones, en principio la solución no cuenta con limitaciones a nivel hardware. Basicamente se espera que las terminales del local sean computadoras actuales.
 
-Con respecto al lenguaje o plataforma de desarrollo, tampoco se presentaron restricciones. %Intentamos hacerlo en haskell pero al maestro no le gustaba el pattern matching, probamos con hq9+ pero no era turing completo y no nos alcanzo :D
+Dado que a nivel presupuestario no se estipularon restricciones, en principio la solución propuesta no cuenta con limitaciones a nivel de hardware. Sin embargo, no hay razón para suponer que el sistema requiera de un poder de cómputo extraordinario, y por lo tanto es de esperarse que sea suficiente contar con computadoras actuales de potencia media. Los mozos deberán contar con una PDA cada uno, y los maestros deberán interactuar con el sistema gracias a una terminal de pantalla táctil, puesto que el uso de un teclado en la cocina puede traer problemas sanitarios. Por último, el encargado de pedidos deberían contar con una computadora convecional pero sería bueno que disponga de un monitor de buen tamaño ya que debe poder monitorear mucha información.
 
-%TODO: no me da la cara para seguir escribiendo
-
-%\textcolor{Blue}{Esta sección debería proveer una descripción general de cualquier cuestión que limite las opciones del desarrollador (ej, regulaciones, limitaciones de hardware, requerimientos sobre lenguajes de alto nivel, etc.)}
+Respecto al lenguaje o plataforma de desarrollo, no existen restricciones tampoco más que el sistema utilizado sea capaz de utilizar el hardware previamente descripto.
 
 %TODO: si se pone algo descomentar, lo comente porq ya me veo q lo entregamos en blanco
 %\section{Supuestos y dependencias}
-%TODO: aca tampoco
 %\textcolor{Blue}{Esta sección debería enumerar cada uno de los factores que afectan los requerimientos declarados en el documento. Estos factores no son restricciones de diseño del software, sino más bien representan cuestiones cuyo cambio puede afectar los requerimientos.}
 
