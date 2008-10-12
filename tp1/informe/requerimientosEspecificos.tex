@@ -24,13 +24,31 @@ Por últmo cabe aclarar que este diagrama representa el modo de operación normal.
 \includegraphics[angle=90,width=16cm]{./figuras/ContextoNormal.png}
 \end{figure}
 
+
+
+
 \section{Objetivos de la solución y requerimientos del sistema}
-A continuación se presenta el diagrama de objetivos de la solución, junto con un detalle de los requerimientos del sistema. 
+
+A continuación se presenta el diagrama de objetivos de la solución, junto con un detalle de los requerimientos del sistema que corresponden a los objetivos de bajo nivel. Los requerimientos del sistema están marcados en el diagrama en color verde, y sus agentes asociados aparecen en color naranja para facilitar su diferenciación. 
+
+A raíz de su tamaño, el grafo de objetivos se presenta particionado en 5 fragmentos, cada uno seguido de los requerimientos que aparecen en él. En primer lugar se muestra la parte superior del diagrama, donde se observa únicamente el objetivo de primer nivel: mejorar el rendimiento de la pizzería para aumentar las ganancias. Éste se bifurca en 5 objetivos de segundo nivel según lo elicitado a partir del documento presentado por el cliente:
+\begin{itemize}
+\item Mantener el control del stock
+\item Generar promociones efectivas
+\item Lograr información estadística de funcionamiento
+\item Lograr un buen rendimiento de la cocina
+\item Lograr mejor atención al cliente
+\end{itemize}
+
+Cada uno de estos objetivos se refinó progresivamente hasta lograr discernir en el diagrama los requerimientos sobre el sistema a construir. Al momento de refinar, se excluyeron explícitamente refinamientos que no resultaban determinantes para el sistema, así como muchas expectativas sobre agentes que se considera que no aportan a la especificación y complican la legibilidad. Se puso especial atención a que el diagrama enfatice los problema específicos planteados por los clientes, como ser la toma de pedidos que no pueden ser satisfechos o evitar quedarse sin stock de algún insumo.
+
+
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=13cm,angle=90]{./figuras/DiagramaObjetivos4.png}
+\includegraphics[height=10cm]{./figuras/DiagramaObjetivos4.png}
+\caption{Raíz del árbol de objetivos del sistema}
 \end{figure}
 
 \begin{landscape}
@@ -270,13 +288,18 @@ envía el mensaje, y que éste corresponda con algún cliente que se encuentre regi
 de producción, la politica de asignación, etc.}
 {Se desea estimar el tiempo de preparación de los pedidos, para contribuir a una mejor atención de los clientes.}
 
+\newpage
 
 \section{Casos de Uso}
+
+A continuación se describen mediante la herramienta de Casos de Uso todas las posibles interacciones de agentes con el sistema. El objeto de esta descripción es permitir observar todos los parámetros en juego en las interfases del sistema, así como servir de guía para la posterior implementación del sistema.
+
+Se presenta en primer lugar el diagrama de Casos de Uso, que contiene todas las posibles interacciones así como sus vínculos con los agentes involucrados. A continuación se presenta el detalle de cada caso de uso con las operaciones que involucra, y vínculos de trazabilidad con los requerimientos antes descriptos.
 
 \subsection{Diagrama de Casos de Uso}
 \begin{figure}[H]
 \centering
-\includegraphics[height=21cm]{./figuras/casosdeuso.png}
+\includegraphics[height=18cm]{./figuras/casosdeuso.png}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
