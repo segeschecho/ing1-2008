@@ -19,7 +19,7 @@ En breve, un proceso ingresa al sistema cuando es requerido por un cliente por a
 
 Los estados presentados tienen utilidad para el sistema puesto que existe la necesidad de indicar al cliente sobre el estado de su pedido. Así, se podrá indicar si un pedido está siendo preparado o ya fue enviado al destinatario. Si bien para estos fines alcanza con 3 estados (preparando, enviando, finalizado), se agregan los demás con fines de control para el sistema. Además, la granularidad más fina permite al sistema hacer predicciones y organizar de formas más eficientes el uso de los recursos. Por ejemplo, el controlar los tiempos de preparación por separado de los de horneado, resulta más sencillo, en caso de un cuello de botella en la cocina, determinar cual es el factor limitante.
 
-En la figura \ref{cicloPedido} se observan los posibles estados de un pedido y las transiciones que pueden realizarse entre dos de ellos. Si bien este modelo carece de formalidad, es útil como una primera aproximación a la dinámica del sistema.
+En la figura \ref{cicloPedido} se observan los posibles estados de un pedido (no compuesto por solo bebidas) y las transiciones que pueden realizarse entre dos de ellos. Si bien este modelo carece de formalidad, es útil como una primera aproximación a la dinámica del sistema.
 
 \begin{figure}[H]
 \centering
@@ -139,7 +139,7 @@ Entonces, la FSM de la figura \ref{fsmIngresoPedidos} modela el ingreso de pedid
 
 Se observa en esta FSM que durante el estado de armado de un pedido se seleccionan distintos productos con una cantidad dada de cada uno de ellos. Cuando el pedido está armado, se intenta hacer el pedido. En esa situación, el mismo puede ser ingresado o puede ser cancelado, pudiendo intentar hacer un pedido diferente o desistir.
 
-En la figura \ref{fsmChequeoStock} vemos la FSM que se encarga de controlar el stock para evitar el ingreso de pedidos no satisfacibles. Esta FSM toma esta decisión en base a la cantidad de stock disponible y de los productos necesarios para preparar el pedido en cuestión.
+En la figura \ref{fsmChequeoStock} vemos la FSM que se encarga de controlar el stock para evitar el ingreso de pedidos no satisfacibles. Esta FSM toma esta decisión en base a la cantidad de stock disponible y de los productos necesarios para preparar el pedido en cuestión. Las guardas largas en esta FSM lo que hacen es controlar que el stock alcance para que el pedido que se intenta ingresar pueda ser satisfecho. 
 
 La FSM que regula el ingreso de pedidos en base al stock se obtiene como:
 FSM Ingreso Controlado de Pedidos = FSM ingreso de pedidos 1 $||$ ... $||$ FSM ingreso de pedidos k $||$ FSM chequeo de stock
@@ -464,7 +464,7 @@ De esta manera, el encargado de pedidos es el único agente que utiliza el sistem
 \begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=17cm]{./figuras/ContextoContingencia.png}
+\includegraphics[width=23cm]{./figuras/ContextoContingencia.png}
 \caption{Diagrama de contexto de contingencia}
 \end{figure}
 \end{landscape}
@@ -479,7 +479,7 @@ A continuación, se presentan brevemente los casos de uso presentes cuando el sis
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=16cm]{./figuras/casosDeUsoContingencia.png}
+\includegraphics[height=18cm]{./figuras/casosDeUsoContingencia.png}
 \end{figure}
 
 

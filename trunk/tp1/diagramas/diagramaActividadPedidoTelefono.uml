@@ -591,7 +591,7 @@
 <XPD:ATTR name="Height" type="integer">1425</XPD:ATTR>
 <XPD:REF name="Model">ImCQGu/oukGKY2gLc/hxLAAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="LabelView" guid="qTYMRLibh0eSPTBdCf1BrQAA">
-<XPD:ATTR name="Text" type="string">¿Pedido mixto?</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Sistema</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedViews[1]" type="UMLSwimlaneView" guid="FUx8t3JZ0kGxme+Yk4Q+6QAA">
@@ -2701,7 +2701,7 @@
 </XPD:OBJ>
 <XPD:ATTR name="#Partitions" type="integer">4</XPD:ATTR>
 <XPD:OBJ name="Partitions[0]" type="UMLPartition" guid="ImCQGu/oukGKY2gLc/hxLAAA">
-<XPD:ATTR name="Name" type="string">¿Pedido mixto?</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Sistema</XPD:ATTR>
 <XPD:REF name="ActivityGraph">LbLlzk/he0ublQY7hCOAowAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">1</XPD:ATTR>
 <XPD:REF name="Views[0]">hWdPvwLZlkWWdofdGve1uAAA</XPD:REF>
