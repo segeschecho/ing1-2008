@@ -305,7 +305,7 @@ de producción, la politica de asignación, etc.}
 \op{12. El sistema pide al sistema bancario verificar si la tarjeta tiene fondos}{}
 \op{13. Si el pago con tarjeta es posible, el sistema espera que el cliente confirme el pedido}{13. Sino Ir al paso 2}
 \op{14. El cliente presiona el boton de enviar pedido}{}
-\op{15. El sistema verifica si el pedido es viable}{}
+\op{15. El sistema verifica si el pedido es viable (ver figura 4.3 FSM Chequeo de stock para m'as detalle)}{}
 \op{16. Si el pedido es posible, ir al siguiente paso}{16. Si el pedido no es posible, se muestra mensaje de error al cliente indicando qu'e productos no estan disponibles. Ir al paso 2}
 \op{17. Si el cliente eligi'o pagar con tarjeta, el sistema indica al sistema bancario que haga el pago}{}
 \op{18 El sistema registra el pedido como ingresado}{}
@@ -313,7 +313,7 @@ de producción, la politica de asignación, etc.}
 \op{20. El sistema brinda al cliente un id de pedido para que luego consulte el estado del pedido si lo necesita}{}
 \op{21. Fin CU}{}
 
-\cu{Realizando pedido web}{Cliente, Sistema bancario}{3, 4, 5, 6, 24, 29, 30, 33}{TRUE}{Pedido registrado}{El cliente ingresa un pedido al sistema desde la pagina web}
+\cu{Realizando pedido web}{Cliente, Sistema bancario}{3, 4, 5, 6, 24, 29, 30, 33}{TRUE}{Pedido registrado}{El cliente ingresa un pedido al sistema desde la pagina web (el diagrama de actividades de este caso de uso se puede ver en la secci'on de ingreso de pedidos remotos (4.2.1))}
 
 %Ingresando feedback
 \op{1. El cliente ingresa a la página web de feedback}{}
@@ -346,7 +346,7 @@ de producción, la politica de asignación, etc.}
 \op{2. El cliente env'ia un mensaje al sistema con el pedido a solicitar}{}
 \op{3. El sistema verifica si el número desde donde proviene el mensaje est'a registrado con algún cliente}{}
 \op{4. Si el n'umero no se encuentra registrado, el sistema responde al cliente sugiri'endole registrarse por tel'efono o personalmente y el pedido es descartado. Ir a Fin CU}{3. Si el número est'a registrado pero el mensaje no corresponde con ningún código se notifica al cliente que el código no es válido}
-\op{5. El sistema verifica si es posible satisfacer el pedido}{}
+\op{5. El sistema verifica si es posible satisfacer el pedido (ver figura 4.3 FSM Chequeo de stock para m'as detalle)}{}
 \op{6. Si es posible se ingresa el pedido al sistema y se envia al usuario un mensaje, notific'andole que su pedido est'a ingresado, el importe total, el tiempo de demora aproximado y el c'odigo de pedido para realizar consultas sobre el mismo}{6. Sino el sistema le env'ia un mensaje al cliente avis'andole que el pedido no podr'a ser satisfecho, informando adem'as qu'e producto/s no est'an disponibles}
 \op{7. El sistema actualiza el stock}{}
 \op{8. Fin CU}{}
@@ -357,7 +357,7 @@ de producción, la politica de asignación, etc.}
 \op{2. El sistema registra el 'ultimo pedido que le orden'o preparar al maestro como preparado}{}
 \op{3. Si hay pedido para preparar el sistema le informa que debe preparar a continuación. EXTIENDE caso de uso Siendo informado de proximo pedido a preparar}{} 
 \op{4. Fin CU}{}
-\cu{Indicando pedido preparado}{Maestro}{8, 10, 13, 33}{El maestro tiene un pedido en preparación}{El pedido se registra como preparado}{El maestro, luego de preparar un pedido, indica al sistema que el mismo est'a preparado}
+\cu{Indicando pedido preparado}{Maestro}{8, 10, 13, 33}{El maestro tiene un pedido en preparación}{El pedido se registra como preparado}{El maestro, luego de preparar un pedido, indica al sistema que el mismo est'a preparado (el diagrama de actividades de este caso de uso se puede ver en la secci'on de ingreso de pedidos remotos (4.2.1))}
 
 % Siendo informado de proximo pedido a preparar
 \op{1. El sistema indica al maestro preparar el primer pedido en la cola de pedidos a preparar y espera que el maestro confirme}{}
@@ -376,14 +376,14 @@ de producción, la politica de asignación, etc.}
 \op{6. Si es as'i, el sistema registra al pedido como listo}{}
 \op{7. Si hay productos para cocinar el sistema le informa al maestro que de debe poner a continuación. EXTIENDE caso de uso Siendo informado de proximo producto a cocinar}{}
 \op{8. Fin CU}{}
-\cu{Indicando producto cocinado}{Maestro}{8, 11, 12, 14, 15}{True}{La parte de pedido se registra como cocinada}{El maestro, luego de cocinar una parte de un pedido, indica al sistema que la misma est'a cocinada}
+\cu{Indicando producto cocinado}{Maestro}{8, 11, 12, 14, 15}{True}{La parte de pedido se registra como cocinada}{El maestro, luego de cocinar una parte de un pedido, indica al sistema que la misma est'a cocinada  (este caso de uso se relaciona con el diagrama de actividad al informar productos cocinados (secci'on 4.7 Cola de horno))}
 
 % Siendo informado de proximo producto a cocinar
 \op{1. El maestro pide al sistema que pedido debe cocinar a continuaci'on}{}
 \op{2. El sistema indica al maestro una parte a cocinar}{}
 \op{3. Si es la primera parte de un pedido, el sistema cambia el estado del mismo a ``en horno''}{}
 \op{4. Fin CU}{}
-\cu{Siendo informado de proximo producto a cocinar}{Maestro}{8, 11, 12, 14, 15}{La cola del horno no est'a vac'ia}{La parte comienza a cocinarse}{El sistema le ordena al maestro que parte de pedido debe cocinar}
+\cu{Siendo informado de proximo producto a cocinar}{Maestro}{8, 11, 12, 14, 15}{La cola del horno no est'a vac'ia}{La parte comienza a cocinarse}{El sistema le ordena al maestro que parte de pedido debe cocinar  (este caso de uso se relaciona con el diagrama de actividad al informar productos cocinados (secci'on 4.7 Cola de horno))}
 
 % Siendo requerido ingreso de stock reutilizable
 \op{1. El sistema indica al maestro que el pedido en preparaci'on fue cancelado}{}
@@ -398,12 +398,12 @@ de producción, la politica de asignación, etc.}
 \op{1. El cliente informa al mozo lo que quiere pedir}{}
 \op{2. El mozo marca en su PDA los productos que el cliente pide con sus respectivas cantidades}{}
 \op{3. Cuando el cliente informó todo el pedido, el mozo ingresa el pedido}{}
-\op{4. El sistema verifica si el pedido es posible}{}
+\op{4. El sistema verifica si el pedido es posible (ver figura 4.3 FSM Chequeo de stock para m'as detalle)}{}
 \op{5. Si el pedido se puede tomar, el sistema genera el id del pedido, calcula el costo total, y si no era de solo bebidas, estima el tiempo del mismo, y muestra estos datos al mozo}{5. Sino el sistema indica mediante un mensaje de error que producto/s no estaba/n disponible/s, y el mozo le comunica al cliente sobre la situaci'ion. Ir a paso 1}
 \op{6. El sistema actualiza el stock}{}
 \op{7. Fin CU}{}
 
-\cu{Realizando pedidos mesa}{Mozo}{3, 4, 5, 6, 23, 30, 33}{TRUE}{El pedido de la mesa queda registrado}{El cliente del local hace un pedido a un mozo, quien ingresa el pedido}
+\cu{Realizando pedidos mesa}{Mozo}{3, 4, 5, 6, 23, 30, 33}{TRUE}{El pedido de la mesa queda registrado}{El cliente del local hace un pedido a un mozo, quien ingresa el pedido (el diagrama de actividades de este caso de uso se puede ver en la secci'on de ingreso de pedidos locales (4.2.2))}
 
 % Cerrando pedido de mesa
 \op{1. El cliente llama al mozo}{}
@@ -442,7 +442,7 @@ de producción, la politica de asignación, etc.}
 \op{15. El sistema modifica la cantidad en stock del insumo}{}
 \op{16. Fin CU}{}
 
-\cu{Haciendo ABM de stock}{Encargado de stock}{2}{TRUE}{El stock queda actualizado con las modificaciones}{Se puede hacer alta, baja y modificaci'on de insumos y kits comprados o caducados}
+\cu{Haciendo ABM de stock}{Encargado de stock}{2}{TRUE}{El stock queda actualizado con las modificaciones}{Se puede hacer alta, baja y modificaci'on de insumos y kits comprados o caducados (los diagramas de m'aquina de estado explican un poco m'as en la secci'on 4.14 ABM de stock la relaci'on de este caso de uso con el caso de uso Siendo notificado de stock cr'itico)}
 
 % Siendo notificado de stock critico
 \op{1. El sistema detecta que la cantidad de un insumo es por debajo del nivel cr'itico}{}
@@ -450,7 +450,7 @@ de producción, la politica de asignación, etc.}
 \op{3. El encargado de stock confirma al sistema que el mensaje le lleg'o}{}
 \op{4. Fin CU}{}
 
-\cu{Siendo notificado de stock cr'itico}{Encargado de stock}{1}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on}
+\cu{Siendo notificado de stock cr'itico}{Encargado de stock}{1}{Alg'un kit o insumo est'a por debajo del nivel cr'itico}{Surge una advertencia de stock cr'itico}{En caso de que el stock de algun producto quede por debajo de un nivel cr'itico, el sistema avisar'a al encargado de stock de esta situaci'on (los diagramas de m'aquina de estado explican un poco m'as en la secci'on 4.14 ABM de stock la relaci'on de este caso de uso con el caso de uso Siendo notificado de stock cr'itico)}
 
 % Consultando informacion estadistica
 \op{1. Si el dueño desea observar información estadistica sobre un producto ir a paso 2, sino ir a paso 6}{}
@@ -546,7 +546,7 @@ de producción, la politica de asignación, etc.}
 \op{8. Si el tel'efono registrado no coincide con el tel'efono desde el cual est'a llamando pero el cliente tiene usuario y clave, el encargado le pide al cliente que este indique usuario y clave y verifica}{8. Si el tel'efono registrado no coincide con el tel'efono desde el cual el cliente est'a llamando y el cliente no tiene usuario y clave informar que no es posible tomar el pedido e ir a Fin CU}
 \op{9. El encargado de pedidos indica al cliente que le dicte el pedido}{}
 \op{10. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema}{}
-\op{11. El sistema verifica si es posible satisfacer el pedido}{}
+\op{11. El sistema verifica si es posible satisfacer el pedido (ver figura 4.3 FSM Chequeo de stock para m'as detalle)}{}
 \op{12. Si el pedido es posible y no es de solo bebida, el sistema estima el tiempo del mismo, calcula el costo total y el encargado se lo comunica al cliente, sino el sistema indica mediante un mensaje de error que producto/s no estaba/n disponible/s, para que el encargado se lo comunique al cliente. Ir a paso 9}{}
 \op{13. Si era de solo bebida, se registra el pedido como listo y se calcula el costo total, se lo comunica al cliente}{}
 \op{14. El sistema actualiza el stock}{}
@@ -554,7 +554,7 @@ de producción, la politica de asignación, etc.}
 \op{16. El sistema genera el identificador de pedido y notifica al encargado de pedidos sobre estos datos, para que el encargado se lo notifique al cliente}{}
 \op{17. Fin CU}{}
 
-\cu{Registrando pedido telef'onico}{Encargado de pedidos}{3, 4, 5, 6, 30, 33}{True}{Pedido ingresado al sistema}{El cliente quiere hacer un pedido por v'ia telef'onica, el encargado de pedidos lo atiende y luego de verificar los datos ingresa el pedido al sistema}
+\cu{Registrando pedido telef'onico}{Encargado de pedidos}{3, 4, 5, 6, 30, 33}{True}{Pedido ingresado al sistema}{El cliente quiere hacer un pedido por v'ia telef'onica, el encargado de pedidos lo atiende y luego de verificar los datos ingresa el pedido al sistema (el diagrama de actividades de este caso de uso se puede ver en la secci'on de ingreso de pedidos remotos (4.2.1))}
 
 \op{1. El encargado de pedidos indica al sistema que desea consultar el estado de un pedido}{}
 \op{2. El sistema pide al encargado que ingrese el identificador o cliente del pedido quiere consultar}{}
@@ -574,7 +574,7 @@ de producción, la politica de asignación, etc.}
 \op{4. El encargado indica al sistema que desea ingresar un pedido de mostrador}{}
 \op{5. El encargado de pedidos indica al cliente que le dicte el pedido}{}
 \op{6. Una vez finalizado, el encargado de pedidos intenta ingresar el pedido al sistema}{}
-\op{7. El sistema verifica si es posible satisfacer el pedido}{}
+\op{7. El sistema verifica si es posible satisfacer el pedido (ver figura 4.3 FSM Chequeo de stock para m'as detalle)}{}
 \op{8. Si el pedido es posible y tiene alguna empanada o pizza, el sistema estima el tiempo del mismo, calcula el costo total y el encargado se lo comunica al cliente, sino el sistema indica mediante un mensaje de error que producto/s no estaba/n disponible/s, para que el encargado se lo comunique al cliente. Ir a paso 5}{}
 \op{9. Si solo tenia bebidas, el pedido se ingresa como listo y se calcula el total}{}
 \op{10. El sistema actualiza el stock}{}
