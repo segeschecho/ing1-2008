@@ -68,7 +68,7 @@ Otra cosa que debemos notar es como desde que ingresa hasta que es entregado el 
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{./figuras/fsmPedido}
+\includegraphics[scale=0.5]{./figuras/fsmpedido}
 \caption{FSM Pedido = FSM cliente $||$ FSM encargado de pedidos $||$ FSM delivery $||$ FSM Maestro $||$FSM sistema}
 \end{figure}
 
@@ -320,7 +320,13 @@ A continuación, mostramos algunos prototipos de pantalla de la interfaz que tend
 \caption{Prototipo de la vista de la cola de pedidos del encargado. El puede mover un pedido dandole mas o menos prioridad, en el ejemplo dio mas prioridad al pedido 4 recien ingresado}
 \end{figure}
 
-%operacion pedir proximo pedido a preparar
+\begin{figure}[H]
+\centering
+\includegraphics[height=15cm]{./figuras/PedidoPreparado.png}
+\caption{Diagrama de actividad de la operación que se desecadena cuando el Maestro Pizzero indica que terminó de preparar un pedido}
+\end{figure}
+
+
 %TODO: aca hay que hacer diagramas seguro, pero no se me ocurren
 
 \section{Cola de horno} 
