@@ -462,6 +462,7 @@ Del diagrama observamos como las funciones principales en las que antes interact
 
 Es muy importante notar la sobrecarga de trabajo del encargado de pedidos. La cantidad de tareas que debe desarrollar lo convierten en un cuello de botella para el funcionamiento de la pizzería, sin embargo dado que este escenario es para un caso de contingencia, en teoria un caso improbable, esta sobrecarga del encargado puede ser tolerada.
 
+%FIXME: Leer esto y revisar, esta en BETA
 \subsection{Casos de uso contingencia}
 
 A continuación se presentan brevemente los casos de uso presentes cuando el sistema esta en estado de contingencia
@@ -483,9 +484,10 @@ A continuaci'on describiremos brevemente los casos de uso en modo contingencia:
 \item Notificando pedido despachado, Registrando cliente, Consultando estado de pedido y Cancelando pedido: estos casos de uso quedan igual a los casos en modo normal.
 \item Registrando pedido: este caso de uso reemplaza a Registrando pedido telef'onico y Registrando pedido de mostrador. Su funcionamiento es igual a los anteriores.
 \item Haciendo ABM de stock y Siendo notificado de stock cr'itico: ahora el encargado de pedidos asume las responsabilidades del encargado de stock. Estos son los mismos casos de uso que antes, aunque el actor es el encargado de pedidos.
+\item Siendo requerido ingreso de stock reutilizable: luego de cancelar un pedido en preparacion, el sistema pide al encargado de pedidos que ingrese el stock reutilizable. El encargado pregunta al maestro cual es el stock reutilizable y luego el encargado de pedidos lo ingresa, similar al caso de uso normal.
 \end{itemize}
 
-Notese que la geeración de archivo para facturaci'on en modo contingencia no est'a a cargo del sistema, por lo cual se realiza manualmente y est'a a cargo del cajero, como se puede ver en el diagrama de contexto de contingencia. Tambi'en queda fuera de este modo la consulta de estad'isticas, los pedidos por sms y, como ya fue dicho, el alta y baja de productos, ya que no son necesidades cr'iticas durante contingencia.
+Notese que la generación de archivo para facturaci'on en modo contingencia no est'a a cargo del sistema, por lo cual se realiza manualmente y est'a a cargo del cajero, como se puede ver en el diagrama de contexto de contingencia. Tambi'en queda fuera de este modo la consulta de estad'isticas, los pedidos por sms y, como ya fue dicho, el alta y baja de productos, ya que no son necesidades cr'iticas durante contingencia.
 
 Los casos de uso de la alternativa de contingencia, son los que permiten satisfacer los requerimientos 16,17 y 18, ya que estos requerimientos eran los que establecian que el sistema debería ser capaz de funcionar con solo el puesto del encargado en estado funcional.
 
