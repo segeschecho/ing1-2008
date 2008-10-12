@@ -191,7 +191,7 @@ A continuación se detallan una serie de restricciones adicionales al modelo conc
 
 \restr{Si tomamos todos los pedidos que esperan por un horno, vale que las posiciones son únicas y además están en el rango de la cantidad de pedidos que esperan por ese horno}
 {Orden de cocción}
-{self.posición $>=$ 1 and self.posicion $<=$ Pedido.allInstances() \flecha select(p$|$p.hornoDe = self.pedidoEnPosicion.hornoDe) \flecha size() and Orden de coccion.allInstances() \flecha forall(o$|$ (o \noig self and o.pedidoEnPosicion.hornoDe = self.pedidoEnPosicion.hornoDe) implies self.posición \noig o.posición)}
+{self.posición $>=$ 1 and self.posicion $<=$ Pedido.allInstances() \flecha select(p$|$p.hornoDe = self.pedidoEnPosicion.hornoDe) \flecha size() and Orden de coccion.allInstances() \flecha forall(o $|$ (o \noig self and o.pedidoEnPosicion.hornoDe = \\ self.pedidoEnPosicion.hornoDe) implies self.posición \noig o.posición)}
 
 \subsubsection{Pedido}
 \restr{Los identificadores de pedido son únicos}
@@ -216,35 +216,38 @@ A continuación se detallan una serie de restricciones adicionales al modelo conc
  
 \restr{Un pedido al horno tiene por lo menos algo cocinado o en el horno}
 {Pedido}
-{self.estado = Al Horno implies self.itemDe \flecha select(i $|$ i.producto.isKindOf(Comida)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first())->exits(c $|$ c.cantidadAlHorno + c.cantidadCocinada $>$ 0)}
+{self.estado = Al Horno implies self.item \flecha select(i $|$ i.producto.isKindOf(Comida)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first())->exits(c $|$ c.cantidadAlHorno + c.cantidadCocinada $>$ 0)}
 
 \restr{La cantidad de productos cocinados no excede la capacidad del horno}
 {Horno}
-{Coccion.allInstances()\flecha select(c$|$c.itemDe.producto.isKindOf(comida) and c.itemDe.pedido.hornoDe.includes(self)) \flecha collect(c $|$ if c.itemDe.producto.isKindOf(empanda) then c.cantidadEnElHorno $/$ self.empanadasXModulo else c.cantidadEnElHorno $/$ self.pizzasXModulo).sum() $<=$ self.cantidadDeModulos}
+{Coccion.allInstances()\flecha select(c$|$c.itemDe.producto.isKindOf(comida) and c.itemDe.pedido.hornoDe.includes(self)) \flecha collect(c $|$ if c.itemDe.producto.isKindOf(empanda) then c.cantidadEnElHorno $/$ self.empanadasXModulo else c.cantidadEnElHorno $/$ self.pizzasXModulo).sum() $<=$ self.cantidadDeModulos}
 
 \restr{La cantidad de empanadas de un pedido que se está cocinando es múltiplo del tamaño del módulo del horno salvo que no queden más empanadas por cocinar (por ejemplo si al pedido solo le quedaban 3 empanadas y entran 4 por módulo)}
 {Pedido}
-{pedido.estado = Al Horno implies ( self.itemDe \flecha select(i $|$ i.producto.isKindOf(Empanada)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha collect(cantidadEnElHorno).sum().mod(self.horno \flecha  asOrderedSet() \flecha first().empanadasXModulo ) = 0 or self.itemDe \flecha select(i $|$ i.producto.isKindOf(Empanada)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadEnElHorno - c.cantidadCocinada = 0))}
+{pedido.estado = Al Horno implies ( self.item \flecha select(i $|$ i.producto.isKindOf(Empanada)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha collect(cantidadEnElHorno).sum().mod(self.horno \flecha  asOrderedSet() \flecha first().empanadasXModulo ) = 0 or self.item \flecha select(i $|$ i.producto.isKindOf(Empanada)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadEnElHorno - c.cantidadCocinada = 0))}
 
 \restr{La cantidad de pizzas de un pedido que se están cocinando es múltiplo del tamaño del módulo del horno salvo que no queden más pizzas por cocinar}
 {Pedido}
-{pedido.estado = Al Horno implies (self.itemDe \flecha select(i $|$ i.producto.isKindOf(Pizza)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha collect(cantidadEnElHorno).sum().mod(self.horno \flecha asOrderedSet() \flecha first().pizzasXModulo) = 0 or self.itemDe \flecha select(i $|$ i.producto.isKindOf(Pizza)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadEnElHorno - c.cantidadCocinada = 0))}
+{pedido.estado = Al Horno implies (self.item \flecha select(i $|$ i.producto.isKindOf(Pizza)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha collect(cantidadEnElHorno).sum().mod(self.horno \flecha asOrderedSet() \flecha first().pizzasXModulo) = 0 or self.item \flecha select(i $|$ i.producto.isKindOf(Pizza)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadEnElHorno - c.cantidadCocinada = 0))}
 
 \restr{La cantidad de empanadas cocinadas de un pedido es múltiplo del tamaño del módulo del horno, salvo que se cocinaran todas las del pedido}
 {Pedido}
-{pedido.estado = Al Horno implies (self.itemDe \flecha select(i $|$ i.producto.isKindOf(Empanada)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha collect(cantidadCocinada).sum().mod(self.horno\flecha asOrderedSet() \flecha first().empanadasXModulo) = 0 or self.itemDe \flecha select(i $|$ i.producto.isKindOf(Empanada)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadCocinada = 0))}
+{pedido.estado = Al Horno implies (self.item \flecha select(i $|$ i.producto.isKindOf(Empanada)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha collect(cantidadCocinada).sum().mod(self.horno\flecha asOrderedSet() \flecha first().empanadasXModulo) = 0 or self.item \flecha select(i $|$ i.producto.isKindOf(Empanada)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha forall(c $|$ c.item.cantidad - c.cantidadCocinada = 0))}
 
 \restr{La cantidad de pizzas cocinadas de un pedido es múltiplo del tamaño del módulo del horno, salvo que se cocinaran todas las pizzas del mismo}
 {Pedido}
-{pedido.estado = Al Horno implies (self.itemDe \flecha select(i $|$ i.producto.isKindOf(Pizza)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha collect(cantidadCocinada).sum().mod(self.horno \flecha asOrderedSet() \flecha first().PizzasXModulo) = 0 or self.itemDe \flecha select(i $|$ i.producto.isKindOf(Pizza)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadCocinada = 0))}
+{pedido.estado = Al Horno implies (self.item \flecha select(i $|$ i.producto.isKindOf(Pizza)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha collect(cantidadCocinada).sum().mod(self.horno \flecha asOrderedSet() \flecha first().PizzasXModulo) = 0 or self.item \flecha select(i $|$ i.producto.isKindOf(Pizza)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha forall(c $|$ c.itemDe.cantidad - c.cantidadCocinada = 0))}
 
 \restr{Si hay política normal, en cada horno hay a lo sumo un pedido en cocción parcial, es decir con cosas cocinadas y cosas sin cocinar}
 {Pedido}
-{(self.estado = Al horno and self.hornoDe\flecha asOrderedSet().first().politicasDe = Normal ) implies (self.itemDe \flecha select(i $|$ i.producto.isKindOf(Comida)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha exists(c $|$ c.itemDe.cantidad \noig c.cantidadCocinada + c.cantidadAlHorno) implies Pedidos.allInstances() \flecha forall(p $|$ (p \noig self and p.estado = self.estado and p.hornoDe = self.hornoDe)  implies (p.itemDe \flecha select(i $|$ i.producto.isKindOf(Comida)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first())).forall(c $|$ c.itemDe.cantidad = c.cantidadCocinada + c.cantidadAlHorno)))}
+{(self.estado = Al horno and self.hornoDe\flecha asOrderedSet().first().politicasDe = Normal ) implies (self.item \flecha select(i $|$ i.producto.isKindOf(Comida)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first()) \flecha exists(c $|$ c.itemDe.cantidad \noig c.cantidadCocinada + c.cantidadAlHorno) implies Pedidos.allInstances() \flecha forall(p $|$ (p \noig self and p.estado = self.estado and p.hornoDe = self.hornoDe)  implies (p.item \flecha select(i $|$ i.producto.isKindOf(Comida)) \flecha collect(coccionDe \flecha asOrderedSet() \flecha first())).forall(c $|$ c.itemDe.cantidad = c.cantidadCocinada + c.cantidadAlHorno)))}
 
 Hay una restricción similar que vale para la política ágil, en cuyo caso hay a lo sumo 2 pedidos al horno a medio cocinar y uno de ellos es chico. Dicho invariante es muy largo y engorroso de escribir en OCL por lo que decidimos omitir su especificación.
 
 \restr{Un pedido local sin forma de pago es de tipo mesa}
 {Pedido Local}
 {Self.formaDePago \flecha isEmpty() implies self.origen = Mesa}
+
+
+Por ultimo, elegimos string para los numeros de telefono porque podrian empezar con 0s. Ocl provee una operacion para pasar un string a Integer pero desconocemos que ocurre si la conversion no se puede realizar, por lo que decidimos explicar este invariante en castellano.
 
