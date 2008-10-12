@@ -320,12 +320,21 @@ A continuación, mostramos algunos prototipos de pantalla de la interfaz que tend
 \caption{Prototipo de la vista de la cola de pedidos del encargado. El puede mover un pedido dandole mas o menos prioridad, en el ejemplo dio mas prioridad al pedido 4 recien ingresado}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[height=15cm]{./figuras/PedidoPreparado.png}
-\caption{Diagrama de actividad de la operación que se desecadena cuando el Maestro Pizzero indica que terminó de preparar un pedido}
-\end{figure}
+Modelaremos la forma en la que se obtiene el proximo pedido a preparar luego de que el maestro informa que termino de preparar un pedido mediante operaciones, como necesitamos que devuelvan el proximo pedido, usaremos queries sin contexto. Supongamos que el que termino es el maestro pizzero y que hay algun pedido para entrar, la idea es buscar primero entre los mixtos que ya empezo el empanadero, y elegir de entre estos el que entro primero, ya que decidimos que una vez que entran a la cocina los pedidos se manejan de la forma First in First Out. Si no hay ninguno en preparacion se busca en la cola de ingreso. Si aca tampoco hay ninguno el sistema no avisa nada al maestro, pero para simplificar vamos a suponer que hay algun pedido en alguna de las dos colas.
 
+\textbf{ProximoPedidoPizzero():Pedido} = if PedidosEnPreparacionEmpanadera()\flecha notEmpty() then PrimerPedidoPizzeroEnPreparacion() else PrimerPeddioPizzeroCola()
+
+\textbf{PrimerPedidoPizzeroEnPreparacion():Pedido} = PedidosEnPreparacionEmpanadera() \flecha select( p $|$ PedidosEnPreparacionEmpanadera() \flecha forall( p2 $|$ p2.PreparacionDePedido \flecha asOrderedSet() \flecha first.fechaComienzo $>= $  \\ p.PreparacionDePedido \flecha asOrderedSet() \flecha first.fechaComienzo )) \flecha asOrderedSet() \flecha first()
+
+\textbf{esMixto(p:pedido):Boolean} = p.productos \flecha exists( pr $|$ pr.isKindOf(Empanada)) and p.productos \flecha exists(pr $|$ pr.isKindOf(Pizza))
+
+\textbf{TienePizzasPorPreparar(p: pedido): Boolean} = p.PreparacionDePedido \flecha asOrderedSet() \flecha first.PartePreparada \noig Pizzas
+
+\textbf{PedidosEnPreparacionEmpanadera():Set(Pedido)} = Pedidos.allInstances() \flecha select( p $|$ p.estado = En Preparacion and esMixto(p) and TienePizzasPorPreparar(p))
+
+\textbf{PedidosPizzerosCola():Set(Pedido)} = Pedidos.allInstances() \flecha select( p $|$ p.estado = ingresado and p.productos.exists( pr $|$  pr.isKindOf(Pizza)))
+
+\textbf{PrimerPedidoPizzeroCola():Pedido} = PedidosPizzerosCola() \flecha Select( p $|$ PedidosPizzerosCola() \flecha forall( p2 $|$ p2.posicionPreparacion \flecha asOrderedSet() \flecha first.posicion >= p.posicionPreparacion \flecha asOrderedSet() \flecha first.posicion)) \flecha asOrderedSet() \flecha first
 
 %TODO: aca hay que hacer diagramas seguro, pero no se me ocurren
 
