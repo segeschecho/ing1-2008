@@ -175,6 +175,7 @@ Una vez autentificado el usuario, el mismo procede a dictar su pedido al encarga
 
 Si el pedido ingresa con éxito, el sistema lo registra en el estado Ingresado. Se genera además un identificador único de pedido, se estima el tiempo de entrega del mismo y se calcula el costo total. Además si el pedido es mixto, se brinda al encargado la posibilidad de seleccionar el horno donde se cocinará el pedido.
 
+El siguiente diagrama de actividad permite ilustrar esta situación:
 \begin{figure}[H]
 \centering
 \includegraphics[height=18cm]{./figuras/diagramaActividadTelefono}
@@ -187,6 +188,7 @@ Si el pedido ingresa con éxito, el sistema lo registra en el estado Ingresado. S
 \caption{Partes comunes en el ingreso de pedido}
 \end{figure}
 
+Una cosa que queremos hacer notar del diagrama es que permite observar la relación existente entre el caso de uso de ingreso de pedido telefónico y el regisro de un nuevo cliente. En el diagrama de casos de uso podiamos ver esta relación mediante un extiende, en el diagrama podemos ver claramente la misma relación: Si el cliente no estaba registrado, puede optar por registrarse y hacer el pedido o no hacer el pedido.
 
 \subsubsection{Pedidos Web}
 Para que los clientes puedan realizar pedidos vía Web, la pizzería contará con una sitio en línea. El cliente que desee hacer un pedido por esta vía debe ingresar a la página y autentificarse con su nombre de usuario y contraseña, que previamente habrá obtenido como se describió en \ref{pedidotelefonico}.
@@ -203,6 +205,9 @@ Una vez que el pedido fue ingresado, si se pagaba con tarjeta, se hace efectivo 
 \caption{Diagrama de actividad del ingreso de un pedido Web}
 \end{figure}
 
+En este diagrama podemos ver que muchos de los pasos son comunes al ingreso de pedidos telefónicos, sin embargo hay dos grandes diferencias que queremos marcar. En primer lugar en al hacer un pedido web, este puede pagarse en el momento mediante la interacción con el sistema de tarjetas de credito. Y en segundo lugar, vemos que en este caso a diferencia de en el anterior, la asignacion del horno es automatica, no es hecha por el encargado de pedidos.
+
+%TODO: sanatear como
 
 \subsubsection{Pedidos SMS}
 El cliente que desee realizar un pedido vía SMS debe enviar un mensaje al servidor SMS de la pizzería, junto con el pedido que quiere hacer. Para ésto, su número de celular debe estar registrado en la base de datos del sistema. Si el celular no estaba registrado, el sistema descarta el pedido y le envía al cliente un mensaje indicándole la necesidad de registrar su número de celular, y el número para comunicarse telefónicamente y proceder a dicho registro.
@@ -260,22 +265,22 @@ Una vez registrado, el usuario puede en otro momento solicitar modificar algún d
 
 Veamos operacionalmente como funciona el registro de un usuario. La siguiente operación permite registrar un usuario nuevo sin datos Web ni SMS:
 
-\begin{funcion}{RegistroUsuario}{nombreC: String, apellidoC: String, CalleC: String, NumeroC: Integer, LocalidadC: String, DepartamentoC: String, TelefonoC: Integer}{}{}
-   \precond{Direccion.allInstances()->forall(d $|$ d.telefono \noig TelefonoC}
+\begin{funcion}{RegistroUsuario}{nombreC: String, apellidoC: String, CalleC: String, NumeroC: Integer, LocalidadC: String, DepartamentoC: String, TelefonoC: String}{}{}
+   \precond{Direccion.allInstances() \flecha forall(d $|$ d.telefono \noig TelefonoC}
 
-   \poscond{Cliente.allInstances() \flecha size() = Cliente@pre.allinstances() \flecha size() + 1}
-   \poscond{(Cliente.allInstances() -  Cliente@pre.allInstances()) $\rightarrow$ forall(c | c.oclIsNew() and c.Nombre = nombreC and c.apellido = apellidoC) }
+   \poscond{Cliente.allInstances() \flecha size() = Cliente@pre.allInstances() \flecha size() + 1}
+   \poscond{(Cliente.allInstances() -  Cliente@pre.allInstances()) $\rightarrow$ forall(c $|$ c.oclIsNew() and c.Nombre = nombreC and c.apellido = apellidoC) }
    \poscond{Direccion.allInstances() \flecha size() = Direccion@pre.allInstances() \flecha size() + 1}
-   \poscond{(Direccion.allInstances() - Direccion@pre.allInstances()) \flecha forall(d | d.oclIsNew() and d.calle = CalleC and d.numero = NumercoC and d.localidad = LocalidadCand d.departamento = DepartamentoC and c.telefono = TelefonoC)}
+   \poscond{(Direccion.allInstances() - Direccion@pre.allInstances()) \flecha forall(d $|$ d.oclIsNew() and d.calle = CalleC and d.numero = NumercoC and d.localidad = LocalidadCand d.departamento = DepartamentoC and c.telefono = TelefonoC)}
 \end{funcion}
 
 
 De forma análoga se pueden definir operaciones que agreguen datos para realizar pedidos por SMS o vía Web. A modo de ejemplo, veamos la operación para el agregado de datos Web:
 
-\begin{funcion}{RegistroUsuario}{c:Cliente, nick:String, clave:String}{}{}
-   \precond{DatoWeb@pre.allinstances().pass$\rightarrow$ includes(nick)}
+\begin{funcion}{AgregarDatosWeb}{c:Cliente, nick:String, clave:String}{}{}
+   \precond{not (DatoWeb@pre.allinstances().pass$\rightarrow$ includes(nick))}
+   \precond{Clientes.allInstances()->includes(c)}
    \precond{c.userYPass()$\rightarrow$ isEmpty()}
-
    \poscond{DatoWeb.allinstances() $\rightarrow$ size() = DatoWeb@pre.allinstances() $\rightarrow$ size()+1}
    \poscond{(DatoWeb.allinstances() - DatoWeb@pre.allinstances())$\rightarrow$ forall(d | d.usr = nick and d.pass = clave and d.datosDe = c)}
 \end{funcion}
@@ -327,19 +332,19 @@ A continuación exhibimos un prototipo de pantalla de la interfaz que tendrá el e
 
 Modelaremos la forma en la que se obtiene el próximo pedido a preparar luego de que el maestro informa que terminó de preparar un pedido mediante operaciones. Como es necesario que la operación en cuestión devuelva el próximo pedido, utilizamos \textit{queries} libres de contexto. Supongamos que el maestro pizzero terminó su labor e indica al sistema de esta situación. Al mismo tiempo, hay un pedido listo para comenzar a ser preparado. La idea es buscar primero entre los pedidos mixtos que ya empezó a preparar el empanadero, y elegir de entre estos el que entró primero, ya que decidimos que una vez que entran a la cocina los pedidos se manejan según una política \textit{first in first out} (FIFO). Si no hay ningun pedido en preparación por parte del otro maestro, se busca en la cola de ingreso. En caso de que no hubiera pedidos en esta última cola tampoco, el sistema no indica al maestro que prepare nada. Suponemos por simplicidad que existe un pedido en alguna de las dos colas.
 
-\textbf{ProximoPedidoPizzero():Pedido} = if PedidosEnPreparacionEmpanadera()\flecha notEmpty() then PrimerPedidoPizzeroEnPreparacion() else PrimerPeddioPizzeroCola()
+\textbf{ProximoPedidoPizzero():Pedido} = if PedidosEnPreparacionEmpanadera()\flecha notEmpty() then PrimerPedidoPizzeroEnPreparacion() else PrimerPedidoPizzeroCola()
 
-\textbf{PrimerPedidoPizzeroEnPreparacion():Pedido} = PedidosEnPreparacionEmpanadera() \flecha select( p $|$ PedidosEnPreparacionEmpanadera() \flecha forall( p2 $|$ p2.PreparacionDePedido \flecha asOrderedSet() \flecha first.fechaComienzo $>= $  \\ p.PreparacionDePedido \flecha asOrderedSet() \flecha first.fechaComienzo )) \flecha asOrderedSet() \flecha first()
+\textbf{PrimerPedidoPizzeroEnPreparacion():Pedido} = PedidosEnPreparacionEmpanadera() \flecha select( p $|$ PedidosEnPreparacionEmpanadera() \flecha forall( p2 $|$ p2.PreparacionDePedido \flecha asOrderedSet() \flecha first().fechaComienzo $>= $  \\ p.PreparacionDePedido \flecha asOrderedSet() \flecha first().fechaComienzo )) \flecha asOrderedSet() \flecha first()
 
 \textbf{esMixto(p:pedido):Boolean} = p.productos \flecha exists( pr $|$ pr.isKindOf(Empanada)) and p.productos \flecha exists(pr $|$ pr.isKindOf(Pizza))
 
-\textbf{TienePizzasPorPreparar(p: pedido): Boolean} = p.PreparacionDePedido \flecha asOrderedSet() \flecha first.PartePreparada \noig Pizzas
+\textbf{TienePizzasPorPreparar(p: pedido): Boolean} = p.PreparacionDePedido \flecha asOrderedSet() \flecha first().PartePreparada \noig Pizzas
 
 \textbf{PedidosEnPreparacionEmpanadera():Set(Pedido)} = Pedidos.allInstances() \flecha select( p $|$ p.estado = En Preparacion and esMixto(p) and TienePizzasPorPreparar(p))
 
-\textbf{PedidosPizzerosCola():Set(Pedido)} = Pedidos.allInstances() \flecha select( p $|$ p.estado = ingresado and p.productos.exists( pr $|$  pr.isKindOf(Pizza)))
+\textbf{PedidosPizzerosCola():Set(Pedido)} = Pedidos.allInstances() \flecha select( p $|$ p.estado = ingresado and p.productos \flecha exists( pr $|$  pr.isKindOf(Pizza)))
 
-\textbf{PrimerPedidoPizzeroCola():Pedido} = PedidosPizzerosCola() \flecha Select( p $|$ PedidosPizzerosCola() \flecha forall( p2 $|$ p2.posicionPreparacion \flecha asOrderedSet() \flecha first.posicion >= p.posicionPreparacion \flecha asOrderedSet() \flecha first.posicion)) \flecha asOrderedSet() \flecha first
+\textbf{PrimerPedidoPizzeroCola():Pedido} = PedidosPizzerosCola() \flecha Select( p $|$ PedidosPizzerosCola() \flecha forall( p2 $|$ p2.posicionPreparacion \flecha asOrderedSet() \flecha first().posicion $>=$ p.posicionPreparacion \flecha asOrderedSet() \flecha first().posicion)) \flecha asOrderedSet() \flecha first
 
 Cuando uno de los maestros indica que terminó de preparar su parte, se dispara la búsqueda del próximo pedido a fin de notificarlo inmediatamente. Si no hay pedidos que puedan ser preparados, cuando llegue uno que pueda ser atendido por el maestro, el sistema se lo indicará de inmediato.
 El diagrama \ref{DiagramaProxPedido} nos permite ver las actividades que realiza el sistema cuando el maestro informa que terminó de preparar un pedido. Notemos que la búsqueda que realiza el sistema coincide con lo descripto por la operación antes definida.
@@ -395,17 +400,17 @@ Pedido.allInstances() \flecha  select (p $|$ p.estado = ingresado and p.posicion
 Esta operación calcula el tiempo de preparación de un pedido en base a los tiempos de sus productos:
 
 \textbf{TiempoPreparacion(p:Pedido):Integer\\}
-p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p)  \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoPreparacion) \flecha sum()
+p.productos \flecha select(pr $|$ pr.isKindOf(Comida)) \flecha collect(pr $|$ pr.item \flecha select(i $|$ i.pedidos = p)  \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoPreparacion) \flecha sum()
 
 Esta operación permite calcular el tiempo de cocción de un pedido que tiene partes ya cocinadas:
 
 \textbf{TiempoDeCocciónAlHorno(p:Pedido): Integer\\}
-p.itemDe \flecha select(i $|$ i.producto.isKindOf(com)) \flecha collect(coccionDe \flecha  asOrderedSet() \flecha first()) \flecha collect(c $|$ c.itemDe.productos.\\ asOclType(Comida).tiempoCoccion * (c.itemDe.cantidad - c.cantidadCocinada)) \flecha sum() 
+p.item \flecha select(i $|$ i.productos.isKindOf(Comida)) \flecha collect(coccionDe \flecha  asOrderedSet() \flecha first()) \flecha collect(c $|$ c.itemDe.productos.\\ asOclType(Comida).tiempoCoccion * (c.itemDe.cantidad - c.cantidadCocinada)) \flecha sum() 
 
 Esta operación nos permite obtener el tiempo de cocción de un pedido en base a los de sus productos:
 
 \textbf{TiempoDeCoccion(p:Pedido): Integer\\ }
-p.productos \flecha select(pr $|$ pr.iskindof(comida)) \flecha collect(pr $|$ pr.items() \flecha select(i $|$ i.pedidos = p) \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(comida).tiempoCocion) \flecha sum()
+p.productos \flecha select(pr $|$ pr.isKindOf(Comida)) \flecha collect(pr $|$ pr.item \flecha select(i $|$ i.pedidos = p) \flecha asOrderedSet() \flecha first().cantidad * pr.asOclType(Comida).tiempoCocion) \flecha sum()
 
 Por último estas 3 operaciones nos permiten obtener los pedidos que están en preparación, preparados (y esperan para el mismo horno que $p$ tiene asignado) y aquellos que se están cocinando en el horno asignado a $p$:
 
@@ -425,8 +430,8 @@ Con estas operaciones auxiliares, estimamos entonces el tiempo hasta que $p$ est
 
 \textbf{EstimarTiempo(p: Pedido): Integer \\}
 pedidosAdelantePreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPrepracion(p1)) \flecha Sum() + pedidosEnPreparacion \flecha collect(p1 $|$ TiempoDeCoccion(p1) + TiempoPreparacion(p1)) \flecha Sum() + 
-PedidosColaHorno(p) \flecha collect(p1 $|$ TiempoDeCoccion(p1)) +
-PedidosHorno(p) \flecha collect(p1 $|$ TiempoDeCocionAlHorno(p1))
+PedidosColaHorno(p) \flecha collect(p1 $|$ TiempoDeCoccion(p1)) \flecha sum() +
+PedidosHorno(p) \flecha collect(p1 $|$ TiempoDeCocionAlHorno(p1)) \flecha sum() +
 TiempoPreparacion(p) + TiempoCoccion(p)
 
 
