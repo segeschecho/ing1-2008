@@ -205,9 +205,13 @@ Una vez que el pedido fue ingresado, si se pagaba con tarjeta, se hace efectivo 
 \caption{Diagrama de actividad del ingreso de un pedido Web}
 \end{figure}
 
-En este diagrama podemos ver que muchos de los pasos son comunes al ingreso de pedidos telefónicos, sin embargo hay dos grandes diferencias que queremos marcar. En primer lugar en al hacer un pedido web, este puede pagarse en el momento mediante la interacción con el sistema de tarjetas de credito. Y en segundo lugar, vemos que en este caso a diferencia de en el anterior, la asignacion del horno es automatica, no es hecha por el encargado de pedidos.
+En este diagrama podemos ver que muchos de los pasos son comunes al ingreso de pedidos telefónicos, sin embargo hay dos grandes diferencias que queremos marcar. En primer lugar en al hacer un pedido web, este puede pagarse en el momento mediante la interacción con el sistema de tarjetas de credito. Y en segundo lugar, vemos que en este caso a diferencia de en el anterior, la asignacion del horno a un pedido mixto es automatica, no es hecha por el encargado de pedidos.
 
-%TODO: sanatear como
+El horno que se asigna es el que tenga menos tiempo de espera estimado, donde el tiempo de espera estimado se obtiene como la suma de los tiempos de coccion estimado de los productos de los pedidos que esperan por un horno. Describimos a continuación la operación (como Query sin contexto) que permite obtener el horno que corresponde.
+
+TiempoEsperaHorno(h:Horno):Integer = h.pedidos \flecha select( p $|$ p.estado = preparado or p.estado = Ingresado or p.estado = en preparacion) \flecha collect(p $|$ p.productos \flecha select(pr $|$ pr.isKindOf(Comida)) \flecha collect( pr $|$ pr.asOclType(Comida).tiempoDeCoccion) \flecha sum() ) \flecha sum()
+
+HornoAIngresar():Horno = Horno.allInstances() \flecha select( h $|$ Horno.allInstances()->forAll(h1 $|$ TiempoEsperaHorno(h) $<=$ TiempoEsperaHorno(h1)))->asOrderedSet()->first()
 
 \subsubsection{Pedidos SMS}
 El cliente que desee realizar un pedido vía SMS debe enviar un mensaje al servidor SMS de la pizzería, junto con el pedido que quiere hacer. Para ésto, su número de celular debe estar registrado en la base de datos del sistema. Si el celular no estaba registrado, el sistema descarta el pedido y le envía al cliente un mensaje indicándole la necesidad de registrar su número de celular, y el número para comunicarse telefónicamente y proceder a dicho registro.

@@ -4432,7 +4432,7 @@
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[4]" type="UMLAttribute" guid="J2g0OQoOKUOxPxAWm786BAAA">
 <XPD:ATTR name="Name" type="string">Telefono</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">Integer</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
 <XPD:REF name="Owner">L18nfncg9kiOrjwxUx16jAAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
