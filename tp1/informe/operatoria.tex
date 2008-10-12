@@ -336,6 +336,16 @@ Modelaremos la forma en la que se obtiene el proximo pedido a preparar luego de 
 
 \textbf{PrimerPedidoPizzeroCola():Pedido} = PedidosPizzerosCola() \flecha Select( p $|$ PedidosPizzerosCola() \flecha forall( p2 $|$ p2.posicionPreparacion \flecha asOrderedSet() \flecha first.posicion >= p.posicionPreparacion \flecha asOrderedSet() \flecha first.posicion)) \flecha asOrderedSet() \flecha first
 
+Cuando uno de los maestros ingresa que termino de preparar se dispara la busqueda del proximo pedido a fin de notificarlo inmediatamente. Si no hay pedido, cuando llegue uno que pueda ser atendido por el maestro, este se le mostrara de inmediato.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{./figuras/PedidoPreparado.png}
+\caption{Diagrama de actividad: Indicar pedido preparado}
+\end{figure}
+
+El diagrama \ref{DiagramaProxPedido} nos permite ver las actividades que realiza el sistema cuando el maestro informa que termino un pedido. Notemos que la busqueda que realiza el sistema coincide con lo descripto por la operacion antes definida
+
 %TODO: aca hay que hacer diagramas seguro, pero no se me ocurren
 
 \section{Cola de horno} 
