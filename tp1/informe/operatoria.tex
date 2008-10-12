@@ -315,21 +315,17 @@ A continuación presentamos un diagrama de actividad donde se ponen de manifiesto
 \end{figure}
 
 
-% FIXME: comienzo de parte sin revisar
-
 \section{Cola de pedidos}
-Por cola de pedidos se entiende la cola que determina el orden en el cual se prepararan los pedidos ingresados al sistema. La cola es la que determina que pedido ingresado debe comenzar a preparse a continuación. Dicha cola se gestiona de manera automatica, pero puede ser modificada por el encargado de pedidos. Ni bien un producto pasa a preparse, es decir se comienza a preparar cualquiera de sus partes el mismo deja de estar en esta cola.
+Se entiende por ``cola de pedidos'' a la cola que determina el orden en el cual se prepararán los pedidos ingresados al sistema. Esta cola es la que determina qué pedido ingresado debe comenzar a preparse a continuación. Dicha cola se gestiona de manera automática, pero su orden puede ser modificado manualmente por el encargado de pedidos. Ni bien un producto comienza a prepararse (en su totalidad o alguna de sus partes), el mismo deja de pertenecer a esta cola. Cuando todas las partes de un pedido fueron preparadas, el pedido deja de estar en preparación para pasar a estar en estado preparado. 
 
-Cuando todas las partes de un pedido fueron preparados, el pedido deja de estar en preparación para pasar a estar en estado de preparado.
-
-A continuación, mostramos algunos prototipos de pantalla de la interfaz que tendra el encargado de pedidos con la cola
+A continuación exhibimos un prototipo de pantalla de la interfaz que tendrá el encargado de pedidos para controlar la cola de pedidos. Usando esta interfaz, el encargado puede reubicar un pedido para aumentar o disminuir su prioridad. En el ejemplo, el encargado ha dado una prioridad mayor al pedido 4 que fue ingresado recientemente.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{./figuras/pantallaColaPedido3.png}
-\caption{Prototipo de la vista de la cola de pedidos del encargado. El puede mover un pedido dandole mas o menos prioridad, en el ejemplo dio mas prioridad al pedido 4 recien ingresado}
+\caption{Prototipo de la vista de la cola de pedidos del encargado}
 \end{figure}
 
-Modelaremos la forma en la que se obtiene el proximo pedido a preparar luego de que el maestro informa que termino de preparar un pedido mediante operaciones, como necesitamos que devuelvan el proximo pedido, usaremos queries sin contexto. Supongamos que el que termino es el maestro pizzero y que hay algun pedido para entrar, la idea es buscar primero entre los mixtos que ya empezo el empanadero, y elegir de entre estos el que entro primero, ya que decidimos que una vez que entran a la cocina los pedidos se manejan de la forma First in First Out. Si no hay ninguno en preparacion se busca en la cola de ingreso. Si aca tampoco hay ninguno el sistema no avisa nada al maestro, pero para simplificar vamos a suponer que hay algun pedido en alguna de las dos colas.
+Modelaremos la forma en la que se obtiene el próximo pedido a preparar luego de que el maestro informa que terminó de preparar un pedido mediante operaciones. Como es necesario que la operación en cuestión devuelva el próximo pedido, utilizamos \textit{queries} libres de contexto. Supongamos que el maestro pizzero terminó su labor e indica al sistema de esta situación. Al mismo tiempo, hay un pedido listo para comenzar a ser preparado. La idea es buscar primero entre los pedidos mixtos que ya empezó a preparar el empanadero, y elegir de entre estos el que entró primero, ya que decidimos que una vez que entran a la cocina los pedidos se manejan según una política \textit{first in first out} (FIFO). Si no hay ningun pedido en preparación por parte del otro maestro, se busca en la cola de ingreso. En caso de que no hubiera pedidos en esta última cola tampoco, el sistema no indica al maestro que prepare nada. Suponemos por simplicidad que existe un pedido en alguna de las dos colas.
 
 \textbf{ProximoPedidoPizzero():Pedido} = if PedidosEnPreparacionEmpanadera()\flecha notEmpty() then PrimerPedidoPizzeroEnPreparacion() else PrimerPeddioPizzeroCola()
 
@@ -345,49 +341,39 @@ Modelaremos la forma en la que se obtiene el proximo pedido a preparar luego de 
 
 \textbf{PrimerPedidoPizzeroCola():Pedido} = PedidosPizzerosCola() \flecha Select( p $|$ PedidosPizzerosCola() \flecha forall( p2 $|$ p2.posicionPreparacion \flecha asOrderedSet() \flecha first.posicion >= p.posicionPreparacion \flecha asOrderedSet() \flecha first.posicion)) \flecha asOrderedSet() \flecha first
 
-Cuando uno de los maestros ingresa que termino de preparar se dispara la busqueda del proximo pedido a fin de notificarlo inmediatamente. Si no hay pedido, cuando llegue uno que pueda ser atendido por el maestro, este se le mostrara de inmediato.
+Cuando uno de los maestros indica que terminó de preparar su parte, se dispara la búsqueda del próximo pedido a fin de notificarlo inmediatamente. Si no hay pedidos que puedan ser preparados, cuando llegue uno que pueda ser atendido por el maestro, el sistema se lo indicará de inmediato.
+El diagrama \ref{DiagramaProxPedido} nos permite ver las actividades que realiza el sistema cuando el maestro informa que terminó de preparar un pedido. Notemos que la búsqueda que realiza el sistema coincide con lo descripto por la operación antes definida.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{./figuras/PedidoPreparado.png}
 \caption{Diagrama de actividad: Indicar pedido preparado}
+\label{DiagramaProxPedido}
 \end{figure}
 
-El diagrama \ref{DiagramaProxPedido} nos permite ver las actividades que realiza el sistema cuando el maestro informa que termino un pedido. Notemos que la busqueda que realiza el sistema coincide con lo descripto por la operacion antes definida
 
-%TODO: aca hay que hacer diagramas seguro, pero no se me ocurren
+\section{Cola de Horno} 
+La cola del horno es una segunda cola que establece qué pedido (y en particular qué parte del mismo) se cocinará a continuación. Esta cola se gestiona también de manera automática. El maestro indica cuando retira del horno una parte de algún pedido. El sistema informa entonces qué productos deben ser colocados en el horno. A partir del momento en que alguna parte del pedido es marcada para entrar al horno, el pedido pasa al estado al horno. El sistema identifica qué parte está realmente en el horno, qué parte aún no ingresó y qué parte ya fue cocinada. Cuando todas las partes del pedido fueron cocinadas, se considera que el pedido fue cocinado y está en estado listo. Como dijimos, el sistema muestra qué debe de colocarse en el horno. Cuando el maestro saca algo del horno, debe indicárselo al sistema a fin de que este pueda establecer qué pedido el maestro debe insertar a continuación. 
 
-\section{Cola de horno} 
-La cola del horno es la cola que establece que pedido (que parte del mismo) se cocinara a continuación. La cola se gestiona también de manera automática. El maestro indica cuando saca algo de un pedido. El sistema informa que debe colocar al horno entonces. A partir del momento en que alguna parte del pedido es indicada para entrar al horno, el pedido pasa a ser considerado al horno. El sistema identifica que parte esta realmente en el horno, que parte aun no ingreso y que parte ya fue cocinada. Cuando todas las partes del pedido fueron cocinadas, se considera que el pedido fue cocinado. 
+La cola de ingreso al horno admite varias políticas, y una de ellas es la de sectores ágiles. En este caso, algunos módulos funcionan como módulos ágiles, lo que en este contexto significa que dan prioridad a los pedidos más chicos, tomando la idea de la política de \textit{scheduling} llamada \textit{Shortest First} (más corto primero), que se caracteriza por minimizar el tiempo de espera promedio. Bajo esta política, cuando se libera un modulo ágil y el maestro pregunta qué producto debe ingresar, el sistema tendrá en cuenta la existencia de pedidos más chicos que se puedan ingresar por completo al horno. El cambio de política es llevado a cabo por el encargado de pedidos, quien al cambiar la política a sectores ágiles debe ingresar cuales son los módulos ágiles. Las políticas de horno no se modifican a lo largo del día (se elige al iniciar el sistema por la mañana). Además, las políticas son globales (afectan del mismo modo a ambos hornos). El tamaño y cantidad de los módulos del horno es configurable, sin embargo no se considera necesario un caso de uso para hacer esto. Lo mismo ocurre con la definición de pedido ``chico'', puesto que no se espera que estos parámetros cambien con frecuencia.
 
-El sistema muestra que debe de colocarse en el horno. Cuando el maestro saca algo del horno, debe indicarselo al sistema a fin de que este pueda establecer que poner a continuación.
-
-La cola ingreso al horno admite varias politicas, una de ella es la de sectores agiles. En este caso, algunos modulos funcionan como modulos agiles y dan prioridad a los pedidos mas chicos. Es decir, que cuando se libera un modulo agil y el maestro pide que producto debe ingresar, el sistema tendra en cuenta la existencia de pedidos mas chicos que se puedan ingresar por completo al horno. 
-
-El cambio de politica es ingresado por el encargado de pedidos, quien al cambiar la politica a sectores agiles, debe ingresar cuales son los modulos agiles. Las políticas de horno no se modifican a lo largo del día (se elige al iniciar el sistema por la mañana). Además, es global (no es por horno).
-
-El tamaño y cantidad de los módulos del horno es configurable, sin embargo no se considera necesario un caso de uso para hacer esto. Lo mismo ocurre con la definición de pedido ``chico''.
-
-A continuación veremos en un diagrama de actividad las actividades que se producen cuando uno de los maestros indica que cocinó ciertos productos de un pedido. En el diagrama se nombra como pedido actual a aquel al cual pertenecen los productos que el maestro acaba de informar que termino de cocinar, ademas se considera que hay pedidos en la cola, de modo que el sistema debe informarle al maestro que poner a continuación, esto no ocurre siempre, ya que si cuando el maestro informa que cocino algo no hay nada en la cola del horno, el sistema no le informa que poner sino hasta que exista algun pedido que deba ingresar al horno.
+A continuación veremos en un diagrama de actividad las acciones que se producen cuando uno de los maestros indica que cocinó ciertos productos de un pedido. En el diagrama se nombra como pedido actual a aquel al cual pertenecen los productos que el maestro acaba de informar que terminó de cocinar. Además, se considera que hay pedidos en la cola, de modo que el sistema debe informarle al maestro qué poner a continuación (esto no ocurre siempre, ya que si cuando el maestro informa que cocinó algo no hay nada en la cola del horno, el sistema no le informa que poner sino hasta que exista algun pedido que deba ingresar al horno).
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{figuras/actividadProxPedido.png}
-\caption{Diagrama de actividad al informar productos cocinados}
+\caption{Diagrama de actividad: Informar productos cocinados}
 \end{figure}
 
-Lo que observamos es que en caso de politica agil el sistema debe ser informado de cuantos modulos agiles fueron liberados, esto podria evitarse si el sistema tuviera noción de que hay en cada modulo (ver posibilidades de mejora \ref{Extensiones}). Cuando se esta en politica agil lo que hace el sistema es buscar ocupar los modulos agiles, en la medida que se liberan, con pedidos chicos. En el caso de politica agil, puede ocurrir que existan dos pedidos con productos afuera del horno y dentro del horno. Por eso en el diagrama dice pedido actual y pedido chico actual. El pedido chico actual es un pedido chico que entro a cocinarse porque se libero algun modulo agil, pero quedo con alguno/s de sus productos sin cocinar
+Observamos que en el caso de política ágil el sistema debe ser informado de cuantos módulos ágiles fueron liberados. Esto podría evitarse si el sistema tuviera noción de qué productos están cocinándose en qué módulo (ver posibilidades de mejora en \ref{Extensiones}). Cuando se está bajo política agil el sistema intenta ocupar los módulos ágiles en la medida que se liberan utilizando pedidos chicos.Podría ocurrir entonces que existan dos pedidos con productos afuera del horno y dentro del horno, a diferencia de la política normal donde a lo sumo un pedido puede estar parcialmente cocinado. Por esta razón el diagrama diferencia pedido actual y pedido chico actual: el pedido chico actual es un pedido chico que entró a cocinarse porque se liberó algun modulo ágil, pero quedó con alguno de sus productos sin cocinar.
+% FIXME: esta última aclaración oscurece más de lo que aclara
 
-%Diagrama de actividad pedir proximo pedido
 
 \section{Consulta de estado de pedidos}
 
-Tanto el cliente como el encargado de pedidos pueden consultar el estado de un pedido determinado. El cliente puede hacerlo via web o mediante el encargado de pedidos por una llamada telefonica. Para consultar el estado de un pedido via web, el usuario tiene que autentificarse primero. Una vez autentificado podra acceder a la opción de consultar estado de sus pedidos. El sistema lista entonces los pedidos del usuario pendientes de entrega con su estado. 
+Tanto el cliente como el encargado de pedidos pueden consultar el estado de un pedido determinado. El cliente puede hacerlo vía Web o mediante una llamada telefónica al encargado de pedidos que lo puede consultar personalmente en su terminal del sistema. Para averiguar el estado de un pedido vía Web, el usuario tiene que autentificarse primero. Una vez autentificado podrá acceder a la opción de consultar estado de sus pedidos. El sistema lista entonces los pedidos del usuario pendientes de entrega junto con su estado.  Análogamente, el encargado de pedidos puede ingresar un número de pedido para revisar su estado o ver los pedidos asociados a un cliente.
 
-Por otro lado, de manera similar el encargado de pedidos puede ingresar un número de pedido para revisar su estado o ver los pedidos de un cliente.
-
-%% FIXME: fin parte sin revisar
 
 
 \subsection{Estimación de Tiempos}

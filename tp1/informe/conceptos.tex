@@ -1,5 +1,5 @@
 \section{Conceptos del Sistema}
-A continuacion presentaremos un diagrama de conceptos que pretende modelar los principales conceptos visibles en nuestra solución. El mismo pretende brindar una visión completa de lo que el sistema puede observar
+A continuación presentaremos un diagrama de conceptos que pretende modelar los principales conceptos visibles en nuestra solución. El mismo intenta brindar una visión completa de lo que el sistema puede observar.
 
 \subsection{Diagrama de modelo conceptual}
 \begin{figure}
@@ -28,17 +28,15 @@ Un \textbf{Cliente} puede o no tener asociadas las clases \textbf{Datos SMS} y \
 
 Por último, en la parte superior izquierda del diagrama está registrada información referente a la cocción de los pedidos. En particular, se asocia un pedido a un \textbf{Horno}(o a ninguno en caso de que el pedido estuviera compuesto únicamente de bebidas). Dicho horno tiene una \textbf{Política} donde se almacenan datos de interés para el cálculo de operaciones e invariantes. La clase \textbf{Cocción} es la que almacena información sobre cocciones parciales, y debe estar asociada a un pedido siempre que este esté en estado \textit{Al Horno}. Esta clase indica qué cantidad de qué productos ya fueron cocinados o se encuentran en el horno.
 
-%FIXME: aclarar que no se guarda historia
+Es  de destacar que el sistema no guarda registros históricos de la información que es propia de cada estado. Los únicos estados definitivos que puede adquirir un pedido y que se espera persistan una vez que se finaliza el pedido son Cancelado y Finalizado, que registran algunas informaciones importantes como la razón de cancelación y la hora de finalización del pedido que es de suma utilidad para fines estadísticos. El registro de las informaciones que se descartan son objeto de una propuesta de mejora en la sección correspondiente.
+
 %FIXME: aclarar otras versiones q se descartaron por consulta con docentes: por ejemplo clase cola de preparación descartada por ser solo una instancia, herencia de pedidos, estados rel con pedidos, etc
 
-%FIXME: esto lo vuelo, no tiene sentido total
-%\subsection{Diccionario de datos}
 
 \subsection{Restricciones al modelo conceptual}
 
 A continuación se detallan una serie de restricciones adicionales al modelo conceptual que no son aparentes sobre el diagrama. Para especificarlas se utiliza OCL, y completan el modelo conceptual de sistema ajustando algunos invariantes que deben preservarse en él.
 
-% Feduchin acá podés separar en subsubsection por contexto
 %FIXME: algunas se van del margen
 
 \subsubsection{Finalizacion}
@@ -230,7 +228,7 @@ body: self.itemDe \flecha select(i $|$ i.producto.isKindOf(com)) \flecha collect
 \restr{La cantidad de productos cocinados no excede la capacidad del horno}
 {Horno}
 {Coccion.allInstances()\flecha select(c$|$c.itemDe.producto.isKindOf(comida) and c.itemDe.pedido.hornoDe.includes(self)) \flecha collect(c $|$ if c.itemDe.producto.isKindOf(empanda) then c.cantidadEnElHorno $/$ self.empanadasXModulo else c.cantidadEnElHorno $/$ self.pizzasXModulo).sum() $<=$ self.cantidadDeModulos}
-%TODO: numeros de telefono positivos?
+%FIXME: telefono tiene que ser string
 
 \restr{La cantidad de empandas de un pedido que se estan cocinando es multiplo del tamaño del modulo del horno salvo que no queden mas empanadas por cocinar (por ejemplo si al pedido solo le quedaban 3 empanadas y entran 4 por modulo)}
 {Pedido}
