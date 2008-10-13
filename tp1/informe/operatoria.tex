@@ -209,7 +209,7 @@ En este diagrama podemos ver que muchos de los pasos son comunes al ingreso de p
 
 El horno que se asigna es el que tenga menos tiempo de espera estimado, donde el tiempo de espera estimado se obtiene como la suma de los tiempos de coccion estimado de los productos de los pedidos que esperan por un horno. Describimos a continuación la operación (como Query sin contexto) que permite obtener el horno que corresponde.
 
-TiempoEsperaHorno(h:Horno):Integer = h.pedidos \flecha select( p $|$ p.estado = preparado or p.estado = Ingresado or p.estado = en preparacion) \flecha collect(p $|$ p.productos \flecha select(pr $|$ pr.isKindOf(Comida)) \flecha collect( pr $|$ pr.asOclType(Comida).tiempoDeCoccion) \flecha sum() ) \flecha sum()
+TiempoEsperaHorno(h:Horno):Integer = h.pedidos \flecha select( p $|$ p.estado = preparado or p.estado = Ingresado or p.estado = en preparacion) \flecha collect(p $|$ p.productos \flecha select(pr $|$ pr.isKindOf(Comida)) \flecha collect( pr $|$ pr.asOclType(Comida).\\ tiempoDeCoccion) \flecha sum() ) \flecha sum()
 
 HornoAIngresar():Horno = Horno.allInstances() \flecha select( h $|$ Horno.allInstances()->forAll(h1 $|$ TiempoEsperaHorno(h) $<=$ TiempoEsperaHorno(h1)))->asOrderedSet()->first()
 
@@ -226,7 +226,6 @@ Análogamente al pedido vía Web, el sistema verifica si es posible satisfacer el 
 \caption{Diagrama de actividad del ingreso de un pedido SMS}
 \end{figure}
 
-
 \subsection{Pedidos locales}
 
 Los pedidos locales pueden realizarse a los mozos, quienes cuentan con un PDA donde ingresan los datos de los mismos. Un cliente dicta su pedido a algún mozo, quien marca los productos y sus cantidades en su PDA. Hecho esto, el mozo ingresa el pedido, lo cual se realiza de forma inalámbrica dentro del local. En ese momento el sistema verifica la factibilidad del mismo, y si no es posible realizar el pedido alerta al mozo para que informe de la situación al cliente.
@@ -234,7 +233,6 @@ Los pedidos locales pueden realizarse a los mozos, quienes cuentan con un PDA do
 Si es posible ingresar el pedido el sistema genera un identificador del pedido, estima el tiempo del mismo y calcula el costo total. Análogamente a las otras formas de ingreso de pedido, el sistema elige automáticamente el horno asociado al pedido si correspondiera, o en caso de pedidos mixtos permite al encargado realizar esa elección.
 
 Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedidos, quién registra los productos del pedido de manera similar a como registra los pedidos telefónicos, con la excepción de que en este caso podría no tener los datos del usuario.
-
 
 \begin{figure}[H]
 \centering
@@ -248,8 +246,6 @@ Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedido
 \includegraphics[height=12cm]{./figuras/pantallaBotonesMozo.png}
 \caption{Interfaz del mozo: Puede ingresar o cerrar pedidos}
 \end{figure}
-
-
 
 
 \section{Registro de usuarios}
