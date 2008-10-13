@@ -180,6 +180,7 @@ El siguiente diagrama de actividad permite ilustrar esta situación:
 \centering
 \includegraphics[height=18cm]{./figuras/diagramaActividadTelefono}
 \caption{Diagrama de actividad del ingreso de un pedido telefónico}
+\label{PedidoTelef}
 \end{figure}
 
 \begin{figure}[H]
@@ -203,6 +204,7 @@ Una vez que el pedido fue ingresado, si se pagaba con tarjeta, se hace efectivo 
 \centering
 \includegraphics[height=23cm]{./figuras/diagramaActividadWeb}
 \caption{Diagrama de actividad del ingreso de un pedido Web}
+\label{labCAPedidoWeb}
 \end{figure}
 
 En este diagrama podemos ver que muchos de los pasos son comunes al ingreso de pedidos telefónicos, sin embargo hay dos grandes diferencias que queremos marcar. En primer lugar en al hacer un pedido web, este puede pagarse en el momento mediante la interacción con el sistema de tarjetas de credito. Y en segundo lugar, vemos que en este caso a diferencia de en el anterior, la asignacion del horno a un pedido mixto es automatica, no es hecha por el encargado de pedidos.
@@ -238,6 +240,7 @@ Por otro lado, un pedido local (de mostrador) se solicita al encargado de pedido
 \centering
 \includegraphics[height=9cm]{./figuras/diagramaActividadPedidoMozo.jpg}
 \caption{Diagrama de actividad de toma de un pedido por parte del mozo}
+\label{pedidoMesa}
 \end{figure}
 
 
@@ -369,6 +372,7 @@ A continuación veremos en un diagrama de actividad las acciones que se producen 
 \centering
 \includegraphics[scale=0.4]{figuras/actividadProxPedido.png}
 \caption{Diagrama de actividad: Informar productos cocinados}
+\label{InfProdCoc}
 \end{figure}
 
 Observamos que en el caso de política ágil el sistema debe ser informado de cuantos módulos ágiles fueron liberados. Esto podría evitarse si el sistema tuviera noción de qué productos están cocinándose en qué módulo (ver posibilidades de mejora en \ref{Extensiones}). Cuando se está bajo política agil el sistema intenta ocupar los módulos ágiles en la medida que se liberan utilizando pedidos chicos.Podría ocurrir entonces que existan dos pedidos con productos afuera del horno y dentro del horno, a diferencia de la política normal donde a lo sumo un pedido puede estar parcialmente cocinado. Por esta razón el diagrama diferencia pedido actual y pedido chico actual: el pedido chico actual es un pedido chico que entró a cocinarse porque se liberó algun modulo ágil, pero quedó con alguno de sus productos sin cocinar.
