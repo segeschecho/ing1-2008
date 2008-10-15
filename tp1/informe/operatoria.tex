@@ -535,9 +535,9 @@ En particular, el conocimiento sobre la demanda permite mantener un menor stock 
 \section{ABM de stock}
 El ABM de stock permite realizar altas, bajas y modificaciones de los kits y demás insumos para la elaboración de productos. Además, permite modificar el valor crítico de cada insumo, de modo que el sistema pueda utilizar dicho valor para alertar al encargado de stock cuando la cantidad disponible de un producto descienda por debajo de dicho valor. La notificación se realiza con un mensaje en pantalla o mediante correo electrónico si esto se considerara conveniente.
 
-Para ver como funciona el control por stock crítico, proponemos las siguientes FSM en las que se modela un ingreso de pedidos que consumen cierta cantidad de un stock determinado (figura \ref{ingresoDePedidos}). Por simplicidad, asumimos que solo consume cierta cantidad de un único insumo, pero se puede extender relativamente fácil el modelo para considerar el caso general, aunque a costa de claridad en la lectura. 
+Para ver como funciona el control por stock crítico, proponemos las siguientes FSM en las que se modela un ingreso de pedidos que consumen cierta cantidad de un stock determinado (figura \ref{fsmIngresador}). Por simplicidad, asumimos que solo consume cierta cantidad de un único insumo, pero se puede extender relativamente fácil el modelo para considerar el caso general, aunque a costa de claridad en la lectura. 
 
-El control de stock esta modelado en la FSM de la figura \ref{stockCritico}. Como vemos, el sistema permite que se ingresen pedidos, pero cuando la cantidad de stock es menor al valor crítico, se produce un aviso y luego se permite igualmente seguir ingresando pedidos. Cuando el encargado de stock (\ref{encargadoStock}) observa el aviso puede incrementar los valores asociados a cada insumo, aumentando así el stock. Entonces, el sistema vuelve a monitorear el valor del stock para alertar si queda nuevamente bajo el valor crítico. En particula, si el encargado deja el stock en un valor inferior al crítico, el sistema volverá a mostrar el mensaje de stock crítico.
+El control de stock esta modelado en la FSM de la figura \ref{fsmstockcritico}. Como vemos, el sistema permite que se ingresen pedidos, pero cuando la cantidad de stock es menor al valor crítico, se produce un aviso y luego se permite igualmente seguir ingresando pedidos. Cuando el encargado de stock (\ref{encargadoStock}) observa el aviso puede incrementar los valores asociados a cada insumo, aumentando así el stock. Entonces, el sistema vuelve a monitorear el valor del stock para alertar si queda nuevamente bajo el valor crítico. En particula, si el encargado deja el stock en un valor inferior al crítico, el sistema volverá a mostrar el mensaje de stock crítico.
 
 En estas FSM utilizamos la variable $stock : [0..MAX]$ que comienza inicializada en $STOCK$ (un valor constante). 
 $critico$, $k$ y $n$ son valores constantes.
@@ -561,7 +561,7 @@ $critico$, $k$ y $n$ son valores constantes.
 \centering
 \includegraphics[scale=0.6]{./figuras/fsmreponerstock.png}
 \caption{FSM responsable de stock}
-\label{fsmIngresoPedidos}
+\label{encargadoStock}
 \end{figure}
  
 Finalmente FSM Control de stock crítico = FSM ingresar pedidos $||$ FSM aviso stock crítico $||$ FSM responsable de stock
