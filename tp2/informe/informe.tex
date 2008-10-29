@@ -1,0 +1,112 @@
+%%	SECCION documentclass																									 %%	
+%%---------------------------------------------------------------------------%%
+\documentclass[a4paper]{report}
+
+%%---------------------------------------------------------------------------%%
+%%	SECCION usepackage																											 %%	
+%%---------------------------------------------------------------------------%%
+\usepackage{amsmath, amsthm}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{caratula}
+\usepackage{a4wide}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+% \usepackage{moreverb}
+\usepackage{graphicx} % Para el logo magico!
+\usepackage{capt-of}
+\usepackage{afterpage}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[latin1]{inputenc}
+\usepackage{subfigure}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{amsfonts}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{tabularx}
+\usepackage{ifthen}
+
+%%---------------------------------------------------------------------------%%
+%%	SECCION opciones																												 %%	
+%%---------------------------------------------------------------------------%%
+\parskip    = 11 pt
+\headheight	= 13.1pt
+\pagestyle	{fancy}
+\definecolor{orange}{rgb}{1,0.5,0}
+
+\addtolength{\headwidth}{1.0in}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{0.7in}
+
+%%---------------------------------------------------------------------------%%
+%%	SECCION document	 %%	
+%%---------------------------------------------------------------------------%%
+\begin{document}
+\renewcommand{\chaptername}{Parte }
+
+%%---- Caratula -------------------------------------------------------------%%
+\materia{Ingeniería de Software I (2do cuatrimestre de 2008)}
+\titulo{Trabajo Práctico 1}
+
+\integrante{Gonzalez, Emiliano}{426/06}{xjesse\_jamesx@hotmail.com}
+\integrante{Gonzalez, Sergio}{481/06}{seges.ar@gmail.com}
+\integrante{Mart'inez, Federico}{17/06}{federicoemartinez@gmail.com}
+\integrante{Sainz-Trápaga, Gonzalo}{454/06}{gonzalo@sainztrapaga.com.ar}
+\grupo{Grupo 5}
+\resumen{
+Se presenta en este trabajo una especificación completa de la solución propuesta para el proyecto de software de
+administración de pizzería. En el mismo se presenta un panorama general así como un análisis detallado del problema, 
+y nuestra propuesta para su resolución. En primer lugar se plantea una descripción general de la solución, y a
+continuación se detallan algunos aspectos importantes haciendo uso de herramientas desarrolladas en clase como
+diagramas de actividad, máquinas de estado finito y otras.
+}
+
+\definecolor{light-gray}{gray}{0.9}
+
+\newcommand{\clase}[4]{
+\subsection{#1}
+#2
+\ifthenelse{\equal{#3}{}}{}
+{\subsubsection{Métodos}
+#3
+} 
+\ifthenelse{\equal{#4}{}}{}
+{
+\subsubsection{Atributos}
+#4
+}
+}
+% TOC, usa estilos locos
+\maketitle
+\pagestyle{empty}
+{
+\fancypagestyle{plain}
+    {
+    \fancyhead{}
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0.0pt}
+    } % clear header and footer of plain page because of ToC
+\tableofcontents
+}
+
+\newpage
+% arreglos los estilos para el resto del documento, y
+% reseteo los numeros de pagina para que queden bien
+\pagenumbering{arabic}
+\fancypagestyle{plain} {
+    \fancyhead[LO]{Gonzalez, Gonzalez, Martínez, Sainz-Trápaga}
+    \fancyhead[C]{}
+    \fancyhead[RO]{P\'agina \thepage\ de \pageref{LastPage}}
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0.4pt}
+}
+\pagestyle{plain}
+
+\input{DiagramaDeClases}
+\label{LastPage}
+\end{document}
