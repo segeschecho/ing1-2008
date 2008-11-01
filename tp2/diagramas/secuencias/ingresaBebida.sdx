@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram>
+<source><![CDATA[#![Ingreso de un pedido de solo bebida]
+
+a:al[p][e]
+unaGui:GuiPedidos
+unCoord:CoordinadorDePedidos
+unGen:GeneradorDePedidos
+unControlPreIng:ControladorDeIngreso
+unControlListos:ControladorDeListos
+/p:Pedido
+
+a:unaGui.IngresarPedido(productos,cliente)
+unaGui:unCoord.IngresarPedido(productos,cliente)
+unCoord:p=unGen.GenerarPedido(productos,cliente)
+unGen:p.new(productos,cliente,hora)
+unCoord:unControlPreIng.ingresar(p)
+unControlPreIng:False=unControlPreIng.determinarPreparable(p)
+unControlPreIng[1]:unControlListos.pedidoListo(p)
+unControlListos:unControlListos.agregarPedidoListo(p)
+unControlListos:p.setEstado(listo)]]></source>
+<configuration>
+<property name="actorWidth" value="21"/>
+<property name="arrowSize" value="6"/>
+<property name="colorizeThreads" value="true"/>
+<property name="destructorWidth" value="30"/>
+<property family="Arial" name="font" size="14" style="0"/>
+<property name="fragmentMargin" value="15"/>
+<property name="fragmentPadding" value="10"/>
+<property name="fragmentTextPadding" value="11"/>
+<property name="glue" value="0"/>
+<property name="headHeight" value="30"/>
+<property name="headLabelPadding" value="5"/>
+<property name="headWidth" value="99"/>
+<property name="initialSpace" value="10"/>
+<property name="leftMargin" value="7"/>
+<property name="lineWrap" value="false"/>
+<property name="lowerMargin" value="3"/>
+<property name="mainLifelineWidth" value="7"/>
+<property name="messageLabelSpace" value="4"/>
+<property name="messagePadding" value="6"/>
+<property name="noteMargin" value="7"/>
+<property name="notePadding" value="7"/>
+<property name="opaqueMessageText" value="true"/>
+<property name="returnArrowVisible" value="true"/>
+<property name="rightMargin" value="5"/>
+<property name="selfMessageHorizontalSpace" value="15"/>
+<property name="separatorBottomMargin" value="22"/>
+<property name="separatorTopMargin" value="18"/>
+<property name="spaceBeforeActivation" value="3"/>
+<property name="spaceBeforeAnswerToSelf" value="11"/>
+<property name="spaceBeforeConstruction" value="7"/>
+<property name="spaceBeforeSelfMessage" value="7"/>
+<property name="subLifelineWidth" value="5"/>
+<property name="threadNumbersVisible" value="false"/>
+<property name="threaded" value="true"/>
+<property name="upperMargin" value="5"/>
+<property name="verticallySplit" value="true"/>
+</configuration>
+</diagram>
