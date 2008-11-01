@@ -3,7 +3,7 @@ A continuacion presentaremos diversos escenarios que permiten lograr un modelado
 
 \section{Ingreso de un pedido}
 %TODO: escenario uno, ingresa un pedido de solo bebidas
-Como primer escenario mostraremos lo que ocurre cuando ingresa un pedido al sistema y este esta formado por solo bebidas. En este caso el pedido va ser creado  y luego el contralador de preingreso se encargará de pasarselo al manejador de listos, ya que no hay nada que hacer con este pedido. Vamos a suponer por simplicidad que el pedido esta formado por una gaseosa y una cerveza. Asumimos también en este escenario que el cliente ya se valido (o es NULL si es un pedido de cliente anonimo) y que hay stock sufiencte para armar el pedido.
+Como primer escenario mostraremos lo que ocurre cuando ingresa un pedido al sistema y este esta formado por solo bebidas. En este caso el pedido va ser creado  y luego el contralador de preingreso se encargará de pasarselo al manejador de listos, ya que no hay nada que hacer con este pedido. Asumimosen este escenario que el cliente ya se valido (o es NULL si es un pedido de cliente anonimo) y que hay stock sufiencte para armar el pedido.
 
 En este escenario ademas no modelamos todo el proceso de creación de un pedido, el cual será desarrollado posteriormente
 
@@ -11,20 +11,54 @@ Veamos el diagrama de secuencias relativo al escenario:
 %\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.32]{./figuras/ingresaBebida.png}
+\includegraphics[scale=0.35]{./figuras/ingresaBebida.png}
 \end{figure}
 %\end{landscape}
 
-%TODO: dos, ingresa un pedido de pizzas solamente y hay cosas en la cola de ingreso
+
+La operacion que determina si un pedido es preparable, es decir tiene que ser preparado o no, se puede modelar con el siguiente diagrama de secuencia:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{./figuras/determinarPreparable.png}
+\end{figure}
+%FIXME: las lineas de return ultimo hay q hacerlas punteadas con por ej photoshop :p
+Consideremos el caso donde el pedido que ingresa si era preparable y por lo tanto debe pasar a la cola de ingreso a la espera de ser preparado. En el siguiente escenario, veremos la secuencia que se desata desde el momento en que el pedido llega al controlador de preIngreso, hasta que es encolado y marcado como ingresado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{./figuras/ingresaComidaEncolar.png}
+\end{figure}
+
+Como vemos, cuando el pedido pasa al controlador de ingreso, este pregunta si el pedido puede empezar a prepararse ahora mismo o debe encolarlo. El no esta capacitado para decidir eso, ya que no sabe que ocurre con la preparacion de los pedidos. Notemos que tiene que preguntar, porque podría ocurrir que en la cola hallan muchos pedidos, por ejemplo todos de pizza, y por lo tanto el maestro empanadero este ocioso. Al preguntar lo que esta haciendo indirectamente es avisar que llego un pedido nuevo y dejando que el despachador de preparacion decida si esta listo para prepararlo.
+%TODO: por que no un observer??
 
 %TODO: ingresa un pedido mixto y queda en la cola de listos, tener en cuenta q la seleccion de horno se hace mientras es intentna ingresar
 
 %TODO: generacion de un pedido
+Anteriormente nos encargamos de mostrar como una vez que el pedido ya estaba armado, se comenzaba a recorrer su ciclo de vida. Sin embargo un aspecto previo a desarrollar es como se logra armar este pedido.
+
+Al intentar armar un pedido, el generador de pedidos debe antes que nada utilizar al controlador de stock para verificar que la cantidad de insumos sea suficiente para satisfacer las necesidades del pedido. Esto es responsabilidad del controlador de stock, y para hacerlo se tiene el método verificarEIngresar. Veamos un diagrama de secuencias para el caso en el que se quiere chequear si es viable o no ingresar ciertos productos para armar un pedido.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{./figuras/verificarEIngresar.png}
+\label{verifEIngr}
+\end{figure}
+
+Algunos de los metodos no estan desarrollados completamente en \ref{verifEIngr}, sino que las desarrollaremos por separado. Asi tenemos el caso de ingresar que lo que va a hacer es dado un producto, verificar si se tienen los insumos necesarios para hacer el ingreso. Ademas en caso de encontrar que alguno de los stocks queda con un valor menor a su cantidad critica, genera el aviso de stock critico.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{./figuras/ingresar(controladorStock).png}
+\end{figure}
+%TODO: generacion del aviso
+%TODO: ver que todos los metodos queden bien explicados, ya sea con pesudocodigo o con DS
 
 \section{Iniciar sesion de cliente}
 
 \section{aviso de stock critico}
-
+A continuación modelaremos escenarios relacionados con la creacion de un pedido, en donde pensamos mostrar como actuan el generador de pedidos, el ve
 %TODO: no hay suficiente relleno de una empanada y de una pizza
 
 \section{modificacion de la cola de pedidos}
