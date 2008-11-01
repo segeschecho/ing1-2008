@@ -81,6 +81,54 @@ diagramas de actividad, máquinas de estado finito y otras.
 #4
 }
 }
+
+% ----- Token list para las instrucciones ------------------------------------
+\newtoks\oplist\oplist={}
+% ----- Comando para que el usuario agregue operaciones del CU
+
+\newcounter{PasoCu}
+\setcounter{PasoCu}{1}
+
+\newcommand{\op}[2]
+{
+\oplist=\expandafter{\the\oplist #1 & #2 \\ \hline}
+\stepcounter{PasoCu}
+}
+\newcommand{\negrita}[1]{{\bf #1}}
+\newcounter{casoUso}
+\setcounter{casoUso}{1}
+
+\definecolor{light-gray}{gray}{0.9}
+\newcommand{\cu}[6]{ 
+{\setlength{\arrayrulewidth}{1mm}
+
+\begin{tabularx}{16cm}{|X|X|}
+\hline
+\multicolumn{2}{|>{\columncolor{Black}}l|}{\textcolor{White}{\negrita{Caso de Uso: #1}}} \\
+\hline
+\multicolumn{2}{|>{\columncolor{Black}}l|}{\textcolor{White}{\negrita{Número \thecasoUso}}} \\
+\hline
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Actores intervinientes: #2}} \\
+\hline
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Requerimientos relacionados: #3}} \\
+\hline
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Precondición: #4}} \\
+\hline
+\multicolumn{2}{|>{\columncolor{light-gray}}l|}{\negrita{Poscondición: #5}} \\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}X|}{\negrita{Descripcion:}} &
+\multicolumn{1}{>{\columncolor{light-gray}}X|}{\negrita{#6}} \\
+\hline
+\multicolumn{1}{|>{\columncolor{light-gray}}X|}{\negrita{Curso normal}} &
+\multicolumn{1}{>{\columncolor{light-gray}}X|}{\negrita{Curso alternativo}}\\
+\hline
+\the\oplist
+\end{tabularx}
+\stepcounter{casoUso}
+}
+\newtoks\oplist\oplist={}
+}
+
 % TOC, usa estilos locos
 \maketitle
 \pagestyle{empty}
@@ -106,7 +154,8 @@ diagramas de actividad, máquinas de estado finito y otras.
     \renewcommand{\headrulewidth}{0.4pt}
 }
 \pagestyle{plain}
-
+\input{modificaciones}
 \input{DiagramaDeClases}
+\input{escenarios}
 \label{LastPage}
 \end{document}
