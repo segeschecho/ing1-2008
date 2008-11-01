@@ -3,10 +3,25 @@ A continuacion presentaremos diversos escenarios que permiten lograr un modelado
 
 \section{Ingreso de un pedido}
 %TODO: escenario uno, ingresa un pedido de solo bebidas
+Como primer escenario mostraremos lo que ocurre cuando ingresa un pedido al sistema y este esta formado por solo bebidas. En este caso el pedido va ser creado  y luego el contralador de preingreso se encargará de pasarselo al manejador de listos, ya que no hay nada que hacer con este pedido. Vamos a suponer por simplicidad que el pedido esta formado por una gaseosa y una cerveza. Asumimos también en este escenario que el cliente ya se valido (o es NULL si es un pedido de cliente anonimo) y que hay stock sufiencte para armar el pedido.
+
+En este escenario ademas no modelamos todo el proceso de creación de un pedido, el cual será desarrollado posteriormente
+
+Veamos el diagrama de secuencias relativo al escenario:
+%\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.32]{./figuras/ingresaBebida.png}
+\end{figure}
+%\end{landscape}
 
 %TODO: dos, ingresa un pedido de pizzas solamente y hay cosas en la cola de ingreso
 
 %TODO: ingresa un pedido mixto y queda en la cola de listos, tener en cuenta q la seleccion de horno se hace mientras es intentna ingresar
+
+%TODO: generacion de un pedido
+
+\section{Iniciar sesion de cliente}
 
 \section{aviso de stock critico}
 
@@ -53,8 +68,17 @@ A continuacion presentaremos diversos escenarios que permiten lograr un modelado
 %TODO: todos los escenarios de cancelacion
 
 \section{Actualizar precios}
+La actualizacion de los precios de pedidos se realiza de la siguiente manera. Al abrirse la pantalla de ABM de productos, se cargan todos los productos en pantalla. Luego se puede elegir un producto de la lista y un nuevo valor para el precio.
 
-%TODO: modificar el precio de un pedido
+Vamos a modelar el escenario donde se cambia el precio de la pizza de muzzarella a \$30.
+
+Notar que probablemente la GUI realice operaciones con la lista de productos que obtiene, por ejemplo cargar una lista en pantalla para mostrar los pedidos, etc. Sin embargo consideramos que los aspectos propios de la GUI no entran en lo que se debe modelar en este trabajo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{./figuras/modifPrecio.png}
+\end{figure}
+
 
 \section{Consulta de estado de pedido}
 El escenario a modelar es el siguiente: El encargado de pedidos abre la gui para consultar el estado de un pedido, entonces la gui muestra los pedidos y cuando el encargado encuentra el que busca, pide ver el estado. El coordinador es el encargado de hacer de adaptador entre la GUI y los pedidos.

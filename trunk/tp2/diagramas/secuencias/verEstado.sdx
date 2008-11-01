@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
-<source><![CDATA[#![Consultar estado de pe un pedido]
+<source><![CDATA[#![Consultar estado de un pedido]
 
 a:al[p][e]
 unaGui:GuiPedidos
