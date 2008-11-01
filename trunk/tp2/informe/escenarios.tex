@@ -1,0 +1,69 @@
+\chapter{Modelado de escenarios}
+A continuacion presentaremos diversos escenarios que permiten lograr un modelado del sistema basado en interacciones
+
+\section{Ingreso de un pedido}
+%TODO: escenario uno, ingresa un pedido de solo bebidas
+
+%TODO: dos, ingresa un pedido de pizzas solamente y hay cosas en la cola de ingreso
+
+%TODO: ingresa un pedido mixto y queda en la cola de listos, tener en cuenta q la seleccion de horno se hace mientras es intentna ingresar
+
+\section{aviso de stock critico}
+
+%TODO: no hay suficiente relleno de una empanada y de una pizza
+
+\section{modificacion de la cola de pedidos}
+
+%TODO: mover un pedido un lugar hacia arriba y otro hacia abajo
+
+\section{Preparacion de pedidos}
+
+%TODO: ingresa un pedido y no hay nada esperando preparandose tonces pasa a preparse
+
+%TODO: se empieza a preparar un pedido mixto de la cola de ingreso
+
+%TODO: maestro pide pedido a preparar y se le da un pedido que el otro maestro esta preparando
+
+\section{Cocción de pedidos}
+
+%TODO: se termina de prepara un pedido y no hay nada esperando
+
+%TODO: se termina de prepara un pedido y se encola en su horno
+
+%TODO: se termina de cocinar algo en un modulo agil y se toma un pedido chico
+
+%TODO: se termina de cocinar algo en un modulo normal y se toma un pedido normal
+
+%TODO: se termina de cocinar algo en un modulo y no hay nada a continuación
+
+%TODO: se saca un producto y se termino de cocinar
+
+\section{Despachar pedido}
+
+%TODO: se despacha un pedido remoto
+
+%TODO: se despacha un pedido local
+
+\section{Se cierra una mesa}
+
+%TODO: se cierra una mesa y se registra la forma de pago
+
+\section{Cancelacion}
+
+%TODO: todos los escenarios de cancelacion
+
+\section{Actualizar precios}
+
+%TODO: modificar el precio de un pedido
+
+\section{Consulta de estado de pedido}
+El escenario a modelar es el siguiente: El encargado de pedidos abre la gui para consultar el estado de un pedido, entonces la gui muestra los pedidos y cuando el encargado encuentra el que busca, pide ver el estado. El coordinador es el encargado de hacer de adaptador entre la GUI y los pedidos.
+
+En el diagrama suponemos que se llama un metodo de la gui verEstado, esto en verdad es abrir la interfaz para ver los estados de pedidos, es decir no es un metodo como tal, pero sirve para dar idea de que alguien le dice a la GUI que busque los pedidos y consulte el estado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{./figuras/verEstado.png}
+\end{figure}
+
+

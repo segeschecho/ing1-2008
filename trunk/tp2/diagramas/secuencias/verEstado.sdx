@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram>
+<source><![CDATA[#![Consultar estado de pe un pedido]
+
+a:al[p][e]
+unaGui:GuiPedidos
+Pedido:Pedido[a]
+unCoord:CoordinadorDePedidos
+p:Pedido
+
+a:unaGui.verEstado()
+unaGui:listaPeds=unCoord.ListarPedidos()
+unCoord:listaPedidos=Pedido.allInstances()
+unaGui:estado=unCoord.verEstado(p)
+unCoord:estado=p.getEstado()]]></source>
+<configuration>
+<property name="actorWidth" value="26"/>
+<property name="arrowSize" value="6"/>
+<property name="colorizeThreads" value="true"/>
+<property name="destructorWidth" value="30"/>
+<property family="Dialog" name="font" size="12" style="0"/>
+<property name="fragmentMargin" value="15"/>
+<property name="fragmentPadding" value="10"/>
+<property name="fragmentTextPadding" value="11"/>
+<property name="glue" value="15"/>
+<property name="headHeight" value="35"/>
+<property name="headLabelPadding" value="5"/>
+<property name="headWidth" value="100"/>
+<property name="initialSpace" value="11"/>
+<property name="leftMargin" value="7"/>
+<property name="lineWrap" value="false"/>
+<property name="lowerMargin" value="3"/>
+<property name="mainLifelineWidth" value="9"/>
+<property name="messageLabelSpace" value="4"/>
+<property name="messagePadding" value="6"/>
+<property name="noteMargin" value="7"/>
+<property name="notePadding" value="7"/>
+<property name="opaqueMessageText" value="true"/>
+<property name="returnArrowVisible" value="true"/>
+<property name="rightMargin" value="5"/>
+<property name="selfMessageHorizontalSpace" value="15"/>
+<property name="separatorBottomMargin" value="22"/>
+<property name="separatorTopMargin" value="18"/>
+<property name="spaceBeforeActivation" value="3"/>
+<property name="spaceBeforeAnswerToSelf" value="11"/>
+<property name="spaceBeforeConstruction" value="7"/>
+<property name="spaceBeforeSelfMessage" value="7"/>
+<property name="subLifelineWidth" value="6"/>
+<property name="threadNumbersVisible" value="false"/>
+<property name="threaded" value="true"/>
+<property name="upperMargin" value="5"/>
+<property name="verticallySplit" value="true"/>
+</configuration>
+</diagram>
