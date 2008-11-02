@@ -16,6 +16,58 @@ Nuestra primer idea al modelar la solución, fue identificar los diversos compone
 \item Gestión de stock y productos: En este componente se engloba el ABM de stock y el ABM de productos
 \end{itemize}
 
+Esta división sirve para guía pero no es estrictamente asi, ya que por ejemplo la cancelación es un evento que toca tanto a la cocina como a los pedidos fuera de esta, por otro lado el Pedido como tipo de datos es utilizado por todos los componentes en mayor o menor medida. No obstante creemos que esta división en componentes sirve para mostrar el enfoque que se le dio al diseño
+
+\section{Pedidos fuera de la cocina}
+Como dijimos este componente tiene por responsabilidad el manejo de la vida de los pedidos que estan fuera de la cocina (por cocina entendemos no solo al horno, sino también a la preparación de los pedidos).
+
+Nuestra idea fue tener un coordinadorDePedidos que siga el patron Façade, de modo que muestre a la interfaz grafica una intrefaz \textit{``gruesa''} con las funciones que se realizan dentro del componente. Esta clase no va a tener gran inteligencia, sino que se limitara a propagar la llamada originada por la interfaz grafica a la clase responsable de manejar esa llamada. Así, por ejemplo para ver el estado de un pedido o ingrear un nuevo pedido se deberá pasar por esta clase.
+La idea de esta clase es desacoplar la interfaz grafica de las clases que manejan a los pedidos fuera de la cocina. Si bien esta clase para tener baja cohesión, al mirarla de cerca vemos que lo único que hace es derivar las llamadas. De este modo si bien a trazo grueso parece tener una interfaz con poca cohesión, esta nos permite lograr un menor grado de acoplamiento entre la interfaz y el sistema en si. Por esta razón decidimos pese al aparente conflicto con la cohesión, decidimos mantener esta clase.
+Ademas el coordinadorDePedidos se comunica con el componente encargado de crearPedidos, haciendo de puente entre ambos componentes.
+
+Cuando se realiza un pedido de ingreso, el coordinador se encarga de pedir que se genere el pedido, y en caso de que se pueda crear, lo deriva al controladorDePreIngreso, cuya función es determinar si el pedido debe ir a la cola de listos, porque no hay nada que preparar, ni cocinar, o lo tiene que mandar al controlador de ingreso, porque hay algo que cocinar o preparar. Este comportamiento se hizo con la intención de permitir en un futuro incorporar otros productos ademas de pizzas o empanadas. Por ejemplo, podrian venderse ensaladas, las cuales no requieren de cocción, pero si de preparación. Por eso decidimos que un producto tuviera atributos de cocinable y preparable.
+
+El controladorDeIngreso se encarga de mantener la cola de ingreso, asi como de suministrar los pedidos al CoordinadorDeCocina, para que este los distribuya al preparador o al coordinador de horno.
+El coordinadorDeIngreso puede recibir recibir una solicitud de un pedido de cierto tipo por parte del CoordinadorDeCocina, por ejemplo puede recibir una solicitud del proximo pedido que contenga algun producto del tipo empanada.
+Por otro lado, cada vez que ingresa un nuevo pedido, el controladorDeIngreso pregunta al CoordinadorDeCocina si puede recibir dicho pedido. Esta funcionalidad sirve para aquellos casos en los que por ejemplo no hay ningun pedido ingresado con empanadas y el maestro empanadero esta ocioso. Si llega un nuevo pedido con empanadas, el maestro debe ser notificado, por esta razon el ControladorDeIngreso pregunta si debe encolar el pedido o hay alguien que lo vaya a preparar.
+
+Otra clase de este componente, es el ControladorDeListos, este controlador va a recibir los pedido listos y va a encargarse en el momento del despacho de decidir que hacer con el pedido. Por ejemplo si es un pedido con delivery hay que marcar que salio con el delivery, y si era local hay que marcarlo como finalizado.
+
+La clase controladorDeEntragas contiene a todos los pedidos cuya entrega esta pendiente, y se encargan de finalizar el pedido cuando se notifica la entrega.
+
+Por ultimo el controladorPedidosMesa monitorea los pedidos entregados a una cierta mesa, permitiendo que al cerrar la mesa se fijen sus formas de pago.
+
+La clase controladorDeIngreso es abstracta porque consideramos que la estrategia con la que se maneja la cola de ingreso podria cambiar, de esta manera la versión propuesta por nosotros en la etapa de especificación es implementada por controladorDeIngresoStandard. Utilzar una clase abstracta nos permite lograr flexibilidad si se quiere cambiar de politica de manejo de esta cola, por ejemplo usando un manejo del tipo mas corto primero.
+
+El resto de las clases no son abstractas, esto si bien parece no cumplir con el principio \textit{DIP}, al mirar mas de cerca notamos que son clases bastante tontas, solo almacenan cierto tipo de pedidos y luego hacen sets de algunos atributos de algun pedido que contienen, por lo que es de esperarse que su comportamiento no se modifique, y dado lo poco que hace cada una de ellas, en el caso de tener que modificar, no deberían generar un impacto significativo al modelo.
+
+\textcolor{Red}{TODO: interacciones de estas clases con la GUI}
+
+\textcolor{Red}{TODO: explicacion de metodos importantes}
+\subsection{Modelado de escenarios}
+\textcolor{Red}{TODO: escenarios que muestren el comportamiento de estas clases en los fenomenos pedidos en el enunciado}
+
+\textcolor{Red}{TODO: pseudocodigos que muestren algoritmos como por ej la busqueda de un pedido para ingresar}
+
+\section{Creación y registro de pedidos}
+En este componente se agrupan las clases que entran en juego al momento de crear un nuevo pedido.
+
+La clase GeneradorDePedidos sirve de punto de entrada a este componente. El mismo posee el método generarPedido, que es invocado por el Coordinador de pedidos, a fin de que se ingrese al sistema un nuevo pedido.
+
+El Generador se encarga de llamar al controladorDeStock para que verifique que el stock existente sea capaz de satisfacer al pedido. Ademas el generador realiza el decremento del stock, y se encarga de realizar el callback a la gui en caso de que un insumo quede por debajo de su stock critico. %TODO: callback como?
+
+Luego de que se regisró el decremento de stock, el Generador se encarga de llamar al EstimadorDeTiempos. Esta clase es abstracta, ya que pensamos que como la pizzeria desea ir refinando estas estimaciones, es probable que la forma de estimar se modifique de forma periodica. Por lo tanto, decidimos aplicar el \textit{Strategy pattern} a fin de poder lograr varias estrategias de estimación. La Estimación desarrollada en \ref{modifEstim} es implementada por la clase EstimadorBasico.
+
+\textcolor{Red}{TODO: interacciones de estas clases con la GUI}
+
+\textcolor{Red}{TODO: explicacion de metodos importantes}
+\subsection{Modelado de escenarios}
+\textcolor{Red}{TODO: escenarios que muestren el comportamiento de estas clases en los fenomenos pedidos en el enunciado}
+
+\textcolor{Red}{TODO: pseudocodigos que muestren algoritmos como por ej estimacion de tiempos}
+
+
+
 \section{Diagrama de clases}
 \begin{landscape}
 \begin{figure}
