@@ -1,4 +1,21 @@
 \chapter{Clases}
+\section{Modelado de clases}
+Nuestra primer idea al modelar la solución, fue identificar los diversos componentes logicos presentes en el sistema. De esta manera pudimos identificar la existencia de grupos de funcionalidades que se podían agrupar. Consideramos la existencia de los siguientes componentes:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=10cm]{./figuras/divisionModelo.png}
+\caption{Esquema de componentes lógicos}
+\end{figure}
+
+\begin{itemize}
+\item Pedidos fuera de la cocina: Este componente agrupa las funcionalidades del ingreso, despacho, consulta de estado y otros aspectos que involucren a las partes del ciclo de vida que no ocurran en el ambito de la cocina.
+\item Creación de pedidos: Aquí se agrupan aquellas funcionalidades que hacen posible que se creen e ingresen al sistema nuevos pedidos. Podría considerarse parte de Pedidos fuera de la cocina, pero sin embargo la creación tiene una logica bastante compleja de estimación de tiempos, chequeo de stock, entre otras cosas que nos llevaron a considerarlo como un componente separado.
+\item Gestión de clientes: Este componente permite realizar las validaciones de clientes asi como también las altas, bajas y modificaciones de clientes
+\item Cocina: Aqui se engloban las funciones que permiten guiar la preparación y cocción de un pedido.
+\item Gestión de stock y productos: En este componente se engloba el ABM de stock y el ABM de productos
+\end{itemize}
+
 \section{Diagrama de clases}
 \begin{landscape}
 \begin{figure}
