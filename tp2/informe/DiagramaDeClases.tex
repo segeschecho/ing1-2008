@@ -118,7 +118,10 @@ Otra clase propia de este componente es el Tipo de producto, que permite identif
 \section{Cancelación}
 La cancelación es un evento que involucra tanto al componente cocina como al componente de pedidos fuera de la cocina, por lo que podria incluso considerarse un componente separado. 
 
-Un pedido de cancelación llega desde la GUI hasta el controlador de cancelación
+Un pedido de cancelación llega desde la GUI hasta el controlador de cancelación, este se encarga de determinar según el estado, donde esta el pedido en el momento de su cancelación, y luego invoca el metodo cancelar del encargado del pedido en ese momento. Las clases que deben saber cancelar un pedido en su control, implementan la interfaz cancelador.
+
+Decidimos que la cancelación no sea responsabilidad del controlador ya que la misma requiere de manipular por ejemplo las colas que son responsabilidad de otra clase, por lo cual lo mas apropiado es que cada uno cancele los pedidos que estan bajo su orbita.
+
 
 \section{Clase Pedido}
 \textcolor{Red}{TODO: explicacion de la clase pedido y las clases que lo heredan}
