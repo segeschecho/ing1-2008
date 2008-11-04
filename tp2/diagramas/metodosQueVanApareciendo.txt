@@ -47,3 +47,10 @@ setEstado(estado):void
 ******controlador pedidos mesa******
 cerrarMesa(int) void
 QuitarPedidoDeMesa(int) void        //saca el pedido mesa de la cola
+
+******controlador de ingreso******
+listar(void) list<Pedido>
+subir(Pedido) void
+bajar(pedido) void
+buscarPedidoEnColayBajar(Pedido) void
+buscarPedidoEnColaySubir(Pedido) void
