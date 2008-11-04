@@ -1,11 +1,9 @@
-Controlador de Ingreso
+******Controlador de Ingreso******
 
 ingresar(pedido):void
 
 
-
-
-controlador de preIngreso
+******controlador de preIngreso******
 
 ingresar(pedido):void
 verificarPreparable(pedido):bool
@@ -13,21 +11,39 @@ verificarCocinable(pedido):bool
 
 
 
-Coordinador de pedidos
+******Coordinador de pedidos******
 
 ingresarPedido(cliente, MultiSet<pedido>, origen):pedido
 getContListos():ControladorDeListos
 agregarPedidoListo(pedido):void
++despachar(pedido) void
++IngresarPedidoAEntregar(pedido) void
++cerrarMesa(int) void
 
 
-
-Generador de pedido
+******Generador de pedido******
 
 generarPedido(cliente, MultiSet<pedido>, origen):pedido
 
 
-
-
-PedidoRemoto
+******PedidoRemoto******
 
 setEstado(estado):void
+
+
+******controlador de listos******
+
++despachar(pedido) void
+
+******pedido******
+
++setEstado(Estado) void
++getMesa() int         //para pedidos de mesa
+
+******controlador de entregas******
++IngresarPedidoAEntregar(pedido) void
+-AgregarAPedidosEnCamino(pedido) void
+
+******controlador pedidos mesa******
+cerrarMesa(int) void
+QuitarPedidoDeMesa(int) void        //saca el pedido mesa de la cola
