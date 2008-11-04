@@ -1,0 +1,33 @@
+Controlador de Ingreso
+
+ingresar(pedido):void
+
+
+
+
+controlador de preIngreso
+
+ingresar(pedido):void
+verificarPreparable(pedido):bool
+verificarCocinable(pedido):bool
+
+
+
+Coordinador de pedidos
+
+ingresarPedido(cliente, MultiSet<pedido>, origen):pedido
+getContListos():ControladorDeListos
+agregarPedidoListo(pedido):void
+
+
+
+Generador de pedido
+
+generarPedido(cliente, MultiSet<pedido>, origen):pedido
+
+
+
+
+PedidoRemoto
+
+setEstado(estado):void
