@@ -14,7 +14,6 @@ verificarCocinable(pedido):bool
 ******Coordinador de pedidos******
 
 ingresarPedido(cliente, MultiSet<pedido>, origen):pedido
-getContListos():ControladorDeListos
 agregarPedidoListo(pedido):void
 +despachar(pedido) void
 +IngresarPedidoAEntregar(pedido) void
@@ -46,7 +45,7 @@ setEstado(estado):void
 
 ******controlador pedidos mesa******
 cerrarMesa(int) void
-QuitarPedidoDeMesa(int) void        //saca el pedido mesa de la cola
+
 
 ******controlador de ingreso******
 listar(void) list<Pedido>

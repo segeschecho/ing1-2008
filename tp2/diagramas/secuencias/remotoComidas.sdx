@@ -10,10 +10,12 @@ unDespP:DespachadorDePreparacionStandard
 unContPI:unContI.ingresar(p)
 unContI:horno=unaGUI.pedirHorno()
 unContI:p.setHorno(horno)
-unContI:True=unCoordC.preparar(p)
-unCoordC:True=unDespP.preparar(p)
+unContI:False=unCoordC.preparar(p)
+unCoordC:False=unDespP.preparar(p)
 unContI:p.setEstado(Ingresado)
-unContI:p.setResponsable(self)]]></source>
+unContI:p.setResponsable(self)
+unContI:unContI.encolar(p)
+unContI[1]:unaGUI.recargarPedidos(self.pedidos)]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
