@@ -18,7 +18,9 @@ unContPI[1]:false=unContPI.verificarCocinable(p)
 unContPI[1]:unCoordP.agregarPedidoListo(p)
 unCoordP:unContL.agregarPedidoListo(p)
 unContL:p.setEstado(Listo)
-unContL:p.setResponsable(self)]]></source>
+unContL:p.setResponsable(self)
+unContL:unContL.agregarPedido(p)
+unContL[1]:unaGui.recargarPedidos(self.pedidos)]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>

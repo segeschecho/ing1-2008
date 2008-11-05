@@ -19,6 +19,7 @@ Nuestra primer idea al modelar la solución, fue identificar los diversos compone
 Esta división sirve para guía pero no es estrictamente asi, ya que por ejemplo la cancelación es un evento que toca tanto a la cocina como a los pedidos fuera de esta, por otro lado el Pedido como tipo de datos es utilizado por todos los componentes en mayor o menor medida. No obstante creemos que esta división en componentes sirve para mostrar el enfoque que se le dio al diseño
 
 \section{Pedidos fuera de la cocina}
+%TODO:ver q aca boquee de mas, porq hay clases q deberian ser abstractas
 Como dijimos este componente tiene por responsabilidad el manejo de la vida de los pedidos que estan fuera de la cocina (por cocina entendemos no solo al horno, sino también a la preparación de los pedidos).
 
 Nuestra idea fue tener un coordinadorDePedidos que siga el patron Façade, de modo que muestre a la interfaz grafica una intrefaz \textit{``gruesa''} con las funciones que se realizan dentro del componente. Esta clase no va a tener gran inteligencia, sino que se limitara a propagar la llamada originada por la interfaz grafica a la clase responsable de manejar esa llamada. Así, por ejemplo para ver el estado de un pedido o ingrear un nuevo pedido se deberá pasar por esta clase.
@@ -44,10 +45,50 @@ El resto de las clases no son abstractas, esto si bien parece no cumplir con el 
 \textcolor{Red}{TODO: interacciones de estas clases con la GUI}
 
 \textcolor{Red}{TODO: explicacion de metodos importantes}
-\subsection{Modelado de escenarios}
-\textcolor{Red}{TODO: escenarios que muestren el comportamiento de estas clases en los fenomenos pedidos en el enunciado}
 
-\textcolor{Red}{TODO: pseudocodigos que muestren algoritmos como por ej la busqueda de un pedido para ingresar}
+\subsection{Modelado de escenarios}
+%FIXME: en el ingreso se da a la gui la responsabilidad de mostrar los datos del pedido, tiempo estimado y precio, no se si eso esta bien
+\subsubsection{Ingreso de un pedido de solo bebidas}
+A continuación intentaremos mostrar las interacciones existentes en este componente con el fin de modelar su comportamiento.
+Como primer escenario veamos que ocurre cuando ingresa un pedido de solo bebidas Telefonico. En este caso el pedido será creado por el generador de pedidos, sin embargo las interacciones propias de la creación no se detallaran en este escenario. Una vez que el pedido es creado, pasa al controlador de pre ingreso que lo examina para decidir si debe ir a la cocina o considerarse un pedido listo. En este caso, como solo hay bebidas, el pedido queda listo. El controlador de listos agrega el pedido a su lista de pedidos, se hace responsable del mismo y cambia su estado. Ademas el controlador de listos notifica a la gui para que recargue la lista de pedidos en estado listo. %TODO: lograr consenso de como hacer eso
+
+\begin{figure}
+\centering
+\includegraphics[height=9cm]{./figuras/remotoBebidas.png}
+\caption{Ingreso de un pedido remoto de solo bebidas}
+\end{figure}
+
+\subsubsection{Ingreso de un pedido con comidas}
+De forma analoga al escenario anterior, supongamos que se va a ingresar un pedido, pero en este caso, el pedido si tenía comidas, por lo que el controlador de pre ingresos se lo va a mandar al de ingresos. Este intenta pasarlo a la cocina para ver si esta puede hacerse cargo del pedido. Esto es asi porque en la especificación se pide que si entra un pedido y el maestro estaba ocioso, se le notifique que prepare el pedido ingresado. Como conocer si los maestros estan preparando algo o no no es asunto de este controlador lo que decidimos es que lo pase hacia la cocina y espere respuesta de esta. Modelaremos los dos escenarios, primero el caso en el que la cocina le dice que no puede hacerse cargo y en segundo lugar el caso en el que la cocina si acepta el pedido. %TODO: problema se esta fijando un protocolo, pero las clases que participan en el son abstractas, esta bien?
+
+En el primer caso, el controlador de ingresos se hace cargo del pedido, cambiando su estado, marcando el pedido como ingresado y agregandolo a la cola.
+
+\begin{figure}
+\centering
+\includegraphics[height=7cm]{./figuras/remotoComidas.png}
+\caption{Ingreso de un pedido remoto con comida que queda encolado para su ingreso}
+\end{figure}
+%FIXME: el controlador de ingreso del diagrama deberia ser el abstracto o el concreto? si usamos el abstracto el metodo preparar tiene que quedar fijo
+
+En el segundo caso, como se va a hacer cargo la cocina, el controlador de ingreso no debe hacer nada cuando se regresa la llamada.
+
+\begin{figure}
+\centering
+\includegraphics[height=5cm]{./figuras/remotoComidasquedapreparando.png}
+\caption{Ingreso de un pedido remoto con comida que pasa a estar preparando}
+\end{figure}
+
+\subsubsection{Despacho de un pedido}
+
+\subsubsection{Pedido de proximo pedido a preparar}
+%TODO: decidir aridad de esta función
+%TODO: mostrar pseudocodigo
+
+\subsubsection{Notificación de entrega}
+
+\subsubsection{Cerrado de mesa}
+
+\subsubsection{Consulta de estado}
 
 \section{Creación y registro de pedidos}
 En este componente se agrupan las clases que entran en juego al momento de crear un nuevo pedido.
@@ -118,11 +159,28 @@ Otra clase propia de este componente es el Tipo de producto, que permite identif
 \section{Cancelación}
 La cancelación es un evento que involucra tanto al componente cocina como al componente de pedidos fuera de la cocina, por lo que podria incluso considerarse un componente separado. 
 
-Un pedido de cancelación llega desde la GUI hasta el controlador de cancelación, este se encarga de determinar según el estado, donde esta el pedido en el momento de su cancelación, y luego invoca el metodo cancelar del encargado del pedido en ese momento. Las clases que deben saber cancelar un pedido en su control, implementan la interfaz cancelador.
+Mediante la interfaz grafica se selecciona un pedido y se invoca el metodo cancelar que posee el mismo, este metodo lo que hace es invocar el cancelar del responsable de cancelacion del pedido. Decidimos hacerlo de esta manera, en primer lugar, porque la cancelación es un proceso que puede ser complejo, ya que por ejemplo, al cancelar un pedido que estaba en el horno, hay que avisar al maestro de que saque ese pedido, porque no hay que seguir cocinando. Sacar este pedido de la cocina puede implicar seleccionar un nuevo pedido a cocinar segun la politica vigente. De manera similar, una cancelación de un pedido que se esta preparando requiere avisar al maestro de la cancelación, para pedirle el stock reutilizable, asi como también buscar un nuevo pedido a preparar. Por esta razón, nos parece acertado que aquellos que pueden llegar a tener que efectuar acciones particulares debido a una cancelación, sean invocados por el pedido cuando es cancelado. Notemos que este acercamiento es considerablemente extensible, ya que si se pretende por ejemplo agregar un nuevo controlador, solo debe implementar el método cancelar y asegurarse de que aquellos pedidos que quedan bajo su control lo tienen a el como responsable de cancelarlo.
 
-Decidimos que la cancelación no sea responsabilidad del controlador ya que la misma requiere de manipular por ejemplo las colas que son responsabilidad de otra clase, por lo cual lo mas apropiado es que cada uno cancele los pedidos que estan bajo su orbita.
+Ademas de esta manera de resolver el problema consideramos otras formas que no fueron aplicadas. En primer lugar, pensamos en que el pedido de cancelación ingresar por el coordinador de pedidos, el cual va propagando el llamado a todos los agentes a los que tiene acceso, para que estos se fijen si les corresponde cancelar o no. Esto tiene como principal problema que se realiza un cantidad de llamadas innecesarias, pero como caracteristica positiva tiene que es bastante distribuida, ya que si bien el llamado entra por el coordinador, las invocaciones a cancelar se propagan a todos los posibles agentes.
 
+Otra alternativa era considerar una clase canceladora que se encargue de rastrear el pedido, y luego decirle al controlador que lo estaba manejando en ese momento que lo cancele. El problema de esto es que el cancelador para buscar al responsable, va a tener que utilizar por ejemplo que los pedidos en tal estado si son de tal tipo estan bajo la orbita de tal controlador. Esto no nos parecio correcto, ni extensible, por lo cual se descartó.
 
+Veamos a continuación algunos escenarios diferentes de cancelación.
+
+El primer escenario consiste en cancelar un pedido que estaba en la cola de ingreso. En este caso se debe sacar de dicha cola al pedido y se debe reestablecer el stock de los insumos que no se van a utilizar.
+%FIXME: como hacemos para subir el stock?
+%TODO: diagramas de secuencia
+
+En segundo lugar podemos considerar que ocurre cuando se cancela un pedido que esta en preparación. En este caso puede ocurrir que el pedido se estaba preparando en el momento de su cancelación, por lo que debe indicarse que se detenga la preparación y que se indiquen que insumos se pueden salvar.
+Veremos entonces que ocurre en estos casos, mostran en el primer escenario como se cancela un pedido de solo empanadas que estaba siendo preparado, suponiendo que luego se puede empezar a preparar otro pedido que estaba en espera.
+Luego modelaremos el escenario en el que se cancela un pedido que tenía su subpedido de pizzas preparado y su subpedido de empanadas sin preparar.
+%FIXME: como hacemos para subir el stock?
+%TODO: diagramas de secuencia
+
+Otros lugar donde la cancelación es mas conflictiva es durante la coccion de un pedido, si el mismo estaba en la cola el proceso es simple porque solo hay que sacarlo de la misma. Ahora si el pedido estaba en el horno o estaba a medio cocinar hay que avisar al maestro para que deje de cocinar el pedido.
+
+Finalmente la cancelación también puede darse en el ambito del controlador de entregas y del controlador de listos, en estos casos el manejo es simple, sin embargo, por ejemplo en el controlador de entregas, si la operatoria no fuera de contingencia podria requerir de una logica mas compleja de aviso al delivery.
+%FIXME: entonces deberia ser una clase abstracta
 \section{Clase Pedido}
 \textcolor{Red}{TODO: explicacion de la clase pedido y las clases que lo heredan}
 
