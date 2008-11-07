@@ -1,0 +1,17 @@
+*sacar el metodo despachar(pedido) del	 coordinador de pedidos
+
+*fixme: el pedido de mesa tendria se que ver mas abajo en el diagrama en "cerrarMesa"
+
+*sacar metodo AgregarPedidos En camino de la clase controlador Entregas Standard
+
+*registrar pedido hay que ponerle la forma de pago y otras cosas mas
+
+*cerrar mesa toma un int mesa y un string forma de pago
+
+*agregar los metodos de preparador a preparador especializado
+
+*agregar las especializaciones avisoPizzero y avisoEmpanadero a la clase Aviso
+
+*agregar un comentario en el diagrama de secuencias de notificacion de preparacion pizza que diga que DDPS es una abreviacion del nombre DespachadorDePreaparacionStandard
+
+*falta poner la direccion del cliente

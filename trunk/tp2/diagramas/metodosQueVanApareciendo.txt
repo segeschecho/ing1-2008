@@ -59,3 +59,6 @@ subir(Pedido) void
 bajar(pedido) void
 buscarPedidoEnColayBajar(Pedido) void
 buscarPedidoEnColaySubir(Pedido) void
+
+****despachador de preparacion standard****
++partePreparada(Pedido) : void
