@@ -113,15 +113,15 @@ El diagrama de secuencia es el siguiente:
 \begin{figure}[H]
 \centering
 \includegraphics[height=5cm]{./figuras/despacharPedidoMesa.png}
-\caption{Despacho de un pedido telefonico}
+\caption{Despacho de un pedido de mesa}
 \end{figure}
 
 Finalmente en el caso de un pedido de mostrador, el controlador de listos solo lo marca como terminado, ya que el pedido fue entregado y se conoce su forma de pago. Por lo tanto la secuencia es la siguiente:
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=5cm]{./figuras/despacharPedidoMostrador.png}
-\caption{Despacho de un pedido telefonico}
+\includegraphics[height=8cm]{./figuras/despacharPedidoMostrador.png}
+\caption{Despacho de un pedido de mostrador}
 \end{figure}
 
 \subsubsection{Pedido de proximo pedido a preparar}
@@ -129,10 +129,29 @@ Finalmente en el caso de un pedido de mostrador, el controlador de listos solo l
 %TODO: mostrar pseudocodigo
 
 \subsubsection{Notificación de entrega}
+Cuando el usuario notifica una entrega, selecciona el pedido de la lista de pedidos con entrega pendiente e indica que fue entregado. Al hacerlo, se notifica al coordinador de pedidos, que pasa la llamada al controlador de entregas. El mismo busca el pedido que debe marcar como finalizado, lo marca y setea en \verb0NULL0 el encargado de cancelación, ya que el pedido no puede ser cancelado a partir de este momento. Luego notifica a su observador que un pedido salio de su cola, por ejemplo para que la GUI que muestra los pedidos con entrega pendiente se refresque.
+
+El escenario donde se notifica la entrega de un pedido, puede modelarse con el siguiente diagrama de secuencia:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=8cm]{./figuras/notificarEntrega.png}
+\caption{Notificacion de pedido entregado}
+\end{figure}
 
 \subsubsection{Cerrado de mesa}
+Para cerrar una mesa el usuario ingresa el numero de mesa que desea cerrar, elegiendo también la forma de pago. La GUI pasa el mensaje al coordinador de pedidos, el cual propaga la llamada hacia el controlador de mesa, que se va a encargar de completar la forma de pago de los pedidos de la mesa según el parametro pasado y los quita de la lista de pedidos con entrega pendiente. Entonces notifica a su observador de que se modificó su lista de pedidos.
+
+El siguiente diagrama nos permite modelar dicho escenario:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=8cm]{./figuras/cerrarMesa.png}
+\caption{Notificacion de pedido entregado}
+\end{figure}
 
 \subsubsection{Consulta de estado}
+%TODO: que lo haga gonza
 
 \section{Creación y registro de pedidos}
 En este componente se agrupan las clases que entran en juego al momento de crear un nuevo pedido.

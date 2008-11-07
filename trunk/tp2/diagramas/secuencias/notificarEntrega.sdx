@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
-<source><![CDATA[#!>>
-#! Notificar entrega de un pedido
-#!
-#!<<
-
-a:a[p][e]
+<source><![CDATA[a:a[p][e]
 coordinador:CoordinadorDePedidos
 controlador:ControladorDeEntregasStandard
 lista:List<Pedido>
