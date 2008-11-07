@@ -18,7 +18,7 @@ agregarPedidoListo(pedido):void
 +despachar(pedido) void
 +IngresarPedidoAEntregar(pedido) void
 +cerrarMesa(int) void
-
++agregarPedidoMesa(Pedido) : void
 
 ******Generador de pedido******
 
@@ -31,8 +31,9 @@ setEstado(estado):void
 
 
 ******controlador de listos******
-
 +despachar(pedido) void
+-lista: List<Pedido>             //lista de los pedidos listos
+#notify() : void
 
 ******pedido******
 
@@ -45,7 +46,7 @@ setEstado(estado):void
 
 ******controlador pedidos mesa******
 cerrarMesa(int) void
-
++agregarPedidoMesa(Pedido) : void
 
 ******controlador de ingreso******
 listar(void) list<Pedido>
