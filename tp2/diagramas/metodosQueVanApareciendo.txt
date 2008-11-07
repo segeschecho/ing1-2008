@@ -19,6 +19,8 @@ agregarPedidoListo(pedido):void
 +IngresarPedidoAEntregar(pedido) void
 +cerrarMesa(int) void
 +agregarPedidoMesa(Pedido) : void
++cerrarMesa(int mesa, string formaDePago)       ///cambiar esto en el diagrama!
+
 
 ******Generador de pedido******
 
@@ -36,9 +38,10 @@ setEstado(estado):void
 #notify() : void
 
 ******pedido******
-
 +setEstado(Estado) void
 +getMesa() int         //para pedidos de mesa
++setFormaDePago(string) void
+
 
 ******controlador de entregas******
 +IngresarPedidoAEntregar(pedido) void
@@ -47,6 +50,8 @@ setEstado(estado):void
 ******controlador pedidos mesa******
 cerrarMesa(int) void
 +agregarPedidoMesa(Pedido) : void
++cerrarMesa(int mesa, string formaDePago)              ///cambiar esto en el diagrama!!
+
 
 ******controlador de ingreso******
 listar(void) list<Pedido>
