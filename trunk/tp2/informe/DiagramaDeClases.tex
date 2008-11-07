@@ -48,29 +48,44 @@ La clase controladorDeIngreso es abstracta porque consideramos que la estrategia
 %FIXME: en el ingreso se da a la gui la responsabilidad de mostrar los datos del pedido, tiempo estimado y precio, no se si eso esta bien
 \subsubsection{Ingreso de un pedido de solo bebidas}
 A continuación intentaremos mostrar las interacciones existentes en este componente con el fin de modelar su comportamiento.
-Como primer escenario veamos que ocurre cuando ingresa un pedido de solo bebidas Telefonico. En este caso el pedido será creado por el generador de pedidos, sin embargo las interacciones propias de la creación no se detallaran en este escenario. Una vez que el pedido es creado, pasa al controlador de pre ingreso que lo examina para decidir si debe ir a la cocina o considerarse un pedido listo. En este caso, como solo hay bebidas, el pedido queda listo. El controlador de listos agrega el pedido a su lista de pedidos, se hace responsable del mismo y cambia su estado. Ademas el controlador de listos notifica a la gui para que recargue la lista de pedidos en estado listo. %TODO: lograr consenso de como hacer eso
+Como primer escenario veamos que ocurre cuando ingresa un pedido de solo bebidas Telefonico. En este caso el pedido será creado por el generador de pedidos, sin embargo las interacciones propias de la creación no se detallaran en este escenario, asi como tampoco la validación previa del cliente. Una vez que el pedido es creado, pasa al controlador de pre ingreso que lo examina para decidir si debe ir a la cocina o considerarse un pedido listo. En este caso, como solo hay bebidas, el pedido queda listo. El controlador de listos agrega el pedido a su lista de pedidos, se hace responsable del mismo y cambia su estado. 
+Al agregar el pedido a la lista notifica a su observador de que ocurrio un cambio, por ejemplo para que se repinte la lista de pedidos listos.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[height=9cm]{./figuras/remotoBebidas.png}
 \caption{Ingreso de un pedido remoto de solo bebidas}
 \end{figure}
 
+El verifcarPreprable y su analogo para cocinable, basicamente recorren los productos del pedido, buscando si alguno tiene un tipo preparable o cocinable.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/determinarPreparable.png}
+\caption{VerificarPreparable}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/determinarCocinable.png}
+\caption{VerificarCocinable}
+\end{figure}
+%FIXME: o tocamos la imagen con el inkscape o justifamos las cosas que son de notacion rara
+
 \subsubsection{Ingreso de un pedido con comidas}
-De forma analoga al escenario anterior, supongamos que se va a ingresar un pedido, pero en este caso, el pedido si tenía comidas, por lo que el controlador de pre ingresos se lo va a mandar al de ingresos. Este intenta pasarlo a la cocina para ver si esta puede hacerse cargo del pedido. Esto es asi porque en la especificación se pide que si entra un pedido y el maestro estaba ocioso, se le notifique que prepare el pedido ingresado. Como conocer si los maestros estan preparando algo o no no es asunto de este controlador lo que decidimos es que lo pase hacia la cocina y espere respuesta de esta. Modelaremos los dos escenarios, primero el caso en el que la cocina le dice que no puede hacerse cargo y en segundo lugar el caso en el que la cocina si acepta el pedido. %TODO: problema se esta fijando un protocolo, pero las clases que participan en el son abstractas, esta bien?
+De forma analoga al escenario anterior, supongamos que se va a ingresar un pedido, pero en este caso, el pedido si tenía comidas, por lo que el controlador de pre ingresos se lo va a mandar al de ingresos. Este intenta pasarlo a la cocina para ver si esta puede hacerse cargo del pedido. Esto es asi porque en la especificación se pide que si entra un pedido y el maestro estaba ocioso, se le notifique que prepare el pedido ingresado. Como conocer si los maestros estan preparando algo, no es asunto de este controlador lo que decidimos es que lo pase hacia la cocina y espere respuesta de esta. Modelaremos los dos escenarios, primero el caso en el que la cocina le dice que no puede hacerse cargo y en segundo lugar el caso en el que la cocina si acepta el pedido.
 
 En el primer caso, el controlador de ingresos se hace cargo del pedido, cambiando su estado, marcando el pedido como ingresado y agregandolo a la cola.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[height=7cm]{./figuras/remotoComidas.png}
 \caption{Ingreso de un pedido remoto con comida que queda encolado para su ingreso}
 \end{figure}
-%FIXME: el controlador de ingreso del diagrama deberia ser el abstracto o el concreto? si usamos el abstracto el metodo preparar tiene que quedar fijo
 
 En el segundo caso, como se va a hacer cargo la cocina, el controlador de ingreso no debe hacer nada cuando se regresa la llamada.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[height=5cm]{./figuras/remotoComidasquedapreparando.png}
 \caption{Ingreso de un pedido remoto con comida que pasa a estar preparando}

@@ -6,18 +6,20 @@ productos:multiSet<Producto>
 it:Iterator<multiSet<Producto>>
 p:Pedido
 pr:producto
+tp:TipoProducto
 
 a:unControlPreIng.determinarPreparable(p)
 unControlPreIng:productos=p.getProductos()
 unControlPreIng:productos.getIterator()
-[c:loop while it.hasNext()]
+unControlPreIng:hayMas?=it.hasNext()
+[c:loop hayMas?]
 unControlPreIng:pr=it.Next()
-unControlPreIng:preparable=pr.getPreparable()
-  [c:alt pr.preparable]
-      unControlPreIng:a.True
-      --[else]
-      unControlPreIng:Do nothing
-    [/c]
+unControlPreIng:tp=pr.getTipo()
+unControlPreIng:tp.getPreparable()
+  [c:opt preparable]
+  unControlPreIng:a.True
+  [/c]
+unControlPreIng:hayMas?=it.hasNext()
 [/c]
 unControlPreIng:a.False]]></source>
 <configuration>
