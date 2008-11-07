@@ -6,13 +6,15 @@
 #!<<
 
 a:a[p][e]
+unaGui:Gui
 coordinador:coordinadorDePedidos
 controlador:ControladorPedidosMesa
 lista: List<Pedido>
 p:PedidoMesa
 it:Iterator
 
-a:coordinador.cerrarMesa(20, Contando)
+a:unaGui.cerrarMesa(20, Contando)
+unaGui:coordinador.cerrarMesa(20, Contando)
 coordinador:controlador.cerrarMesa(20, Contado)
 controlador:it=lista.getIterator()
 controlador:hayMas?=it.hasNext()
