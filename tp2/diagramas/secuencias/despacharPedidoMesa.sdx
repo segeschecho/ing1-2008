@@ -7,20 +7,26 @@
 
 a:a[p][e]
 coordinador:CoordinadorDePedidos
-controlador:ControladorDeListos
-lista:Lista<Pedido>
+controlador:ControladorDeListosStandard
+listos:List<Pedido>
+enMesa:list<Pedido>
 p:Pedido
 controladorMesa:controladorPedidosMesa
-gui:Gui
+unObs:Observer
+otroObs:Observer
 
 a:coordinador.DespacharPedido(p)
 coordinador:controlador.DespacharPedido(p)
 controlador:p.setEstado(Finalizado)
-controlador:lista.remove(p)
+controlador:listos.remove(p)
 controlador:coordinador.agregarPedidoMesa(p)
 coordinador:controladorMesa.agregarPedidoMesa(p)
+controladorMesa:enMesa.append(p)
+controladorMesa:p.setResponsable(NULL)
+controladorMesa:controladorMesa.notify()
+controladorMesa:otroObs.update()
 controlador:controlador.notify()
-controlador:gui.update()]]></source>
+controlador:unObs.update()]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>

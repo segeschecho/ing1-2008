@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
 <source><![CDATA[#!>>
-#! despachar pedido de telefono
+#! Despachar pedido de telefono
 #!
 #!<<
 
 a:a[p][e]
 coordinador:CoordinadorDePedidos
 controlador:ControladorDeListos
-entregas:controladorEntregas
+entregas:controladorEntregasStandard
 p:Pedido
+listos:list<Pedido>
+enEntrega:list<Pedido>
+unObs:Observer
+otroObs:Observer
 
 a:coordinador.despachar(p)
 coordinador:controlador.despachar(p)
 controlador:p.setEstado(Enviado)
-controlador:coordinador.IngresarPedidoAEntregar(p)
+controlador:listos.remove(p)
+controlador:controlador.notify()
+controlador:unObs.update()
+controlador[1]:coordinador.IngresarPedidoAEntregar(p)
 coordinador:entregas.IngresarPedidoAEntregar(p)
-entregas:entregas.AgregarAPedidosEnCamino(p)]]></source>
+entregas:enEntrega.append(p)
+entregas:p.setResponsable(self)
+entregas:entregas.notify()
+entregas:otroObs.update()]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>

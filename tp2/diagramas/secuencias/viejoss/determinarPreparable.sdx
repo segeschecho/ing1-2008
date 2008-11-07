@@ -10,7 +10,7 @@ tp:TipoProducto
 
 a:unControlPreIng.determinarPreparable(p)
 unControlPreIng:productos=p.getProductos()
-unControlPreIng:productos.getIterator()
+unControlPreIng:it=productos.getIterator()
 unControlPreIng:hayMas?=it.hasNext()
 [c:loop hayMas?]
 unControlPreIng:pr=it.Next()
