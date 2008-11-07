@@ -8,8 +8,6 @@ p:Pedido
 unDespP:DespachadorDePreparacionStandard
 
 unContPI:unContI.ingresar(p)
-unContI:horno=unaGUI.pedirHorno()
-unContI:p.setHorno(horno)
 unContI:True=unCoordC.preparar(p)
 unCoordC:True=unDespP.preparar(p)
 unDespP:p.setEstado(EnPrepracion)

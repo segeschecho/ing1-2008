@@ -7,6 +7,8 @@ unContPI:ControladorDePreIngreso
 unContL:ControladorDeListos
 unGen:GeneradorDePedido
 /p:PedidoRemoto
+listPed:list<Pedido>
+algunaGui:Observer
 
 a:unaGui.IngresarPedido(c,productos,Teléfono)
 unaGui:p=unCoordP.ingresarPedido(c,productos,Teléfono)
@@ -19,8 +21,9 @@ unContPI[1]:unCoordP.agregarPedidoListo(p)
 unCoordP:unContL.agregarPedidoListo(p)
 unContL:p.setEstado(Listo)
 unContL:p.setResponsable(self)
-unContL:unContL.agregarPedido(p)
-unContL[1]:unaGui.recargarPedidos(self.pedidos)]]></source>
+unContL:listPed.append(p)
+unContL:unContL.notify()
+unContL:algunaGui.update()]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>

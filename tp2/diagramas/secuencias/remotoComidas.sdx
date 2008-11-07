@@ -2,20 +2,20 @@
 <diagram>
 <source><![CDATA[unContPI:ControladorDePreIngreso
 unContI:ControladorDeIngreso
-unaGUI:GUI
+unaGUI:Observer
 unCoordC:CoordinadorDeCocina
 p:Pedido
 unDespP:DespachadorDePreparacionStandard
+unaCola:Queue<Pedido>
 
 unContPI:unContI.ingresar(p)
-unContI:horno=unaGUI.pedirHorno()
-unContI:p.setHorno(horno)
 unContI:False=unCoordC.preparar(p)
 unCoordC:False=unDespP.preparar(p)
 unContI:p.setEstado(Ingresado)
 unContI:p.setResponsable(self)
-unContI:unContI.encolar(p)
-unContI[1]:unaGUI.recargarPedidos(self.pedidos)]]></source>
+unContI:unaCola.encolar(p)
+unContI:unContI.notify()
+unContI:unaGUI.update()]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
