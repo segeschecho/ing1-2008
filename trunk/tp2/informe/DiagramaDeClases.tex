@@ -92,6 +92,37 @@ En el segundo caso, como se va a hacer cargo la cocina, el controlador de ingres
 \end{figure}
 
 \subsubsection{Despacho de un pedido}
+Cuando el pedido esta cocinado es responsabilidad de el controlador de listos. Una vez que el pedido esta listo, se puede despachar. Despachar tiene una semantica diferente segun el origen del pedido, por eso es que el controlador posse un despachar para los subtipos remotos, otro para el pedido de mesa y finalmente un tercer despachar para pedidos de mostrador.
+
+En el escenario en el cual el pedido a despachar es de origen remoto, el controlador de listos, lo que hace es sacarlo de la lista, marcarlo como que salio en entrega y avisar de esto al coordinadorDePedido para que avise al controlador de entrega. Ademas notifica a su observador del evento. Esto se hace con la intención de que la gui se entere de que un pedido salio de esta lista y la refresque.
+
+El controlador de entregas pone al pedido en su lista de pedidos, y se asigna como responsable de la cancelación del mismo.
+
+Veamos el diagrama de secuencia comenzando la misma con la llegada de un mensaje de despachar al coordinador de pedidos
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=5cm]{./figuras/despacharPedidoTelefono.png}
+\caption{Despacho de un pedido telefonico}
+\end{figure}
+
+Otro escenario diferente lo constituye el despacho de un pedido de mesa. En este caso, el pedido deja la orbita del controlador de lista, para pasar al controlador de pedidos de mesa, el cual se encargara cuando se cierre la misma de asignar la forma de pago a los pedidos. Este encargado también se hace cargo de la cancelación. Ambos controladores ademas notifican a su observador de los cambios en su lista.
+
+El diagrama de secuencia es el siguiente:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=5cm]{./figuras/despacharPedidoMesa.png}
+\caption{Despacho de un pedido telefonico}
+\end{figure}
+
+Finalmente en el caso de un pedido de mostrador, el controlador de listos solo lo marca como terminado, ya que el pedido fue entregado y se conoce su forma de pago. Por lo tanto la secuencia es la siguiente:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=5cm]{./figuras/despacharPedidoMostrador.png}
+\caption{Despacho de un pedido telefonico}
+\end{figure}
 
 \subsubsection{Pedido de proximo pedido a preparar}
 %TODO: decidir aridad de esta función

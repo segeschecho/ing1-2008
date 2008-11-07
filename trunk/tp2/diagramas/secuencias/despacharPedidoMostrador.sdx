@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
 <source><![CDATA[#!>>
-#! despachar pedido de mostrador
+#! Despachar pedido de mostrador
 #!
 #!<<
 
@@ -9,10 +9,16 @@ a:a[p][e]
 coordinador:CoordinadorDePedidos
 controlador:ControladorDeListos
 p:Pedido
+listos:list<Pedido>
+unObs:Observer
 
 a:coordinador.despachar(p)
 coordinador:controlador.despachar(p)
-controlador:p.setEstado(Finalizado)]]></source>
+controlador:p.setEstado(Finalizado)
+controlador:listos.remove(p)
+controlador:controlador.notify()
+controlador:unObs.update()
+controlador[1]:p.setResponsable(NULL)]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
