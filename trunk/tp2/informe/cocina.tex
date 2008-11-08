@@ -14,12 +14,90 @@ La clase ControladorHorno es una abstraccion de los modulos del horno, esta clas
 \textcolor{Red}{TODO: explicacion de metodos importantes}
 \color{Blue}{
 \subsection{Modelado de escenarios}
-\subsubsection{Llega pedido a preparar y se rechaza}
-\subsubsection{Llega pedido a prepara y se acepta}
-\subsubsection{se termina de preparar un pedido en varios sabores}
-\subsubsection{se encola un pedido en su horno}
-\subsubsection{ingresa un pedido a cocinar y no se encola}
-\subsubsection{se saca algo del horno, politica normal}
+\subsubsection{Ingreso de pedidos a preparar}
+En nuestra especificación del sistema consideramos que el aviso de preparación se produciria de manera automatica siempre que el maestro este ocioso y llegue un nuevo pedido. También se produce de forma automatica cuando el maestro termina y hay algun pedido potencialmente preparable por el.
+
+Es por esta razón que el ingreso de un nuevo pedido genera que se intente poner a preparar el pedido, ya que el controlador de ingreso no conoce el estado de los preparadores. El despachador de preparación recibe estos pedidos y decide si puede derivarlos o no, en cuyo caso deben quedar encolados en el controlador de ingreso.
+
+A continuación modelaremos algunos escenarios que pueden producirse en estos casos. Para los escenarios utilizaremos los pedidos mixtos, ya que los pedidos simples son un caso particular de estos ultimos.
+
+En el primer escenario, consideraremos que el pedido ingresa pero ambos maestros estan ocupados por lo cual el pedido debe encolarse en la cola de ingreso. 
+
+El despachador estandar lo que hace es revisar si un pedido es asignable al maestro empanadero, para que esto ocurra el pedido tiene que contener alguna empanada y ademas el maestro empanadero debe estar libre. Si no, no se puede. En este escenario el maestro esta ocupado por lo que no se puede asignarle el pedido. La situación del pizzero es similar, asi que tampoco se le puede asignar el pedido. Ergo, el mismo se rechaza.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=6cm]{./figuras/mandanPrepararMixtoYEmpiezanNada.png}
+\caption{Solicitud de preparacion de un pedido mixto cuando ambos maestros estan ocupados}
+\end{figure}
+
+Otro caso es aquel en el que uno de los maestros si esta dispuesto a comenzar la preparación del pedido. En este caso, el pedido se encola para el empanadero (porque era mixto) pero comienza a preparse para el pizzero. Al hacerlo es necesario guardar alguna información sobre el pedido. Por ejemplo registrar que es mixto y que por lo tanto antes de estar listo se deben preparar los dos subpedidos (empanadas y pizzas). Y recordar que ese es el pedido que el pizzero esta preparando. Luego se entregan los subproductos a preparar al preparador y se notifica mediante el return que el pedido no debe quedar en la cola de ingreso, sino en preparación.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=10cm]{./figuras/mandanPrepararMixtoYEmpiezanPizzas.png}
+\caption{Solicitud de preparacion de un pedido mixto cuando el maestro pizzero esta disponible}
+\end{figure}
+
+Finalmente podria ocurrir que ambos maestros esten ociosos, porque no habia ningun pedido en la pizzeria esperando por ser preparado. Y al llegar un nuevo pedido ambos comiencen a preparalo. La situación es similar al caso anterior, pero en este caso no se encola el pedido, sino que se notifica a ambos preparadores para que estos luego realicen la notificación.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=11cm]{./figuras/mandanPrepararMixtoYEmpiezanAmbos.png}
+\caption{Solicitud de preparacion de un pedido mixto cuando ambos maestros estan disponibles}
+\end{figure}
+
+\subsubsection{Terminancion de preparación}
+
+\subsubsection{Ingreso de pedidos al horno}
+Luego de ser preparados los pedidos pasan a traves del coordinador de cocina hacia el despachador de coccion. Este despachador es quien se encarga de manejar las colas de los hornos segun alguna politica. En particular en este trabajo consideraremos la politica normal y la politica agil, las cuales fueron debidamente especificadas en el trabajo anterior.
+
+Basicamente ambas politicas, o despachadores tienen una estructura interna similar. Se utiliza un diccionario de numero de modulo a pedido que lo ocupa, para cada horno, hay dos colas de pedidos, pueden ser listas, ya que se por ejemplo se busca dentro de ellas, un diccionario que permite saber que partes faltan cocinar de un pedido y finalmente una variable de estado (2 en el caso de la politica agil) que permiten conocer que pedido esta a mitad de coccion, con elementos sin cocinar, y elementos cocinados o dentro del horno (la politica agil necesita 2 de estas variables ya que puede haber un pedido grande y un pedido chico en esta condicion).
+
+
+%TODO: tal vez este no es el lugar para tantos detalles
+Luego de terminar la preparacion de un pedido, el despachador invoca al coordinador, el cual a su vez llama al despachador de cocción. En un primer escenario a considerar, el pedido llega al despachador y como no hay lugar para entrar a su horno, se lo encola. Antes de encolarlo, se invoca al fraccionador, correspondiente al controlador del horno del pedido, para que separe al pedido en grupos de productos que se pueden colocar en un modulo. Es decir si el pedido es 3 pizzas y 3 empanadas y entran 2 empanadas por modulo y una pizza por modulo, una posible separacion de los productos del pedido es \{ 1 pizza, 1 pizza, 1 pizza, 2 empanadas, 1 empanada \}
+
+En este escenario se asume que el horno 1 es el asignado al pedido.
+
+%TODO: colocar el pseudocodigo del despachador
+
+El diagrama de secuencia resultante es el siguiente:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=6cm]{./figuras/llegaCocinarYseEncola.png}
+\end{figure}
+
+Otro escenario a considerar, comienza de igual manera que el anterior, pero esta vez si hay lugar en el horno para que el pedido entre. Lo que se hace es meter una parte del pedido en algun modulo libre, esto se repite mientras queden modulos libres o se termine el pedido. Por simplicidad en este escenario consideramos el caso donde solo habia un modulo libre. Una vez hecho eso, lo que ocurre es que se actualiza el estado interno. Por eso en este diagrama, al igual que en el anterior hay muchos automensajes, los cuales se deben a la gran cantidad de información interna que se necesita para mantener las politicas de acceso a los hornos.
+
+Queremos notar que estos escenarios aplican también para la politica agil, ya que los pedidos que llegan pueden quedarse encolados si no hay lugar (independientemente de si son agiles o no) y por otro lado pueden entrar si hay lugar libre, pero si hay lugar libre entran porque la cola es en esencia \textit{FIFO} en estas circunstancias, es decir si hay lugar vacio y solo hay un pedido, como se busca maximizar el uso del horno, se ingresa al mismo mas alla de su condicion de chico o grande. Nada impide que mas adelante se implemente una nueva politica que trate de hacer por ejemplo mas corto primero con conocimiento futuro, de modo que, por ejemplo use una cierta probabilidad $p$ para decidir si pone al pedido recien llegado al horno o no.
+
+\subsubsection{Fin de coccion de una parte}
+Hasta ahora solo consideramos cuando los pedidos entran al despachador provenientes de la etapa de prepración. Consideremos entonces que ocurre cuando se notifica la terminación de la cocción de una parte que estaba en el horno.
+
+Supongamos una politica normal, y que la parte del pedido que sale no es lo ultimo que quedaba por cocinarse. Para determinar si un pedido se termino de cocinar, se pregunta si queda alguna parte por cocinar y si hay alguna en el horno, si ambas respuestas son negativas, se termino de cocinar. Notar que no se esta intentando saber que partes fueron cocinadas, sino cuantas faltan. Otra nueva politica podria interesarse en tener un control mas estricto, por ejemplo para informar de forma mas precisa el estado de un pedido que es al horno.
+
+La notificación de que una parte se termino de preparar la recibe el controlador de horno, el cual recibe que modulo se liberó. El controlador pasa el mensaje al despachador, el cual actualiza su estado en función de este evento y busca si puede poner a cocinar algo.
+
+Lo que hace el despachador normal es buscar si hay un pedido a medio cocinar, es decir con partes sin cocinar y fuera del horno. Si hay uno se toma una parte de ese. Podria ocurrir que al pedido a medio cocinar solo le quedaba esa parte por cocinar, en cuyo caso ahora no hay ningun pedido a medio cocinarse en ese horno.´
+
+Si no habia ninguno a medio preparar toma el proximo pedido de la cola y busca alguna de sus partes para enviar al controlador de horno. Este nuevo pedido podría pasar a ser el nuevo pedido a medio cocinar.
+
+Si no habia ningun pedido en la cola tampoco, no tiene nada que hacer luego de actualizar su estado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=18cm]{./figuras/saleUnPedidoNormalNoTermina.png}
+\end{figure}
+
+En el escenario donde la politica es agil, la situación es similar, en particular en el caso de que el modulo que se vacia no es agil, es el mismo procedimiento. Si el modulo que se vacia si es agil, el funcionamiento se modifica. En vez de intentar meter el pedido a medio cocinar se busca el pedido chico a medio cocinar. Si no hay, lo que se hace es buscar si hay algun chico en la cola, cuando lo encuentra el proceso es similar al escenario anterior, solo que este pedido puede llegar a ser el chico a medio cocinar. Si tampoco lo encuentra, busca como si fuera una politica normal. Esto nos permite ver como la politica agil, frente a la ausencia de pedidos chicos, es exactamente igual a la politica normal.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=18cm]{./figuras/saleUnPedidoNormalNoTermina.png}
+\end{figure}
+
 \subsubsection{se saca algo del horno y se mete algo agil, politica agil de la cola, alternativas de se termino algo de cocinar o no}
 \subsubsection{se saca algo del horno y se mete algo agil q estaba a medio cocinar}
 }

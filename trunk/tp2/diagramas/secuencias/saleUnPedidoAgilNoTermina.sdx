@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram>
+<source><![CDATA[a:a[p][e]
+unContH:ControladorHorno
+unDesp:DespachadorDeCoccionNormal
+colaH1:list<Pedido>
+
+a:unContH.sacar(3)
+unContH:unDesp.vaciarModulo(3)
+unDesp:p=unDesp.getPedidoEnModulo(3)
+unDesp[1]:False=unDesp.termino(P)
+unDesp[1]:True=unDesp.esAgil(3)
+[c:alt medioCocinarAgil != NULL]
+unDesp[1]:parte=unDesp.getParteACocinar(medioCocinarAgil1)
+unDesp[1]:queda=unDesp.quedaPorCocinar(medioCocinarAgil1)
+[c:opt not queda]
+unDesp[1]: se pone medioCocinarAgil1 como NULL
+[/c]
+unDesp:unContH.meter(parte,3)
+unDesp:unDesp.setPedidoEnModulo(3,medioCocinar1)
+--Else
+unDesp[1]:chico=unDesp.getNextChico(1)
+[c:alt chico!=NULL]
+unDesp[1]:colaH1.remove(chico)
+unDesp:parte=unDesp.getParteACocinar(chico)
+unDesp[1]:unContH.meter(parte,3)
+unDesp:unDesp.setPedidoEnModulo(3,chico)
+unDesp[1]:queda=unDesp.quedaPorCocinar(chico)
+[c:opt not queda]
+unDesp[1]: se pone medioCocinarAgil1 como chico
+[/c]
+--Else
+unDesp:Se procecede como en la politica normal \\n se busca si hay uno a medio cocinar,\\n si hay se lo pone y sino se busca en la cola
+[/c]
+[/c]
+unContH:a.]]></source>
+<configuration>
+<property name="actorWidth" value="25"/>
+<property name="arrowSize" value="6"/>
+<property name="colorizeThreads" value="true"/>
+<property name="destructorWidth" value="30"/>
+<property family="Dialog" name="font" size="13" style="0"/>
+<property name="fragmentMargin" value="8"/>
+<property name="fragmentPadding" value="10"/>
+<property name="fragmentTextPadding" value="3"/>
+<property name="glue" value="10"/>
+<property name="headHeight" value="35"/>
+<property name="headLabelPadding" value="5"/>
+<property name="headWidth" value="100"/>
+<property name="initialSpace" value="10"/>
+<property name="leftMargin" value="5"/>
+<property name="lineWrap" value="false"/>
+<property name="lowerMargin" value="5"/>
+<property name="mainLifelineWidth" value="8"/>
+<property name="messageLabelSpace" value="3"/>
+<property name="messagePadding" value="6"/>
+<property name="noteMargin" value="6"/>
+<property name="notePadding" value="6"/>
+<property name="opaqueMessageText" value="false"/>
+<property name="returnArrowVisible" value="true"/>
+<property name="rightMargin" value="5"/>
+<property name="selfMessageHorizontalSpace" value="15"/>
+<property name="separatorBottomMargin" value="8"/>
+<property name="separatorTopMargin" value="15"/>
+<property name="spaceBeforeActivation" value="2"/>
+<property name="spaceBeforeAnswerToSelf" value="10"/>
+<property name="spaceBeforeConstruction" value="6"/>
+<property name="spaceBeforeSelfMessage" value="7"/>
+<property name="subLifelineWidth" value="6"/>
+<property name="threadNumbersVisible" value="false"/>
+<property name="threaded" value="true"/>
+<property name="upperMargin" value="5"/>
+<property name="verticallySplit" value="true"/>
+</configuration>
+</diagram>
