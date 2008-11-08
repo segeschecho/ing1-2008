@@ -16,4 +16,6 @@
 
 (listo)*falta poner la direccion del cliente
 
-hacer observer pattern para controladorStock
+falta observer de controladorStock en DC
+
+falta observer de preparador en DC
