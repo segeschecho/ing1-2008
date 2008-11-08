@@ -50,7 +50,6 @@ Decidimos factorizar el diagrama de modo que algunas interacciones las mostrarem
 \begin{figure}[H]
 \centering
 \includegraphics[height=11cm]{./figuras/ingresar(ControladorStock)}
-\caption{Verificación y decremento de stock de los insumos}
 \end{figure}
 
 Hay dos metodos restablecerStock, uno trabaja sobre productos y otro a nivel de insumos. El primero recorre los productos llamando al segundo para los insumos de cada producto que itera. Mientras que a nivel de insumos, lo que se hace es incrementar la cantidad de cada insumo que aparece en la lista. Como dijimos anteriormente, estos metodos permiten realizar un rollback para dehacer los cambios hechos en el stock en el caso de que la operación de ingreso no sea exitosa
@@ -67,8 +66,9 @@ Hay dos metodos restablecerStock, uno trabaja sobre productos y otro a nivel de 
 \caption{restableciendo el stock de los productos cuyo }
 \end{figure}
 
-{\color{purple}
+{\color{Purple}
 \subsubsection{asignar horno}
+%TODO: estos items
 \begin{itemize}
 \item asignacion automatica
 \item asignacion manual
