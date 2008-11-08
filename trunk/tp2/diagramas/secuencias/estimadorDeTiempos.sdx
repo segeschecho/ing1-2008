@@ -18,21 +18,21 @@ itProd:Iterator<multiSet<Producto>>
 prod:Producto
 
 a:estimador.estimarTiempo(productos)
-estimador:estimador.tiempoPreparacion = 0
-estimador[1]:estimador.tiempoCoccionPizzas = 0
-estimador[2]:estimador.tiempoCoccionEmpanadas = 0
-estimador[1]:pedidos=Pedido.allInstances()
+estimador:tiempoPreparacion = 0
+estimador:tiempoCoccionPizzas = 0
+estimador:tiempoCoccionEmpanadas = 0
+estimador:pedidos=Pedido.allInstances()
 estimador:it=pedidos.getIterator()
 estimador:hayMas?=it.hasNext()
 [c:loop hayMas?]
 estimador:p=it.getNext()
 estimador:t=estimador.estimarTiempoDePreparacion(p)
-estimador[1]:estimador.tiempoPreparacion += t
-estimador[1]:t=estimador.estimarTiempoDeCoccionPizzas(p)
-estimador[1]:estimador.tiempoCoccionPizzas += t
-estimador[1]:t=estimador.estimarTiempoDeCoccionEmpanadas(p)
-estimador[1]:estimador.tiempoCoccionEmpanadas += t
-estimador[1]:hayMas?=it.hasNext()
+estimador[1]:tiempoPreparacion += t
+estimador:t=estimador.estimarTiempoDeCoccionPizzas(p)
+estimador[1]:tiempoCoccionPizzas += t
+estimador:t=estimador.estimarTiempoDeCoccionEmpanadas(p)
+estimador[1]:tiempoCoccionEmpanadas += t
+estimador:hayMas?=it.hasNext()
 [/c]
 #saco los datos apartir del controlador de horno
 estimador:modulos=controlador.getCantModulos()
@@ -47,24 +47,24 @@ estimador:hayMas?=itProd.hasNext()
 [c:loop hayMas?]
     estimador:prod=it.getNext()
     estimador:t=prod.getTiempoPreparacion()
-    estimador:estimador.tiempoPreparacion += t
+    estimador:tiempoPreparacion += t
     estimador:tipo=prod.getTipo()
     [c:opt tipo=tipoEmpanada]
-    estimador[1]:t=prod.getTiempoCoccion()
-    estimador:estimador.tiempoCoccionEmpanadas += t
+    estimador:t=prod.getTiempoCoccion()
+    estimador:tiempoCoccionEmpanadas += t
     [/c]
     [c:opt tipo=tipoPizza]
-    estimador[1]:t=prod.getTiempoCoccion()
-    estimador:estimador.tiempoCoccionPizzas += t
+    estimador:t=prod.getTiempoCoccion()
+    estimador:tiempoCoccionPizzas += t
     [/c]
     estimador[1]:hayMas?=it.hasNext()
 [/c]
 
 #hago la cuenta pedorra
-estimador:estimador.res = tiempoPreparacion
-estimador[1]:estimador.res += tiempoCoccionPizzas/(prodXModPizza*modulos)
-estimador[1]:estimador.res += tiempoCoccionEmpanadas/(prodXModEmpanada*modulos)
-estimador[1]:a.res]]></source>
+estimador:res = tiempoPreparacion
+estimador:res += tiempoCoccionPizzas/(prodXModPizza*modulos)
+estimador:res += tiempoCoccionEmpanadas/(prodXModEmpanada*modulos)
+estimador:a.res]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>

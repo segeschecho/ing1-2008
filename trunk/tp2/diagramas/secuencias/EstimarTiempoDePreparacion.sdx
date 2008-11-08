@@ -13,8 +13,8 @@ it:Iterator<multiSet<Producto>>
 prod:Producto
 
 a:estimador.estimarTiempoDePreparacion(p)
-estimador:estimador.res = 0
-estimador[1]:estado=p.getEstado()
+estimador:res = 0
+estimador:estado=p.getEstado()
 [c:opt estado!=Ingresado]
     estimador:a.res
 [/c]
@@ -25,8 +25,8 @@ estimador:hayMas?=it.hasNext()
 [c:loop hayMas?]
     estimador:prod=it.getNext()
     estimador:tiempo=prod.getTiempoPreparacion()
-    estimador:estimador.res += tiempo
-    estimador[1]:hayMas?=it.hasNext()
+    estimador:res += tiempo
+    estimador:hayMas?=it.hasNext()
 [/c]
 estimador:a.res]]></source>
 <configuration>
