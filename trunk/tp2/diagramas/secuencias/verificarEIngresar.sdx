@@ -5,6 +5,7 @@ unContStock:ControladorDeStock
 productos:multiSet<Producto>
 it:Iterator<multiSet<Producto>>
 /yaDecrementados:MultiSet<Producto>
+obsStock:ObserverStock
 
 a:unContStock.verificarEIngresar(productos)
 unContStock:it=productos.getIterator()
@@ -23,6 +24,11 @@ unContStock:yaDecrementados.add(prod)
 unContStock:hayMas=it.hasNext() 
 [/c]
 unContStock:yaDecrementados.delete()
+unContStock:criticos=unContStock.obtenerCriticos(productos)
+[c:opt not criticos.empty()]
+unContStock[1]:unContStock.notify()
+unContStock:obsStock.update()
+[/c]
 unContStock:a.True]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>

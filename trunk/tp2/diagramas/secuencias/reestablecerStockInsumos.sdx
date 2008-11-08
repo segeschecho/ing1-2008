@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
 <source><![CDATA[#!>>
 #! reestablecer stock de una lista de insumos
@@ -18,7 +18,7 @@ controlador:hayMas?=it.hasNext()
 controlador:unInsumo=it.getNext()
 controlador:cantidad=unInsumo.getCant()
 controlador:unInsumo.setCant(cantidad + 1)
-controlador:haymas?=it.hasNext()
+controlador:hayMas?=it.hasNext()
 [/c]
 controlador:a.]]></source>
 <configuration>
