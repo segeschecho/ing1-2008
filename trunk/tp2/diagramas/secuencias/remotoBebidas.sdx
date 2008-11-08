@@ -10,9 +10,9 @@ unGen:GeneradorDePedido
 listPed:list<Pedido>
 algunaGui:Observer
 
-a:unaGui.IngresarPedido(c,productos,Teléfono)
-unaGui:p=unCoordP.ingresarPedido(c,productos,Teléfono)
-unCoordP:p=unGen.generarPedido(c,productos,Teléfono)
+a:unaGui.IngresarPedido(c,productos,Teléfono,Efectivo)
+unaGui:p=unCoordP.ingresarPedido(c,productos,Teléfono,Efectivo)
+unCoordP:p=unGen.generarPedido(c,productos,Teléfono,Efectivo)
 unGen:p.new(...)
 unCoordP:unContPI.ingresar(p)
 unContPI:false=unContPI.verificarPreparable(p)

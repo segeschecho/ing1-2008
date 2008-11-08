@@ -3,31 +3,33 @@
 <source><![CDATA[a:al[p][e]
 unContStock:ControladorDeStock
 p:Producto
-unInsumo:Insumo
 insumos:list<Insumo>
 it:Iterator<list<Insumo>>
 /yaDecrementados:list<Insumo>
+unInsumo:Insumo
+obsStock:ObserverStock
 
 a:unContStock.ingresar(p)
 unContStock:insumos=p.getInsumos()
 unContStock:it=insumos.getIterator()
 unContStock:yaDecrementados.new()
-[c:loop it.hastNext()]
+unContStock:hayMas=it.hasNext()
+[c:loop hayMas]
 unContStock:unInsumo=it.next()
 unContStock:cantActual=unInsumo.getCant()
-unContStock:cantCritica=unInsumo.getCantCritica()
 [c:alt cantActual != 0]
 unContStock:unInsumo.setCant(cantActual-1)
 unContStock:yaDecrementados.add(unInsumo)
-[c:alt cantActual-1 < cantCritica]
-unContStock:unContStock.AvisarStockCritico(unInsumo)
---- Else
-unContStock[1]:Do Nothing
-[/c]
---- Else
+--Else
 unContStock[1]:unContStock.ReestablecerStock(yaDecrementados)
-unContStock[1]:a.False
+unContStock[1]:yaDecrementados.delete()
+unContStock:a.False
 [/c]
+[/c]
+unContStock:criticos=unContStock.obtenerCriticos(productos)
+[c:opt not criticos.empty()]
+unContStock[1]:notificar(criticos)
+unContStock:obsStock.update(criticos)
 [/c]
 unContStock:a.True]]></source>
 <configuration>

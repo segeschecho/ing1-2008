@@ -8,18 +8,22 @@ it:Iterator<multiSet<Producto>>
 
 a:unContStock.verificarEIngresar(productos)
 unContStock:it=productos.getIterator()
-unContStock:yaDecrementados.new() 
-[c:loop it.hasNext()]
+unContStock:yaDecrementados.new()
+unContStock:hayMas=it.hasNext() 
+[c:loop hayMas]
 unContStock:prod=it.getNext()
 unContStock:posible=unContStock.ingresar(prod)
 [c:alt not posible]
 unContStock[1]:unContStock.restablecerStock(yaDecrementados)
-unContStock[1]:a.False
+unContStock[1]:yaDecrementados.delete()
+unContStock[1]:a.ExcepcionProductoImposible(prod)
 --Else
 unContStock:yaDecrementados.add(prod)
 [/c]
+unContStock:hayMas=it.hasNext() 
 [/c]
-unContStock[1]:a.True]]></source>
+unContStock:yaDecrementados.delete()
+unContStock:a.True]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
