@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
-<source><![CDATA[a:al[p][e]
-unContStock:ControladorDeStock
-p:Producto
-insumos:list<Insumo>
-it:Iterator<list<Insumo>>
-/yaDecrementados:list<Insumo>
-unInsumo:Insumo
+<source><![CDATA[cp:CoordinadorDePedidos
+unGen:GeneradorDePedidosStandard
+unEst:EstimadorBasico
+unAsig:AsignadorNormal
+unCont:controladorStockBasico
+/p:pedidoMostrador
 
-
-a:unContStock.ingresar(p)
-unContStock:insumos=p.getInsumos()
-unContStock:it=insumos.getIterator()
-unContStock:yaDecrementados.new()
-unContStock:hayMas=it.hasNext()
-[c:loop hayMas]
-unContStock:unInsumo=it.next()
-unContStock:cantActual=unInsumo.getCant()
-[c:alt cantActual != 0]
-unContStock:unInsumo.setCant(cantActual-1)
-unContStock:yaDecrementados.add(unInsumo)
---Else
-unContStock[1]:unContStock.ReestablecerStock(yaDecrementados)
-unContStock[1]:yaDecrementados.delete()
-unContStock:a.False
-[/c]
-[/c]
-unContStock:yaDecrementados.delete()
-unContStock:a.True]]></source>
+cp:p=unGen.generarPedido(cliente,productos,mostrador,contado,mesa)
+unGen:True=unCont.verificarEIngresar(productos)
+unGen:fechaDeIngreso=unGen.getDateTime()
+unGen[1]:id=unGen.generarId()
+unGen[1]:p.new(id,cliente,productos,contado,fechaIngreso)
+*5 unGen
+Se crea un pedido de mostrador porque
+se chequeo el origen y este era mostrador,
+*5
+unGen:unAsig.asignarHorno(p)
+unGen:unEst.estimarTiempo(p)]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
@@ -42,7 +32,7 @@ unContStock:a.True]]></source>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>
 <property name="initialSpace" value="10"/>
-<property name="leftMargin" value="17"/>
+<property name="leftMargin" value="5"/>
 <property name="lineWrap" value="false"/>
 <property name="lowerMargin" value="5"/>
 <property name="mainLifelineWidth" value="8"/>

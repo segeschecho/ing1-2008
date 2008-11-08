@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
-<source><![CDATA[a:al[p][e]
-unContStock:ControladorDeStock
-p:Producto
-insumos:list<Insumo>
-it:Iterator<list<Insumo>>
-/yaDecrementados:list<Insumo>
-unInsumo:Insumo
+<source><![CDATA[a:a[p][e]
+unCoordC:CoordinadorDeCocina
+unIng:controladorDeIngresoStandard
+listaPeds:list<Pedido>
+it:iterator<list<Pedido>>
+unObs:Observer
 
-
-a:unContStock.ingresar(p)
-unContStock:insumos=p.getInsumos()
-unContStock:it=insumos.getIterator()
-unContStock:yaDecrementados.new()
-unContStock:hayMas=it.hasNext()
-[c:loop hayMas]
-unContStock:unInsumo=it.next()
-unContStock:cantActual=unInsumo.getCant()
-[c:alt cantActual != 0]
-unContStock:unInsumo.setCant(cantActual-1)
-unContStock:yaDecrementados.add(unInsumo)
---Else
-unContStock[1]:unContStock.ReestablecerStock(yaDecrementados)
-unContStock[1]:yaDecrementados.delete()
-unContStock:a.False
+a:unCoordC.conseguirPedido(tipoProd)
+unCoordC:ped=unIng.proximoPedido(tipoProd)
+unIng:it=listaPeds.getIterator()
+unIng:hayMas=it.hasNext()
+unIng:aca ponemos la variable pedidoEncontrado en NULL
+[c:loop hayMas and pedidoEncontrado != NULL]
+unIng:ped=it.next()
+unIng:tiene=unIng.tieneTipo(ped,tipoProd)
+[c:opt tiene]
+unIng[1]:it.remove()
+unIng: aca hacemos pedidoEncontrado=ped
+unIng:unIng.notify()
+unIng:unObs.update()
 [/c]
 [/c]
-unContStock:yaDecrementados.delete()
-unContStock:a.True]]></source>
+unCoordC:a.ped]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
@@ -42,7 +37,7 @@ unContStock:a.True]]></source>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>
 <property name="initialSpace" value="10"/>
-<property name="leftMargin" value="17"/>
+<property name="leftMargin" value="5"/>
 <property name="lineWrap" value="false"/>
 <property name="lowerMargin" value="5"/>
 <property name="mainLifelineWidth" value="8"/>
