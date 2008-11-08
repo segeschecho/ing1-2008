@@ -15,3 +15,5 @@
 *agregar un comentario en el diagrama de secuencias de notificacion de preparacion pizza que diga que DDPS es una abreviacion del nombre DespachadorDePreaparacionStandard
 
 (listo)*falta poner la direccion del cliente
+
+hacer observer pattern para controladorStock
