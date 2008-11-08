@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[#!>>
-#! Se notifica que se termino de preparar una pizza
+#! Se notifica que se termino de preparar una pizza y cuando se va a buscar lo siguiente a preparar, no hay mas nada en la cola pizzera de preparacion
 #!
 #!<<
 
@@ -15,6 +15,7 @@ unDespachador:DespachadorDeCoccion
 unDicc:Diccionario<Pedido,int>
 colaPizzera:Queue<Pedido>
 obsPrep:ObserverPreparador
+unContIng:ControladorDeIngreso
 
 a:unaGui.terminar()
 unaGui:unPrepPizza.terminar()
@@ -27,12 +28,17 @@ unDDPS[1]:unCoordC.cocinar(p)
 unCoordC:unDespachador.cocinarPedido(p)
 unDDPS:unDicc.borrar(p)
 [/c]
-unDDPS:proxPed=colaPizzera.next()
+unDDPS:null=colaPizzera.next()
+unDDPS:proxPed=unCoordC.conseguirPedido(tipoProd)
+unCoordC:proxPed=unContIng.proximoPedido(tipoProd)
 unDDPS:actualizar la variable pizzeroActual
-unDDPS:productos=unDDPS.getSubpedidoPizzero(proxPed)
-unDDPS[1]:unPrepPizza.preparar(productos)
+[c:opt proxPed != NULL]
+unDDPS:empanadas=unDDPS.getSubpedidoEmpanadero(proxPed)
+unDDPS[1]:pizzas=unDDPS.getSubpedidoPizzero(proxPed)
+unDDPS[1]:unPrepPizza.preparar(pizzas)
 unPrepPizza[1]:unPrepPizza.notify()
-unPrepPizza:obsPrep.update(productos)
+unPrepPizza[1]:obsPrep.update(pizzas)
+[/c]
 unaGui:a.]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
