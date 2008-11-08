@@ -41,7 +41,7 @@ setEstado(estado):void
 +setEstado(Estado) void
 +getMesa() int         //para pedidos de mesa
 +setFormaDePago(string) void
-
++getProductos() : multiSet<Producto>
 
 ******controlador de entregas******
 +IngresarPedidoAEntregar(pedido) void
@@ -62,3 +62,19 @@ buscarPedidoEnColaySubir(Pedido) void
 
 ****despachador de preparacion standard****
 +partePreparada(Pedido) : void
+
+
+****Producto****
++getTiempoPreparacion() : int
++getTiempoCoccion() : int
++getTipo() : TipoProducto
+
+***EstimadorDeTiempos***
+#estimarTiempoDePreparacion(Pedido) : int
+#estimarTiempoDeCoccionPizzas(Pedido) : int
+#estimarTiempoDeCoccionEmpanadas(Pedido) : int
+
+***fraccionador de horno***
++getCantModulos() : int
++getProductoPorModulo(tipoPizza) : int
++getProductoPorModulo(tipoEmpanada) : int

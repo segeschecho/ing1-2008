@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram>
+<source><![CDATA[#!>>
+#! Estimador de tiempos de un pedido
+#!
+#!<<
+
+a:a[p][e]
+estimador:EstimadorBasico
+productos:multiSet<Producto>
+Pedido:Pedido
+pedidos:List<Pedido>
+it:Iterator<List<Pedido>>
+p:Pedido
+controlador:ControladorHorno
+fraccionador:FraccionadorHorno
+itProd:Iterator<multiSet<Producto>>
+prod:Producto
+
+a:estimador.estimarTiempo(productos)
+estimador:estimador.tiempoPreparacion = 0
+estimador[1]:estimador.tiempoCoccionPizzas = 0
+estimador[2]:estimador.tiempoCoccionEmpanadas = 0
+estimador[1]:pedidos=Pedido.allInstances()
+estimador:it=pedidos.getIterator()
+estimador:hayMas?=it.hasNext()
+[c:loop hayMas?]
+estimador:p=it.getNext()
+estimador:t=estimador.estimarTiempoDePreparacion(p)
+estimador[1]:estimador.tiempoPreparacion += t
+estimador[1]:t=estimador.estimarTiempoDeCoccionPizzas(p)
+estimador[1]:estimador.tiempoCoccionPizzas += t
+estimador[1]:t=estimador.estimarTiempoDeCoccionEmpanadas(p)
+estimador[1]:estimador.tiempoCoccionEmpanadas += t
+estimador[1]:hayMas?=it.hasNext()
+[/c]
+#saco los datos apartir del controlador de horno
+estimador:modulos=controlador.getCantModulos()
+estimador:prodXModPizza=controlador.getProductoPorModulo(tipoPizza)
+controlador:prodXMod=fraccionador.getProductoPorModulo(tipoPizza)
+estimador:prodXModEmpanada=controlador.getProductoPorModulo(tipoEmpanada)
+controlador:prodXMod=fraccionador.getProductoPorModulo(tipoEmpanada)
+
+#ahora sumo los tiempos de los productos que me pasaron al principio
+estimador:itProd=productos.getIterator()
+estimador:hayMas?=itProd.hasNext()
+[c:loop hayMas?]
+    estimador:prod=it.getNext()
+    estimador:t=prod.getTiempoPreparacion()
+    estimador:estimador.tiempoPreparacion += t
+    estimador:tipo=prod.getTipo()
+    [c:opt tipo=tipoEmpanada]
+    estimador[1]:t=prod.getTiempoCoccion()
+    estimador:estimador.tiempoCoccionEmpanadas += t
+    [/c]
+    [c:opt tipo=tipoPizza]
+    estimador[1]:t=prod.getTiempoCoccion()
+    estimador:estimador.tiempoCoccionPizzas += t
+    [/c]
+    estimador[1]:hayMas?=it.hasNext()
+[/c]
+
+#hago la cuenta pedorra
+estimador:estimador.res = tiempoPreparacion
+estimador[1]:estimador.res += tiempoCoccionPizzas/(prodXModPizza*modulos)
+estimador[1]:estimador.res += tiempoCoccionEmpanadas/(prodXModEmpanada*modulos)
+estimador[1]:a.res]]></source>
+<configuration>
+<property name="actorWidth" value="25"/>
+<property name="arrowSize" value="6"/>
+<property name="colorizeThreads" value="true"/>
+<property name="destructorWidth" value="30"/>
+<property family="Dialog" name="font" size="12" style="0"/>
+<property name="fragmentMargin" value="8"/>
+<property name="fragmentPadding" value="10"/>
+<property name="fragmentTextPadding" value="3"/>
+<property name="glue" value="10"/>
+<property name="headHeight" value="35"/>
+<property name="headLabelPadding" value="5"/>
+<property name="headWidth" value="100"/>
+<property name="initialSpace" value="10"/>
+<property name="leftMargin" value="5"/>
+<property name="lineWrap" value="false"/>
+<property name="lowerMargin" value="5"/>
+<property name="mainLifelineWidth" value="8"/>
+<property name="messageLabelSpace" value="3"/>
+<property name="messagePadding" value="6"/>
+<property name="noteMargin" value="6"/>
+<property name="notePadding" value="6"/>
+<property name="opaqueMessageText" value="false"/>
+<property name="returnArrowVisible" value="true"/>
+<property name="rightMargin" value="5"/>
+<property name="selfMessageHorizontalSpace" value="15"/>
+<property name="separatorBottomMargin" value="8"/>
+<property name="separatorTopMargin" value="15"/>
+<property name="spaceBeforeActivation" value="2"/>
+<property name="spaceBeforeAnswerToSelf" value="10"/>
+<property name="spaceBeforeConstruction" value="6"/>
+<property name="spaceBeforeSelfMessage" value="7"/>
+<property name="subLifelineWidth" value="6"/>
+<property name="threadNumbersVisible" value="false"/>
+<property name="threaded" value="true"/>
+<property name="upperMargin" value="5"/>
+<property name="verticallySplit" value="true"/>
+</configuration>
+</diagram>
