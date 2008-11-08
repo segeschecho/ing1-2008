@@ -1,0 +1,25 @@
+\section{Cancelación}
+La cancelación es un evento que involucra tanto al componente cocina como al componente de pedidos fuera de la cocina, por lo que podria incluso considerarse un componente separado. 
+
+Mediante la interfaz grafica se selecciona un pedido y se invoca el metodo cancelar que posee el mismo, este metodo lo que hace es invocar el cancelar del responsable de cancelacion del pedido. Decidimos hacerlo de esta manera, en primer lugar, porque la cancelación es un proceso que puede ser complejo, ya que por ejemplo, al cancelar un pedido que estaba en el horno, hay que avisar al maestro de que saque ese pedido, porque no hay que seguir cocinando. Sacar este pedido de la cocina puede implicar seleccionar un nuevo pedido a cocinar segun la politica vigente. De manera similar, una cancelación de un pedido que se esta preparando requiere avisar al maestro de la cancelación, para pedirle el stock reutilizable, asi como también buscar un nuevo pedido a preparar. Por esta razón, nos parece acertado que aquellos que pueden llegar a tener que efectuar acciones particulares debido a una cancelación, sean invocados por el pedido cuando es cancelado. Notemos que este acercamiento es considerablemente extensible, ya que si se pretende por ejemplo agregar un nuevo controlador, solo debe implementar el método cancelar y asegurarse de que aquellos pedidos que quedan bajo su control lo tienen a el como responsable de cancelarlo.
+
+Ademas de esta manera de resolver el problema consideramos otras formas que no fueron aplicadas. En primer lugar, pensamos en que el pedido de cancelación ingresar por el coordinador de pedidos, el cual va propagando el llamado a todos los agentes a los que tiene acceso, para que estos se fijen si les corresponde cancelar o no. Esto tiene como principal problema que se realiza un cantidad de llamadas innecesarias, pero como caracteristica positiva tiene que es bastante distribuida, ya que si bien el llamado entra por el coordinador, las invocaciones a cancelar se propagan a todos los posibles agentes.
+
+Otra alternativa era considerar una clase canceladora que se encargue de rastrear el pedido, y luego decirle al controlador que lo estaba manejando en ese momento que lo cancele. El problema de esto es que el cancelador para buscar al responsable, va a tener que utilizar por ejemplo que los pedidos en tal estado si son de tal tipo estan bajo la orbita de tal controlador. Esto no nos parecio correcto, ni extensible, por lo cual se descartó.
+
+Veamos a continuación algunos escenarios diferentes de cancelación.
+
+El primer escenario consiste en cancelar un pedido que estaba en la cola de ingreso. En este caso se debe sacar de dicha cola al pedido y se debe reestablecer el stock de los insumos que no se van a utilizar.
+%FIXME: como hacemos para subir el stock?
+%TODO: diagramas de secuencia
+
+En segundo lugar podemos considerar que ocurre cuando se cancela un pedido que esta en preparación. En este caso puede ocurrir que el pedido se estaba preparando en el momento de su cancelación, por lo que debe indicarse que se detenga la preparación y que se indiquen que insumos se pueden salvar.
+Veremos entonces que ocurre en estos casos, mostran en el primer escenario como se cancela un pedido de solo empanadas que estaba siendo preparado, suponiendo que luego se puede empezar a preparar otro pedido que estaba en espera.
+Luego modelaremos el escenario en el que se cancela un pedido que tenía su subpedido de pizzas preparado y su subpedido de empanadas sin preparar.
+
+%TODO: diagramas de secuencia
+
+Otros lugar donde la cancelación es mas conflictiva es durante la coccion de un pedido, si el mismo estaba en la cola el proceso es simple porque solo hay que sacarlo de la misma. Ahora si el pedido estaba en el horno o estaba a medio cocinar hay que avisar al maestro para que deje de cocinar el pedido.
+
+Finalmente la cancelación también puede darse en el ambito del controlador de entregas y del controlador de listos, en estos casos el manejo es simple, sin embargo, por ejemplo en el controlador de entregas, si la operatoria no fuera de contingencia podria requerir de una logica mas compleja de aviso al delivery.
+%FIXME: entonces deberia ser una clase abstracta

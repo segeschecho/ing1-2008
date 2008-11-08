@@ -1,0 +1,29 @@
+\section{Cocina}
+La cocina es el componente de mayor complejidad del sistema. Al igual que en el manejo de pedidos fuera de la cocina, tenemos una clase que sirve de punto de entrada y de controlador de flujo dentro de la cocina, derivando a los pedidos al despachador o controlador correspondiente. Esta clase es la que tiene contacto con el controlador de ingresos, de modo que todo pedido que quiere entrar en la cocina pasa por este coordinador. Cuando recibe un pedido, o pide un pedido, esta clase es la que decide quien debe hacerse cargo de recibir al pedido. Si consideramos el funcionamiento actual de la pizzería, donde los pedidos que llegan a la cocina son preparables y cocinables, al ingresar un pedido a la cocina, el coordinador lo va a enviar al despachador de preparacion y luego cuando este lo termine se lo enviará al despachador de cocción. 
+
+El despachador de preparación es una clase abstracta que tiene por responsabilidad mantener la cola de pedidos que deben ser preparados, conocer que subpedidos se prepararon y notifiar cuando el pedido ya fue preparado. Decidimos que sea abstracta porque es factible considerar que hay diferentes formas de manejar que pedido de los que estan esperando debe preparse a continuación. Ademas, la implementación de estas funcionalidades va a estar acoplada fuertemente con los tipos de productos existentes y el manejo que se le de a los mismos. Por ejemplo, es razonable que como la pizzería solo maneja pizzas y empanadas, las cuales son preparadas por un unico maestro, el despachador divida a un pedido en solo estas dos partes, sin embargo si en el futuro se agregan ensaladas, el pedido tendria que ser dividio de otra manera. Entonces a fin de dar mayor extensibilidad decidimos hacer que esta clase sea abstracta. En particular el despachador que se comporta como lo mostrado en la especificación es implementado por DespachadorDePreparaciónEstandard. Esta clase que hereda del despachador de preparación, sabe distribuir pizzas y empanadas a sendos preparadores.
+
+Preparador es una interfaz que tiene como metodo principal preparar. La idea es que este metodo sea el que hable con la gui para mostrar que se debe preparar. Decidimos hacer una interfaz para esto, porque si bien en este momento se muestra todo el contenido del pedido (o subpedido a preparar), esta estraetgia podría cambiar, si por ejemplo se desea tener un contro de cada producto del pedido. Entonces nuestro preparador especializado que implementa esta interfaz funciona como lo planteamos en la especificación.
+
+La clase despachadorDeHorno es la responsable del manejo de las colas de ingreso a los hornos, aplicando la politica correspondiente. En principio habiamos considerado que era conveniente separar la aplicación de la politica del mantenimiento de las colas, sin embargo dado que la aplicación de la politica requiere de un acceso completo a las colas, nos pareció acertado acoplar ambas funcionalidades. La clase es abstracta, siguiendo el \textit{strategy pattern} a fin de permitir que se implementen diferentes politicas de manera flexible.
+
+La clase ControladorHorno es una abstraccion de los modulos del horno, esta clase permite poner algo en un modulo, asi como también sacar algo de un modulo, o conocer que es lo que hay en cada modulo. Cada controladorHorno posee ademas un fraccionador que sabe fraccionar un pedido en partes que entran en un modulo, contando para eso con un diccionario que dado un tipo de pedido pueda decidir cuantos productos de ese tipo entran en cada modulo.
+
+\textcolor{Red}{TODO: interacciones de estas clases con la GUI}
+
+\textcolor{Red}{TODO: explicacion de metodos importantes}
+\color{Blue}{
+\subsection{Modelado de escenarios}
+\subsubsection{Llega pedido a preparar y se rechaza}
+\subsubsection{Llega pedido a prepara y se acepta}
+\subsubsection{se termina de preparar un pedido en varios sabores}
+\subsubsection{se encola un pedido en su horno}
+\subsubsection{ingresa un pedido a cocinar y no se encola}
+\subsubsection{se saca algo del horno, politica normal}
+\subsubsection{se saca algo del horno y se mete algo agil, politica agil de la cola, alternativas de se termino algo de cocinar o no}
+\subsubsection{se saca algo del horno y se mete algo agil q estaba a medio cocinar}
+}
+
+\textcolor{Red}{TODO: escenarios que muestren el comportamiento de estas clases en los fenomenos pedidos en el enunciado}
+
+\textcolor{Red}{TODO: pseudocodigos que muestren algoritmos como por ej seleccion de proximo pedido a cocinar}
