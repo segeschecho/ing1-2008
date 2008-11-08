@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[#!>>
-#! Reestablecer stock de un multiconjunto de productos
+#! reestablecer stock de una lista de insumos
 #!
 #!<<
 
 a:a[p][e]
 controlador:ControladorStock
-productos:multiSet<Producto>
-it:iterator<multiSet<Producto>>
-prod:Producto
+insumos:List<Insumo>
+it:Iterator<List<Insumo>>
+unInsumo:Insumo
 
-a:controlador.reestablecerStock(productos)
-controlador:it=productos.getIterator()
+a:controlador.reestablecerStock(insumos)
+controlador:it=insumos.getIterator()
 controlador:hayMas?=it.hasNext()
 [c:loop hayMas?]
-controlador:prod=it.getNext()
-controlador:insumos=prod.getInsumos()
-controlador:controlador.reestablecerStock(insumos)
-controlador[1]:hayMas?=it.hasNext()
+controlador:unInsumo=it.getNext()
+controlador:cantidad=unInsumo.getCant()
+controlador:unInsumo.setCant(cantidad + 1)
+controlador:haymas?=it.hasNext()
 [/c]
 controlador:a.]]></source>
 <configuration>
