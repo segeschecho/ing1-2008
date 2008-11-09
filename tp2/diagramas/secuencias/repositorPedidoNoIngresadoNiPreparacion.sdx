@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram>
+<source><![CDATA[#!>>
+#! Luego de cancelar un pedido, se llama al repositorStock a reponer el stock. El pedido no se encontraba ingresado ni en preparacion.
+#!
+#!<<
+
+a:a[p][e]
+unRepoStock:RepositorStock
+p:Pedido
+productos:multiSet<Producto>
+itProd:Iterator<multiSet<Producto>>
+prod:Producto
+tipoProd:TipoProducto
+insumos:List<Insumo>
+itIns:Iterator<List<Insumo>>
+ins:Insumo
+unaGui:Gui
+
+a:unRepoStock.reponerStock(p)
+unRepoStock:estado=p.getEstado()
+
+[c:opt estado != ingresado and estado != enPreparacion]
+unRepoStock:productos=p.getProductos()
+unRepoStock:itProd=productos.getIterator()
+unRepoStock:hayMasProd?=itProd.hasNext()
+[c:loop hayMasProd?]
+unRepoStock:prod=itProd.getNext()
+unRepoStock:tipoProd=prod.getTipo()
+unRepoStock:preparable?=tipoProd.getPreparable()
+unRepoStock:cocinable?=tipoProd.getCocinable()
+[c:opt preparable? == false and cocinable? == false]
+unRepoStock:insumos=prod.getInsumos()
+unRepoStock:itIns=insumos.getIterator()
+unRepoStock:hayMasIns?=itIns.hasNext()
+[c:loop hayMasIns?]
+unRepoStock:ins=itProd.getNext()
+unRepoStock:cant=ins.getCant()
+unRepoStock:ins.setCant(cant+1)
+unRepoStock:hayMasIns?=itIns.hasNext()
+[/c]
+unRepoStock:hayMasProd?=itProd.hasNext()
+[/c]
+[/c]
+[/c]
+
+unRepoStock:FIXME -> se envia el evento "recuperarInsumosPedido(Pedido)" o algo por el estilo,
+unRepoStock:la GUI lo detecta y muestra el dialogo para que el cocinero elija lo que quiere devolver al stock
+unRepoStock:cuando el cocinero ingresa los datos pone "ok"
+unRepoStock:y la gui envía esos datos al sistema con una llamada a restablecerStock o algo así]]></source>
+<configuration>
+<property name="actorWidth" value="25"/>
+<property name="arrowSize" value="6"/>
+<property name="colorizeThreads" value="true"/>
+<property name="destructorWidth" value="30"/>
+<property family="Dialog" name="font" size="12" style="0"/>
+<property name="fragmentMargin" value="8"/>
+<property name="fragmentPadding" value="10"/>
+<property name="fragmentTextPadding" value="3"/>
+<property name="glue" value="10"/>
+<property name="headHeight" value="35"/>
+<property name="headLabelPadding" value="5"/>
+<property name="headWidth" value="100"/>
+<property name="initialSpace" value="10"/>
+<property name="leftMargin" value="5"/>
+<property name="lineWrap" value="false"/>
+<property name="lowerMargin" value="5"/>
+<property name="mainLifelineWidth" value="8"/>
+<property name="messageLabelSpace" value="3"/>
+<property name="messagePadding" value="6"/>
+<property name="noteMargin" value="6"/>
+<property name="notePadding" value="6"/>
+<property name="opaqueMessageText" value="false"/>
+<property name="returnArrowVisible" value="true"/>
+<property name="rightMargin" value="5"/>
+<property name="selfMessageHorizontalSpace" value="15"/>
+<property name="separatorBottomMargin" value="8"/>
+<property name="separatorTopMargin" value="15"/>
+<property name="spaceBeforeActivation" value="2"/>
+<property name="spaceBeforeAnswerToSelf" value="10"/>
+<property name="spaceBeforeConstruction" value="6"/>
+<property name="spaceBeforeSelfMessage" value="7"/>
+<property name="subLifelineWidth" value="6"/>
+<property name="threadNumbersVisible" value="false"/>
+<property name="threaded" value="true"/>
+<property name="upperMargin" value="5"/>
+<property name="verticallySplit" value="true"/>
+</configuration>
+</diagram>
