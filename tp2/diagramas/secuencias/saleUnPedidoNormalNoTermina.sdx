@@ -4,6 +4,7 @@
 unContH:ControladorHorno
 unDesp:DespachadorDeCoccionNormal
 colaH1:list<Pedido>
+p:Pedido
 
 a:unContH.sacar(3)
 unContH:unDesp.vaciarModulo(3)
@@ -22,7 +23,8 @@ unDesp[1]:p=colaH1.getFirst()
 [c:opt p != NULL]
 unDesp:colaH1.remove(p)
 unDesp:parte=unDesp.getParteACocinar(p)
-unDesp[1]:unContH.meter(parte,3)
+unDesp[1]:p.setEstado(AlHorno)
+unDesp:unContH.meter(parte,3)
 unDesp:unDesp.setPedidoEnModulo(3,p)
 unDesp[1]:queda=unDesp.quedaPorCocinar(p)
 [c:opt not queda]

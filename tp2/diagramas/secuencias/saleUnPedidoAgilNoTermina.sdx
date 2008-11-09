@@ -4,6 +4,7 @@
 unContH:ControladorHorno
 unDesp:DespachadorDeCoccionNormal
 colaH1:list<Pedido>
+chico:Pedido
 
 a:unContH.sacar(3)
 unContH:unDesp.vaciarModulo(3)
@@ -23,10 +24,11 @@ unDesp[1]:chico=unDesp.getNextChico(1)
 [c:alt chico!=NULL]
 unDesp[1]:colaH1.remove(chico)
 unDesp:parte=unDesp.getParteACocinar(chico)
-unDesp[1]:unContH.meter(parte,3)
+unDesp[1]:chico.setEstado(AlHorno)
+unDesp:unContH.meter(parte,3)
 unDesp:unDesp.setPedidoEnModulo(3,chico)
 unDesp[1]:queda=unDesp.quedaPorCocinar(chico)
-[c:opt not queda]
+[c:opt queda]
 unDesp[1]: se pone medioCocinarAgil1 como chico
 [/c]
 --Else
