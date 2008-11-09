@@ -12,8 +12,6 @@ listos:List<Pedido>
 enMesa:list<Pedido>
 p:Pedido
 controladorMesa:controladorPedidosMesa
-unObs:Observer
-otroObs:Observer
 
 a:coordinador.DespacharPedido(p)
 coordinador:controlador.DespacharPedido(p)
@@ -24,9 +22,9 @@ coordinador:controladorMesa.agregarPedidoMesa(p)
 controladorMesa:enMesa.append(p)
 controladorMesa:p.setResponsable(NULL)
 controladorMesa:controladorMesa.notify()
-controladorMesa:otroObs.update()
+controladorMesa:aca se hacen \\nlos update correspondientes
 controlador:controlador.notify()
-controlador:unObs.update()]]></source>
+controlador:aca se hacen \\nlos update correspondientes]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>

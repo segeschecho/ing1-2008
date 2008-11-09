@@ -7,7 +7,6 @@ tipoProd:TipoProducto
 productos:list<Producto>
 it:iterator<list<Producto>>
 pr:Producto
-tipo:TipoProducto
 
 a:unIng.tieneTipo(p,tipoProd)
 unIng:productos=p.getProductos()

@@ -6,18 +6,22 @@ unEst:EstimadorBasico
 unAsig:AsignadorNormal
 unCont:controladorStockBasico
 /p:pedidoMostrador
+allInstances:list<Pedido>
+calcPrec:CalculadorDePrecio
 
 cp:p=unGen.generarPedido(cliente,productos,mostrador,contado,mesa)
 unGen:True=unCont.verificarEIngresar(productos)
 unGen:fechaDeIngreso=unGen.getDateTime()
 unGen[1]:id=unGen.generarId()
 unGen[1]:p.new(id,cliente,productos,contado,fechaIngreso)
+p:allInstances.add(p)
 *5 unGen
 Se crea un pedido de mostrador porque
 se chequeo el origen y este era mostrador,
 *5
 unGen:unAsig.asignarHorno(p)
-unGen:unEst.estimarTiempo(p)]]></source>
+unGen:unEst.estimarTiempo(p)
+unGen:calcPrec.calcularPrecio(p)]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
