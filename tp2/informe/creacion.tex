@@ -39,7 +39,7 @@ El verificador de stock tiene por responsabilidad controlar que solo ingresen pe
 
 Como vimos en el escenario anterior, el generador invoca el metodo verificarEIngresar. Este metodo va a intentar decrementar el stock de los insumos de cada producto del pedido que se desea armar. Para eso va a decrementar el stock siempre que sea posible, guardando aquellos productos cuyos insumos ya modifico para poder hacer rollback en caso de que el pedido no se pueda satisfacer. Si ocurre que hay un insumo de un producto cuyo insumo es insuficiente, se procede a restablecer el stock ya decrementado y luego se genera un excepcion que permite que se pueda mostrar en pantalla cual fue el pedido que genero el error al intentar ingresar.
 
-En cambio si todos los productos se pudieron ingresar, la función retorna True para indicar que termino exitosamente.
+En cambio si todos los productos se pudieron ingresar, la función retorna True para indicar que termino exitosamente. Notar que hay un problema de sintaxis en el diagrama, ya que se hace delete del multiconjuinto pero su linea de vida se extiende. Esto es porque el programa utilizado para los diagramas no soporta eliminar dos veces al mismo elemento (en verdad es solo una vez, ya que ambas no pueden ocurrir, pero no se da cuenta de eso).
 
 \begin{figure}[H]
 \centering
@@ -59,13 +59,13 @@ Hay dos metodos restablecerStock, uno trabaja sobre productos y otro a nivel de 
 \begin{figure}[H]
 \centering
 \includegraphics[height=9cm]{./figuras/reestablecerStockProductos}
-\caption{restableciendo el stock de los productos cuyo }
+\caption{restableciendo el stock de los productos cuyo stock se decremento }
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=9cm]{./figuras/reestablecerStockInsumos}
-\caption{restableciendo el stock de los productos cuyo }
+\caption{restableciendo el stock de los insumos que se decrementaron }
 \end{figure}
 
 {\color{Purple}

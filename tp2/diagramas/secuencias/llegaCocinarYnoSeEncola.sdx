@@ -9,7 +9,7 @@ p:Pedido
 
 a:unCoordC.cocinar(p)
 unCoordC:unDesp.cocinarPedido(p)
-unDesp:1=p.getHorno()
+unDesp:horno1=p.getHorno()
 unDesp:listaDeListaDeProds=unFrag1.partirPedido(p)
 unDesp:unDesp.setPartesAcocinar(p,listaDeListaDeProds)
 unDesp[1]:True=unDesp.hayLugar(1)

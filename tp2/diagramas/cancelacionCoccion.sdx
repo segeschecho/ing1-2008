@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
-<source><![CDATA[#!>>
-#! Se notifica que se termino de preparar una pizza
-#!
-#!<<
+<source><![CDATA[a:a[p][e]
+p:pedido
+despC:DespachadorDeCoccionAgil
+repS:RepositorStock
+contH1:ControladorDeHorno
+modulos:list<Int>
+it:iterator<list<Int>>
+colaH1:list<Pedido>
 
-a:a[p][e]
-unaGui:Gui
-unPrepPizza:PreparadorEspecializado
-unAviso:AvisoPizzero
-unDDPS:DDPS
-unCoordC:CoordinadorDeCocina
-unDespachador:DespachadorDeCoccion
-unDicc:Diccionario<Pedido,int>
-colaPizzera:Queue<Pedido>
-obsPrep:ObserverPreparador
-
-a:unaGui.terminar()
-unaGui:unPrepPizza.terminar()
-unPrepPizza:unAviso.avisar()
-unAviso:unDDPS.pizzasTerminadas()
-unDDPS:unDDPS.partePreparada(p)
-unDDPS[1]:partes=unDDPS.partesAPreparar(p)
-[c:opt partes == 0]
-unDDPS[1]:unCoordC.cocinar(p)
-unCoordC:unDespachador.cocinarPedido(p)
-unDDPS:unDicc.borrar(p)
-[/c]
-unDDPS:proxPed=colaPizzera.next()
-unDDPS:actualizar la variable pizzeroActual
-unDDPS:productos=unDDPS.getSubpedidoPizzero(proxPed)
-unDDPS[1]:unPrepPizza.preparar(productos)
-unPrepPizza:unPrepPizza.notify()
-unPrepPizza:obsPrep.update()
-unaGui:a.]]></source>
+a:p.cancelar(razon)
+p:p.setRazonDeCancelacion(razon)
+p[1]:despC.cancelar(self)
+despC:horno=p.getHorno()
+despC: El despachador se da cuenta de \\n que el pedido esta en su horno 1
+despC:modulos=despC.getModulosXPedido(p)
+despC[1]:it=modulos.getIterator()
+despC:True=it.hasNext()
+despC:unModulo=it.next()
+despC:contH1.cancelar(modulo)
+contH1: Aca se hace el notify
+despC:p1=colaH1.getFirst()
+despC:colaH1.remove(p1)
+despC:parte=despC.getParteACocinar(p1)
+despC[1]:contH1.meter(parte,modulo)
+despC:True=it.hasNext()
+despC:unModulo=it.next()
+despC:contH1.cancelar(modulo)
+contH1: Aca se hace el notify
+despC:queda=despC.quedaPorCocinar(p1)
+despC[1]:parte=despC.getParteACocinar(p1)
+despC[1]:contH1.meter(parte,modulo)
+despC:True=despC.quedaPorCocinar(p1)
+despC[1]:se marca a p1 como pedido \\na medio cocinar
+p:a.]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
 <property name="colorizeThreads" value="true"/>
 <property name="destructorWidth" value="30"/>
-<property family="Dialog" name="font" size="12" style="0"/>
+<property family="Dialog" name="font" size="13" style="0"/>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
