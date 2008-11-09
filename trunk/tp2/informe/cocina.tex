@@ -48,7 +48,7 @@ Finalmente podria ocurrir que ambos maestros esten ociosos, porque no habia ning
 \end{figure}
 
 \subsubsection{Terminancion de preparación}
-
+%TODO:poner los diagramas q hizo emilio y armar un escenario
 
 \subsubsection{Ingreso de pedidos al horno}
 Luego de ser preparados los pedidos pasan a traves del coordinador de cocina hacia el despachador de coccion. Este despachador es quien se encarga de manejar las colas de los hornos segun alguna politica. En particular en este trabajo consideraremos la politica normal y la politica agil, las cuales fueron debidamente especificadas en el trabajo anterior.
@@ -74,7 +74,7 @@ Otro escenario a considerar, comienza de igual manera que el anterior, pero esta
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=6cm]{./figuras/llegaCocinarYNoseEncola.png}
+\includegraphics[height=13cm]{./figuras/llegaCocinarYNoseEncola.png}
 \end{figure}
 
 Queremos notar que estos escenarios aplican también para la politica agil, ya que los pedidos que llegan pueden quedarse encolados si no hay lugar (independientemente de si son agiles o no) y por otro lado pueden entrar si hay lugar libre, pero si hay lugar libre entran porque la cola es en esencia \textit{FIFO} en estas circunstancias, es decir si hay lugar vacio y solo hay un pedido, como se busca maximizar el uso del horno, se ingresa al mismo mas alla de su condicion de chico o grande. Nada impide que mas adelante se implemente una nueva politica que trate de hacer por ejemplo mas corto primero con conocimiento futuro, de modo que, por ejemplo use una cierta probabilidad $p$ para decidir si pone al pedido recien llegado al horno o no.

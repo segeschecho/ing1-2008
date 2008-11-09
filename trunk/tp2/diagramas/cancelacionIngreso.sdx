@@ -1,45 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram>
-<source><![CDATA[#!>>
-#! Se notifica que se termino de preparar una pizza
-#!
-#!<<
+<source><![CDATA[a:a[p][e]
+p:pedido
+contI:ControladorDeIngreso
+repS:RepositorStock
+listaPedidos:list<Pedido>
 
-a:a[p][e]
-unaGui:Gui
-unPrepPizza:PreparadorEspecializado
-unAviso:AvisoPizzero
-unDDPS:DDPS
-unCoordC:CoordinadorDeCocina
-unDespachador:DespachadorDeCoccion
-unDicc:Diccionario<Pedido,int>
-colaPizzera:Queue<Pedido>
-obsPrep:ObserverPreparador
-
-a:unaGui.terminar()
-unaGui:unPrepPizza.terminar()
-unPrepPizza:unAviso.avisar()
-unAviso:unDDPS.pizzasTerminadas()
-unDDPS:unDDPS.partePreparada(p)
-unDDPS[1]:partes=unDDPS.partesAPreparar(p)
-[c:opt partes == 0]
-unDDPS[1]:unCoordC.cocinar(p)
-unCoordC:unDespachador.cocinarPedido(p)
-unDDPS:unDicc.borrar(p)
-[/c]
-unDDPS:proxPed=colaPizzera.next()
-unDDPS:actualizar la variable pizzeroActual
-unDDPS:productos=unDDPS.getSubpedidoPizzero(proxPed)
-unDDPS[1]:unPrepPizza.preparar(productos)
-unPrepPizza:unPrepPizza.notify()
-unPrepPizza:obsPrep.update()
-unaGui:a.]]></source>
+a:p.cancelar(razon)
+p:p.setRazonDeCancelacion(razon)
+p[1]:contI.cancelar(self)
+contI:listaPedidos.remove(p)
+contI:p.setResponsable(NULL)
+p[1]:repS.reponerStock(self)
+p:p.setEstado(cancelado)
+p[1]:a.]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
 <property name="colorizeThreads" value="true"/>
 <property name="destructorWidth" value="30"/>
-<property family="Dialog" name="font" size="12" style="0"/>
+<property family="Dialog" name="font" size="13" style="0"/>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>

@@ -3,15 +3,14 @@
 <source><![CDATA[a:a[p][e]
 unCoordC:corrdinadorDeCocina
 unDesp:DespachadorDeCoccion
-unContH:ControladorHorno
 unFrag:FraccionadorDeHorno
 p:Pedido
 colaH1:list<Pedido>
 
 a:unCoordC.cocinar(p)
 unCoordC:unDesp.cocinarPedido(p)
-unDesp:1=p.getHorno()
-unDesp:unFrag=unContH.getFraccionador()
+unDesp:horno1=p.getHorno()
+
 unDesp:listaDeListaDeProds=unFrag.partirPedido(p)
 unDesp:unDesp.setPartesAcocinar(p,listaDeListaDeProds)
 unDesp[1]:False=unDesp.hayLugar(1)
