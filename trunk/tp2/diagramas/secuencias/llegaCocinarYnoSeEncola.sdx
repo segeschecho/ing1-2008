@@ -17,6 +17,7 @@ unDesp[1]:parte=unDesp.getParteACocinar(p)
 unDesp[1]: sacamos una parte del pedido para meter en un modulo
 unDesp:3=unDesp.getModuloLibre()
 unDesp[1]:unContH.meter(parte,3)
+unDesp:p.setEstado(AlHorno)
 unDesp:unDesp.setPedidoEnModulo(3,p)
 unDesp[1]:False=unDesp.hayLugar(1)
 unDesp[1]:True=unDesp.quedaPorMeter(p)
