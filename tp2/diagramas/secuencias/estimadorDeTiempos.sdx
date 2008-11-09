@@ -12,7 +12,7 @@ Pedido:Pedido
 pedidos:List<Pedido>
 it:Iterator<List<Pedido>>
 p:Pedido
-controlador:ControladorHorno
+horno:Horno
 fraccionador:FraccionadorHorno
 itProd:Iterator<multiSet<Producto>>
 prod:Producto
@@ -34,18 +34,18 @@ estimador:t=estimador.estimarTiempoDeCoccionEmpanadas(p)
 estimador[1]:tiempoCoccionEmpanadas += t
 estimador:hayMas?=it.hasNext()
 [/c]
+
 #saco los datos apartir del controlador de horno
-estimador:modulos=controlador.getCantModulos()
-estimador:prodXModPizza=controlador.getProductoPorModulo(tipoPizza)
-controlador:prodXMod=fraccionador.getProductoPorModulo(tipoPizza)
-estimador:prodXModEmpanada=controlador.getProductoPorModulo(tipoEmpanada)
-controlador:prodXMod=fraccionador.getProductoPorModulo(tipoEmpanada)
+estimador:modulos=horno.getCantModulos()
+estimador:fraccionador=horno.getFraccionador()
+estimador:prodXModPizza=fraccionador.getProductoPorModulo(tipoPizza)
+estimador:prodXModEmpanada=fraccionador.getProductoPorModulo(tipoEmpanada)
 
 #ahora sumo los tiempos de los productos que me pasaron al principio
 estimador:itProd=productos.getIterator()
 estimador:hayMas?=itProd.hasNext()
 [c:loop hayMas?]
-    estimador:prod=it.getNext()
+    estimador:prod=itProd.getNext()
     estimador:t=prod.getTiempoPreparacion()
     estimador:tiempoPreparacion += t
     estimador:tipo=prod.getTipo()
@@ -57,13 +57,13 @@ estimador:hayMas?=itProd.hasNext()
     estimador:t=prod.getTiempoCoccion()
     estimador:tiempoCoccionPizzas += t
     [/c]
-    estimador[1]:hayMas?=it.hasNext()
+    estimador[1]:hayMas?=itProd.hasNext()
 [/c]
 
 #hago la cuenta pedorra
 estimador:res = tiempoPreparacion
-estimador:res += tiempoCoccionPizzas/(prodXModPizza*modulos)
-estimador:res += tiempoCoccionEmpanadas/(prodXModEmpanada*modulos)
+estimador:res += tiempoCoccionPizzas / ( prodXModPizza * modulos )
+estimador:res += tiempoCoccionEmpanadas / ( prodXModEmpanada * modulos )
 estimador:a.res]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
