@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram>
+<source><![CDATA[#!>>
+#! Asignar horno a un pedido
+#!
+#!<<
+
+a:a[p][e]
+asignador:AsignadorDeHornoStandard
+p:Pedido
+productos:multiSet<Producto>
+it:Iterator<multiSet<Producto>>
+prod:Producto
+
+a:asignador.asignarHorno(p)
+asignador:pizzas = false
+asignador:empanadas = false
+asignador:productos=p.getProductos()
+asignador:it=productos.getIterator()
+asignador:hayMas?=it.hasNext()
+
+#veo si hay pizzas
+[c:loop hayMas?]
+asignador:prod=it.getNext()
+asignador:tipo=prod.getTipo()
+    [c:alt tipo = tipoPizza]
+        asignador:pizzas = true
+        asignador:hayMas? = false
+     --else
+        asignador:hayMas?=it.hasNext()
+    [/c]
+[/c]
+
+#ahora veo si hay empanadas
+asignador:it=productos.getIterator()
+asignador:hayMas?=it.hasNext()
+[c:loop hayMas?]
+asignador:prod=it.getNext()
+asignador:tipo=prod.getTipo()
+    [c:alt tipo = tipoEmpanada]
+    asignador:empanadas = true
+    asignador:hayMas? = false
+    --else
+    asignador:hayMas?=it.hasNext()
+    [/c]
+[/c]
+
+#ahora veo si es mixto o no el pedido.
+[c:opt empanadas && pizzas]
+asignador:horno=asignador.notify()
+asignador[1]:p.setHorno(horno)
+asignador:a.
+[/c]
+
+[c:opt pizzas]
+asignador:p.setHorno(hornoPizzero)
+asignador:a.
+[/c]
+
+[c:opt empanadas]
+asignador:p.setHorno(hornoEmpanadero)
+asignador:a.
+[/c]]]></source>
+<configuration>
+<property name="actorWidth" value="25"/>
+<property name="arrowSize" value="6"/>
+<property name="colorizeThreads" value="true"/>
+<property name="destructorWidth" value="30"/>
+<property family="Dialog" name="font" size="12" style="0"/>
+<property name="fragmentMargin" value="8"/>
+<property name="fragmentPadding" value="10"/>
+<property name="fragmentTextPadding" value="3"/>
+<property name="glue" value="10"/>
+<property name="headHeight" value="35"/>
+<property name="headLabelPadding" value="5"/>
+<property name="headWidth" value="100"/>
+<property name="initialSpace" value="10"/>
+<property name="leftMargin" value="5"/>
+<property name="lineWrap" value="false"/>
+<property name="lowerMargin" value="5"/>
+<property name="mainLifelineWidth" value="8"/>
+<property name="messageLabelSpace" value="3"/>
+<property name="messagePadding" value="6"/>
+<property name="noteMargin" value="6"/>
+<property name="notePadding" value="6"/>
+<property name="opaqueMessageText" value="false"/>
+<property name="returnArrowVisible" value="true"/>
+<property name="rightMargin" value="5"/>
+<property name="selfMessageHorizontalSpace" value="15"/>
+<property name="separatorBottomMargin" value="8"/>
+<property name="separatorTopMargin" value="15"/>
+<property name="spaceBeforeActivation" value="2"/>
+<property name="spaceBeforeAnswerToSelf" value="10"/>
+<property name="spaceBeforeConstruction" value="6"/>
+<property name="spaceBeforeSelfMessage" value="7"/>
+<property name="subLifelineWidth" value="6"/>
+<property name="threadNumbersVisible" value="false"/>
+<property name="threaded" value="true"/>
+<property name="upperMargin" value="5"/>
+<property name="verticallySplit" value="true"/>
+</configuration>
+</diagram>
