@@ -14,7 +14,7 @@ unCoordC:CoordinadorDeCocina
 unDespachador:DespachadorDeCoccion
 unDicc:Diccionario<Pedido,int>
 colaPizzera:Queue<Pedido>
-unContIng:ControladorDeIngreso
+unContIng:ControladorDeIngresoStandard
 
 a:unaGui.terminar()
 unaGui:unPrepPizza.terminar()
