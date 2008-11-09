@@ -14,7 +14,6 @@ unCoordC:CoordinadorDeCocina
 unDespachador:DespachadorDeCoccion
 unDicc:Diccionario<Pedido,int>
 colaPizzera:Queue<Pedido>
-obsPrep:ObserverPreparador
 unContIng:ControladorDeIngreso
 
 a:unaGui.terminar()
@@ -31,13 +30,14 @@ unDDPS:unDicc.borrar(p)
 unDDPS:null=colaPizzera.next()
 unDDPS:proxPed=unCoordC.conseguirPedido(tipoProd)
 unCoordC:proxPed=unContIng.proximoPedido(tipoProd)
+unContIng:aca se hace un
+unContIng:notify y update
 unDDPS:actualizar la variable pizzeroActual
 [c:opt proxPed != NULL]
-unDDPS:empanadas=unDDPS.getSubpedidoEmpanadero(proxPed)
-unDDPS[1]:pizzas=unDDPS.getSubpedidoPizzero(proxPed)
-unDDPS[1]:unPrepPizza.preparar(pizzas)
-unPrepPizza[1]:unPrepPizza.notify()
-unPrepPizza[1]:obsPrep.update(pizzas)
+unDDPS:a continuacion se envia a preparar
+unDDPS:proxPed, similar al escenario 
+unDDPS:en que mandan a preparar
+unDDPS:un mixto y empiezan las pizzas
 [/c]
 unaGui:a.]]></source>
 <configuration>
