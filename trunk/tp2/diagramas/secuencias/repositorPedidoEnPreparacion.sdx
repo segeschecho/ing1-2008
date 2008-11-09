@@ -40,10 +40,10 @@ unRepoStock:hayMasIns?=itIns.hasNext()
 unRepoStock:hayMasProd?=itProd.hasNext()
 [/c]
 [/c]
-unRepoStock:FIXME -> se envia el evento "recuperarInsumosPedido(Pedido)" o algo por el estilo,
-unRepoStock:la GUI lo detecta y muestra el dialogo para que el cocinero elija lo que quiere devolver al stock
-unRepoStock:cuando el cocinero ingresa los datos pone "ok"
-unRepoStock:y la gui envía esos datos al sistema con una llamada a restablecerStock o algo así]]></source>
+unRepoStock:hace notify, la GUI lo detecta
+unRepoStock:y muestra el dialogo para que se
+unRepoStock:elija lo que quiere devolver al stock
+unRepoStock:de los insumos de productos preparables]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
