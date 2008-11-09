@@ -2,7 +2,6 @@
 <diagram>
 <source><![CDATA[unContPI:ControladorDePreIngreso
 unContI:ControladorDeIngreso
-unaGUI:GUI
 unCoordC:CoordinadorDeCocina
 p:Pedido
 unDespP:DespachadorDePreparacionStandard

@@ -125,6 +125,14 @@ En el caso de tener que sacar un pedido de la cola, el controlador de listos hac
 \caption{Despacho de un pedido de mostrador}
 \end{figure}
 
+tieneTipo se encarga de recorrer los productos del pedido para ver si hay alguno con un cierto tipo de producto, el siguiente diagrama permite modelar la secuencia desatada por la ejecución de este metodo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=8cm]{./figuras/tieneTipo.png}
+\caption{tieneTipo}
+\end{figure}
+
 %TODO: decidir aridad de esta función
 %TODO: mostrar pseudocodigo
 
@@ -138,6 +146,7 @@ El escenario donde se notifica la entrega de un pedido, puede modelarse con el s
 \includegraphics[height=7cm]{./figuras/notificarEntrega.png}
 \caption{Notificacion de pedido entregado}
 \end{figure}
+
 
 \subsubsection{Cerrado de mesa}
 Para cerrar una mesa el usuario ingresa el numero de mesa que desea cerrar, elegiendo también la forma de pago. La GUI pasa el mensaje al coordinador de pedidos, el cual propaga la llamada hacia el controlador de mesa, que se va a encargar de completar la forma de pago de los pedidos de la mesa según el parametro pasado y los quita de la lista de pedidos con entrega pendiente. Entonces notifica a su observador de que se modificó su lista de pedidos.

@@ -26,7 +26,8 @@ controlador:mesa=p.getMesa()
         controlador:it.remove(p)
     [/c]
     controlador:hayMas?=it.hasNext()
-[/c]]]></source>
+[/c]
+unaGui:a.]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>

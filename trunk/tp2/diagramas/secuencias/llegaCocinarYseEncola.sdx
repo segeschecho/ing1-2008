@@ -16,6 +16,7 @@ unDesp:listaDeListaDeProds=unFrag.partirPedido(p)
 unDesp:unDesp.setPartesAcocinar(p,listaDeListaDeProds)
 unDesp[1]:False=unDesp.hayLugar(1)
 unDesp[1]:colaH1.encolar(p)
+unDesp:p.setResponsable(self)
 unCoordC:a.]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>

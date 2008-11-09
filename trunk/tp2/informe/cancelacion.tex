@@ -11,16 +11,35 @@ Otra alternativa era considerar una clase canceladora que se encargue de rastrea
 Veamos a continuación algunos escenarios diferentes de cancelación.
 
 El primer escenario consiste en cancelar un pedido que estaba en la cola de ingreso. En este caso se debe sacar de dicha cola al pedido y se debe reestablecer el stock de los insumos que no se van a utilizar.
-%FIXME: como hacemos para subir el stock?
-%TODO: diagramas de secuencia
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/cancelacionIngreso.png}
+\caption{Cancelación de un pedido ingresado}
+\end{figure}
 
 En segundo lugar podemos considerar que ocurre cuando se cancela un pedido que esta en preparación. En este caso puede ocurrir que el pedido se estaba preparando en el momento de su cancelación, por lo que debe indicarse que se detenga la preparación y que se indiquen que insumos se pueden salvar.
-Veremos entonces que ocurre en estos casos, mostran en el primer escenario como se cancela un pedido de solo empanadas que estaba siendo preparado, suponiendo que luego se puede empezar a preparar otro pedido que estaba en espera.
-Luego modelaremos el escenario en el que se cancela un pedido que tenía su subpedido de pizzas preparado y su subpedido de empanadas sin preparar.
 
-%TODO: diagramas de secuencia
+Si la cancelación se hace para un pedido que estaba en la cola nada mas, el proceso es muy simple, solo se desencola esta parte que estaba esperando y listo. El escenario mas interesante, que es el vamos a modelar ocurre cuando lo que se cancela estaba siendo preparador. Veamos entonces que pasa si un pedido que tenia sus empanadas siendo preparadas, y se cancela, asumiendo que hay otro pedido con empanadas en la cola. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/cancelacionPreparacion.png}
+\caption{Cancelación de un pedido ingresado}
+\end{figure}
 
 Otros lugar donde la cancelación es mas conflictiva es durante la coccion de un pedido, si el mismo estaba en la cola el proceso es simple porque solo hay que sacarlo de la misma. Ahora si el pedido estaba en el horno o estaba a medio cocinar hay que avisar al maestro para que deje de cocinar el pedido.
 
+Vamos a modelar el escenario en el que el pedido que se cancela, era el pedido a medio cocinar del horno 1. Entonces hay que avisar su cancelación, y buscar un nuevo pedido para poner en su lugar. Vamos a suponer también que el pedido tenia dos partes en cocción, que no estaban en modulos agiles y que el proximo pedido de la cola necesitaba de un mas de 2 modulos para cocinarse.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/cancelacionCoccion.png}
+\caption{Cancelación de un pedido ingresado}
+\end{figure}
+
+Mas en general podriamos variar los parametros, pero la secuencia seria similar. Es por esto que no realizaremos mas diagramas sobre la cancelación en la cocina.
+
 Finalmente la cancelación también puede darse en el ambito del controlador de entregas y del controlador de listos, en estos casos el manejo es simple, sin embargo, por ejemplo en el controlador de entregas, si la operatoria no fuera de contingencia podria requerir de una logica mas compleja de aviso al delivery.
-%FIXME: entonces deberia ser una clase abstracta
+
+Otro aspecto importante de la cancelación es la reposición del stock, la cual puede ser automatica o puede requerir que se indique que insumos se pudieron rescatar
