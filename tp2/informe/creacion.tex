@@ -1,28 +1,102 @@
 %FIXME: ver diagrmas porq gonza cambio el dc
 %FIXME: asignacion de horno
 \section{Creación y registro de pedidos}
-En este componente se agrupan las clases que entran en juego al momento de crear un nuevo pedido.
+En este componente se agrupan las clases que entran en juego al momento 
+de registrar y crear un nuevo pedido. Consideramos como parte de este
+componente a la clase \textit{Pedido} propiamente dicha ya que este
+componente es quien se encarga de construir sus instancias. A continuación
+se detalla el diseño de cada uno de los componentes.
 
-La clase GeneradorDePedidos sirve de punto de entrada a este componente. El mismo posee el método generarPedido, que es invocado por el Coordinador de pedidos, a fin de que se ingrese al sistema un nuevo pedido.
+Este componente acopla con el componente de gestión de stock y con el de
+gestión de clientes, puesto que es necesario que el ingreso de un pedido
+implique modificaciones de stock, y que los pedidos se asignen a los clientes
+correspondientes.
 
-El Generador se encarga de llamar al controladorDeStock para que verifique que el stock existente sea capaz de satisfacer al pedido. Ademas el generador realiza el decremento del stock, y se encarga de realizar el callback a la gui en caso de que un insumo quede por debajo de su stock critico. %TODO: callback como?
-El controlador de stock no es una clase abstracta porque creemos que no es probable que cambie su funcionamiento, el cual es bastante concreo, es decir revisar los elementos necesarios para armar los productos propios de un pedido y decrementar el stock. 
+\subsection{Clase Pedido}
 
-Luego de que se regisró el decremento de stock, el Generador se encarga de llamar al EstimadorDeTiempos. Esta clase es abstracta, ya que pensamos que como la pizzeria desea ir refinando estas estimaciones, es probable que la forma de estimar se modifique de forma periodica. Por lo tanto, decidimos aplicar el \textit{Strategy pattern} a fin de poder lograr varias estrategias de estimación. La Estimación desarrollada en \ref{modifEstim} es implementada por la clase EstimadorBasico.
+La clase Pedido consta de una estructura simple. Contiene, además de los datos
+sobre los items que componen al pedido, información sobre el cliente que lo realizó
+y otra metainformación como el horario de ingreso o la modalidad que se utilizó
+para realizar el pedido (por teléfono, en el local, etc).
 
-\textcolor{Red}{TODO: interacciones de estas clases con la GUI}
+Dicha modalidad no se almacena como un atributo sino que se indica mediante
+la herencia de subclases de Pedido. La jerarquía de herencia, que puede apreciarse
+en el diagrama, no es casual sino que responde a la necesidad de tratar de forma
+diferenciada los diferentes tipos de pedido. Por ejemplo, los pedidos locales no 
+deben ser entregados a domicilio, y únicamente los pedidos que fueron hechos desde
+una mesa tienen dicha información.
 
-\textcolor{Red}{TODO: explicacion de metodos importantes}
+% TODO: Hacer un diagrama con la herencia de pedido
+
+La razón por la que no se utilizó un atributo es para servirnos del patrón \textit{Visitor}
+cuando es necesario implementar funcionalidad particular a solo un tipo de pedido. Si bien
+hubiera sido posible utilizar implementaciones con condicionales que discriminen uno u otro
+tipo de pedido, esto viola OCP y por lo tanto decidimos evitarlo.
+
+Cabe destacar que la herencia propuesta respeta LSP puesto que la discriminación en
+subclases se hace principalmente por motivos funcionales. La única operación que se
+especializa es la correspondiente a la asignación de mesas, pero el resto de las
+cualidades de la clase padre se mantienen intactas en todas sus subclases.
+
+La clase Pedido contiene un atributo Horno que lo relaciona con uno de los
+Hornos de la cocina. Esto constituye una clara violación de OCP, puesto que
+la relación arbitraria de un pedido con un Horno no es universal sino que más
+bien es propia a la política actual de asignación de hornos. Sin embargo, optamos
+por realizarlo así para evitar añadir mucha complejidad al sistema.
+
+\subsection{Otros miembros}
+
+Ahora bien, para disponer de instancias de Pedido diferenciadas en clase, es necesario
+que se tome la decisión en algún punto de cual será la clase para un cierto pedido. Para
+esto nos valemos del patrón \textit{Factory}, implementado por la interfaz GeneradorDePedidos,
+que produce instancias de la clase apropiada a partir de la información de un pedido. Inevitablemente
+el código del \textit{Factory} viola OCP, pero lo hacemos de esta manera para luego evitar
+discriminar por tipo en el resto del sistema, lo cual sería peor. Agregamos una implementación
+de dicha interfaz, GeneradorDePedidosStandard, que se ocupa de la operatoria definida al momento
+de realizar el diseño, y genera únicamente instancias de las subclases de Pedido definidas hasta 
+el momento. Sin embargo, es fácil implementar un nuevo generador de pedidos que respete la interfaz
+y soporte nuevos tipos de pedido.
+
+
+La clase GeneradorDePedidos sirve de punto de entrada a este componente. La misma
+posee el método generarPedido, que es invocado por el Coordinador de Pedidos, a fin de que se 
+ingrese al sistema un nuevo pedido. El Generador se encarga de llamar al ControladorDeStock para 
+que verifique que el stock existente sea capaz de satisfacer al pedido. Además, el generador indica
+al controlador que realice el decremento del stock. Este a su vez podría notificar a la GUI si el stock
+quedara por debajo de niveles críticos.
+
+A continuación, el generador se encarga de llamar al EstimadorDeTiempos. Esta clase es abstracta, ya que 
+pensamos que como la pizzería desea ir refinando estas estimaciones, es probable que la forma de estimar 
+se modifique de forma periódica. Esto corresponde al patrón \textit{Strategy}. La estimación desarrollada 
+en \ref{modifEstim} es implementada por la clase EstimadorBasico. Es de esperarse que estrategias de estimación
+más sofisticadas induzcan más acomplamiento para lograr mayor precisión, pero esto es inevitable.
+
+Finalmente, el Calculador de Precios se encarga de obtener el precio a cobrar por el pedido. Nuevamente,
+se implementó una interfaz genérica para permitir cambiar la implementación. Implementaciones más
+sofisticadas podrían permitir realizar promociones si se compran determinados subconjuntos de productos,
+o asignar descuentos a clientes preferenciales.
+
+% TODO: Hablar del asignador de horno cuando se arregle
+
 \subsection{Modelado de escenarios}
 
-\subsubsection{Creacion de un pedido}
-Cuando el coordinador de pedidos recibe la orden de crear un nuevo pedido, la deriva al generador de pedidos. Este se encargará de devolverle un pedido nuevo. El generador de pedidos invoca al controlador del stock, para que verifique la factibilidad de ingresar el pedido, en caso de no ser posible el generador producira una excepcion que sera propagada para porder mostrar que producto no pudo satisfacerse.
+\subsubsection{Creación de un pedido}
+Cuando el coordinador de pedidos recibe la orden de crear un nuevo pedido, la deriva al generador 
+de pedidos. Este se encargará de devolverle un pedido nuevo. El generador de pedidos invoca al 
+controlador del stock, para que verifique la factibilidad de ingresar el pedido. En caso de no 
+ser posible, el generador producirá una excepción que será propagada para poder mostrar qué 
+producto no pudo ser ordenado.
 
-En este escenario modelaremos el proceso de creación de una forma general, en particular para un pedido de mostrador, para luego mostrar escenarios particulares que pueden ocurrir durante este proceso.
+En este escenario modelaremos el proceso de creación de una forma general (usando como ejemplo
+un pedido de mostrador) para luego mostrar escenarios particulares que pueden ocurrir durante 
+este proceso.
 
-En primer lugar el generador invoca al controlador de stock para que realice el chequeo y en caso de ser posible decremente el sotck. 
-
-Luego se genera un ID para el pedido y se lo crea. Una vez creado el pedido, este pasa al asignador de horno que establece que horno le corresponde al pedido (en caso de que corresponda). Luego se procede a realizar la estimación de tiempos de cocción y el calculo del precio. Finalmente el pedido queda ingresado
+En primer lugar, el generador invoca al controlador de stock para que realice el chequeo y 
+en caso de ser posible decremente el stock. Luego, se genera un ID para el pedido y se crea
+la instancia con el tipo correspondiente. Una vez creado el pedido, este pasa al asignador de 
+horno que establece que horno le corresponde al pedido (en caso de que corresponda). Luego se procede 
+a realizar la estimación de tiempos de cocción y el cálculo del precio. Finalmente, el pedido queda ingresado
+y se delega al resto del sistema.
 
 El diagrama de secuencias es el siguiente:
 
@@ -32,9 +106,19 @@ El diagrama de secuencias es el siguiente:
 \caption{Creación de un nuevo pedido}
 \end{figure}
 
-\subsubsection{Estimacion de tiempos}
+\subsubsection{Estimación de tiempos}
+
+% TODO: hacer diagrama acá?
+\textcolor{Red}{TODO: pseudocodigos que muestren algoritmos como por ej estimacion de tiempos}
 
 \subsubsection{Verificación de stock}
+
+\textcolor{Red}{FIXME: esto va a la parte de stock}
+
+% FIXME FIXME FIXME: todo esto tiene que volar, es cosa de la gestión de stock, no
+% del ingreso de los pedidos, hay que moverlo y eventualmente rehacer estos diagramas
+% pero sin tanto enfasis en el stock
+
 El verificador de stock tiene por responsabilidad controlar que solo ingresen pedidos que puedan ser satisfechos. Ademas en caso de ser necesario debera notificar la existencia de insumos en stock critico.
 
 Como vimos en el escenario anterior, el generador invoca el metodo verificarEIngresar. Este metodo va a intentar decrementar el stock de los insumos de cada producto del pedido que se desea armar. Para eso va a decrementar el stock siempre que sea posible, guardando aquellos productos cuyos insumos ya modifico para poder hacer rollback en caso de que el pedido no se pueda satisfacer. Si ocurre que hay un insumo de un producto cuyo insumo es insuficiente, se procede a restablecer el stock ya decrementado y luego se genera un excepcion que permite que se pueda mostrar en pantalla cual fue el pedido que genero el error al intentar ingresar.
@@ -76,6 +160,4 @@ Hay dos metodos restablecerStock, uno trabaja sobre productos y otro a nivel de 
 \item asignacion manual
 \end{itemize}
 }
-\subsubsection{Estimacion de tiempos}
 
-\textcolor{Red}{TODO: pseudocodigos que muestren algoritmos como por ej estimacion de tiempos}

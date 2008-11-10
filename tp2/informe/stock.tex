@@ -1,17 +1,45 @@
 \section{Gestión de stock y productos}
-\textcolor{Red}{FIXME: Esta parte esta en re pelotas}
-Como dijimos anteriormente, este componente es el que brinda las funcionalidades de ABM de stock y productos, asi como también permite acceder a la información sobre los diversos insumos y productos.
 
-Sus clases principales son basicamente la clase Insumo y la clase Producto. 
+Este componente se encarga de la gestión de los modelos correspondientes a
+productos, tipos de procuto, insumos y las operaciones de alta y baja de los
+mismos, así como de las actualizaciones de sus valores.
 
-Para realizar los ABM se decidio que la GUI utilice directamente los metodos de las clases antes nombradas, de modo que para crear un Insumo, lo que hace es invocar el new de Insumo, consideramos que esto si bien acopla un poco la GUI al sistema, creemos que no era necesario hacer un \textit{proxy} entre la GUI y estas clases, ya que la interacción era simple.
+Mediante la funcionalidad de ABM provista como se describe en \ref{metodosEstaticos}
+es posible realizar los cambios necesarios al stock, tales como modificaciones de
+precios o el ingreso de nuevos productos.
 
-Otra clase propia de este componente es el Tipo de producto, que permite identificar por ejemplo a las pizzas, a las empanadas, asi como también, decir si un tipo de producto es cocinable, y$/$o preparable.
-\textcolor{Red}{TODO: interacciones de estas clases con la GUI}
+El Controlador de Stock es una entidad abstracta que se encarga de las modificaciones
+de los valores de stock frente al ingreso o cancelación de pedidos. Esta abstracción
+se introduce para respetar DIP, y puesto que podría ser interesante brindar funcionalidad
+más sofisticada en esta entidad. Por ejemplo, un controlador de stock más inteligente podría
+realizar un seguimiento individual de todas las transacciones de stock llevadas a cabo
+que permitiría \textit{trackear} cada insumo.
+
+El Controlador de Stock es responsable de emitir el evento de notificación de stock
+crítico, al que la GUI se suscribe para poder indicar al usuario que el stock requiere
+de su atención.
+
+Las clases principales en lo que a modelos de datos respecta dentro de este componente
+son Insumo y Producto. La clase TipoProducto permite reconocer cuando varios productos
+tienen el mismo tipo y por tanto pueden tratarse de forma análoga en cuanto a su
+preparación y cocción. 
+
+El tipo de producto permite especificar además si el producto es
+cocinable o preparable. Si bien en el sistema actual los productos son ya sea preparable
+y cocinables o ninguno de los dos, en el futuro la pizzería podría desear, por ejemplo,
+comercializar ensaladas que solo requieren de preparación y no de cocción. La existencia
+de estos atributos permite flexibilidad adicional para extender la operatoria del
+restaurante. Si bien esta elección de atributos puede parecer limitante o arbitraria,
+evaluamos que es factible categorizar de esta manera a cualquier tipo de producto
+que podría venderse en una pizzería. Por lo tanto, no nos pareció razonable agregar
+complejidad al modelo agregando ``propiedades'' genéricas a los tipos de producto
+(propiedades de las que \textit{cocinable} y \textit{preparable} serían un caso particular).
+
+% TODO: hablar del repositorStock
 
 
 \subsection{Modelado de escenarios}
-%TODO: no me queda claro como va a ser la interaccion aca, explicar asi hago los diagramas
-\textcolor{Red}{TODO: escenarios que muestren el comportamiento de estas clases en los fenomenos pedidos en el enunciado}
+% TODO: traer los diagramas de la parte de ingreso de pedidos
 
 \textcolor{Red}{TODO: explicacion de metodos importantes}
+% FIXME: vale la pena? creo que co los DS que estan en la parte de ingreso de pedidos alcanza y sobra

@@ -1,16 +1,82 @@
 \section{Cancelación}
 %TODO: hacer los diagramas por el amor de Dios
-La cancelación es un evento que involucra tanto al componente cocina como al componente de pedidos fuera de la cocina, por lo que podria incluso considerarse un componente separado. 
 
-Mediante la interfaz grafica se selecciona un pedido y se invoca el metodo cancelar que posee el mismo, este metodo lo que hace es invocar el cancelar del responsable de cancelacion del pedido. Decidimos hacerlo de esta manera, en primer lugar, porque la cancelación es un proceso que puede ser complejo, ya que por ejemplo, al cancelar un pedido que estaba en el horno, hay que avisar al maestro de que saque ese pedido, porque no hay que seguir cocinando. Sacar este pedido de la cocina puede implicar seleccionar un nuevo pedido a cocinar segun la politica vigente. De manera similar, una cancelación de un pedido que se esta preparando requiere avisar al maestro de la cancelación, para pedirle el stock reutilizable, asi como también buscar un nuevo pedido a preparar. Por esta razón, nos parece acertado que aquellos que pueden llegar a tener que efectuar acciones particulares debido a una cancelación, sean invocados por el pedido cuando es cancelado. Notemos que este acercamiento es considerablemente extensible, ya que si se pretende por ejemplo agregar un nuevo controlador, solo debe implementar el método cancelar y asegurarse de que aquellos pedidos que quedan bajo su control lo tienen a el como responsable de cancelarlo.
+La cancelación de un pedido es un evento que puede producirse en cualquier momento de la
+vida de un pedido hasta que pasa al estado finalizado. Como vimos en las secciones anteriores,
+los pedidos pasan por los distintos componentes a lo largo de su estado de vida.
 
-Ademas de esta manera de resolver el problema consideramos otras formas que no fueron aplicadas. En primer lugar, pensamos en que el pedido de cancelación ingresar por el coordinador de pedidos, el cual va propagando el llamado a todos los agentes a los que tiene acceso, para que estos se fijen si les corresponde cancelar o no. Esto tiene como principal problema que se realiza un cantidad de llamadas innecesarias, pero como caracteristica positiva tiene que es bastante distribuida, ya que si bien el llamado entra por el coordinador, las invocaciones a cancelar se propagan a todos los posibles agentes.
+Para llevar a cabo una cancelación, no es suficiente con cambiar el estado del pedido
+a ``Cancelado'', sino que además es necesario que el componente que está manipulando
+el pedido al momento de la cancelación modifique su estado para reflejar este cambio.
+Por ejemplo, un controlador de cola de horno debe retirar los elementos del pedido de las
+colas correspondientes si se produce una cancelación. Por esta razón, la cancelación
+afecta de alguna manera a todos los componentes del sistema, y es el único fenómeno
+verdaderamente \textit{transcomponente} que debimos considerar.
 
-Otra alternativa era considerar una clase canceladora que se encargue de rastrear el pedido, y luego decirle al controlador que lo estaba manejando en ese momento que lo cancele. El problema de esto es que el cancelador para buscar al responsable, va a tener que utilizar por ejemplo que los pedidos en tal estado si son de tal tipo estan bajo la orbita de tal controlador. Esto no nos parecio correcto, ni extensible, por lo cual se descartó.
+Es necesario presentar a la GUI una interfaz sencilla para permitir la cancelación de un
+pedido. En función de esto, la GUI permite al usuario encontrar el pedido que desea cancelar
+(utilizando alguno de los métodos de búsqueda) y luego envía un mensaje a una entidad idónea
+para realizar la tarea.
 
-Veamos a continuación algunos escenarios diferentes de cancelación.
+En este punto nos encontramos con una dificultad particular: ¿Cuál es esta entidad? Es claro
+que no puede elegirse arbitrariamente alguno de los componentes del sistema puesto que no
+es fácil determinar cuál de ellos está ocupándose del pedido en un momento dado. Consideramos 
+entonces varias opciones.
 
-El primer escenario consiste en cancelar un pedido que estaba en la cola de ingreso. En este caso se debe sacar de dicha cola al pedido y se debe reestablecer el stock de los insumos que no se van a utilizar.
+En primer lugar evaluamos agregar un método \verb0cancelar(Pedido)0 en el CoordinadorDePedidos,
+\textit{façade} principal del sistema, que luego se encargue de determinar al componente
+responsable de la cancelación y le envíe la notificación correspondiente. A su vez, para determinar
+el responsable, consideramos dos estrategias:
+\begin{itemize}
+\item Propagar el mensaje desde el coordinador a todas las demás entidades, en una estrategia
+      similar al \textit{flooding} en dispositivos de red. Esto tiene el problema de que no es
+      limpio y no es fácil determinar qué fue lo que ocurrió con la cancelación desde el
+      coordinador.
+\item Definir una entidad que sea capaz de, a partir de la información de un pedido, determinar
+      quién es el responsable en ese momento y enviarle un mensaje. Esto tiene el problema de que
+      está fuertemente acoplado a la operatoria actual del sistema, y por lo tanto viola OCP
+      ya que si se desean agregar nuevos tipos de pedido, será necesario modificar esta
+      funcionalidad para que refleje las nuevas posibilidades. Para apegarse a SRP, esta funcionalidad
+      ameritaría un objeto nuevo, pero esto no evita el acoplamiento que se introduce y la
+      disminución de cohesión que se deriva.
+\end{itemize}
+
+Puesto que ninguna de estas opciones resultó satisfactoria, investigamos un poco más
+y finalmente elegimos una opción que se asemeja al patrón \textit{Observer}. Apegándonos
+a ISP, definimos una interfaz que llamamos \textbf{Cancelador} y que indica que la 
+entidad que la implementa es capaz de cancelar un pedido. Le asignamos a su vez a
+cada pedido un \textbf{responsable}, que no es más que una clase que implementa
+la interfaz Cancelador. Cuando un componente del sistema toma el control de un pedido,
+se registra como responsable del mismo. Cuando el pedido reciba una cancelación,
+notificará al responsable para que este lleve a cabo la cancelación.
+
+% TODO: si se van a pintar de algun color las clases que implementan Cancelador
+% en el diagrama, aclararlo acá.
+Las clases que implementan la interfaz Cancelador (y por tanto pueden
+hacerse responsables de un pedido) son:
+\begin{itemize}
+\item ControladorEntregas
+\item ControladorIngreso
+\item ControladorListos
+\item DespachadorPreparacion
+\item DespachadorDeCoccion
+\item Preparador
+\end{itemize}
+
+Esta solución es considerablemente limpia y permite fácilmente extender el sistema
+sin realizar modificaciones innecesarias. Veamos a continuación algunos escenarios diferentes 
+de cancelación.
+
+
+
+\subsection{Modelado de escenarios}
+
+
+\subsubsection{Cancelación de un pedido ingresado}
+
+El primer escenario consiste en cancelar un pedido que estaba en la cola de 
+ingreso. En este caso se debe sacar de dicha cola al pedido y se debe reestablecer 
+el stock de los insumos que no se van a utilizar.
 
 \begin{figure}[H]
 \centering
@@ -18,28 +84,62 @@ El primer escenario consiste en cancelar un pedido que estaba en la cola de ingr
 \caption{Cancelación de un pedido ingresado}
 \end{figure}
 
-En segundo lugar podemos considerar que ocurre cuando se cancela un pedido que esta en preparación. En este caso puede ocurrir que el pedido se estaba preparando en el momento de su cancelación, por lo que debe indicarse que se detenga la preparación y que se indiquen que insumos se pueden salvar.
 
-Si la cancelación se hace para un pedido que estaba en la cola nada mas, el proceso es muy simple, solo se desencola esta parte que estaba esperando y listo. El escenario mas interesante, que es el vamos a modelar ocurre cuando lo que se cancela estaba siendo preparador. Veamos entonces que pasa si un pedido que tenia sus empanadas siendo preparadas, y se cancela, asumiendo que hay otro pedido con empanadas en la cola. 
+
+
+\subsubsection{Cancelación de un pedido en preparación}
+
+En segundo lugar podemos considerar que ocurre cuando se cancela un pedido que 
+estaba en preparación. En este caso puede ocurrir que el pedido se estuviera 
+preparando en el momento de su cancelación, por lo que debe indicarse que se 
+detenga la preparación y que se indiquen qué insumos se pueden reponer al stock.
+
+Si la cancelación se hace para un pedido que estaba en la cola nada más, el 
+proceso es muy simple, solo se desencola esta parte que estaba en espera y se corrige
+el estado del Pedido. A continuación modelaremos un escenario más interesante, que corresponde
+a la cancelación de un pedido que tenía sus empanadas siendo preparadas, asumiendo 
+que hay otro pedido con empanadas en la cola esperando para ser preparados.
+
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=9cm]{./figuras/cancelacionPreparacion.png}
-\caption{Cancelación de un pedido ingresado}
+\caption{Cancelación de un pedido en preparación}
 \end{figure}
 
-Otros lugar donde la cancelación es mas conflictiva es durante la coccion de un pedido, si el mismo estaba en la cola el proceso es simple porque solo hay que sacarlo de la misma. Ahora si el pedido estaba en el horno o estaba a medio cocinar hay que avisar al maestro para que deje de cocinar el pedido.
 
-Vamos a modelar el escenario en el que el pedido que se cancela, era el pedido a medio cocinar del horno 1. Entonces hay que avisar su cancelación, y buscar un nuevo pedido para poner en su lugar. Vamos a suponer también que el pedido tenia dos partes en cocción, que no estaban en modulos agiles y que el proximo pedido de la cola necesitaba de un mas de 2 modulos para cocinarse.
+\subsubsection{Cancelación de un pedido en cocción}
+
+Otro lugar donde la cancelación es conflictiva es durante la cocción de un pedido.
+Si el mismo estaba en la cola del horno, el proceso es simple porque solo hay que 
+sacarlo de la misma. Por otra parte, si el pedido estaba en el horno o estaba a medio cocinar, 
+hay que avisar al maestro para que retire el pedido del horno y corregir el estado de los hornos.
+
+Vamos a modelar el escenario en el que el pedido que se cancela era un pedido a medio 
+cocinar del horno 1. Entonces, hay que avisar su cancelación, y buscar un nuevo pedido 
+para poner en su lugar. Vamos a suponer también que el pedido tenia dos partes en cocción, 
+que no estaban en módulos ágiles y que el próximo pedido de la cola necesitaba de un mas 
+de 2 modulos para cocinarse.
+% FIXME: "un mas de 2 modulos" ¿?¿? ver la ultima linea
+
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=13cm]{./figuras/cancelacionCoccion.png}
-\caption{Cancelación de un pedido ingresado}
+\caption{Cancelación de un pedido en cocción}
 \end{figure}
 
-Mas en general podriamos variar los parametros, pero la secuencia seria similar. Es por esto que no realizaremos mas diagramas sobre la cancelación en la cocina.
+\subsubsection{Otros escenarios}
 
-Finalmente la cancelación también puede darse en el ambito del controlador de entregas y del controlador de listos, en estos casos el manejo es simple, sin embargo, por ejemplo en el controlador de entregas, si la operatoria no fuera de contingencia podria requerir de una logica mas compleja de aviso al delivery.
+La notificación de cancelación se propaga a la GUI que permite al maestro
+reingresar insumos recuperables. Este evento es asincrónico y la cancelación
+se concreta aunque el maestro no lleve a cabo la reposición, caso en el que
+se asume que nada podría reponerse.
 
-Otro aspecto importante de la cancelación es la reposición del stock, la cual puede ser automatica o puede requerir que se indique que insumos se pudieron rescatar
+Se pueden seguir variando los parámetros pero la secuencia sería similar. 
+Finalmente, la cancelación también puede darse en el ámbito del controlador 
+de entregas y del controlador de listos. En estos casos el manejo es simple, 
+sin embargo, si el sistema diseñado no correspondiente a la operación de
+contingencia podría existir una complejidad adicional producto de las notificaciones
+al \textit{delivery}.
+

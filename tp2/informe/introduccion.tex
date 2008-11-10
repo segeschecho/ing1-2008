@@ -1,0 +1,48 @@
+\chapter{Introducción}
+
+\section{Consideraciones sobre el informe}
+
+El siguiente informe encompasa el diseño que desarrollamos para la implementación del
+software de pizzería que fuera especificado en el Trabajo Práctico 1. Nuestros objetivos
+a la hora de diseñar se enfocaron esencialmente en la flexibilidad y mantenibilidad del
+software, con el objeto de que introducir cambios y correcciones en el software en
+el futuro sea tan sencillo como sea posible.
+
+En esta primera sección se describe brevemente el siguiente informe, así como
+su organización y contenidos y los objetivos que se plantea. En particular, este
+documento está dirigido a los desarrolladores que deberán implementar el sistema.
+Si bien no es de carácter definitivo, el espíritu del documento intenta no ser
+ambiguo y tener en cuenta tantas decisiones de diseño significativas como sea
+posible.
+
+Al realizar el diseño fue necesario en algunos casos introducir modificaciones o mejoras
+a lo anteriormente especificado. Dichos cambios se evaluaron y fueron juzgados necesarios
+por las ventajas que representan en varios planos, pero particularmente en la extensibilidad
+y flexibilidad del sistema para tolerar cambios futuros en su modo de operación. La segunda
+sección del informe describe los cambios realizados así como la justificación de los mismos
+y el impacto que tienen en el diseño.
+
+En tercer lugar se presenta la descripción del diseño propiamente dicha. Como se adoptó
+un acercamiento por componentes, se describe inicialmente esta división en componentes,
+sus ventajas y limitaciones así como la razón de utilizar esta modalidad. Enseguida se
+presenta el diseño de cada componente, así como las relaciones que existen entre los
+objetos de los mismos. Por último, se utiliza la herramienta de diagramas de secuencia
+para modelar las comunicaciones entre los objetos (dentro de un mismo componente, o
+entre varios de ellos). En los casos en que fue considerado necesario, se adjunta además
+el pseudocódigo de algunos algoritmos de interés.
+
+\section{Convenciones de notación}
+
+A lo largo de este documento se utilizan las siguientes convenciones:
+\begin{itemize}
+\item \textbf{DIP}: \textit{Dependency Inversion Principle}
+\item \textbf{OCP}: \textit{Open/Closed Principle}
+\item \textbf{SRP}: \textit{Single Responsibility Principle}
+\item \textbf{LSP}: \textit{Liskov Substitution Principle}
+\item \textbf{ISP}: \textit{Interface Segregation Principle}
+\end{itemize}
+
+En los diagramas de secuencia muchas veces la sintaxis no se ajusta exactamente a la descripta
+en clase (por ejemplo, en el caso de las variables locales a un \textit{loop}). Esto se debe en parte
+a limitaciones de la herramienta utilizada para realizar los diagramas, y en parte a que la sintaxis
+propuesta no es UML y por lo tanto no está soportada.
