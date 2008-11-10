@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[a:al[p][e]
-unContStock:ControladorDeStock
+unContStock:ControladorDeStockStandard
 productos:multiSet<Producto>
 it:Iterator<multiSet<Producto>>
 /yaDecrementados:MultiSet<Producto>
@@ -15,7 +15,7 @@ unContStock:hayMas=it.hasNext()
 unContStock:prod=it.getNext()
 unContStock:posible=unContStock.ingresar(prod)
 [c:alt not posible]
-unContStock[1]:unContStock.restablecerStock(yaDecrementados)
+unContStock[1]:unContStock.reestablecerStock(yaDecrementados)
 unContStock[1]:yaDecrementados.delete()
 unContStock[1]:a.ExcepcionProductoImposible(prod)
 --Else
@@ -29,7 +29,7 @@ unContStock:criticos=unContStock.obtenerCriticos(productos)
 unContStock[1]:unContStock.notify()
 unContStock:obsStock.update()
 [/c]
-unContStock:a.True]]></source>
+unContStock[1]:a.True]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
