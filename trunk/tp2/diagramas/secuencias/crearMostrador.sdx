@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[cp:CoordinadorDePedidos
 unGen:GeneradorDePedidosStandard
-unEst:EstimadorBasico
-unAsig:AsignadorNormal
-unCont:controladorStockBasico
+unEst:EstimadorStandard
+unAsig:AsignadorDeHornoStandard
+unCont:controladorStockStandard
 /p:pedidoMostrador
 allInstances:list<Pedido>
-calcPrec:CalculadorDePrecio
+calcPrec:CalculadorDePreciosStandard
 
 cp:p=unGen.generarPedido(cliente,productos,mostrador,contado,mesa)
 unGen:True=unCont.verificarEIngresar(productos)
