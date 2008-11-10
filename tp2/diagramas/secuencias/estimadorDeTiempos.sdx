@@ -7,7 +7,7 @@
 
 a:a[p][e]
 estimador:EstimadorBasico
-productos:multiSet<Producto>
+ped:Pedido
 Pedido:Pedido
 pedidos:List<Pedido>
 it:Iterator<List<Pedido>>
@@ -17,20 +17,21 @@ fraccionador:FraccionadorHorno
 itProd:Iterator<multiSet<Producto>>
 prod:Producto
 
-a:estimador.estimarTiempo(productos)
+a:estimador.estimarTiempo(ped)
 estimador:tiempoPreparacion = 0
 estimador:tiempoCoccionPizzas = 0
 estimador:tiempoCoccionEmpanadas = 0
+estimador:horno=ped.getHorno()
 estimador:pedidos=Pedido.allInstances()
 estimador:it=pedidos.getIterator()
 estimador:hayMas?=it.hasNext()
 [c:loop hayMas?]
 estimador:p=it.getNext()
-estimador:t=estimador.estimarTiempoDePreparacion(p)
+estimador:t=estimador.estimarTiempoDePreparacion(p, horno)
 estimador[1]:tiempoPreparacion += t
-estimador:t=estimador.estimarTiempoDeCoccionPizzas(p)
+estimador:t=estimador.estimarTiempoDeCoccionPizzas(p, horno)
 estimador[1]:tiempoCoccionPizzas += t
-estimador:t=estimador.estimarTiempoDeCoccionEmpanadas(p)
+estimador:t=estimador.estimarTiempoDeCoccionEmpanadas(p, horno)
 estimador[1]:tiempoCoccionEmpanadas += t
 estimador:hayMas?=it.hasNext()
 [/c]
@@ -40,25 +41,6 @@ estimador:modulos=horno.getCantModulos()
 estimador:fraccionador=horno.getFraccionador()
 estimador:prodXModPizza=fraccionador.getProductoPorModulo(tipoPizza)
 estimador:prodXModEmpanada=fraccionador.getProductoPorModulo(tipoEmpanada)
-
-#ahora sumo los tiempos de los productos que me pasaron al principio
-estimador:itProd=productos.getIterator()
-estimador:hayMas?=itProd.hasNext()
-[c:loop hayMas?]
-    estimador:prod=itProd.getNext()
-    estimador:t=prod.getTiempoPreparacion()
-    estimador:tiempoPreparacion += t
-    estimador:tipo=prod.getTipo()
-    [c:opt tipo=tipoEmpanada]
-    estimador:t=prod.getTiempoCoccion()
-    estimador:tiempoCoccionEmpanadas += t
-    [/c]
-    [c:opt tipo=tipoPizza]
-    estimador:t=prod.getTiempoCoccion()
-    estimador:tiempoCoccionPizzas += t
-    [/c]
-    estimador[1]:hayMas?=itProd.hasNext()
-[/c]
 
 #hago la cuenta pedorra
 estimador:res = tiempoPreparacion
