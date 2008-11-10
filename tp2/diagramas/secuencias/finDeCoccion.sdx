@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram>
+<source><![CDATA[a:a[p][e]
+unContH:ControladorHorno
+unDesp:DespachadorDeCoccionNormal
+unCoordC:CoordinadorDeCocina
+unCoordP:CoordinadorDePedidos
+p:Pedido
+unContL:controladorDeListos
+
+
+a:unContH.sacar(3)
+unContH:unDesp.vaciarModulo(3)
+unDesp:p=unDesp.getPedidoEnModulo(3)
+unDesp[1]:True=unDesp.termino(P)
+unDesp:False=unDesp.quedaPorCocinar(p)
+unDesp[1]:False=unDesp.estaEnAlgunModulo(p)
+unDesp[1]:aqui se borra al pedido del diccionario\\n de pedidos a partes a meter en el horno
+unDesp[1]:unCoordC.pedidoListo(p)
+unCoordC:unCoordP.pedidoListo(p)
+unCoordP:unContL.pedidoListo(p)
+unContL:p.setResponsable(self)
+unContL:p.setEstado(Listo)
+unContL: El controlador se\\nguarda al pedido en\\nsu lista
+unContL:unContL.notify()
+unContL:se informa que llego\\nun nuevo pedido listo]]></source>
+<configuration>
+<property name="actorWidth" value="25"/>
+<property name="arrowSize" value="6"/>
+<property name="colorizeThreads" value="true"/>
+<property name="destructorWidth" value="30"/>
+<property family="Dialog" name="font" size="13" style="0"/>
+<property name="fragmentMargin" value="8"/>
+<property name="fragmentPadding" value="10"/>
+<property name="fragmentTextPadding" value="3"/>
+<property name="glue" value="10"/>
+<property name="headHeight" value="35"/>
+<property name="headLabelPadding" value="5"/>
+<property name="headWidth" value="100"/>
+<property name="initialSpace" value="10"/>
+<property name="leftMargin" value="5"/>
+<property name="lineWrap" value="false"/>
+<property name="lowerMargin" value="5"/>
+<property name="mainLifelineWidth" value="8"/>
+<property name="messageLabelSpace" value="3"/>
+<property name="messagePadding" value="6"/>
+<property name="noteMargin" value="6"/>
+<property name="notePadding" value="6"/>
+<property name="opaqueMessageText" value="false"/>
+<property name="returnArrowVisible" value="true"/>
+<property name="rightMargin" value="5"/>
+<property name="selfMessageHorizontalSpace" value="15"/>
+<property name="separatorBottomMargin" value="8"/>
+<property name="separatorTopMargin" value="15"/>
+<property name="spaceBeforeActivation" value="2"/>
+<property name="spaceBeforeAnswerToSelf" value="10"/>
+<property name="spaceBeforeConstruction" value="6"/>
+<property name="spaceBeforeSelfMessage" value="7"/>
+<property name="subLifelineWidth" value="6"/>
+<property name="threadNumbersVisible" value="false"/>
+<property name="threaded" value="true"/>
+<property name="upperMargin" value="5"/>
+<property name="verticallySplit" value="true"/>
+</configuration>
+</diagram>

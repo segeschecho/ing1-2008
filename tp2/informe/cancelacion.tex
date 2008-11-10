@@ -126,6 +126,10 @@ de 2 modulos para cocinarse.
 \caption{Cancelación de un pedido en cocción}
 \end{figure}
 
+\subsubsection{Cancelación de un pedido terminado}
+En el caso de que se pretanda cancelar un pedido que esta en estado finalizado, se genera una excepcion. El escenario es simple, por lo que creemos que no es necesario un diagrama de secuencias.
+
+
 \subsubsection{Otros escenarios}
 
 La notificación de cancelación se propaga a la GUI que permite al maestro
@@ -140,3 +144,35 @@ sin embargo, si el sistema diseñado no correspondiente a la operación de
 contingencia podría existir una complejidad adicional producto de las notificaciones
 al \textit{delivery}.
 
+\subsubsection{Reponer el stock}
+Cuando se produce una cancelación, puede ser necesario reponer el stock, por ejemplo si el pedido estaba ingresado y no se utilizaron sus insumos. Como creiamos que hacer que el controlador maneje esta reposicion del stock no era adecuado (viola por ejemplo el principio de SRP, el controlador de ingreso solo se encarga de los pedidos ingresados, no tiene porque conocer los mecanismos de reposisición de stock).
+
+El repositor de stock tiene la responsabilidad de devolver el stock cuando un pedido se cancela. Esto lo hace segun el estado del pedido, en particular si el pedido estaba preparandose, debe pedir que se ingresen los insumos salvables. 
+
+Entonces consideremos el caso de un pedido ingresado. Al cancelarse todo su stock se puede reutilizar, de modo que la reposicion es completa. Veamos el diagrama de secuencias:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/repositorPedidoIngresado.png}
+\caption{Reponer stock de pedido ingresado}
+\end{figure}
+
+primero vemos que el estado sea ingresado y entonces procedemos a reponer todo el stock de sus productos.
+
+Si el pedido se estaba preparando, hay que preguntar que hacer con los productos que son preparables, es decir pedir que insumos reponer y cuales ya fueron usados.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/repositorPedidoEnPreparacion.png}
+\caption{Reponer stock de pedido en preparacion}
+\end{figure}
+
+Finalmente si el pedido ya esta totalmente preparado, la especificación pide que solo se restablezca el stock de las bebidas. Eso es precisamente lo que se muestra en este diagrama:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/repositorPedidoNoIngresadoNiPreparacion.png}
+\caption{Reponer stock de pedidos en otro estado distinto}
+\end{figure}
+
+Notar que extendimos la especifiacion preguntando por los productos no preprables ni cocinables, de modo que por ejemplo si se venden por helados, al cancelar el pedido los helados se pueden reutilizar.
