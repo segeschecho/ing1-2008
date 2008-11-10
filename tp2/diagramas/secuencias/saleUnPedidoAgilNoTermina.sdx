@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[a:a[p][e]
 unContH:ControladorHorno
-unDesp:DespachadorDeCoccionNormal
+unDesp:DespachadorDeCoccionAgil
 colaH1:list<Pedido>
 chico:Pedido
 
 a:unContH.sacar(3)
 unContH:unDesp.vaciarModulo(3)
 unDesp:p=unDesp.getPedidoEnModulo(3)
-unDesp[1]:False=unDesp.termino(P)
+unDesp[1]:False=unDesp.termino(p)
 unDesp[1]:True=unDesp.esAgil(3)
 [c:alt medioCocinarAgil != NULL]
 unDesp[1]:parte=unDesp.getParteACocinar(medioCocinarAgil1)

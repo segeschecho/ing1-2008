@@ -20,12 +20,8 @@ unDesp[1]:unContH.meter(parte,3)
 unDesp:p.setEstado(AlHorno)
 unDesp:unDesp.setPedidoEnModulo(3,p)
 unDesp[1]:False=unDesp.hayLugar(1)
-unDesp[1]:True=unDesp.quedaPorMeter(p)
+unDesp[1]:True=unDesp.quedaPorCocinar(p)
 unDesp[1]:Como si queda a medio meter, lo marcamos como \\n el medio cocinar del horno 1
-
-
-
-
 unCoordC:a.]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
