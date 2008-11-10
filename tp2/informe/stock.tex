@@ -39,6 +39,44 @@ complejidad al modelo agregando ``propiedades'' genéricas a los tipos de product
 
 
 \subsection{Modelado de escenarios}
+\label{cosasDeStock}
+
+% FIXME FIXME FIXME: todo esto tiene que volar, es cosa de la gestión de stock, no
+% del ingreso de los pedidos, hay que moverlo y eventualmente rehacer estos diagramas
+% pero sin tanto enfasis en el stock
+
+El verificador de stock tiene por responsabilidad controlar que solo ingresen pedidos que puedan ser satisfechos. Ademas en caso de ser necesario debera notificar la existencia de insumos en stock critico.
+
+Como vimos en el escenario de creación de un pedido, el generador de pedidos invoca el metodo verificarEIngresar. Este metodo va a intentar decrementar el stock de los insumos de cada producto del pedido que se desea armar. Para eso va a decrementar el stock siempre que sea posible, guardando aquellos productos cuyos insumos ya modifico para poder hacer rollback en caso de que el pedido no se pueda satisfacer. Si ocurre que hay un insumo de un producto cuyo insumo es insuficiente, se procede a restablecer el stock ya decrementado y luego se genera un excepcion que permite que se pueda mostrar en pantalla cual fue el pedido que genero el error al intentar ingresar.
+
+En cambio si todos los productos se pudieron ingresar, la función retorna True para indicar que termino exitosamente. Notar que hay un problema de sintaxis en el diagrama, ya que se hace delete del multiconjuinto pero su linea de vida se extiende. Esto es porque el programa utilizado para los diagramas no soporta eliminar dos veces al mismo elemento (en verdad es solo una vez, ya que ambas no pueden ocurrir, pero no se da cuenta de eso).
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=15cm]{./figuras/verificarEIngresar.png}
+\caption{Verificación y decremento de stock de los insumos}
+\end{figure}
+
+Decidimos factorizar el diagrama de modo que algunas interacciones las mostraremos a continuación. El metodo ingresar realiza la verificación pero a nivel de cada producto, es decir revisa dado un producto que exista una cantidad de insumos necesaria. Al igual que el metodo anterior va recordando los stocks que ya modifico para hacer rollback en caso de que sea necesario.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=11cm]{./figuras/ingresar(ControladorStock)}
+\end{figure}
+
+Hay dos metodos restablecerStock, uno trabaja sobre productos y otro a nivel de insumos. El primero recorre los productos llamando al segundo para los insumos de cada producto que itera. Mientras que a nivel de insumos, lo que se hace es incrementar la cantidad de cada insumo que aparece en la lista. Como dijimos anteriormente, estos metodos permiten realizar un rollback para deshacer los cambios hechos en el stock en el caso de que la operación de ingreso no sea exitosa
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/reestablecerStockProductos}
+\caption{restableciendo el stock de los productos cuyo stock se decremento }
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/reestablecerStockInsumos}
+\caption{restableciendo el stock de los insumos que se decrementaron }
+\end{figure}
 % TODO: traer los diagramas de la parte de ingreso de pedidos
 
 \textcolor{Red}{TODO: explicacion de metodos importantes}

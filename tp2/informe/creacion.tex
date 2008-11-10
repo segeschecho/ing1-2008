@@ -26,6 +26,11 @@ diferenciada los diferentes tipos de pedido. Por ejemplo, los pedidos locales no
 deben ser entregados a domicilio, y únicamente los pedidos que fueron hechos desde
 una mesa tienen dicha información.
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=8cm]{./figuras/pedidos.png}
+\caption{Herencia de pedidos}
+\end{figure}
 % TODO: Hacer un diagrama con la herencia de pedido
 
 La razón por la que no se utilizó un atributo es para servirnos del patrón \textit{Visitor}
@@ -107,57 +112,95 @@ El diagrama de secuencias es el siguiente:
 \end{figure}
 
 \subsubsection{Estimación de tiempos}
+Dentro de la especificación dada, uno de los requerimientos era estimar el tiempo de salida de un pedido. Como mencionamos en \ref{modifEstim} decidimos cambiar el algoritmo de estimación, por otro que esperamos sea un poco mas preciso. El pseudocodigo de dicho algoritmo es el siguiente:
 
-% TODO: hacer diagrama acá?
-\textcolor{Red}{TODO: pseudocodigos que muestren algoritmos como por ej estimacion de tiempos}
+\begin{algorithm}[H]
+\caption{Estima el tiempo de terminacion de un pedido}
+\begin{algorithmic}[1]
+\PARAMS{p:Pedido cuyo tiempo se desea estimar}
+\STATE listaPedidos = Pedido.allInstances()
+\STATE tiempoCoccionPizzas = 0
+\STATE tiempoCoccionEmpanadas = 0
+\STATE tiempoPreparacion = 0
+\FOR{cada pedido en lista}
+\STATE\COMMENT{notar que en la lista esta también el mismo p}
+\IF{el pedido esta en un estado anterior a preparado}
+\FOR{cada producto del pedido}
+\STATE tiempoPreparacion += tiempo de preparacion del producto
+\ENDFOR
+\FOR{cada producto del pedido}
+\IF{El producto es una pizza}
+\STATE tiempoCoccionPizzas += tiempo de cocción del producto
+\ENDIF
+\IF{El producto es una empanada}
+\STATE tiempoCoccionEmpanadas += tiempo de cocción del producto
+\ENDIF
+\ENDFOR
+\ELSE\IF{el pedido esta en la cola del mismo horno que p y su estado es preparado o al horno}
+\FOR{cada producto del pedido}
+\IF{El producto es una pizza}
+\STATE tiempoCoccionPizzas += tiempo de cocción del producto
+\ENDIF
+\IF{El producto es una empanada}
+\STATE tiempoCoccionEmpanadas += tiempo de cocción del producto
+\ENDIF
+\ENDFOR
+\ENDIF
+\ENDIF
+\ENDFOR
+\STATE tiempo de coccion = $\frac{ \frac{tiempoCoccionPizzas}{ pizzas por modulo del horno de p} + \frac{tiempoCoccionEmpanadas}{empanadas por modulo del horno de p}}{cantidad de modulos del horno de p}$
+\STATE p.tiempoEstimado = tiempo de coccion + tiempoPreparacion
+\end{algorithmic}
+\end{algorithm}
+
+Llamamos estimador basico a la clase que implementa este algoritmo de estimación.
+
+Veamos ahora algunos escenarios relacionados con dicha estimación:
+
+Al producirse la llamada lo que va a hacer el estimador basico es recorrer todos los productos, para conseguir sus tiempos de coción y de preparacióon. La forma en la que lo logra, decidimos que sea mostrada en otro diagrama, ya que sino obtendriamos un diagrama nada claro. Una vez que estimo esos tiempos, obtiene los tamaños de los modulos y la cantidad de modulos del horno y realiza el calculo descripto en el pseudocodigo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/estimadorDeTiempos.png}
+\caption{Estimación de tiempos}
+\end{figure}
+
+A continuación veremos como obtiene las estimaciones de los tiempos. Es basicamente recorrer los productos chequeando su estado y su tipo, por lo cual creemos que no es necesario realizar mayores explicaciones:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/EstimarTiempoDePreparacion.png}
+\caption{Estimación de tiempos de preparación}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/EstimarTiempoDeCoccionEmpanadas.png}
+\caption{Estimación de tiempo de cocción para las empanadas}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/EstimarTiempoDeCoccionPizzas.png}
+\caption{Estimación de tiempo de cocción para las pizzas}
+\end{figure}
 
 \subsubsection{Verificación de stock}
+Ver apartado correspondiente en \label{cosasDeStock}.
 
-\textcolor{Red}{FIXME: esto va a la parte de stock}
 
-% FIXME FIXME FIXME: todo esto tiene que volar, es cosa de la gestión de stock, no
-% del ingreso de los pedidos, hay que moverlo y eventualmente rehacer estos diagramas
-% pero sin tanto enfasis en el stock
+\subsubsection{Asignación de horno}
+Una parte del proceso de creado de un pedido es la asignación del horno. A partir de la especificación dada en el trabajo anterior, la selección del horno es automatica en los casos donde el encargado de pedidos no participa, y es manual en los casos donde el encargado si participa y el pedido que se ingresa es mixto. Dado que estamos modelando la operatoria de contingencia, resulta que todos los pedidos pasan por el encargado de pedidos, de modo que en estos casos solo se realiza asignación automatica cuando el pedido es solo de empanadas o solo de pizzas.
 
-El verificador de stock tiene por responsabilidad controlar que solo ingresen pedidos que puedan ser satisfechos. Ademas en caso de ser necesario debera notificar la existencia de insumos en stock critico.
+El asignador de hornos standar permite realizar esta asignación, lo que va a hacer con su metodo asignarHorno es recorrer los productos del pedido buscando si hay empanadas y pizzas (utiliza atributos del tipo TipoProducto para eso). Si hay de ambos, se dispara un notify, el cual no es el notify void del patron observer, ya que esta vez se queda esperando el horno que recibe. La GUI tienen que conocer al horno para poder mostrarlo. En caso de que no sea mixto asigna el horno correspondiente, y si solo hay bebidas, deja el atributo horno del pedido en NULL.
 
-Como vimos en el escenario anterior, el generador invoca el metodo verificarEIngresar. Este metodo va a intentar decrementar el stock de los insumos de cada producto del pedido que se desea armar. Para eso va a decrementar el stock siempre que sea posible, guardando aquellos productos cuyos insumos ya modifico para poder hacer rollback en caso de que el pedido no se pueda satisfacer. Si ocurre que hay un insumo de un producto cuyo insumo es insuficiente, se procede a restablecer el stock ya decrementado y luego se genera un excepcion que permite que se pueda mostrar en pantalla cual fue el pedido que genero el error al intentar ingresar.
+Notemos que utilizar pizza y empanada para separar no es muy extensible, sin embargo el criterio de asignación de horno toma esta decisión ad hoc de una manera inflexible. Potencialmente podrían hacerse otras formas de asignar, por ejemplo usando algo de teoria de colas, para decidir donde es conveniente encolarlo para lograr un tiempo promedio de salida menor. El modelo permite esto mediante la extensión de la clase asignadorDeHorno y la implementación del metodo asignar horno.
 
-En cambio si todos los productos se pudieron ingresar, la función retorna True para indicar que termino exitosamente. Notar que hay un problema de sintaxis en el diagrama, ya que se hace delete del multiconjuinto pero su linea de vida se extiende. Esto es porque el programa utilizado para los diagramas no soporta eliminar dos veces al mismo elemento (en verdad es solo una vez, ya que ambas no pueden ocurrir, pero no se da cuenta de eso).
-
+Veamos como es el escenario que dispara la llamada a asignarHorno en un asignardor standard: 
 \begin{figure}[H]
 \centering
-\includegraphics[height=15cm]{./figuras/verificarEIngresar.png}
-\caption{Verificación y decremento de stock de los insumos}
+\includegraphics[height=9cm]{./figuras/AsignadorDeHornoStandard.png}
+\caption{Asignación de horno}
 \end{figure}
 
-Decidimos factorizar el diagrama de modo que algunas interacciones las mostraremos a continuación. El metodo ingresar realiza la verificación pero a nivel de cada producto, es decir revisa dado un producto que exista una cantidad de insumos necesaria. Al igual que el metodo anterior va recordando los stocks que ya modifico para hacer rollback en caso de que sea necesario.
 
-\begin{figure}[H]
-\centering
-\includegraphics[height=11cm]{./figuras/ingresar(ControladorStock)}
-\end{figure}
-
-Hay dos metodos restablecerStock, uno trabaja sobre productos y otro a nivel de insumos. El primero recorre los productos llamando al segundo para los insumos de cada producto que itera. Mientras que a nivel de insumos, lo que se hace es incrementar la cantidad de cada insumo que aparece en la lista. Como dijimos anteriormente, estos metodos permiten realizar un rollback para dehacer los cambios hechos en el stock en el caso de que la operación de ingreso no sea exitosa
-
-\begin{figure}[H]
-\centering
-\includegraphics[height=9cm]{./figuras/reestablecerStockProductos}
-\caption{restableciendo el stock de los productos cuyo stock se decremento }
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[height=9cm]{./figuras/reestablecerStockInsumos}
-\caption{restableciendo el stock de los insumos que se decrementaron }
-\end{figure}
-
-{\color{Purple}
-\subsubsection{asignar horno}
-%TODO: estos items
-\begin{itemize}
-\item asignacion automatica
-\item asignacion manual
-\end{itemize}
-}
 
