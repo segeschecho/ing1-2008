@@ -153,12 +153,27 @@ El siguiente diagrama nos permite modelar dicho escenario:
 \begin{figure}[H]
 \centering
 \includegraphics[height=9cm]{./figuras/cerrarMesa.png}
-\caption{Notificacion de pedido entregado}
+\caption{Cerrado de mesa}
 \end{figure}
 
 \subsubsection{Consulta de estado}
-%TODO: que lo haga gonza
+Dado que la GUI sabe mostrar pedidos, este escenario queda bastante simple, ya que la interfaz lista los pedidos, permitiendo al encargado filtrar o buscar por ejemplo por cliente o ID. Una vez que el encargado selecciona un pedido, solicita ver el estado y se llama al getEstado del pedido.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/consultarEstado}
+\caption{Notificacion de pedido entregado}
+\end{figure}
 
 \subsubsection{Mover un pedido en la cola de ingreso}
-%TODO: decidir si se entra por la facade o por el cont de ingreso
-%TODO: hacer el subir y el bajar
+Para mover un pedido en la cola de ingreso, la GUI se encarga de pedir la lista de pedidos en ingreso, la muestra y luego el encargado selecciona un pedido y puede elegir entre subir o bajar.
+
+A continuacióon mostramos un escenario en la que se pide subir un pedido en la cola. Vamos a suponer que el pedido a subir no es el primero, de esta manera nos evitamos usar un alt.
+
+El controlador de pedidos pasa las llamadas al controlador de ingreso, que se encarga de obtener el indice del pedido, sacarlo y volverlo a poner en la posicion inmediatamente superio a la que tenia antes.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=10cm]{./figuras/subirPedido.png}
+\caption{Subir un pedido en la cola de ingreso}
+\end{figure}
