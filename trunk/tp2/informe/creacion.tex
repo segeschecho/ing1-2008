@@ -202,5 +202,14 @@ Veamos como es el escenario que dispara la llamada a asignarHorno en un asignard
 \caption{Asignación de horno}
 \end{figure}
 
+\subsubsection{Calculo de precio}
+El calculo del precio es sencillo, se recorren los productos y se suman sus precios unitarios. Potencialmente la clase calculadorDePrecios podria extenderse para soportar por ejemplo promociones de modo que segun la composición del pedido el calculo de los precios varie.
 
+Como dijimos el procedimiento es sencillo, creemos que no vale la pena detallarlo mas. El diagrama de secuencias resultante es el siguiente:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/calculadorDePrecios.png}
+\caption{Calculo de precio de un pedido}
+\end{figure}
 

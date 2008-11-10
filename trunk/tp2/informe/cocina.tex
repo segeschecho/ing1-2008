@@ -48,7 +48,25 @@ Finalmente podria ocurrir que ambos maestros esten ociosos, porque no habia ning
 \end{figure}
 
 \subsubsection{Terminancion de preparación}
-%TODO:poner los diagramas q hizo emilio y armar un escenario
+Cuando se indica que se termino de preparar una parte de un pedido, hay que seleccionar un nuevo pedido para poner a preparar. El despachador busca entonces en su cola interna y si esta esta vacia pide al coordinador de cocina que le consiga un pedido que contenga cierto tipo de producto. Este pasa la llamada al controlador de ingreso, que busca un pedido con el tipo pedido y en caso de encontrarlo lo devuelve. 
+
+Ademas si el pedido entero termino de prepararse hay que enviarlo a cocinar, para ello se llama al corrdinador de cocina que deriva el pedido al despachador de coccion.
+
+En el siguiente diagrama modelaremos el escenario en el que terminan de prepararse pizzas de un pedido, se consiguen mas pizzas en la cola interna y se pasan al preparador
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=11cm]{./figuras/terminarPreparacionPizza.png}
+\caption{}
+\end{figure}
+
+Si la cola no estaba vacia, hay que buscar un pedido en la cola de ingreso. En este escenario modelamos esa alternativa.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=11cm]{./figuras/terminarPreparacionPizzaYColaPizzeraVacia.png}
+\caption{}
+\end{figure}
 
 \subsubsection{Ingreso de pedidos al horno}
 Luego de ser preparados los pedidos pasan a traves del coordinador de cocina hacia el despachador de coccion. Este despachador es quien se encarga de manejar las colas de los hornos segun alguna politica. En particular en este trabajo consideraremos la politica normal y la politica agil, las cuales fueron debidamente especificadas en el trabajo anterior.
@@ -79,6 +97,32 @@ Otro escenario a considerar, comienza de igual manera que el anterior, pero esta
 
 Queremos notar que estos escenarios aplican también para la politica agil, ya que los pedidos que llegan pueden quedarse encolados si no hay lugar (independientemente de si son agiles o no) y por otro lado pueden entrar si hay lugar libre, pero si hay lugar libre entran porque la cola es en esencia \textit{FIFO} en estas circunstancias, es decir si hay lugar vacio y solo hay un pedido, como se busca maximizar el uso del horno, se ingresa al mismo mas alla de su condicion de chico o grande. Nada impide que mas adelante se implemente una nueva politica que trate de hacer por ejemplo mas corto primero con conocimiento futuro, de modo que, por ejemplo use una cierta probabilidad $p$ para decidir si pone al pedido recien llegado al horno o no.
 
+El fraccionado del pedido solo separa el pedido en bloques que entren en un modulo. El siguiente pseudocodigo permite ver como se hace.
+
+\begin{algorithm}[H]
+\caption{parte los productos de un pedido en grupos de productos que entran en un modulo}
+\begin{algorithmic}[1]
+\PARAMS{p:Pedido a partir}
+\STATE res = $[]$
+\STATE pizzas del pedido = [pr for p.productos if pr.tipoProd = Pizza]
+\WHILE{ halla mas pizzas en pizzas del pedido que la cantidad de pizzas que entran en el modulo}
+\STATE tomar A $\subset$ pizzas del pedido con $\sharp A ==$ pizzas que entran en el modulo
+\STATE res += A
+\STATE pizzas del pedido -= A
+\ENDWHILE
+\IF{ $\sharp$ pizzas del pedido $\neq$ 0}
+\STATE res += pizzas del pedido
+\ENDIF
+\STATE empanadas del pedido = [pr for p.productos if pr.tipoProd = empanada]
+\WHILE{ halla mas empanadas en empanadas del pedido que la cantidad de empanadas que entran en el modulo}
+\STATE tomar A $\subset$ empanadas del pedido con $\sharp A ==$ empanadas que entran en el modulo
+\STATE res += A
+\STATE empanadas del pedido -= A
+\ENDWHILE
+\RETURN res
+\end{algorithmic}
+\end{algorithm}
+
 \subsubsection{Fin de coccion de una parte}
 %FIXME: diagramas obsoletos porq cambio el md
 Hasta ahora solo consideramos cuando los pedidos entran al despachador provenientes de la etapa de prepración. Consideremos entonces que ocurre cuando se notifica la terminación de la cocción de una parte que estaba en el horno.
@@ -98,16 +142,79 @@ Si no habia ningun pedido en la cola tampoco, no tiene nada que hacer luego de a
 \includegraphics[height=18cm]{./figuras/saleUnPedidoNormalNoTermina.png}
 \end{figure}
 
+\begin{algorithm}[H]
+\caption{Determina que meter en el horno segun politica normal}
+\begin{algorithmic}[1]
+\REQUIRE{hay a lo sumo un unico pedido a medio cocinar}
+\ENSURE{se decide el proximo pedido a preparar segun lo especificado en el tp1 (salvando el hecho de que se vacia de a un modulo por vez)}
+\IF{hay un pedido a medio cocinar}
+\STATE productos a meter = tomar un grupo de productos del pedido para llenar un modulo (o lo mas que se pueda si no alcanza) \COMMENT{ver algoritmo de division del pedido}
+\IF{eso era lo ultimo que quedaba por poner del pedido a medio cocinar}
+\STATE poner pedido a medio cocinar = $\textcolor{ForestGreen}{\bot}$
+\ENDIF
+\RETURN productos a meter 
+\ELSE
+\STATE buscar en la cola el primer pedido
+\IF{hay alguno}
+\STATE productos a meter= tomar un grupo de productos del pedido sacado de la cola
+\IF{queda algo de ese pedido por meter}
+\STATE poner al pedido como pedido a medio cocinar
+\ENDIF
+\RETURN productos a meter
+\ELSE
+\RETURN $\textcolor{ForestGreen}{\bot}$
+\ENDIF
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+
 En el escenario donde la politica es agil, la situación es similar, en particular en el caso de que el modulo que se vacia no es agil, es el mismo procedimiento. Si el modulo que se vacia si es agil, el funcionamiento se modifica. En vez de intentar meter el pedido a medio cocinar se busca el pedido chico a medio cocinar. Si no hay, lo que se hace es buscar si hay algun chico en la cola, cuando lo encuentra el proceso es similar al escenario anterior, solo que este pedido puede llegar a ser el chico a medio cocinar. Si tampoco lo encuentra, busca como si fuera una politica normal. Esto nos permite ver como la politica agil, frente a la ausencia de pedidos chicos, es exactamente igual a la politica normal.
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=18cm]{./figuras/saleUnPedidoNormalNoTermina.png}
+\includegraphics[height=18cm]{./figuras/saleUnPedidoAgilNoTermina.png}
 \end{figure}
 
-\subsubsection{Algo termina de cocionarse}
+\begin{algorithm}[H]
+\caption{determina como llenar un modulo agil que se vacia}
+\begin{algorithmic}[1]
+\REQUIRE{hay a lo sumo un unico pedido a medio cocinar normal y uno chico a medio cocinar}
+\ENSURE{se decide el proximo pedido a preparar segun lo especificado en el tp1 (salvando el hecho de que se vacia de a un modulo por vez)}
+\IF{hay un pedido chico a medio cocinar}
+\STATE productos a meter = tomar un grupo de productos del pedido chico para llenar un modulo (o lo mas que se pueda si no alcanza) \COMMENT{ver algoritmo de division del pedido}
+\IF{eso era lo ultimo que quedaba por poner del pedido chico a medio cocinar}
+\STATE poner pedido a chico a medio cocinar = $\textcolor{ForestGreen}{\bot}$
+\ENDIF
+\RETURN productos a meter
+\ELSE
+\STATE buscar en la cola el primer pedido chico
+\IF{hay alguno}
+\STATE productos a meter = tomar un grupo de productos que llenen un modulo
+\IF{queda algo del pedido fuera del horno}
+\STATE poner chico a medio cocinar = pedido
+\ENDIF
+\RETURN productos a meter
+\ENDIF
+\IF{hay algun producto en la cola}
+\STATE tomar el primer pedido
+\STATE productos a meter= tomar un grupo de productos del pedido sacado de la cola
+\IF{queda algo de ese pedido por meter}
+\STATE poner al pedido como pedido a medio cocinar
+\ENDIF
+\RETURN productos a meter
+\ENDIF
+\RETURN $\textcolor{ForestGreen}{\bot}$
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
 
-\textcolor{Red}{TODO: escenarios que muestren el comportamiento de estas clases en los fenomenos pedidos en el enunciado}
+\subsubsection{Fin de cocción de un pedido}
+Cuando una parte termina de cocinarse, el despachador se pregunta si el pedido finalizó de cocinarse. En el caso en el que afirmativamente terminara de cocinarse, se debe pasar el pedido a la cola de listos. El diagrama de secuencias presente a continuación permite modelar este escenario, donde un pedido termina de cocinarse.
 
-\textcolor{Red}{TODO: pseudocodigos que muestren algoritmos como por ej seleccion de proximo pedido a cocinar}
+Al terminar de cocinar un pedido debe borrarse el pedido del diccionario de pedidos y pasarlo a la cola de listos (pasando por los coordinadores). No modelaremos de nuevo como elegir el proximo pedido, sino que modelaremos hasta que el pedido llega a la cola de listos.
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=18cm]{./figuras/finDeCoccion.png}
+\end{figure}

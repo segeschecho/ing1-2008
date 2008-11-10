@@ -19,6 +19,15 @@ el objeto hace que estos cambios no afecten al resto del sistema puesto que tant
 la signatura como la semántica de los métodos se mantendrá intacta.
 
 \subsection{Modelado de escenarios}
+\subsubsection{Validación de un cliente}
+Cuando se desea ingresar un pedido remoto es necesario ingresar el cliente (esto es opcional si el pedido es local). Para hacer esto, se escriben los datos del cliente, y se realiza la validación. Si es correcta se devuelve al cliente, sino se devuelve NULL.
 
+Por ejemplo consideremos el caso en el que se quiere validar un usuario por su nombre de usuario web y que el cliente existe. También por simplicidad modelaremos el caso en el que el segundo cliente que toma en la busqueda es el adecuado. En general hay que hacer un loop hasta encontrar un cliente, pero para no agregar ruido consideraremos ese caso
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/validarCliente.png}
+\caption{Validación de un cliente}
+\end{figure}
 % TODO: hacer algun DS, la verdad que no hay gran cosa para poner acá
 \textcolor{Red}{TODO: escenarios que muestren el comportamiento de estas clases en los fenomenos pedidos en el enunciado}

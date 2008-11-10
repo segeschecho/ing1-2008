@@ -40,6 +40,7 @@ complejidad al modelo agregando ``propiedades'' genéricas a los tipos de product
 
 \subsection{Modelado de escenarios}
 \label{cosasDeStock}
+\subsubsection{Chequeo de stock}
 
 % FIXME FIXME FIXME: todo esto tiene que volar, es cosa de la gestión de stock, no
 % del ingreso de los pedidos, hay que moverlo y eventualmente rehacer estos diagramas
@@ -79,5 +80,11 @@ Hay dos metodos restablecerStock, uno trabaja sobre productos y otro a nivel de 
 \end{figure}
 % TODO: traer los diagramas de la parte de ingreso de pedidos
 
-\textcolor{Red}{TODO: explicacion de metodos importantes}
-% FIXME: vale la pena? creo que co los DS que estan en la parte de ingreso de pedidos alcanza y sobra
+\subsubsection{Modificación del precio de un producto}
+Cuando se accede a la pantalla de modificación de productos, la gui pide todos los productos y los lista. El encargado escoge el producto cuyo precio quiere modificar e ingresa el nuevo precio. Entonces la gui se encarga de invocar el metodo de setPrecio del producto
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=9cm]{./figuras/modificarPrecios}
+\caption{Modificación del precio de un producto}
+\end{figure}
