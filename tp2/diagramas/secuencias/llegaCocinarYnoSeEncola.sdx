@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[a:a[p][e]
-unCoordC:corrdinadorDeCocina
+unCoordC:coordinadorDeCocina
 unDesp:DespachadorDeCoccionNormal
 unContH:ControladorHorno
 unFrag1:FraccionadorDeHorno

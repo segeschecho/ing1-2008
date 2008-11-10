@@ -6,7 +6,7 @@
 #!<<
 
 a:a[p][e]
-controlador:ControladorStock
+controlador:ControladorDeStockStandard
 productos:multiSet<Producto>
 it:iterator<multiSet<Producto>>
 prod:Producto

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[#!>>
 #! reestablecer stock de una lista de insumos
@@ -6,7 +6,7 @@
 #!<<
 
 a:a[p][e]
-controlador:ControladorStock
+controlador:ControladorDeStockStandard
 insumos:List<Insumo>
 it:Iterator<List<Insumo>>
 unInsumo:Insumo

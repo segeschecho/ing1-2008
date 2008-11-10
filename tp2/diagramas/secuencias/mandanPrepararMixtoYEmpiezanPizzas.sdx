@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[#!>>
 #! Llega un pedido mixto y se trata de mandar a preparar. El maestro empanadero esta ocupado y el maestro pizzero no. Se comienzan a preparar las pizzas
@@ -24,7 +24,7 @@ unDesp[1]:True=unDesp.esEmpanadero(p)
 unDesp[1]:colaEmpanadera.encolar(p)
 unDesp:unDesp.setPartesEnPreparacion(p,2)
 unDesp: "Aca se marca que el pedidoPizzeroActual es p"
-unDesp[1]:productos=unDesp.getSubpedidoPizzas(p)
+unDesp[1]:productos=unDesp.getSubpedidoPizzero(p)
 unDesp[1]:prepPizz.preparar(productos)
 prepPizz:"En esta parte se debe marcar \\nque el maestro pizzero esta ocupado"
 unDesp[1]:p.setEstado(En Preparacion)

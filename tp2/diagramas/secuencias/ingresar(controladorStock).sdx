@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[a:al[p][e]
-unContStock:ControladorDeStock
+unContStock:ControladorDeStockStandard
 p:Producto
 insumos:list<Insumo>
 it:Iterator<list<Insumo>>
