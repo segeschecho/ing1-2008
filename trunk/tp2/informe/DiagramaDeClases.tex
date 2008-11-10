@@ -1,37 +1,162 @@
-\chapter{Clases}
-\section{Modelado de clases}
-Nuestra primer idea al modelar la solución, fue identificar los diversos componentes logicos presentes en el sistema. De esta manera pudimos identificar la existencia de grupos de funcionalidades que se podían agrupar. Consideramos la existencia de los siguientes componentes:
+\chapter{Diseño del sistema}
 
-\begin{figure}[H]
-\centering
-\includegraphics[height=10cm]{./figuras/divisionModelo.png}
-\caption{Esquema de componentes lógicos}
-\end{figure}
-%FIXME: el dibujo mepa q esta mal
+\section{Consideraciones generales sobre el diseño}
+
+\subsection{Visión por componentes}
+
+Al momento de comenzar a atacar el diseño, nos propusimos identificar los distintos
+componentes lógicos del sistema, con el objeto de examinarlos por separado tratarlos
+de forma análoga. Esta idea está en consonancia con el buen diseño puesto que:
 \begin{itemize}
-\item Pedidos fuera de la cocina: Este componente agrupa las funcionalidades del ingreso, despacho, consulta de estado y otros aspectos que involucren a las partes del ciclo de vida que no ocurran en el ambito de la cocina.
-\item Creación de pedidos: Aquí se agrupan aquellas funcionalidades que hacen posible que se creen e ingresen al sistema nuevos pedidos. Podría considerarse parte de Pedidos fuera de la cocina, pero sin embargo la creación tiene una logica bastante compleja de estimación de tiempos, chequeo de stock, entre otras cosas que nos llevaron a considerarlo como un componente separado.
-\item Gestión de clientes: Este componente permite realizar las validaciones de clientes asi como también las altas, bajas y modificaciones de clientes
-\item Cocina: Aqui se engloban las funciones que permiten guiar la preparación y cocción de un pedido.
-\item Gestión de stock y productos: En este componente se engloba el ABM de stock y el ABM de productos
+\item \textbf{Aumenta la cohesión}: Las partes que atacan un mismo problema están dentro
+      de un mismo componente y cooperan para un mismo fin estrechamente.
+\item \textbf{Disminuye el acoplamiento}: Al hacer que los componentes se comuniquen entre
+      sí lo menos posible, se disminuyen las dependencias trans-componente lo cual hace
+      que las extensiones y modificaciones al sistema tengan un carácter más local.
 \end{itemize}
 
-Esta división sirve para guía pero no es estrictamente asi, ya que por ejemplo la cancelación es un evento que toca tanto a la cocina como a los pedidos fuera de esta, por otro lado el Pedido como tipo de datos es utilizado por todos los componentes en mayor o menor medida. No obstante creemos que esta división en componentes sirve para mostrar el enfoque que se le dio al diseño
+Distinguimos así los siguientes componentes, con las interacciones que aparecen en
+el diagrama \ref{diag_componentes}.
 
-\include{gestPedidos}
+\begin{figure}
+\centering
+\includegraphics[height=10cm]{./figuras/divisionModelo.png}
+\caption{Diagrama de componentes lógicos}
+\label{diag_componentes}
+\end{figure}
+%FIXME: hay que hacer de vuelta este dibujo, en parte porque es feo
+%       pero más que nada porque tiene muy pocos pixeles y se ve mal
 
-\include{creacion}
+\begin{itemize}
+\item \textbf{Pedidos fuera de la cocina}: Este componente agrupa las funcionalidades 
+      del ingreso, despacho, consulta de estado y otros aspectos que involucren a las 
+      partes del ciclo de vida que no ocurran en el ámbito de la cocina.
+\item \textbf{Creación de pedidos}: Aquí se agrupan aquellas funcionalidades que hacen 
+      posible que se creen e ingresen al sistema nuevos pedidos. Podría considerarse parte 
+      del componente anterior, pero sin embargo la creación tiene una lógica bastante 
+      compleja de estimación de tiempos y chequeo de stock que ameritan su consideración
+      como un componente separado.
+\item \textbf{Gestión de clientes}: Este componente permite realizar las validaciones de clientes así 
+      como también las altas, bajas y modificaciones de clientes.
+\item \textbf{Cocina}: Aquí se engloban las funciones que permiten guiar la preparación 
+      y cocción de un pedido.
+\item \textbf{Gestión de stock y productos}: En este componente se engloban las funcionalidades
+      referidas con el stock, los productos y sus precios.
+\end{itemize}
 
-\include{clientes}
+La idea de esta componentización es reducir al mínimo los intercambios intercomponente,
+para así tener la mayor parte de las dependencias dentro de los bloques y no entre ellos,
+y minimizando así el acoplamiento.
 
-\include{cocina}
+\subsubsection{Limitaciones de esta visión}
 
-\include{stock}
+En algunos casos, existen operaciones que afectan al grueso del sistema y por lo tanto
+no pueden separarse en componentes sin arruinar la simplicidad inherente a la
+separación. Es el caso, en particular, del método de cancelación de pedidos. Esta
+cuestión recibe un tratamiento particular por fuera de los componentes. A su vez,
+otra cuestión que podría verse limitada por esta visión es la predicción de tiempos
+de cocción y preparación de pedidos: para realizar una estimación precisa, será necesario
+conocer detalles propios de cada política de horno o de cola de ingreso de pedidos, lo
+cual es inherentemente acoplado.
 
-\include{cancelacion}
+\subsection{Visión según MVC}
 
-\section{Clase Pedido}
-\textcolor{Red}{TODO: explicacion de la clase pedido y las clases que lo heredan}
+El patrón \textbf{MVC} (\textit{Model/View/Controller}) dictamina que deben considerarse
+por separado los datos, la lógica del sistema y la presentación de información a los
+usuarios. El actual documento subespecifica voluntariamente el diseño de las vistas,
+centrándose en el diseño del sistema subyacente. Por lo tanto, es fácil reconocer dos
+tipos de clases en el diseño que propondremos:
+\begin{itemize}
+\item \textbf{Modelos de datos}, correspondientes a las estructuras de datos del sistema
+      (por ejemplo las clases Producto, Pedido, Insumo y Cliente). Esto se corresponde con
+      la letra \textbf{M} en MVC.
+\item \textbf{Controladores}, correspondientes a la lógica del sistema. Estas clases tienen
+      generalmente una única instancia y son responsables de los cambios de estado del sistema
+      (por ejemplo las clases ControladorStock, CoordinadorDePedidos, DespachadorDePreparacion
+      son clases de este tipo). Esto se corresponde con la letra \textbf{C} en MVC.
+\end{itemize}
+
+Si bien no consideramos en detalle el diseño de las vistas, consideramos que no es
+necesario hacerlo dado que en general su implementación es sencilla. Por otra parte, si
+tenemos en cuenta a la hora de diseñar el sistema la forma en que se interactuará con la
+interfaz de usuario. Por esta razón, se dotó al sistema de una interfaz gruesa a través
+de quien será posible unificar las comunicaciones que se llevan a cabo entre la GUI y el
+\textit{backend}. Si bien es factible que para lograr una mayor integración entre el
+sistema y la interfaz sea posible saltear esta capa de abstracción, la idea es minimizar
+la ocurrencia de estos saltos. Esta decisión está en consonancia con DIP y se ilustra
+en el patrón \textit{Façade}.
+
+A su vez, consideramos que la GUI podrá tener una mínima dosis de inteligencia y
+no ser controlada totalmente por el sistema que diseñamos. Si bien uno podría, con el
+fin de minimizar el acoplamiento, especificar un formato de intercambio de datos entre
+la GUI y el \textit{backend} para evitar las interdependencias, consideramos que eso
+sería excesivo en este caso y complicaría de sobremanera el diseño. Por lo tanto, 
+en nuestra concepción la intefaz gráfica puede operar con objetos del sistema tales
+como Pedido o Producto, pero solo como un observador, lo cual le permite informar
+al usuario sobre el estado del sistema. Si bien esto parece introducir un acoplamiento
+importante, el uso de interfaces como dicta ISP en esta situación agrega mucho
+código y ninguna flexibilidad (ya que, si se deseara modificar el comportamiento
+de los objetos, solo habría que mantener la interfaz actual, pero no la implementación).
+La encapsulación propia de los objetos nos ayuda entonces a mantener el sistema simple
+y flexible.
+
+\subsection{Particularidades de diseño}
+
+\subsubsection{Singleton}
+
+El patrón \textit{Singleton} es sin duda uno de los más controversiales entre los
+listados en el libro de GoF. Si bien ofrece una solución transparente a la problemática
+de instancias únicas (que sería el caso, en nuestro sistema, de las clases controladoras),
+introduce acoplamiento puesto que hace que los usuarios del \textit{Singleton} deban
+conocer a la clase y construir sus instancias ellos mismos. Esto, a su vez, hace que el
+código sea más difícil de testear ya que este acoplamiento impide el uso de \textit{mockups}.
+
+Para este diseño tomamos la decisión de no usar \textit{Singleton} y en su lugar construir
+una única vez todos los controladores en la inicialización del sistema, y luego pasarle a sus
+usuarios las referencias necesarias para que se sirvan de ellos.
+
+\subsubsection{Controladores para ABM}
+\label{metodosEstaticos}
+Para cada objeto que representa un modelo de datos, son necesarios métodos para la 
+funcionalidad de ABM. Si bien es posible implementar un controlador \textit{ad hoc} a
+cada clase donde se permitan obtener todas las instancias de dicha clase, y crear,
+modificar o destruir algunas de ellas, optamos por utilizar métodos estáticos de la
+clase para obtener todas las instancias (\verb0allInstances()0) y métodos del
+propio objeto para la funcionalidad de ABM. Esto evita la proliferación de controladores
+que no tienen funcionalidad especial y mantiene más corto el código. Esta técnica
+es muy popular en varios \textit{Object Relational Mappers}.
+
+\subsubsection{Observers}
+
+En muchos casos es necesario que el sistema sea capaz de transmitir a la interfaz de usuario
+la ocurrencia de un evento para que dicha interfaz pueda tomar acciones o notificar al usuario
+de dichos eventos. Para esto, nos servimos del patrón \textit{Observer} que permite
+la comunicación bidireccional entre dos objetos pero mantiene un acoplamiento unidireccional.
+Esto es favorable a DIP y reduce el acoplamiento del sistema. Por esta razón, a lo largo
+del informe cuando nos referimos a la notificación de eventos, se trata siempre de objetos
+de este tipo.
+
+\subsection{Flexibilidad y Rigidez}
+
+A lo largo del diseño se tuvieron que tomar decisiones sobre qué aspectos serían
+más fácilmente modificables y qué aspectos estarían más incrustados en el diseño
+del sistema. Con este fin, intentamos inferir qué cambios tenían una mayor posibilidad
+de ocurrir y necesitar ser implementados. En función de esto, le dimos prioridad a:
+\begin{itemize}
+\item Permitir agregar nuevas políticas de cola de horno
+\item Permitir agregar nuevas políticas de cola de ingreso de pedidos
+\item Permitir agregar nuevos algoritmos de estimación de tiempo
+\item Permitir agregar nuevas operatorias de cocina
+\item Permitir agregar nuevos cocineros (con aptitudes distintas a los actuales)
+\item Permitir la venta de nuevos tipos de producto
+\item Permitir procesos de cocción diferentes para los nuevos productos
+\end{itemize}
+
+La mayoría de estas posibilidades se deducen del conocido principio de diseño de UNIX:
+``\textit{Separate policy from mechanism}'', qué indica que es conveniente distinguir
+las decisiones tomadas por el sistema de las herramientas que se utilizan para tomarlas
+y llevarlas a cabo. En el diseño orientado a objetos, esto redunda en muchos casos
+en el uso de patrones \textit{Strategy} o \textit{Visitor}.
 
 \section{Diagrama de clases}
 \begin{landscape}
@@ -40,88 +165,3 @@ Esta división sirve para guía pero no es estrictamente asi, ya que por ejemplo l
 \includegraphics[height=18cm]{./figuras/clases.png}
 \end{figure}
 \end{landscape}
-%
-%\section{Explicación de las clases}
-%\clase
-%{ABMproductos}
-%{Esta clase se encarga de realizar las altas, bajas y modificaciones de los productos}
-%{}{}
-%
-%\clase
-%{ABMstock}
-%{Esta clase se encarga de realizar las altas, bajas y modificaciones de los insumos}
-%{}{}
-%
-%\clase
-%{Agil}
-%{Especialización de gestor de horno, permite aplicar la politica agil}
-%{}{}
-%
-%\clase
-%{Aviso}
-%{Clase utilizada para realizar el \textit{callback} desde el gestor de horno hacia el despachador de preparación, es la encargada de ejecutar el metodo del despachador que lo notifica de que se termino de preparar algo. Esta clase permite que el despachador no necesite saber quien le avisa, y por lo tanto permite que los preparadores no requieran de metodos diferenciados para avisar que se terminaron de preparar las pizzas, o las empanadas}
-%{}{}
-%
-%\clase{Cliente}
-%{Esta clase representa a un cliente, conteniendo todos los datos del mismo.}
-%{}{}
-%
-%\clase{ColaListos} %FIXME: nombre poco feliz
-%{Esta clase contiene a los pedidos que ya estan listos. Su responsabilidad es la de conocer a todos los que estan en este estado, a fin de que despachar un pedido se haga desde esta clase}
-%{}{}
-%
-%\clase
-%{ControladorDeIngreso}
-%{Controla la cola de ingreso, la cual puede ser modificada por el encargado de pedidos. Cuando algun preparador queda libre, envia el proximo pedido a preparar}
-%{}{}
-%
-%\clase
-%{ControladorCliente}
-%{El controlador de cliente tiene por responsabilidad encargarse de autentificar un usuario}
-%{}{}
-%
-%\clase
-%{ControladorStock}
-%{El controlador de stock, tiene por responsabilidad chequear la disponibilidad de insumos al momento de un ingreso, asi como la de hacer el decremento del stock al ingresar un pedido, generando el aviso de stock critico en caso de ser necesario.}
-%{}{}
-%
-%\clase
-%{CoordinadorDePedidos}
-%{El coordinador de pedidos se encarga de controlar el ingreso de pedidos, y su ciclo de vida fuera de la cocina}
-%{}{}
-%
-%\clase
-%{DespachadorDePreparación}
-%{Esta clase tiene por responsabilidad manejar la cola de pedidos que se estan preparando, recordemos que puede existir una cola de preparaci'on si hay pedidos mixtos a la espera de uno de los maestros. El controlador de ingresos distribuye los pedidos a los distintos preparadores y despacha cada pedido a su gestor de horno correspondiente cuando ya esta preparado.}
-%{}{}
-%
-%\clase
-%{EstimadorDeTiempos}
-%{El estimador de tiempos, como lo dice su nombre, se encarga de estimar el tiempo de preparacion y cocción de un pedido}
-%{}{}
-%
-%\clase
-%{GeneradorDePedidos}
-%{Esta clase se encarga de crear pedidos, creando pedidos de solo bebidas o con comida segun los productos}%FIXME: justificacion
-%{}{}
-%
-%\clase
-%{GestorHorno}
-%{Clase abstracta que permite implementar diferentes politicas para el manejo del horno}
-%{}{}
-%
-%\clase
-%{Insumo}
-%{Contiene la información de los distintos insumos de la pizzería}
-%{}{}
-%
-%\clase
-%{Normal}
-%{Permite implementar la politica normal de manejo del horno}
-%{}{}
-%
-%\clase
-%{Pedido}
-%{Contiene la información de cada pedido}
-%{}{}
-%

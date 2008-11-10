@@ -1,24 +1,24 @@
 \chapter{Modificaciones a la especificación}
-Al momento de realizar el diseño, decidimos realizar ciertas modificaciones a la especificación presentada en el informe anterior. A continuación, explicaremos cuales fueron, asi como cual fue la motivación para realizarlos y que impacto tienen.
+
+Al momento de realizar el diseño, decidimos realizar ciertas modificaciones a la 
+especificación presentada en el informe anterior. A continuación, explicaremos cuáles 
+fueron estas modificaciones, cuál fue la motivación para realizarlas y qué impacto tienen
+en el sistema resultante.
 
 \section{Identificación individual de los módulos del horno}
+
+Se decidió llevar a cabo una modificación que anteriormente había sido considerada
+una mejora a futuro: los módulos de los hornos serán identificables de forma única,
+mientras que antes se los consideraba indistinguibles.
+
 \subsection{Justificación}
-En la especificación, no se consideraba necesario la identificación de los módulos del horno. Esta identificaciñon se presentaba como una posible extensión a la solución propuesta. Sin embargo, al momento de realizar el diseño, notamos que son varias las razones que hacen que esta extensión sea realmente útil.
+Ya en el trabajo anterior establecimos que no identificar los módulos del horno
+conlleva un problema de usabilidad, ya que cuando un cocinero extrae comidas del horno
+no puede indicarle al sistema rápidamente que fue lo que sacó, sino que debe
+indicar qué productos estaban en ese módulo y el sistema deberá entonces reconocer qué
+pedido salió del horno.
 
-Para la correcta aplicacion de la politica agil, es necesario saber cuando algo esta en algo esta en un módulo ágil o no (esto nosotros no lo habiamos considerado asi en un principio, sino que surgio de la corrección de la especifiación). Frente a esto la idea que habiamos dado era pedir al maestro que nos diga cuantos modulos agiles libero. Esto tiene ciertos inconvenientes: 
-\begin{itemize}
-\item Esa decisión es totalmente ad hoc a la política ágil. Si se está
-usando la política ágil, la inserción o extracción de pedidos del
-horno tiene que involucrar una interfaz diferente ya que en un caso
-hay que informar si corresponde un módulo ágil o no, mientras que en
-la otra no. No solo esto nos hace menos ``plugeables'' las políticas,
-sino que de incorporar otra política nueva (como se pide
-explícitamente que sea posible en los requerimientos), va a haber que
-revisar un montón de código extra. Si  se indica únicamente el ID de
-módulo, se puede utilizar esta información para todo tipo de políticas
-o ignorarla cuando no sea necesario (como en la política normal).
-
-\item Si dos módulos (ágiles, normales o mezclados) tienen los mismos
+En esta situación, si dos módulos tienen los mismos
 items, hay que recurrir a una decisión heurística para determinar qué
 módulo corresponde a cada pedido (como por ejemplo, ``el que entró
 primero va a al pedido que ingresó antes''), pero esto podría resultar
@@ -26,17 +26,31 @@ en que los productos cocinados se asignen incorrectamente a los
 pedidos cuando salen del horno, y esto hace que no funcione como se
 espera la política de cola.
 
-\item Por último, las ya conocidas limitaciones de usabilidad que salen de
-que cuando algo se extrae del horno hay que ingresar manualmente el
-contenido de lo extraído para permitir su identificación.
-\end{itemize}
+Por otra parte, si bien en política de cola normal no es indispensable
+realizar la distinción, sí lo es en el caso de la política ágil de cola. Como
+decidimos separar la política del mecanismo utilizado para llevarla a cabo,
+resultaba razonable ofrecer a toda política de horno los medios necesarios
+para funcionar. Esto involucraría una diferencia muy grande de funcionamiento
+entre la política de cola normal y la política de cola ágil. Esto redunda
+en código más complejo y acoplado. Por otra parte, la identificación
+individual de los módulos representa un servicio minimalista y que es
+razonable para muchas políticas distintas que pudieran implementarse. En
+función de eso, consideramos que es mucho más extensible esta modalidad.
 
-Creemos que estos motivos son suficientes para realizar la modificación a la especificación.
+En particular, si no se desea distinguir módulos entre ellos, es necesario
+en la política ágil distinguir dos ``categorías'' de los mismos: ágiles y
+normales. La distinción individual de módulos permite al sistema hacer todo
+tipo de categorización, y el cocinero solo debe indicar de qué módulo se
+trata (y no características \textit{ad hoc} a la política tales como si
+el módulo es ágil o no).
 
 \subsection{Impacto del cambio}
-En esta sección realizaremos una revisión de que cambios acarrea a la operatoria la identificación individual de los modulos.
+En esta sección realizaremos una revisión de que cambios acarrea a la 
+operatoria la identificación individual de los módulos.
 
-A nivel de objetivos, claramente este cambio nos agrega un requerimiento nuevo, que consiste en mantener la información de los modulos. La figura \ref{objetivos} permite ver el fragmento del diagrama que se ve modificado por el cambio
+A nivel de objetivos este cambio nos agrega un requerimiento nuevo, que 
+consiste en mantener la información de los módulos. La figura \ref{objetivos} 
+permite observar el fragmento del diagrama que se ve modificado por el cambio.
 
 \begin{figure}[H]
 \centering
@@ -45,14 +59,19 @@ A nivel de objetivos, claramente este cambio nos agrega un requerimiento nuevo, 
 \subfigure[Diagrama de objetivos modificado]{
 \includegraphics[scale=0.3]{./figuras/objetivos_nuevo.png}}
 \label{objetivos}
-\caption{Impacto en el model de objetivos}
+\caption{Impacto en el modelo de objetivos}
 \setcounter{subfigure}{0}
 \end{figure}
 
-A nivel de contexto no produce un cambio, si en cambio se genera un cambio en la descripcion de los casos de uso relacionados con la coccion de los productos, es decir con los casos de uso indicando producto cocinado y siendo informado de proximo pedido a cocinar
+A nivel del diagrama de contexto no se producen cambios produce un cambio mayor,
+ya que las comunicaciones entre agentes se mantienen (si bien la información transmitida
+es levemente distinta cuando el maestro de cocina se comunica con el sistema). En cambio, sí 
+se genera un cambio en la descripción de los casos de uso relacionados con la cocción de los
+productos. En particular, se modifican los casos de uso \textit{Indicando producto cocinado} y
+\textit{Siendo informado de próximo pedido a cocinar}. Se detalla a continuación.
 
 % Indicando producto cocinado
-\op{1. El maestro indica al sistema que finaliz'o la cocci'on de ciertas partes de un pedido, seleccionando el modulo que desaloja}{}
+\op{1. El maestro indica al sistema que finaliz'o la cocci'on de ciertas partes de un pedido, seleccionando el módulo que desaloja}{}
 \op{2. El sistema registra la parte como cocinada}{}
 \op{3. El sistema verifica si la 'ultima parte cocinada completa el pedido}{}
 \op{4. Si es as'i, el sistema registra al pedido como listo}{}
@@ -60,33 +79,60 @@ A nivel de contexto no produce un cambio, si en cambio se genera un cambio en la
 \op{6. Fin CU}{}
 \cu{Indicando producto cocinado}{Maestro}{8, 11, 12, 15, 33}{True}{La parte de pedido se registra como cocinada}{El maestro, luego de cocinar una parte de un pedido, indica al sistema que la misma est'a cocinada}
 
-\op{1. El sistema indica al maestro una parte a cocinar en que modulo libre}{}
-\op{2. Si es la primera parte de un pedido, el sistema cambia el estado del mismo a ``en horno''}{}
+% Siendo informado de proximo pedido a cocinar
+\op{1. El sistema indica al maestro una parte a cocinar y qué módulo libre le corresponde}{}
+\op{2. Si es la primera parte de un pedido, el sistema cambia el estado del mismo a ``En Horno''}{}
 \op{4. Fin CU}{}
-\cu{Siendo informado de proximo producto a cocinar}{Maestro}{8, 11, 12, 15, 33}{La cola del horno no est'a vac'ia}{La parte comienza a cocinarse}{El sistema le ordena al maestro que parte de pedido debe cocinar y en que módulo del horno}
+\cu{Siendo informado de próximo producto a cocinar}{Maestro}{8, 11, 12, 15, 33}{La cola del horno no est'a vac'ia}{La parte comienza a cocinarse}{El sistema le ordena al maestro que parte de pedido debe cocinar y en que módulo del horno}
 
-Con respecto al funcionamiento del ingreso al horno, este es similar al funcionamiento anterior, pero ahora el maestro debera indicar que modulo libera, y el mismo sistema se encargara de saber si el mismo era agil o no, y como decidir en funcion de eso.
+Con respecto al funcionamiento del ingreso al horno, este es similar al funcionamiento anterior, 
+pero ahora el maestro deberá indicar qué modulo libera, y el mismo sistema se encargará de deterinar
+si el mismo era ágil o no. Esto es más razonable ya que dicha decisión puede ser realizada por
+la política de cola, que es la entidad más idónea para hacerlo.
 
 %TODO: hacer 2 diagramas de actividad, uno cuando se libera modulo agil y otro cuando se libera un modulo no agil
 
 \section{Estimación de tiempos}
 \label{modifEstim}
-\subsection{Motivo del cambio}
-En la especificación presentamos una operación para realizar la estimación que si bien permitia obtener una cota superior al tiempo necesario para terminar un pedido, esta cota era en muchos casos muy grosera, principalmente porque se trataba al horno como secuencial, es decir como si los pedidos se cocinar uno atras del otro y cada producto se cocine también uno atras del otro. Esta estimación practicamente garantiza que al cliente nunca se le va a decir que un pedido va a demorar tanto tiempo en estar listo, y que luego el mismo tarde mas en finalizarse. Sin embargo en muchos casos esta cota superior se convierte en ridicula.
 
-Consideremos un ejemplo: La pizzería no tiene pedidos, y se realiza un pedido de 6 pizzas, donde cada pizza tarda 30 minutos en cocinarse y consideremos despreciable el tiempo de preparacion, y supongamos también que en el horno entran 6 pizzas al mismi tiempo. En este caso una buena estimación sería 30 minutos. Sin embargo por como calculabamos la estiamción, la misma daría 3 horas, lo cual es un tiempo mucho muy grande, tan grande que podría generar que el cliente cancele el pedido.
+Se modificó el algoritmo de estimación de tiempos de preparación y cocción de pedidos
+por uno más fiable, ya que se encontraron errores en el algoritmo propuesto en la
+especificación.
 
-Es por esta razón que decidimos utilizar una nueva metrica para calcular el tiempo estimado. La idea no es dar un tiempo exacto ni mucho menos, sino corregir esta sobreestimación desmesurada que nos generaba la operación presentada en la especificación.
+\subsection{Justificación}
+En la especificación presentamos una operación para realizar la estimación que, si 
+bien permitía obtener una cota superior al tiempo necesario para terminar un pedido, resultaba
+en muchos casos una estimación muy grosera. En particular, el algoritmo consideraba al
+horno como un proceso secuencial, mientras que éste tiene la capacidad de cocinar muchos
+productos en paralelo. Si bien la estimación anterior da un alto grado de confianza en que
+no se exceda el tiempo estimado, subestima muy fuertemente la capacidad de producción en la
+cocina y en momentos de mucha ocupación la cota superior puede tomar valores ridículos.
 
-De esta manera, la nueva estimacióm es la siguiente
+Consideremos un ejemplo: La pizzería no tiene pedidos, y se realiza un pedido de 6 pizzas, 
+donde cada pizza tarda 30 minutos en cocinarse y consideremos despreciable el tiempo de preparación.
+Supongamos también que en el horno entran 6 pizzas al mismo tiempo. En este caso una buena estimación 
+sería 30 minutos. Sin embargo, por como calculabamos la estimación, la misma sería de 3 horas, lo
+cual es excesivo al punto que es probable que el cliente cancele el pedido.
+
+%FIXME: fede hijo de puta hablas como el chavo
+% Decía: "3 horas, lo cual es un tiempo mucho muy grande"
+
+Por esta razón decidimos utilizar una nueva métrica para calcular el tiempo estimado. La idea no 
+es dar un tiempo exacto, sino corregir la sobreestimación grosera que generaba la operación anterior.
+La nueva operación de estimación es la siguiente:
 
 $$tiempoEstimado(p) = tiempoPreparacion(p) + \sum{tiempoPreparacion(ped)} + $$
 $$ \frac{tiempoCoccionPizzasDe(p)+ \sum{tiempoCoccionPizzasDe(peds)}}{pizzasPorModulo*modulosPorHorno} + $$ 
 $$ \frac{tiempoCoccionEmpanadasDe(p) + \sum{tiempoCoccionEmpanadasDe(peds)}}{EmpanadasPorModulo*modulosPorHorno}$$
 
-donde $ped$ son los pedidos que estan por ingresar, o esperando prepararse y $peds$ son los pedidos que estan esperando por ingresar, prepararse o ingresar al horno asignado a p.
+donde $ped$ son los pedidos que están por ingresar o esperando prepararse, y $peds$ son los pedidos que están 
+esperando por ingresar a cocina, prepararse o ingresar al mismo horno asignado a $p$.
 
-Queremos hacer notar, que nuestra idea es que la estimación de tiempos se pueda modificar de forma flexible, pero quisimos tomar un algoritmo de estimaci'on b'asico que no sobreestime tanto el tiempo de finalización
+Si bien el diseño que presentamos a continuación permite reemplazar fácilmente el algoritmo
+de estimación de tiempos por otros más sofisticados y precisos, consideramos necesario corregir
+este error para proveer al cliente de una opción razonable desde la entrada en producción del
+sistema.
 
-\subsection{Impacto}
-Como la estimación es una operación interna, el cambio no se manifiesta en los casos de uso, tampoco a nivel de objetivos, ya que el requerimiento de estimar tiempos estaba presente. 
+\subsection{Impacto del cambio}
+Dado que la estimación de tiempos es una operación interna de la que lo único que observa
+el usuario es el resultado, no involucra modificaciones en la especificación del sistema.

@@ -1,13 +1,24 @@
 \section{Gestión de clientes}
-\textcolor{Red}{FIXME: Esta parte esta en re pelotas}
-Este componente es el responsable de validar clientes, para realizar las operaciones que requieren que se valide al usuario antes de proceder, como por ejemplo, ingresar un nuevo pedido telefonico. Por otro lado, este componente permite realizar el registro de nuevos usuarios en el sistema.
+Este componente es el responsable de la gestión de los datos de clientes. Además
+de las funcionalidades básicas de ABM, este componente permite acciones tales
+como validar clientes para realizar las operaciones que requieren de autenticación.
 
-Basicamente son dos clases las relacionadas con este componente, la clase Cliente que modela la información necesaria de cada cliente registrado, asi como también permite crear nuevos clientes. 
+Como se describiera en \ref{metodosEstaticos}, la clase Cliente tiene métodos 
+estáticos así como métodos convencionales que permiten llevar a cabo las tareas
+de ABM. Sin embargo, como también es necesaria la funcionalidad adicional de validación
+de usuarios, en este caso se implementa un objeto Controlador que es responsable de
+llevar a cabo estas tareas. Esto se hace para respetar SRP.
 
-Luego tenemos la clase ControladorCliente que se encarga de interactuar con la gui, validando los clientes segun distintos atributos.
+Las implementaciones de los métodos de estas clases son relativamente sencillas.
+El Controlador realiza búsquedas en el conjunto de instancias para chequear los
+datos requeridos por la interfaz, y responde en función de los mismos. En principio
+no parecen ser necesarios algoritmos sofisticados de búsqueda, pero eventualmente
+se podría modificar la implementación de dichos métodos manteniendo su interfaz
+para mejorar la eficiencia si se lo juzgara necesario. La encapsulación que provee
+el objeto hace que estos cambios no afecten al resto del sistema puesto que tanto
+la signatura como la semántica de los métodos se mantendrá intacta.
 
-\textcolor{Red}{TODO: interacciones de estas clases con la GUI}
-
-\textcolor{Red}{TODO: explicacion de metodos importantes}
 \subsection{Modelado de escenarios}
+
+% TODO: hacer algun DS, la verdad que no hay gran cosa para poner acá
 \textcolor{Red}{TODO: escenarios que muestren el comportamiento de estas clases en los fenomenos pedidos en el enunciado}
