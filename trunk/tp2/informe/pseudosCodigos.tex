@@ -1,0 +1,114 @@
+\begin{algorithm}[H]
+\caption{Determina que meter en el horno segun politica normal}
+\begin{algorithmic}[1]
+\REQUIRE{hay a lo sumo un unico pedido a medio cocinar}
+\ENSURE{se decide el proximo pedido a preparar segun lo especificado en el tp1 (salvando el hecho de que se vacia de a un modulo por vez)}
+\IF{hay un pedido a medio cocinar}
+\STATE productos a meter = tomar un grupo de productos del pedido para llenar un modulo (o lo mas que se pueda si no alcanza) \COMMENT{ver algoritmo de division del pedido}
+\IF{eso era lo ultimo que quedaba por poner del pedido a medio cocinar}
+\STATE poner pedido a medio cocinar = $\textcolor{ForestGreen}{\bot}$
+\ENDIF
+\RETURN productos a meter 
+\ELSE
+\STATE buscar en la cola el primer pedido
+\IF{hay alguno}
+\STATE productos a meter= tomar un grupo de productos del pedido sacado de la cola
+\IF{queda algo de ese pedido por meter}
+\STATE poner al pedido como pedido a medio cocinar
+\ENDIF
+\RETURN productos a meter
+\ELSE
+\RETURN $\textcolor{ForestGreen}{\bot}$
+\ENDIF
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{parte los productos de un pedido en grupos de productos que entran en un modulo}
+\begin{algorithmic}[1]
+\PARAMS{p:Pedido a partir}
+\STATE res = $[]$
+\STATE pizzas del pedido = [pr for p.productos if pr.tipoProd = Pizza]
+\WHILE{ halla mas pizzas en pizzas del pedido que la cantidad de pizzas que entran en el modulo}
+\STATE tomar A $\subset$ pizzas del pedido con $\sharp A ==$ pizzas que entran en el modulo
+\STATE res += A
+\STATE pizzas del pedido -= A
+\ENDWHILE
+\IF{ $\sharp$ pizzas del pedido $\neq$ 0}
+\STATE res += pizzas del pedido
+\ENDIF
+\STATE empanadas del pedido = [pr for p.productos if pr.tipoProd = empanada]
+\WHILE{ halla mas empanadas en empanadas del pedido que la cantidad de empanadas que entran en el modulo}
+\STATE tomar A $\subset$ empanadas del pedido con $\sharp A ==$ empanadas que entran en el modulo
+\STATE res += A
+\STATE empanadas del pedido -= A
+\ENDWHILE
+\RETURN res
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{determina como llenar un modulo agil que se vacia}
+\begin{algorithmic}[1]
+\REQUIRE{hay a lo sumo un unico pedido a medio cocinar normal y uno chico a medio cocinar}
+\ENSURE{se decide el proximo pedido a preparar segun lo especificado en el tp1 (salvando el hecho de que se vacia de a un modulo por vez)}
+\IF{hay un pedido chico a medio cocinar}
+\STATE productos a meter = tomar un grupo de productos del pedido chico para llenar un modulo (o lo mas que se pueda si no alcanza) \COMMENT{ver algoritmo de division del pedido}
+\IF{eso era lo ultimo que quedaba por poner del pedido chico a medio cocinar}
+\STATE poner pedido a chico a medio cocinar = $\textcolor{ForestGreen}{\bot}$
+\ENDIF
+\RETURN productos a meter
+\ELSE
+\STATE buscar en la cola el primer pedido chico
+\IF{hay alguno}
+\STATE productos a meter = tomar un grupo de productos que llenen un modulo
+\IF{queda algo del pedido fuera del horno}
+\STATE poner chico a medio cocinar = pedido
+\ENDIF
+\RETURN productos a meter
+\ENDIF
+\IF{hay algun producto en la cola}
+\STATE tomar el primer pedido
+\STATE productos a meter= tomar un grupo de productos del pedido sacado de la cola
+\IF{queda algo de ese pedido por meter}
+\STATE poner al pedido como pedido a medio cocinar
+\ENDIF
+\RETURN productos a meter
+\ENDIF
+\RETURN $\textcolor{ForestGreen}{\bot}$
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[H]
+\caption{Estima el tiempo de terminacion de un pedido}
+\begin{algorithmic}[1]
+\PARAMS{p:Pedido cuyo tiempo se desea estimar}
+\STATE listaPedidos = Pedido.allInstances()
+\STATE tiempoCoccionPizzas = 0
+\STATE tiempoCoccionEmpanadas = 0
+\STATE tiempoPreparacion = 0
+\FOR{cada pedido en lista}
+\STATE\COMMENT{notar que en la lista esta también el mismo p}
+\IF{el pedido esta en la cola del mismo horno que p}
+\IF{el pedido esta en un estado anterior a preparado}
+\FOR{cada producto del pedido}
+\STATE tiempoPreparacion += tiempo de preparacion del producto
+\ENDFOR
+\ENDIF
+\FOR{cada producto del pedido}
+\IF{El producto es una pizza}
+\STATE tiempoCoccionPizzas += tiempo de cocción del producto
+\ENDIF
+\IF{El producto es una empanada}
+\STATE tiempoCoccionEmpanadas += tiempo de cocción del producto
+\ENDIF
+\ENDFOR
+\ENDIF
+\ENDFOR
+\STATE tiempo de coccion = $\frac{ \frac{tiempoCoccionPizzas}{ pizzas por modulo del horno de p} + \frac{tiempoCoccionEmpanadas}{empanadas por modulo del horno de p}}{cantidad de modulos del horno de p}$
+\STATE p.tiempoEstimado = tiempo de coccion + tiempoPreparacion
+\end{algorithmic}
+\end{algorithm}
