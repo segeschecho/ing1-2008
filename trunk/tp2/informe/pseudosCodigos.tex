@@ -80,8 +80,6 @@
 \ENDIF
 \end{algorithmic}
 \end{algorithm}
-
-
 \begin{algorithm}[H]
 \caption{Estima el tiempo de terminacion de un pedido}
 \begin{algorithmic}[1]
@@ -92,12 +90,10 @@
 \STATE tiempoPreparacion = 0
 \FOR{cada pedido en lista}
 \STATE\COMMENT{notar que en la lista esta también el mismo p}
-\IF{el pedido esta en la cola del mismo horno que p}
 \IF{el pedido esta en un estado anterior a preparado}
 \FOR{cada producto del pedido}
 \STATE tiempoPreparacion += tiempo de preparacion del producto
 \ENDFOR
-\ENDIF
 \FOR{cada producto del pedido}
 \IF{El producto es una pizza}
 \STATE tiempoCoccionPizzas += tiempo de cocción del producto
@@ -106,6 +102,16 @@
 \STATE tiempoCoccionEmpanadas += tiempo de cocción del producto
 \ENDIF
 \ENDFOR
+\ELSE\IF{el pedido esta en la cola del mismo horno que p y su estado es preparado o al horno}
+\FOR{cada producto del pedido}
+\IF{El producto es una pizza}
+\STATE tiempoCoccionPizzas += tiempo de cocción del producto
+\ENDIF
+\IF{El producto es una empanada}
+\STATE tiempoCoccionEmpanadas += tiempo de cocción del producto
+\ENDIF
+\ENDFOR
+\ENDIF
 \ENDIF
 \ENDFOR
 \STATE tiempo de coccion = $\frac{ \frac{tiempoCoccionPizzas}{ pizzas por modulo del horno de p} + \frac{tiempoCoccionEmpanadas}{empanadas por modulo del horno de p}}{cantidad de modulos del horno de p}$
