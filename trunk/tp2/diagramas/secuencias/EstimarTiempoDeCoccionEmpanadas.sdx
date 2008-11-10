@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[#!>>
-#! EstimarTiempoDeCoccionEmpanadas(Pedido) : int
+#! EstimarTiempoDeCoccionEmpanadas(Pedido, Horno) : int
 #!
 #!<<
 
@@ -12,8 +12,12 @@ productos:multiSet<Producto>
 it:Iterator<multiSet<Producto>>
 prod:Producto
 
-a:estimador.estimarTiempoDeCoccionEmpanadas(p)
+a:estimador.estimarTiempoDeCoccionEmpanadas(p, horno)
 estimador:res = 0
+estimador:h=p.getHorno()
+[c:opt h!=horno]
+    estimador:a.res
+[/c]
 estimador:estado=p.getEstado()
 [c:opt estado!=Ingresado && estado!=EnPreparacion && estado!=Preparado]
     estimador:a.res
