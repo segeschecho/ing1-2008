@@ -19,6 +19,39 @@ En nuestra especificación del sistema consideramos que el aviso de preparación s
 
 Es por esta razón que el ingreso de un nuevo pedido genera que se intente poner a preparar el pedido, ya que el controlador de ingreso no conoce el estado de los preparadores. El despachador de preparación recibe estos pedidos y decide si puede derivarlos o no, en cuyo caso deben quedar encolados en el controlador de ingreso.
 
+El siguiente pseudocodigo nos permite ver como se decide cuando el controlador de ingreso manda un pedido para ver si puede prepararse:
+
+\begin{algorithm}[H]
+\caption{Decide si puede comenzar la preparación de un pedido o no}
+\begin{algorithmic}[1]
+\PARAMS{p un pedido}
+\IF{p tiene empanadas y el maestro empanadero esta ocicoso}
+\IF{ademas el pedido tiene pizzas}
+\STATE partes a preparar del p = 2
+\IF{si el maestro pizzero esta libre}
+\STATE obtener pizzas del pedido y darlas a preparar
+\STATE pedidoPizzeroActual = p
+\ELSE
+\STATE encolar a p en la cola pizzera
+\ENDIF
+\ELSE
+\STATE partes a preparar del p = 1
+\STATE pedidoEmpanadeoActual = p
+\STATE obtener empanadas del pedido y mandar a preparar
+\ENDIF
+\ELSE \IF{p tiene pizzas y el maestro pizzero esta ocioso}
+\STATE partes a preparar de p = 1
+\IF{ademas el pedido tiene empanadas}
+\STATE encolar p en la cola empanadera
+\STATE partes a preparar de p = 2
+\ENDIF
+\STATE obtener pizzas del pedido y darlas a preparar
+\STATE pedidoPizzeroActual = p
+\ENDIF
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
 A continuación modelaremos algunos escenarios que pueden producirse en estos casos. Para los escenarios utilizaremos los pedidos mixtos, ya que los pedidos simples son un caso particular de estos ultimos.
 
 En el primer escenario, consideraremos que el pedido ingresa pero ambos maestros estan ocupados por lo cual el pedido debe encolarse en la cola de ingreso. 
