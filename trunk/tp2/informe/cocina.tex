@@ -7,7 +7,7 @@ Preparador es una interfaz que tiene como metodo principal preparar. La idea es 
 
 La clase despachadorDeHorno es la responsable del manejo de las colas de ingreso a los hornos, aplicando la politica correspondiente. En principio habiamos considerado que era conveniente separar la aplicación de la politica del mantenimiento de las colas, sin embargo dado que la aplicación de la politica requiere de un acceso completo a las colas, nos pareció acertado acoplar ambas funcionalidades. La clase es abstracta, siguiendo el \textit{strategy pattern} a fin de permitir que se implementen diferentes politicas de manera flexible.
 
-La clase ControladorHorno es una abstraccion de los modulos del horno, esta clase permite poner algo en un modulo, asi como también sacar algo de un modulo, o conocer que es lo que hay en cada modulo. Cada controladorHorno posee ademas un fraccionador que sabe fraccionar un pedido en partes que entran en un modulo, contando para eso con un diccionario que dado un tipo de pedido pueda decidir cuantos productos de ese tipo entran en cada modulo.
+La clase despachadorDeCoccion es una abstraccion de los modulos del horno, esta clase permite poner algo en un modulo, asi como también sacar algo de un modulo, o conocer que es lo que hay en cada modulo. Cada controladorHorno posee ademas un fraccionador que sabe fraccionar un pedido en partes que entran en un modulo, contando para eso con un diccionario que dado un tipo de pedido pueda decidir cuantos productos de ese tipo entran en cada modulo.
 
 \textcolor{Red}{TODO: interacciones de estas clases con la GUI}
 
@@ -56,7 +56,7 @@ En el siguiente diagrama modelaremos el escenario en el que terminan de preparar
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=11cm]{./figuras/terminarPreparacionPizza.png}
+\includegraphics[height=8cm]{./figuras/terminarPreparacionPizza.png}
 \caption{}
 \end{figure}
 
@@ -64,7 +64,7 @@ Si la cola no estaba vacia, hay que buscar un pedido en la cola de ingreso. En e
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=11cm]{./figuras/terminarPreparacionPizzaYColaPizzeraVacia.png}
+\includegraphics[height=8cm]{./figuras/terminarPreparacionPizzaYColaPizzeraVacia.png}
 \caption{}
 \end{figure}
 
@@ -85,14 +85,14 @@ El diagrama de secuencia resultante es el siguiente:
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=6cm]{./figuras/llegaCocinarYseEncola.png}
+\includegraphics[height=8cm]{./figuras/llegaCocinarYseEncola.png}
 \end{figure}
 
 Otro escenario a considerar, comienza de igual manera que el anterior, pero esta vez si hay lugar en el horno para que el pedido entre. Lo que se hace es meter una parte del pedido en algun modulo libre, esto se repite mientras queden modulos libres o se termine el pedido. Por simplicidad en este escenario consideramos el caso donde solo habia un modulo libre. Una vez hecho eso, lo que ocurre es que se actualiza el estado interno. Por eso en este diagrama, al igual que en el anterior hay muchos automensajes, los cuales se deben a la gran cantidad de información interna que se necesita para mantener las politicas de acceso a los hornos.
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=13cm]{./figuras/llegaCocinarYNoseEncola.png}
+\includegraphics[height=8cm]{./figuras/llegaCocinarYNoseEncola.png}
 \end{figure}
 
 Queremos notar que estos escenarios aplican también para la politica agil, ya que los pedidos que llegan pueden quedarse encolados si no hay lugar (independientemente de si son agiles o no) y por otro lado pueden entrar si hay lugar libre, pero si hay lugar libre entran porque la cola es en esencia \textit{FIFO} en estas circunstancias, es decir si hay lugar vacio y solo hay un pedido, como se busca maximizar el uso del horno, se ingresa al mismo mas alla de su condicion de chico o grande. Nada impide que mas adelante se implemente una nueva politica que trate de hacer por ejemplo mas corto primero con conocimiento futuro, de modo que, por ejemplo use una cierta probabilidad $p$ para decidir si pone al pedido recien llegado al horno o no.
@@ -142,6 +142,8 @@ Si no habia ningun pedido en la cola tampoco, no tiene nada que hacer luego de a
 \includegraphics[height=18cm]{./figuras/saleUnPedidoNormalNoTermina.png}
 \end{figure}
 
+Notar que si medioCocinar es distinto de NULL tiene al menos una parte que se puede cocinar, por ende es valida la llamada al metodo $getParteACocinar$.
+
 \begin{algorithm}[H]
 \caption{Determina que meter en el horno segun politica normal}
 \begin{algorithmic}[1]
@@ -173,7 +175,7 @@ En el escenario donde la politica es agil, la situación es similar, en particula
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=18cm]{./figuras/saleUnPedidoAgilNoTermina.png}
+\includegraphics[height=21cm]{./figuras/saleUnPedidoAgilNoTermina.png}
 \end{figure}
 
 \begin{algorithm}[H]
@@ -216,5 +218,5 @@ Al terminar de cocinar un pedido debe borrarse el pedido del diccionario de pedi
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=18cm]{./figuras/finDeCoccion.png}
+\includegraphics[height=10cm]{./figuras/finDeCoccion.png}
 \end{figure}
