@@ -11,8 +11,8 @@ p:p.setRazonDeCancelacion(razon)
 p[1]:contI.cancelar(self)
 contI:listaPedidos.remove(p)
 contI:p.setResponsable(NULL)
-p[1]:repS.reponerStock(self)
-p:p.setEstado(cancelado)
+contI:repS.reponerStock(p)
+contI:p.setEstado(cancelado)
 p[1]:a.]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>

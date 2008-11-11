@@ -17,8 +17,8 @@ despP:proxPed=colaEmpanadera.next()
 despP:actualizar la variable empanaderoActual
 despP:productos=despP.getSubpedidoEmpanadero(proxPed)
 despP[1]:prepEmp.preparar(productos)
-p[1]:repS.reponerStock(self)
-p:p.setEstado(cancelado)
+despP:repS.reponerStock(self)
+despP:p.setEstado(cancelado)
 p[1]:a.]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
