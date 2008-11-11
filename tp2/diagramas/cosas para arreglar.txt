@@ -20,4 +20,4 @@ falta observer de controladorStock en DC
 
 falta observer de preparador en DC
 
-flecha del DC ControladorDeIngreso -> CoordinadorDeCocina deberia ser <-> (o sea coordinador de cocina deberia conocer al ControladorDeIngreso
+(listo)flecha del DC ControladorDeIngreso -> CoordinadorDeCocina deberia ser <-> (o sea coordinador de cocina deberia conocer al ControladorDeIngreso
