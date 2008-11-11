@@ -1,4 +1,10 @@
 \section{Pedidos fuera de la cocina}
+
+este componenente contiene
+- el façade principal (segun patron façade)
+- agrupa controladores de estados "menores" que no merecen ser separados
+  -> estos estan uno por clase por SRP
+
 Como dijimos este componente tiene por responsabilidad el manejo de la vida de los pedidos que estan fuera de la cocina (por cocina entendemos no solo al horno, sino también a la preparación de los pedidos).
 
 Nuestra idea fue tener un coordinadorDePedidos que siga el patron Façade, de modo que muestre a la interfaz grafica una intrefaz \textit{``gruesa''} con las funciones que se realizan dentro del componente. Esta clase no va a tener gran inteligencia, sino que se limitara a propagar la llamada originada por la interfaz grafica a la clase responsable de manejar esa llamada. Así, por ejemplo para ver el estado de un pedido o ingrear un nuevo pedido se deberá pasar por esta clase.

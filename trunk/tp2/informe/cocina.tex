@@ -1,4 +1,25 @@
 \section{Cocina}
+
+3 subcomponentes:
+- gestion
+- horno
+- preparacion
+
+- gestion:
+  + coordinador de cocina (façade) - describir interaccion con ingreso
+
+- horno
+  + despachador de cocción
+  + horno (datos)
+  + controlador (estado actual del horno)
+  + fraccionador (sabe "cortar" pedidos) - todas estas divisiones son segun SRP
+  + politica de cola (segun strategy)
+
+- preparacion
+  + despachador de preparacion (abstracto, según strategy y DIP)
+  + preparador utiliza callback para reducir acoplamiento y está implementado de forma abstracta (según OCP y DIP)
+    -> comentar la flexibilidad que da, y las caracteristicas de preparador especializado
+
 La cocina es el componente de mayor complejidad del sistema. Al igual que en el manejo de pedidos fuera de la cocina, tenemos una clase que sirve de punto de entrada y de controlador de flujo dentro de la cocina, derivando a los pedidos al despachador o controlador correspondiente. Esta clase es la que tiene contacto con el controlador de ingresos, de modo que todo pedido que quiere entrar en la cocina pasa por este coordinador. Cuando recibe un pedido, o pide un pedido, esta clase es la que decide quien debe hacerse cargo de recibir al pedido. Si consideramos el funcionamiento actual de la pizzería, donde los pedidos que llegan a la cocina son preparables y cocinables, al ingresar un pedido a la cocina, el coordinador lo va a enviar al despachador de preparacion y luego cuando este lo termine se lo enviará al despachador de cocción. 
 
 El despachador de preparación es una clase abstracta que tiene por responsabilidad mantener la cola de pedidos que deben ser preparados, conocer que subpedidos se prepararon y notifiar cuando el pedido ya fue preparado. Decidimos que sea abstracta porque es factible considerar que hay diferentes formas de manejar que pedido de los que estan esperando debe preparse a continuación. Ademas, la implementación de estas funcionalidades va a estar acoplada fuertemente con los tipos de productos existentes y el manejo que se le de a los mismos. Por ejemplo, es razonable que como la pizzería solo maneja pizzas y empanadas, las cuales son preparadas por un unico maestro, el despachador divida a un pedido en solo estas dos partes, sin embargo si en el futuro se agregan ensaladas, el pedido tendria que ser dividio de otra manera. Entonces a fin de dar mayor extensibilidad decidimos hacer que esta clase sea abstracta. En particular el despachador que se comporta como lo mostrado en la especificación es implementado por DespachadorDePreparaciónEstandard. Esta clase que hereda del despachador de preparación, sabe distribuir pizzas y empanadas a sendos preparadores.
