@@ -104,6 +104,7 @@ la instancia con el tipo correspondiente. Una vez creado el pedido, este pasa al
 horno que establece que horno le corresponde al pedido (en caso de que corresponda). Luego se procede 
 a realizar la estimación de tiempos de cocción y el cálculo del precio. Finalmente, el pedido queda ingresado
 y se delega al resto del sistema.
+El generador standard genera el ID de una forma trivial, recuerda el ultimo ID que asignó en un atributo, y cuando debe crear un nuevo ID toma el siguiente y modifica su atributo.
 
 El diagrama de secuencias es el siguiente:
 
