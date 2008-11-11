@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[#!>>
 #! Despachar pedido de telefono
@@ -15,8 +15,8 @@ enEntrega:list<Pedido>
 unObs:Observer
 otroObs:Observer
 
-a:coordinador.despachar(p)
-coordinador:controlador.despachar(p)
+a:coordinador.despacharPedido(p)
+coordinador:controlador.despacharPedido(p)
 controlador:p.setEstado(Enviado)
 controlador:listos.remove(p)
 controlador:controlador.notify()
