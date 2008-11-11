@@ -31,7 +31,6 @@ una mesa tienen dicha información.
 \includegraphics[height=8cm]{./figuras/pedidos.png}
 \caption{Herencia de pedidos}
 \end{figure}
-% TODO: Hacer un diagrama con la herencia de pedido
 
 La razón por la que no se utilizó un atributo es para servirnos del patrón \textit{Visitor}
 cuando es necesario implementar funcionalidad particular a solo un tipo de pedido. Si bien
@@ -76,16 +75,19 @@ se modifique de forma periódica. Esto corresponde al patrón \textit{Strategy}. L
 en \ref{modifEstim} es implementada por la clase EstimadorBasico. Es de esperarse que estrategias de estimación
 más sofisticadas induzcan más acomplamiento para lograr mayor precisión, pero esto es inevitable.
 
+El Asignador de hornos es el que decide en que horno ubicar al pedido. La asignación especificada en el tp1 es realizada por el el Asignador Standard. El criterio a seguir
+es que los pedidos simples tienen su horno por defecto mientras que para los pedidos mixtos
+debe preguntar al encargado que horno se asigna. La clase Asignador de Horno es abstracta porque potencialmente se podría modifcar la forma de asignar con el fin de balancear la carga, lograr un tiempo de demora ponderada menor, establecer prioridades para ciertos pedidos, entre otras cosas.
+
 Finalmente, el Calculador de Precios se encarga de obtener el precio a cobrar por el pedido. Nuevamente,
 se implementó una interfaz genérica para permitir cambiar la implementación. Implementaciones más
 sofisticadas podrían permitir realizar promociones si se compran determinados subconjuntos de productos,
 o asignar descuentos a clientes preferenciales.
 
-% TODO: Hablar del asignador de horno cuando se arregle
-
 \subsection{Modelado de escenarios}
 
 \subsubsection{Creación de un pedido}
+\label{creacionPed}
 Cuando el coordinador de pedidos recibe la orden de crear un nuevo pedido, la deriva al generador 
 de pedidos. Este se encargará de devolverle un pedido nuevo. El generador de pedidos invoca al 
 controlador del stock, para que verifique la factibilidad de ingresar el pedido. En caso de no 
@@ -105,12 +107,15 @@ y se delega al resto del sistema.
 
 El diagrama de secuencias es el siguiente:
 
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=25cm]{./figuras/crearMostrador.png}
+\includegraphics[height=17cm]{./figuras/crearMostrador.png}
 \caption{Creación de un nuevo pedido}
 \end{figure}
+\end{landscape}
 
+Este escenario es el que se dispara cuando en el ingreso de pedidos el coordinador de pedidos le pide al generador de pedidos que cree un nuevo pedido.
 \subsubsection{Estimación de tiempos}
 Dentro de la especificación dada, uno de los requerimientos era estimar el tiempo de salida de un pedido. Como mencionamos en \ref{modifEstim} decidimos cambiar el algoritmo de estimación, por otro que esperamos sea un poco mas preciso. El pseudocodigo de dicho algoritmo es el siguiente:
 

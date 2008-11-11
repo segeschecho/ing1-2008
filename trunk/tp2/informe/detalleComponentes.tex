@@ -1,3 +1,29 @@
+\chapter{Descripción de los componentes}
+A continuación se presenta una descripción de los componentes del modelo, mostrando sus interacciones tanto dentro de cada uno de ellos, como las que involucran a varios componentes.
+
+Veamos por ejemplo un esquema del flujo de responsabilidades desde que entre un pedido con pizzas hasta que se notifica su entrega (figura \ref{flujoPed})
+
+\begin{figure}
+\centering
+\includegraphics[height=15cm]{./figuras/flujoPedido.png}
+\label{flujoPed}
+\end{figure}
+
+En este esquema podemos ver como la orden de ingresar un pedido entra por el componente de gestion de pedidos mediante el coordinador de pedidos, este lo pasa al componente de creacion de pedidos, invocando al generador. Este último distribuye las responsabilidades dentro del componente y lo devuelve al coordinador de pedidos.
+
+De nuevo en el componente de gestión de pedidos, el controlador de preingreso decide a donde ubicarlo y lo pasa al controlador de ingreso, pues el pedido en el ejmplo, tiene pizzas. 
+
+Cuando el pedido puede comenzar a prepararse cambia de componente pasando a la cocina. La entrada a la misma se da por el coordinador que se encarga de rutear al pedido, primero pasandoselo al despachador de preparación. Cuando este termina vuelve a pasarlo de nuevo al coordinador, quien delega el pedido al despachador de cocción. 
+
+Cuando la cocción termina, el despachador lo pasa al coordinador quien saca al pedido del ambito de la cocina entregandoselo al coordinador de pedidos.
+
+El coordinador de pedidos delega el manejo del pedido al controlador de listos, quien cuando se despacha el pedido lo pasa al controlador de entregas.
+
+Finalmente el pedido permanece bajo la orbita de este controlador hasta que se notifica su entrega y el pedido queda finalizado.
+
+Como vemos, cada componente realiza un conjunto de funcionalidades acotado y necesita poder interactuar con los otros componentes.
+
+A lo largo de este capítulo mostraremos mediante escenarios que ocurre dentro de cada componente y como se realizan las interacciones entre ellos.
 
 \include{gestPedidos}
 
