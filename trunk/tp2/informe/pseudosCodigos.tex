@@ -163,17 +163,17 @@
 %En el siguiente pseudocódigo se mostrará el funcionamiendo del metodo $getMOduloXPedido$ que toma como parametro un pedido y devuelve como resultado una lista con los modulos que tiene ocupado el pedido en el horno.
 
 \begin{algorithm}[H]
-\caption{Decide si puede comenzar la preparación de un pedido o no}
+\caption{Busca los modulos en los que se encuentra el pedido pe}
 \begin{algorithmic}[1]
 \PARAMS{p un pedido}
 \STATE obtener la cantidad c de modulos del horno
-\STATE modulo actual i = 0
+\STATE modulo actual = primer modulo del horno de p
 \WHILE mientras hayan modulos por recorrer hacer
 \STATE obtener el pedido ped que se encuentra en el modulo i usando el diccionario
 \IF ped es p entonces
-\STATE agregar modulo i en res
+\STATE agregar modulo actual en res
 \ENDIF
-\STATE pasar al siguiente modulo actual i + 1
+\STATE modulo actual = siguiente modulo
 \ENDWHILE
 \RETURN res
 \end{algorithmic}

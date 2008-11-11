@@ -12,9 +12,11 @@ colaH1:list<Pedido>
 a:p.cancelar(razon)
 p:p.setRazonDeCancelacion(razon)
 p[1]:despC.cancelar(self)
+despC:repS.reponerStock(p)
+despC:p.setEstado(Cancelado)
 despC:horno=p.getHorno()
 despC: El despachador se da cuenta de \\n que el pedido esta en su horno 1
-despC:modulos=despC.getModulosXPedido(p)
+despC:modulos=despC.getModulosPorPedido(p)
 despC[1]:it=modulos.getIterator()
 despC:True=it.hasNext()
 despC:modulo=it.next()

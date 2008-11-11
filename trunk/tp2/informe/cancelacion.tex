@@ -1,5 +1,4 @@
 \section{Cancelación}
-%TODO: hacer los diagramas por el amor de Dios
 
 La cancelación de un pedido es un evento que puede producirse en cualquier momento de la
 vida de un pedido hasta que pasa al estado finalizado. Como vimos en las secciones anteriores,
@@ -13,10 +12,19 @@ colas correspondientes si se produce una cancelación. Por esta razón, la cancela
 afecta de alguna manera a todos los componentes del sistema, y es el único fenómeno
 verdaderamente \textit{transcomponente} que debimos considerar.
 
+Consideremos el esquema \ref{diag_componentes}, podemos ver en este diagrama como la cancelación involucra a varios componentes. El siguiente esquema intenta mostrar esta idea:
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=10cm]{./figuras/conCancelacion.png}
+\caption{Diagrama de componentes lógicos con el evento de cancelación}
+\end{figure}
+
 Es necesario presentar a la GUI una interfaz sencilla para permitir la cancelación de un
 pedido. En función de esto, la GUI permite al usuario encontrar el pedido que desea cancelar
 (utilizando alguno de los métodos de búsqueda) y luego envía un mensaje a una entidad idónea
 para realizar la tarea.
+%FIXME: que onda con esto de los metodos de busqueda
 
 En este punto nos encontramos con una dificultad particular: ¿Cuál es esta entidad? Es claro
 que no puede elegirse arbitrariamente alguno de los componentes del sistema puesto que no
@@ -67,11 +75,7 @@ Esta solución es considerablemente limpia y permite fácilmente extender el siste
 sin realizar modificaciones innecesarias. Veamos a continuación algunos escenarios diferentes 
 de cancelación.
 
-
-
 \subsection{Modelado de escenarios}
-
-
 \subsubsection{Cancelación de un pedido ingresado}
 
 El primer escenario consiste en cancelar un pedido que estaba en la cola de 
@@ -83,9 +87,6 @@ el stock de los insumos que no se van a utilizar.
 \includegraphics[height=9cm]{./figuras/cancelacionIngreso.png}
 \caption{Cancelación de un pedido ingresado}
 \end{figure}
-
-
-
 
 \subsubsection{Cancelación de un pedido en preparación}
 
@@ -99,7 +100,6 @@ proceso es muy simple, solo se desencola esta parte que estaba en espera y se co
 el estado del Pedido. A continuación modelaremos un escenario más interesante, que corresponde
 a la cancelación de un pedido que tenía sus empanadas siendo preparadas, asumiendo 
 que hay otro pedido con empanadas en la cola esperando para ser preparados.
-
 
 \begin{figure}[H]
 \centering
@@ -126,9 +126,27 @@ de 2 modulos para cocinarse.
 \caption{Cancelación de un pedido en cocción}
 \end{figure}
 
+el método getModulosPorPedido recorre el diccionario que guarda que pedido esta en cada módulo del horno del pedido para obtener en cuales se estaba cocinando el pedido, a fin de saber cuantos y cuales son los modulos que deben vaciarse y llenarse.
+
+\begin{algorithm}[H]
+\caption{Busca los modulos en los que se encuentra el pedido pe}
+\begin{algorithmic}[1]
+\PARAMS{p un pedido}
+\STATE obtener la cantidad c de modulos del horno
+\STATE modulo actual = primer modulo del horno de p
+\WHILE{mientras hayan modulos por recorrer hacer}
+\STATE obtener el pedido ped que se encuentra en el modulo i usando el diccionario
+\IF{ped es p entonces}
+\STATE agregar modulo actual en res
+\ENDIF
+\STATE modulo actual = siguiente modulo
+\ENDWHILE
+\RETURN res
+\end{algorithmic}
+\end{algorithm}
+
 \subsubsection{Cancelación de un pedido terminado}
 En el caso de que se pretanda cancelar un pedido que esta en estado finalizado, se genera una excepcion. El escenario es simple, por lo que creemos que no es necesario un diagrama de secuencias.
-
 
 \subsubsection{Otros escenarios}
 
@@ -145,7 +163,7 @@ contingencia podría existir una complejidad adicional producto de las notificaci
 al \textit{delivery}.
 
 \subsubsection{Reponer el stock}
-Cuando se produce una cancelación, puede ser necesario reponer el stock, por ejemplo si el pedido estaba ingresado y no se utilizaron sus insumos. Como creiamos que hacer que el controlador maneje esta reposicion del stock no era adecuado (viola por ejemplo el principio de SRP, el controlador de ingreso solo se encarga de los pedidos ingresados, no tiene porque conocer los mecanismos de reposisición de stock).
+Cuando se produce una cancelación, puede ser necesario reponer el stock, por ejemplo si el pedido estaba ingresado y no se utilizaron sus insumos. Como creiamos que hacer que el controlador maneje esta reposicion del stock no era adecuado (viola por ejemplo el principio de SRP, el controlador de ingreso solo se encarga de los pedidos ingresados, no tiene porque conocer los mecanismos de reposisición de stock). Por eso asociamos a la interfaz cancelador un repositor de stock.
 
 El repositor de stock tiene la responsabilidad de devolver el stock cuando un pedido se cancela. Esto lo hace segun el estado del pedido, en particular si el pedido estaba preparandose, debe pedir que se ingresen los insumos salvables. 
 
