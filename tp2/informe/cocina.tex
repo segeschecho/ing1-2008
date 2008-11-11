@@ -1,41 +1,114 @@
 \section{Cocina}
 
-3 subcomponentes:
-- gestion
-- horno
-- preparacion
+La cocina es posiblemente el componente de mayor complejidad del sistema de la pizzería.
+Su responsabilidad principal consiste en recibir los pedidos que deban prepararse o 
+cocinarse del componente de ingreso de pedidos, y hacerse cargo de estas tareas. Cuando
+logra llevarlas a cabo, los pedidos son devueltos al coordinador de pedidos para su
+posterior entrega y facturación.
 
-- gestion:
-  + coordinador de cocina (façade) - describir interaccion con ingreso
+Pueden distinguirse 3 subcomponentes dentro de la cocina:
+\begin{itemize}
+\item Las clases de gestión y coordinación de cocina
+\item Las clases relacionadas con la preparación de pedidos
+\item Las clases relacionadas con los hornos
+\end{itemize}
 
-- horno
-  + despachador de cocción
-  + horno (datos)
-  + controlador (estado actual del horno)
-  + fraccionador (sabe "cortar" pedidos) - todas estas divisiones son segun SRP
-  + politica de cola (segun strategy)
+A continuación se describe la responsabilidad de cada uno de estos subcomponentes así
+como las clases que lo componen y las tareas que las mismas tienen asignadas. Esta separación
+en subcomponentes responde al mismo espíritu de la división en componentes del sistema global:
+permite reducir el acoplamiento y aumentar la cohesión.
 
-- preparacion
-  + despachador de preparacion (abstracto, según strategy y DIP)
-  + preparador utiliza callback para reducir acoplamiento y está implementado de forma abstracta (según OCP y DIP)
-    -> comentar la flexibilidad que da, y las caracteristicas de preparador especializado
+\subsection{Coordinación de cocina}
 
-La cocina es el componente de mayor complejidad del sistema. Al igual que en el manejo de pedidos fuera de la cocina, tenemos una clase que sirve de punto de entrada y de controlador de flujo dentro de la cocina, derivando a los pedidos al despachador o controlador correspondiente. Esta clase es la que tiene contacto con el controlador de ingresos, de modo que todo pedido que quiere entrar en la cocina pasa por este coordinador. Cuando recibe un pedido, o pide un pedido, esta clase es la que decide quien debe hacerse cargo de recibir al pedido. Si consideramos el funcionamiento actual de la pizzería, donde los pedidos que llegan a la cocina son preparables y cocinables, al ingresar un pedido a la cocina, el coordinador lo va a enviar al despachador de preparacion y luego cuando este lo termine se lo enviará al despachador de cocción. 
+La coordinación de cocina cumple con el rol de interfaz hacia toda la cocina. En particular,
+se encarga de redirigir los pedidos a la sección de preparación o de cocción según corresponda.
+La decisión se toma en base a los atributos \verb0preparable0 y \verb0cocinable0 de los productos
+contenidos en el pedido.
 
-El despachador de preparación es una clase abstracta que tiene por responsabilidad mantener la cola de pedidos que deben ser preparados, conocer que subpedidos se prepararon y notifiar cuando el pedido ya fue preparado. Decidimos que sea abstracta porque es factible considerar que hay diferentes formas de manejar que pedido de los que estan esperando debe preparse a continuación. Ademas, la implementación de estas funcionalidades va a estar acoplada fuertemente con los tipos de productos existentes y el manejo que se le de a los mismos. Por ejemplo, es razonable que como la pizzería solo maneja pizzas y empanadas, las cuales son preparadas por un unico maestro, el despachador divida a un pedido en solo estas dos partes, sin embargo si en el futuro se agregan ensaladas, el pedido tendria que ser dividio de otra manera. Entonces a fin de dar mayor extensibilidad decidimos hacer que esta clase sea abstracta. En particular el despachador que se comporta como lo mostrado en la especificación es implementado por DespachadorDePreparaciónEstandard. Esta clase que hereda del despachador de preparación, sabe distribuir pizzas y empanadas a sendos preparadores.
+La interacción del coordinador de cocina con el resto del sistema es bidireccional. Esto
+se hace para una  mayor flexibilidad en las políticas de cola de ingreso y cocina. Se permiten
+dos operaciones:
+\begin{itemize}
+\item El Controlador de Ingreso intenta encolar un pedido en la cocina (se le devuelve un \verb0boolean0
+      que indica si el pedido se encoló o no)
+\item El Coordinador de Cocina le pide al Coordinador de Ingreso que le pase un pedido que
+      contenga productos de un tipo determinado (llamada a \verb0proximoPedido()0).
+\end{itemize}
+Esta doble interfaz permite que la cola de ingreso funcione con una política distinta a la
+cola de cocina, permitiendo así, por ejemplo, que el encargado de pedidos reordene la cola
+de ingreso según su criterio. Si bien para esto sería suficiente con que el coordinador
+de cocina pida al coordinador de ingreso los pedidos, la llamada inversa permite que el
+coordinador de cocina priorice pedidos según su tipo. Esto evita bloqueos innecesarios de
+la preparación y mejora la eficiencia del sistema.
 
-Preparador es una interfaz que tiene como metodo principal preparar. La idea es que este metodo sea el que hable con la gui para mostrar que se debe preparar. Decidimos hacer una interfaz para esto, porque si bien en este momento se muestra todo el contenido del pedido (o subpedido a preparar), esta estraetgia podría cambiar, si por ejemplo se desea tener un contro de cada producto del pedido. Entonces nuestro preparador especializado que implementa esta interfaz funciona como lo planteamos en la especificación.
+La doble interfaz produce una doble dependencia. Si bien se podría haber utilizado una
+dependencia unidireccional con un \textit{callback} para la llamada inversa, optamos
+por hacerlo de esta manera ya que resulta más claro y refleja el acoplamiento que hay
+entre los dos coordinadores, que trabajan juntos estrechamente.
 
-La clase despachadorDeHorno es la responsable del manejo de las colas de ingreso a los hornos, aplicando la politica correspondiente. En principio habiamos considerado que era conveniente separar la aplicación de la politica del mantenimiento de las colas, sin embargo dado que la aplicación de la politica requiere de un acceso completo a las colas, nos pareció acertado acoplar ambas funcionalidades. La clase es abstracta, siguiendo el \textit{strategy pattern} a fin de permitir que se implementen diferentes politicas de manera flexible.
+\subsection{Preparación de pedidos}
 
-La clase despachadorDeCoccion es una abstraccion de los modulos del horno, esta clase permite poner algo en un modulo, asi como también sacar algo de un modulo, o conocer que es lo que hay en cada modulo. Cada controladorHorno posee ademas un fraccionador que sabe fraccionar un pedido en partes que entran en un modulo, contando para eso con un diccionario que dado un tipo de pedido pueda decidir cuantos productos de ese tipo entran en cada modulo.
+La preparación de pedidos consta de un Despachador de Preparación, una interface Preparador
+implementada de momento por una única clase Preparador Especializado y una clase Aviso que
+se utiliza según el patrón \textit{Observer} para enviar notificaciones desde los preparadores.
 
-\textcolor{Red}{TODO: interacciones de estas clases con la GUI}
+El Despachador de Preparación recibe del Coordinador  de Cocina los pedidos que debe
+preparar. Esta abstracción responde a DIP y a \textit{Strategy} ya que permite reemplazar
+la política de preparación para incluir una operatoria diferente.
 
-\textcolor{Red}{TODO: explicacion de metodos importantes}
+El Despachador de Preparación Estándar, que implementa la política de preparación definida
+por la especificación, consta de dos Preparadores idénticos, uno encargado de las pizzas y
+otro de las empanadas. El despachador separa los pedidos según los tipos de los productos a
+preparar y notifica a los Preparadores que comiencen a prepararlo. 
+
+Los que implementan la
+interfaz  Preparador tienen la responsabilidad de notificar al despachador mediante un
+\textit{callback} para que este pueda, si lo considera necesario, asignarles un nuevo
+producto a preparar. Este es uno de los lugares en que el sistema se comporta de forma
+asincrónica. La clase Aviso engloba este \textit{callback}, del cual hay dos variantes:
+Aviso Pizzero y Aviso Empanadero, que permiten al despachador diferenciar los eventos.
+El uso del \textit{callback} nos permite desacoplar a los Preparadores del despachador,
+permitiendo así reutilizar código y dar una excelente flexibilidad en cuanto a políticas
+de preparación. Así se permitiría en un futuro, por ejemplo, incorporar preparadores que
+fueran polivalentes (es decir, que no se especialicen en un único producto).
+
+Cuando los pedidos se han preparado completamente el despachador los devuelve al
+coordinador de cocina para que prosigan su curso dentro del sistema. 
+
+\subsection{Administración de hornos}
+
+El subcomponente de horno se encarga de la operatoria de cocción de los pedidos,
+incluída la política de las colas de horno. Consta de Despachador de Cocción, que
+es el coordinador principal (e implementa mediante herencia las políticas de cola
+de horno), y una serie de clases asociadas a cada horno: Horno, Controlador de Horno,
+Fraccionador de Horno.
+
+La política de colas de horno se implementó con herencia sobre el Despachador en
+lugar de utilizar el patrón \textit{Strategy} ya que la política no debe ser
+reemplazable ``al vuelo'', y la herencia nos proporciona una mayor facilidad de
+acceso a los demás componentes del horno. El despachador se sirve de esta política
+para enviar los pedidos al horno en el orden correspondiente.
+
+El controlador de horno presenta un \textit{wrapper} de la clase Horno para ser
+utilizado por el despachador, según SRP. Esta clase se encarga de registrar qué
+módulos del horno están ocupados (y con qué productos), librando así de esta 
+responsabilidad a la clase Horno, que solo debe almacenar información estática
+sobre propiedades del horno.
+
+Siguiendo la misma línea, el Fraccionador de Horno abstrae la tarea de segmentar
+un pedido en grupos de productos que puedan cocinarse simultáneamente en un módulo.
+El algoritmo utilizado para llevar a cabo esta tarea puede ser reemplazable, con
+lo cual esta decisión de diseño está en consonancia con SRP y OCP.
+
+Finalmente, cuando los pedidos han sido cocinados completamente el despachador de
+cocción los vuelve a atribuir al coordinador de cocina, que por lo general los
+vuelve a enviar al coordinador general de pedidos para su posterior entrega.
+
 
 \subsection{Modelado de escenarios}
+
 \subsubsection{Ingreso de pedidos a preparar}
+
 En nuestra especificación del sistema consideramos que el aviso de preparación se produciria de manera automatica siempre que el maestro este ocioso y llegue un nuevo pedido. También se produce de forma automatica cuando el maestro termina y hay algun pedido potencialmente preparable por el.
 
 Es por esta razón que el ingreso de un nuevo pedido genera que se intente poner a preparar el pedido, ya que el controlador de ingreso no conoce el estado de los preparadores. El despachador de preparación recibe estos pedidos y decide si puede derivarlos o no, en cuyo caso deben quedar encolados en el controlador de ingreso.
