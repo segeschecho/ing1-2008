@@ -6,7 +6,7 @@
 #!<<
 
 a:a[p][e]
-estimador:EstimadorBasico
+estimador:EstimadorStandard
 p:Pedido
 productos:multiSet<Producto>
 it:Iterator<multiSet<Producto>>
