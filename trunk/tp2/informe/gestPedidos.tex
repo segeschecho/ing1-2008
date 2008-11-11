@@ -3,7 +3,7 @@
 este componenente contiene
 - el façade principal (segun patron façade)
 - agrupa controladores de estados "menores" que no merecen ser separados
-  -> estos estan uno por clase por SRP
+  $->$ estos estan uno por clase por SRP
 
 Como dijimos este componente tiene por responsabilidad el manejo de la vida de los pedidos que estan fuera de la cocina (por cocina entendemos no solo al horno, sino también a la preparación de los pedidos).
 
@@ -42,7 +42,7 @@ Al agregar el pedido a la lista notifica a su observador de que ocurrio un cambi
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=21cm]{./figuras/remotoBebidas.png}
+\includegraphics[height=25cm]{./figuras/remotoBebidas.png}
 \caption{Ingreso de un pedido remoto de solo bebidas}
 \end{figure}
 
@@ -70,7 +70,7 @@ En el primer caso, el controlador de ingresos se hace cargo del pedido, cambiand
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=6cm]{./figuras/remotoComidas.png}
+\includegraphics[height=25cm]{./figuras/remotoComidas.png}
 \caption{Ingreso de un pedido remoto con comida que queda encolado para su ingreso}
 \end{figure}
 
@@ -78,7 +78,7 @@ En el segundo caso, como se va a hacer cargo la cocina, el controlador de ingres
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=4cm]{./figuras/remotoComidasquedapreparando.png}
+\includegraphics[height=5cm]{./figuras/remotoComidasquedapreparando.png}
 \caption{Ingreso de un pedido remoto con comida que pasa a estar preparando}
 \end{figure}
 
@@ -89,11 +89,11 @@ En el escenario en el cual el pedido a despachar es de origen remoto, el control
 
 El controlador de entregas pone al pedido en su lista de pedidos, y se asigna como responsable de la cancelación del mismo.
 
-Veamos el diagrama de secuencia comenzando la misma con la llegada de un mensaje de despachar al coordinador de pedidos
+Veamos el diagrama de secuencia comenzando la misma con la llegada de un mensaje de despachar al coordinador de pedidos.
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=7cm]{./figuras/despacharPedidoTelefono.png}
+\includegraphics[height=25cm]{./figuras/despacharPedidoTelefono.png}
 \caption{Despacho de un pedido telefonico}
 \end{figure}
 
@@ -103,7 +103,7 @@ El diagrama de secuencia es el siguiente:
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=7cm]{./figuras/despacharPedidoMesa.png}
+\includegraphics[height=25cm]{./figuras/despacharPedidoMesa.png}
 \caption{Despacho de un pedido de mesa}
 \end{figure}
 
@@ -126,7 +126,7 @@ En el caso de tener que sacar un pedido de la cola, el controlador de listos hac
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=8cm]{./figuras/proximoPedido.png}
+\includegraphics[height=10cm]{./figuras/proximoPedido.png}
 \caption{Seleccion del proximo pedido}
 \end{figure}
 
@@ -134,7 +134,7 @@ tieneTipo se encarga de recorrer los productos del pedido para ver si hay alguno
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=8cm]{./figuras/tieneTipo.png}
+\includegraphics[height=10cm]{./figuras/tieneTipo.png}
 \caption{tieneTipo}
 \end{figure}
 
@@ -160,7 +160,7 @@ El siguiente diagrama nos permite modelar dicho escenario:
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/cerrarMesa.png}
+\includegraphics[height=11cm]{./figuras/cerrarMesa.png}
 \caption{Cerrado de mesa}
 \end{figure}
 
@@ -169,7 +169,7 @@ Dado que la GUI sabe mostrar pedidos, este escenario queda bastante simple, ya q
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/consultarEstado}
+\includegraphics[height=5cm]{./figuras/consultarEstado}
 \caption{Notificacion de pedido entregado}
 \end{figure}
 
