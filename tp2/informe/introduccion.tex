@@ -8,25 +8,26 @@ a la hora de diseñar se enfocaron esencialmente en la flexibilidad y mantenibili
 software, con el objeto de que introducir cambios y correcciones en el software en
 el futuro sea tan sencillo como sea posible.
 
-En esta primera sección se describe brevemente el siguiente informe, así como
+\begin{enumeration}
+\item \textbf{Introducción:} se describe brevemente el siguiente informe, así como
 su organización y contenidos y los objetivos que se plantea. En particular, este
 documento está dirigido a los desarrolladores que deberán implementar el sistema.
 Si bien no es de carácter definitivo, el espíritu del documento intenta no ser
 ambiguo y tener en cuenta tantas decisiones de diseño significativas como sea
 posible.
 
-Al realizar el diseño fue necesario en algunos casos introducir modificaciones o mejoras
+\item \textbf{Modificaciones a la especicación:} Al realizar el diseño fue necesario en algunos casos introducir modificaciones o mejoras
 a lo anteriormente especificado. Dichos cambios se evaluaron y fueron juzgados necesarios
 por las ventajas que representan en varios planos, pero particularmente en la extensibilidad
 y flexibilidad del sistema para tolerar cambios futuros en su modo de operación. La segunda
 sección del informe describe los cambios realizados así como la justificación de los mismos
 y el impacto que tienen en el diseño.
 
-En tercer lugar se presenta la descripción del diseño propiamente dicha. Como se adoptó
+\item \textbf{Diseño del sistema:} En tercer lugar se presenta la descripción del diseño propiamente dicha. Como se adoptó
 un acercamiento por componentes, se describe inicialmente esta división en componentes,
 sus ventajas y limitaciones así como la razón de utilizar esta modalidad. 
 
-Finalmente se presenta el diseño de cada componente, así como las relaciones que existen entre los
+\item: \textbf{Descripción de los componentes:} Finalmente se presenta el diseño de cada componente, así como las relaciones que existen entre los
 objetos de los mismos. Se utiliza la herramienta de diagramas de secuencia
 para modelar las comunicaciones entre los objetos (dentro de un mismo componente, o
 entre varios de ellos). En los casos en que fue considerado necesario, se adjunta además
@@ -47,3 +48,8 @@ En los diagramas de secuencia muchas veces la sintaxis no se ajusta exactamente 
 en clase (por ejemplo, en el caso de las variables locales a un \textit{loop}). Esto se debe en parte
 a limitaciones de la herramienta utilizada para realizar los diagramas, y en parte a que la sintaxis
 propuesta no es UML y por lo tanto no está soportada.
+
+\section{Documentos relacionados}
+El principal documento a tener en cuenta es la especificación presentada en el trabajo práctico 1, ademas de los enunciados provistos por la catedra. 
+
+De la mimsma manera que para la especificación, dado que no se hicieron reuniones formales para discutir aspectos del diseño, la mayoría de las cuestiones relacionadas al mismo fueron explicadas en clase o discutidas mediante correco eléctronico con los docentes.
