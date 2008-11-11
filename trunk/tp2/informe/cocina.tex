@@ -47,6 +47,7 @@ El siguiente pseudocodigo nos permite ver como se decide cuando el controlador d
 \begin{algorithmic}[1]
 \PARAMS{p un pedido}
 \IF{p tiene empanadas y el maestro empanadero esta ocicoso}
+\STATE poner al despachador como responsable de p
 \IF{ademas el pedido tiene pizzas}
 \STATE partes a preparar del p = 2
 \IF{si el maestro pizzero esta libre}
@@ -61,6 +62,7 @@ El siguiente pseudocodigo nos permite ver como se decide cuando el controlador d
 \STATE obtener empanadas del pedido y mandar a preparar
 \ENDIF
 \ELSE \IF{p tiene pizzas y el maestro pizzero esta ocioso}
+\STATE poner al despachador como responsable de p
 \STATE partes a preparar de p = 1
 \IF{ademas el pedido tiene empanadas}
 \STATE encolar p en la cola empanadera
