@@ -3,7 +3,7 @@ agregar todos los ver lista de los controladores en la facade y en ellas mismas
 las cosas con notify tienen q tener un subscribe(observer)
 
 
-gestion de stock y productos: arreglar en el ultimo parrafo, antes de modelado de escenarios, anteultima linea que dice "NO nos parecio razonable agregar....", sacar el NO
+(ESTA BIEN ASI)gestion de stock y productos: arreglar en el ultimo parrafo, antes de modelado de escenarios, anteultima linea que dice "NO nos parecio razonable agregar....", sacar el NO
 
 
 cancelacion
