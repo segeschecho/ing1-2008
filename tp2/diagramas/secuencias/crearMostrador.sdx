@@ -9,7 +9,7 @@ unCont:controladorStockStandard
 allInstances:list<Pedido>
 calcPrec:CalculadorDePreciosStandard
 
-cp:p=unGen.generarPedido(cliente,productos,mostrador,contado,mesa)
+cp:p=unGen.generarPedido(cliente,productos,contado,mesa)
 unGen:True=unCont.verificarEIngresar(productos)
 unGen:fechaDeIngreso=unGen.getDateTime()
 unGen[1]:id=unGen.generarId()
