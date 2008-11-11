@@ -2,7 +2,7 @@
 <diagram>
 <source><![CDATA[a:a[p][e]
 p:pedido
-despC:DespachadorDeCoccionAgil
+despC:Agil
 repS:RepositorStock
 contH1:ControladorDeHorno
 modulos:list<Int>
@@ -17,7 +17,7 @@ despC: El despachador se da cuenta de \\n que el pedido esta en su horno 1
 despC:modulos=despC.getModulosXPedido(p)
 despC[1]:it=modulos.getIterator()
 despC:True=it.hasNext()
-despC:unModulo=it.next()
+despC:modulo=it.next()
 despC:contH1.cancelar(modulo)
 contH1: Aca se hace el notify
 despC:p1=colaH1.getFirst()
@@ -25,7 +25,7 @@ despC:colaH1.remove(p1)
 despC:parte=despC.getParteACocinar(p1)
 despC[1]:contH1.meter(parte,modulo)
 despC:True=it.hasNext()
-despC:unModulo=it.next()
+despC:modulo=it.next()
 despC:contH1.cancelar(modulo)
 contH1: Aca se hace el notify
 despC:queda=despC.quedaPorCocinar(p1)

@@ -8,8 +8,11 @@ gestion de stock y productos: arreglar en el ultimo parrafo, antes de modelado d
 
 cancelacion
 
-2do DS se una una var llamada proxPed que no se de donde sale, y ademas no entiendo bien el diagrama, por que hace preparar ???
+(listo)2do DS se una una var llamada proxPed, que no esta (cancelacionPreparacion.png)
 
 
-en el ultimo DS de cancelacion (cancelacion de un pedido en coccion) se usa la funcion getModulosXPedido(Pedido) que tendria que estar en DespachadorDeCoccionAgil que no esta tampoco, creo que es la clase Agil
+(listo)3er DS (cancelacionCoccion.png) usa unModulo y no esta
+
+
+(listo)en el ultimo DS de cancelacion (cancelacion de un pedido en coccion) se usa la funcion getModulosXPedido(Pedido) que tendria que estar en DespachadorDeCoccionAgil que no esta tampoco, creo que es la clase Agil
 Y arreglar que se devuelve UnModulo y se usa modulo

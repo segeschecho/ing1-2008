@@ -13,7 +13,7 @@ p[1]:despP.cancelar(self)
 despP:el despachador se entera de que \\n el pedido a cancelar es su pedido\\nempanadero actual
 despP:prepEmp.cancelar
 prepEmp: se realiza la notificacion al \\nobservador asociado
-despP:pedido=colaEmpanadera.next()
+despP:proxPed=colaEmpanadera.next()
 despP:actualizar la variable empanaderoActual
 despP:productos=despP.getSubpedidoEmpanadero(proxPed)
 despP[1]:prepEmp.preparar(productos)
