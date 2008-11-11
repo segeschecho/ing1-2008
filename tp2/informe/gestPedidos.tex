@@ -1,36 +1,72 @@
 \section{Pedidos fuera de la cocina}
 
-este componenente contiene
-- el façade principal (segun patron façade)
-- agrupa controladores de estados "menores" que no merecen ser separados
-  $->$ estos estan uno por clase por SRP
+El componente de pedidos fuera de cocina es el que es responsable por la vida de los
+pedidos cuando éstos no están en manos de la cocina. Sin duda la clase principal es el
+\textit{Façade} Coordinador de Pedidos, que sirve de puente entre la interfaz de usuario
+y el \textit{backend} del sistema.
 
-Como dijimos este componente tiene por responsabilidad el manejo de la vida de los pedidos que estan fuera de la cocina (por cocina entendemos no solo al horno, sino también a la preparación de los pedidos).
+Este coordinador permite aislar las dependencias entre el sistema y la interfaz de usuario
+puesto que crea un único punto de conexión entre esas partes. Por esta razón, todas las
+dependencias entre módulos se concentran en el Coordinador de Pedidos y esto facilita
+la modificación del sistema. En la implementación real, algunas llamadas saltearán el 
+\textit{façade} por simplicidad y para evitar engordar innecesariamente la interfaz con
+llamadas que son muy puntuales a una determinada visualización. Por ejemplo, si es necesario
+mostrar el contenido de un horno, es de esperarse que la interfaz de usuario se comunique
+directamente con el controlador de horno para obtener la información que necesita en lugar
+de utilizar al coordinador de pedidos como \textit{proxy}.
 
-Nuestra idea fue tener un coordinadorDePedidos que siga el patron Façade, de modo que muestre a la interfaz grafica una intrefaz \textit{``gruesa''} con las funciones que se realizan dentro del componente. Esta clase no va a tener gran inteligencia, sino que se limitara a propagar la llamada originada por la interfaz grafica a la clase responsable de manejar esa llamada. Así, por ejemplo para ver el estado de un pedido o ingrear un nuevo pedido se deberá pasar por esta clase.
-La idea de esta clase es desacoplar la interfaz grafica de las clases que manejan a los pedidos fuera de la cocina. Si bien esta clase para tener baja cohesión, al mirarla de cerca vemos que lo único que hace es derivar las llamadas. De este modo si bien a trazo grueso parece tener una interfaz con poca cohesión, esta nos permite lograr un menor grado de acoplamiento entre la interfaz y el sistema en si. Por esta razón decidimos pese al aparente conflicto con la cohesión, decidimos mantener esta clase.
-Ademas el coordinadorDePedidos se comunica con el componente encargado de crearPedidos, haciendo de puente entre ambos componentes.
-Cuando se realiza un pedido de ingreso, el coordinador se encarga de pedir que se genere el pedido, y en caso de que se pueda crear, lo deriva al controladorDePreIngreso, cuya función es determinar si el pedido debe ir a la cola de listos, porque no hay nada que preparar, ni cocinar, o lo tiene que mandar al controlador de ingreso, porque hay algo que cocinar o preparar. Este comportamiento se hizo con la intención de permitir en un futuro incorporar otros productos ademas de pizzas o empanadas. Por ejemplo, podrian venderse ensaladas, las cuales no requieren de cocción, pero si de preparación. Por eso decidimos que un producto tuviera atributos de cocinable y preparable.
+El coordinador tiene el rol de reenviar los llamados a los componentes afectados, y
+transferir el control de los pedidos entre los diversos componentes. Así, cuando un
+pedido termina de cocinarse y es devuelto por el componente de cocina, el coordinador
+lo colocará en la cola de pedidos listos.
 
-El controladorDeIngreso se encarga de mantener la cola de ingreso, asi como de suministrar los pedidos al CoordinadorDeCocina, para que este los distribuya al preparador o al coordinador de horno.
-El coordinadorDeIngreso puede recibir recibir una solicitud de un pedido de cierto tipo por parte del CoordinadorDeCocina, por ejemplo puede recibir una solicitud del proximo pedido que contenga algun producto del tipo empanada. 
-Por otro lado, cada vez que ingresa un nuevo pedido, el controladorDeIngreso pregunta al CoordinadorDeCocina si puede recibir dicho pedido. Esta funcionalidad sirve para aquellos casos en los que por ejemplo no hay ningun pedido ingresado con empanadas y el maestro empanadero esta ocioso. Si llega un nuevo pedido con empanadas, el maestro debe ser notificado, por esta razon el ControladorDeIngreso pregunta si debe encolar el pedido o hay alguien que lo vaya a preparar.
-%FIXME: la parte de preguntar es propia del standard, es decir del concreto
+Además de esta clase, se contienen en este componente a todas las clases relacionadas
+con estados intermedios de complejidad menor que el de cocina y por tanto no merecen
+ser separados como un nuevo componente. Entre ellos contamos:
+\begin{itemize}
+\item Cola de Listos
+\item Cola de Entrega
+\item Cola de Ingreso
+\item Control de Mesas
+\end{itemize}
 
-Otra clase de este componente, es el ControladorDeListos, este controlador va a recibir los pedido listos y va a encargarse en el momento del despacho de decidir que hacer con el pedido. Por ejemplo si es un pedido con delivery hay que marcar que salio con el delivery, y si era local hay que marcarlo como finalizado.
+La mayoría de estos componentes cuenta con una única clase (de la que habrá una única instancia
+y que agrupa todos los pedidos que están en un estado correspondiente). Esto responde a SRP,
+ya que si bien las funcionalidades de las colas son simples optamos por implementarlas con objetos
+separados y interfases más simples en lugar de agruparlas en uno único de mayor
+complejidad.
 
-La clase controladorDeEntragas contiene a todos los pedidos cuya entrega esta pendiente, y se encargan de finalizar el pedido cuando se notifica la entrega.
+El Controlador de Entrega es el único que se abstrae según DIP para permitir implementar
+nuevas funcionalidades respecto de la entrega. En particular, será necesario ampliar
+la interfaz para implementar la funcionalidad de confirmación de entrega por SMS
+(que en el modo de operatoria normal del sistema estaba especificado). Este controlador
+es responsable del seguimiento de los pedidos entregados, y quién determina si se
+cancelan o se confirma su entrega.
 
-Por ultimo el controladorPedidosMesa monitorea los pedidos entregados a una cierta mesa, permitiendo que al cerrar la mesa se fijen sus formas de pago.
+El Controlador de Listos simplemente presenta al encargado de pedidos la información
+sobre los pedidos listos, lo que le permite armar los pedidos para su envío a las
+mesas o a domicilio. Análogamente, el Controlador de Mesas se responsabiliza del
+seguimiento de los pedidos entregados a las mesas ya que estos deben indicar su
+forma de pago antes de poder finalizarse.
 
-La clase controladorDeIngreso es abstracta porque consideramos que la estrategia con la que se maneja la cola de ingreso podria cambiar, de esta manera la versión propuesta por nosotros en la etapa de especificación es implementada por controladorDeIngresoStandard. Utilzar una clase abstracta nos permite lograr flexibilidad si se quiere cambiar de politica de manejo de esta cola, por ejemplo usando un manejo del tipo mas corto primero.
+Por último resta la lógica de la cola de ingreso. El controlador de ingreso es
+responsable de mantener esta cola y brindar la interfaz Cola Movible que es utilizada
+por el encargado de pedidos para reordenar los pedidos en cola. Por DIP, utilizamos
+una cola de ingreso abstracta de la cual hereda una implementación concreta (Cola de
+Ingreso Standard). De este modo es factible reemplazar la estrategia de la cola de 
+ingreso si fuera necesario. No consideramos importante usar un patrón \textit{Strategy} en
+este caso puesto que la modificación de esta política representa un cambio bastante
+estructural en la dinámica del sistema y por tanto no podrá hacerse en tiempo de
+ejecución.
+
+Una última clase, el Controlador de Preingreso, es responsable de filtrar de la cola
+de ingreso aquellos pedidos no deben prepararse ni cocinarse. Puesto que estos pedidos
+no deben entrar a cocina, el controlador de preingreso los redirige directamente a la
+cola de listos. Esta separación la introducimos por SRP ya que lo consideramos una
+funcionalidad separada de la operación de la cola de ingreso propiamente dicha.
 
 
-\textcolor{Red}{TODO: interacciones de estas clases con la GUI}
 
-\textcolor{Red}{TODO: explicacion de metodos importantes}
-
-% FIXME: esto vuela, lo puse en la intro
 \subsection{Modelado de escenarios}
 
 

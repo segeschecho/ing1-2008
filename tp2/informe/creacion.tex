@@ -1,5 +1,4 @@
 %FIXME: ver diagrmas porq gonza cambio el dc
-%FIXME: asignacion de horno
 \section{Creación y registro de pedidos}
 En este componente se agrupan las clases que entran en juego al momento 
 de registrar y crear un nuevo pedido. Consideramos como parte de este
@@ -75,9 +74,13 @@ se modifique de forma periódica. Esto corresponde al patrón \textit{Strategy}. L
 en \ref{modifEstim} es implementada por la clase EstimadorBasico. Es de esperarse que estrategias de estimación
 más sofisticadas induzcan más acomplamiento para lograr mayor precisión, pero esto es inevitable.
 
-El Asignador de hornos es el que decide en que horno ubicar al pedido. La asignación especificada en el tp1 es realizada por el el Asignador Standard. El criterio a seguir
-es que los pedidos simples tienen su horno por defecto mientras que para los pedidos mixtos
-debe preguntar al encargado que horno se asigna. La clase Asignador de Horno es abstracta porque potencialmente se podría modifcar la forma de asignar con el fin de balancear la carga, lograr un tiempo de demora ponderada menor, establecer prioridades para ciertos pedidos, entre otras cosas.
+El Asignador de hornos es el que decide en qué horno ubicar al pedido. 
+La asignación especificada en el TP 1 es realizada por el el Asignador Standard. 
+El criterio a seguir es que los pedidos simples tienen su horno por defecto, mientras que 
+para los pedidos mixtos se debe preguntar al encargado qué horno se asigna. La clase Asignador 
+de Horno es abstracta porque potencialmente se podría modifcar la forma de asignar con el fin 
+de balancear la carga, lograr un tiempo de demora ponderada menor o establecer prioridades, 
+entre otras cosas.
 
 Finalmente, el Calculador de Precios se encarga de obtener el precio a cobrar por el pedido. Nuevamente,
 se implementó una interfaz genérica para permitir cambiar la implementación. Implementaciones más
