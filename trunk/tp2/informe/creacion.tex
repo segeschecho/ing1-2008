@@ -6,6 +6,13 @@ componente a la clase \textit{Pedido} propiamente dicha ya que este
 componente es quien se encarga de construir sus instancias. A continuación
 se detalla el diseño de cada uno de los componentes.
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=20cm]{./figuras/compCrea.png}
+\caption{Clases del componente de creacion y registro de pedidos}
+\end{figure}
+
+
 Este componente acopla con el componente de gestión de stock y con el de
 gestión de clientes, puesto que es necesario que el ingreso de un pedido
 implique modificaciones de stock, y que los pedidos se asignen a los clientes
@@ -170,7 +177,7 @@ Al producirse la llamada lo que va a hacer el estimador basico es recorrer todos
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=11cm]{./figuras/estimadorDeTiempos.png}
+\includegraphics[height=12cm]{./figuras/estimadorDeTiempos.png}
 \caption{Estimación de tiempos}
 \end{figure}
 
@@ -178,18 +185,18 @@ A continuación veremos como obtiene las estimaciones de los tiempos. Es basicame
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/EstimarTiempoDePreparacion.png}
+\includegraphics[height=11cm]{./figuras/EstimarTiempoDePreparacion.png}
 \caption{Estimación de tiempos de preparación}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/EstimarTiempoDeCoccionEmpanadas.png}
+\includegraphics[height=11cm]{./figuras/EstimarTiempoDeCoccionEmpanadas.png}
 \caption{Estimación de tiempo de cocción para las empanadas}
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/EstimarTiempoDeCoccionPizzas.png}
+\includegraphics[height=11cm]{./figuras/EstimarTiempoDeCoccionPizzas.png}
 \caption{Estimación de tiempo de cocción para las pizzas}
 \end{figure}
 
@@ -207,7 +214,7 @@ Notemos que utilizar pizza y empanada para separar no es muy extensible, sin emb
 Veamos como es el escenario que dispara la llamada a asignarHorno en un asignardor standard: 
 \begin{figure}[H]
 \centering
-\includegraphics[height=14cm]{./figuras/AsignadorDeHornoStandard.png}
+\includegraphics[height=20cm]{./figuras/AsignadorDeHornoStandard.png}
 \caption{Asignación de horno}
 \end{figure}
 

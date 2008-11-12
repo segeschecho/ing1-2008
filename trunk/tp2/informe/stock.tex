@@ -4,6 +4,12 @@ Este componente se encarga de la gestión de los modelos correspondientes a
 productos, tipos de procuto, insumos y las operaciones de alta y baja de los
 mismos, así como de las actualizaciones de sus valores.
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=10cm]{./figuras/compStock.png}
+\caption{Clases del componente de gestión de stock}
+\end{figure}
+
 Mediante la funcionalidad de ABM provista como se describe en \ref{metodosEstaticos}
 es posible realizar los cambios necesarios al stock, tales como modificaciones de
 precios o el ingreso de nuevos productos.
@@ -41,10 +47,6 @@ complejidad al modelo agregando ``propiedades'' genéricas a los tipos de product
 \subsection{Modelado de escenarios}
 \label{cosasDeStock}
 \subsubsection{Chequeo de stock}
-
-% FIXME FIXME FIXME: todo esto tiene que volar, es cosa de la gestión de stock, no
-% del ingreso de los pedidos, hay que moverlo y eventualmente rehacer estos diagramas
-% pero sin tanto enfasis en el stock
 
 El verificador de stock tiene por responsabilidad controlar que solo ingresen pedidos que puedan ser satisfechos. Ademas en caso de ser necesario debera notificar la existencia de insumos en stock critico.
 
