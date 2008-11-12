@@ -6,6 +6,12 @@ cocinarse del componente de ingreso de pedidos, y hacerse cargo de estas tareas.
 logra llevarlas a cabo, los pedidos son devueltos al coordinador de pedidos para su
 posterior entrega y facturación.
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=16cm]{./figuras/compCocina.png}
+\caption{Clases del componente de la cocina}
+\end{figure}
+
 Pueden distinguirse 3 subcomponentes dentro de la cocina:
 \begin{itemize}
 \item Las clases de gestión y coordinación de cocina
@@ -158,6 +164,7 @@ El despachador estandar lo que hace es revisar si un pedido es asignable al maes
 \centering
 \includegraphics[height=6cm]{./figuras/mandanPrepararMixtoYEmpiezanNada.png}
 \caption{Solicitud de preparacion de un pedido mixto cuando ambos maestros estan ocupados}
+\label{chePrepara1}
 \end{figure}
 
 Otro caso es aquel en el que uno de los maestros si esta dispuesto a comenzar la preparación del pedido. En este caso, el pedido se encola para el empanadero (porque era mixto) pero comienza a preparse para el pizzero. Al hacerlo es necesario guardar alguna información sobre el pedido. Por ejemplo registrar que es mixto y que por lo tanto antes de estar listo se deben preparar los dos subpedidos (empanadas y pizzas). Y recordar que ese es el pedido que el pizzero esta preparando. Luego se entregan los subproductos a preparar al preparador y se notifica mediante el return que el pedido no debe quedar en la cola de ingreso, sino en preparación.
@@ -166,6 +173,7 @@ Otro caso es aquel en el que uno de los maestros si esta dispuesto a comenzar la
 \centering
 \includegraphics[height=11cm]{./figuras/mandanPrepararMixtoYEmpiezanPizzas.png}
 \caption{Solicitud de preparacion de un pedido mixto cuando el maestro pizzero esta disponible}
+\label{chePrepara3}
 \end{figure}
 
 Finalmente podria ocurrir que ambos maestros esten ociosos, porque no habia ningun pedido en la pizzeria esperando por ser preparado. Y al llegar un nuevo pedido ambos comiencen a preparalo. La situación es similar al caso anterior, pero en este caso no se encola el pedido, sino que se notifica a ambos preparadores para que estos luego realicen la notificación.
@@ -174,6 +182,7 @@ Finalmente podria ocurrir que ambos maestros esten ociosos, porque no habia ning
 \centering
 \includegraphics[height=12cm]{./figuras/mandanPrepararMixtoYEmpiezanAmbos.png}
 \caption{Solicitud de preparacion de un pedido mixto cuando ambos maestros estan disponibles}
+\label{chePrepara3}
 \end{figure}
 
 \subsubsection{Terminancion de preparación}
@@ -187,7 +196,7 @@ En el siguiente diagrama modelaremos el escenario en el que terminan de preparar
 \begin{figure}[H]
 \centering
 \includegraphics[height=13cm]{./figuras/terminarPreparacionPizza.png}
-\caption{}
+\caption{Fin de preparación  se toma otro pedido de la cola interna}
 \end{figure}
 \end{landscape}
 
@@ -195,7 +204,8 @@ En el siguiente diagrama modelaremos el escenario en el que terminan de preparar
 \begin{figure}[H]
 \centering
 \includegraphics[height=13cm]{./figuras/terminarPreparacionPizzaYColaPizzeraVacia.png}
-\caption{}
+\caption{Fin de preparación y hay que pedir a la cola de ingreso}
+\label{tePidoProx}
 \end{figure}
 \end{landscape}
 

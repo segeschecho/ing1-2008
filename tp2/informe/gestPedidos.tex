@@ -1,5 +1,11 @@
 \section{Pedidos fuera de la cocina}
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=18cm]{./figuras/compGestP.png}
+\caption{Clases del componente de productos fuera de la cocina}
+\end{figure}
+
 El componente de pedidos fuera de cocina es el que es responsable por la vida de los
 pedidos cuando éstos no están en manos de la cocina. Sin duda la clase principal es el
 \textit{Façade} Coordinador de Pedidos, que sirve de puente entre la interfaz de usuario
@@ -112,15 +118,18 @@ En el primer caso, el controlador de ingresos se hace cargo del pedido, cambiand
 \includegraphics[height=7cm]{./figuras/remotoComidas.png}
 \caption{Ingreso de un pedido remoto con comida que queda encolado para su ingreso}
 \end{figure}
-\end{landscape}
 
-En el segundo caso, como se va a hacer cargo la cocina, el controlador de ingreso no debe hacer nada cuando se regresa la llamada.
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=5cm]{./figuras/remotoComidasquedapreparando.png}
 \caption{Ingreso de un pedido remoto con comida que pasa a estar preparando}
 \end{figure}
+\end{landscape}
+
+En el segundo caso, como se va a hacer cargo la cocina, el controlador de ingreso no debe hacer nada cuando se regresa la llamada.
+
+En las figuras \ref{chePrepara1},\ref{chePrepara2} y \ref{chePrepara3} se modela con mas detalle como se decide si el pedido puede o no quedar preparado.
 
 \subsubsection{Despacho de un pedido}
 Cuando el pedido esta cocinado es responsabilidad de el controlador de listos. Una vez que el pedido esta listo, se puede despachar. Despachar tiene una semantica diferente segun el origen del pedido, por eso es que el controlador posse un despachar para los subtipos remotos, otro para el pedido de mesa y finalmente un tercer despachar para pedidos de mostrador.
@@ -182,6 +191,7 @@ tieneTipo se encarga de recorrer los productos del pedido para ver si hay alguno
 \caption{tieneTipo}
 \end{figure}
 
+En la figura \ref{tePidoProx} se ve cuando se realiza la llamada a proximo pedido
 %TODO: decidir aridad de esta función
 %TODO: mostrar pseudocodigo
 
