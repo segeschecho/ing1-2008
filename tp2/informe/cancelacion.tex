@@ -84,7 +84,7 @@ el stock de los insumos que no se van a utilizar.
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/cancelacionIngreso.png}
+\includegraphics[height=8cm]{./figuras/cancelacionIngreso.png}
 \caption{Cancelación de un pedido ingresado}
 \end{figure}
 
@@ -103,7 +103,7 @@ que hay otro pedido con empanadas en la cola esperando para ser preparados.
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/cancelacionPreparacion.png}
+\includegraphics[height=11cm]{./figuras/cancelacionPreparacion.png}
 \caption{Cancelación de un pedido en preparación}
 \end{figure}
 
@@ -122,7 +122,7 @@ de 2 modulos para cocinarse.
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=13cm]{./figuras/cancelacionCoccion.png}
+\includegraphics[height=19cm]{./figuras/cancelacionCoccion.png}
 \caption{Cancelación de un pedido en cocción}
 \end{figure}
 
@@ -167,30 +167,36 @@ Cuando se produce una cancelación, puede ser necesario reponer el stock, por eje
 
 El repositor de stock tiene la responsabilidad de devolver el stock cuando un pedido se cancela. Esto lo hace segun el estado del pedido, en particular si el pedido estaba preparandose, debe pedir que se ingresen los insumos salvables. 
 
-Entonces consideremos el caso de un pedido ingresado. Al cancelarse todo su stock se puede reutilizar, de modo que la reposicion es completa. Veamos el diagrama de secuencias:
+Entonces consideremos el caso de un pedido ingresado. Al cancelarse todo su stock se puede reutilizar, de modo que la reposicion es completa. Veamos los siguientes diagramas de secuencias:
 
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/repositorPedidoIngresado.png}
+\includegraphics[height=16cm]{./figuras/repositorPedidoIngresado.png}
 \caption{Reponer stock de pedido ingresado}
 \end{figure}
+\end{landscape}
 
-primero vemos que el estado sea ingresado y entonces procedemos a reponer todo el stock de sus productos.
-
-Si el pedido se estaba preparando, hay que preguntar que hacer con los productos que son preparables, es decir pedir que insumos reponer y cuales ya fueron usados.
-
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/repositorPedidoEnPreparacion.png}
+\includegraphics[height=16cm]{./figuras/repositorPedidoEnPreparacion.png}
 \caption{Reponer stock de pedido en preparacion}
 \end{figure}
+\end{landscape}
 
-Finalmente si el pedido ya esta totalmente preparado, la especificación pide que solo se restablezca el stock de las bebidas. Eso es precisamente lo que se muestra en este diagrama:
-
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=9cm]{./figuras/repositorPedidoNoIngresadoNiPreparacion.png}
+\includegraphics[height=15cm]{./figuras/repositorPedidoNoIngresadoNiPreparacion.png}
 \caption{Reponer stock de pedidos en otro estado distinto}
 \end{figure}
+\end{landscape}
+
+En el primer diagrama vemos que el estado sea ingresado y entonces procedemos a reponer todo el stock de sus productos.
+
+Si el pedido se estaba preparando, hay que preguntar que hacer con los productos que son preparables, es decir pedir que insumos reponer y cuales ya fueron usados, esto se puede observar en el segundo diagrama.
+
+Finalmente si el pedido ya esta totalmente preparado, la especificación pide que solo se restablezca el stock de las bebidas. Eso es precisamente lo que se muestra en el último diagrama.
 
 Notar que extendimos la especifiacion preguntando por los productos no preprables ni cocinables, de modo que por ejemplo si se venden por helados, al cancelar el pedido los helados se pueden reutilizar.

@@ -76,11 +76,13 @@ A continuación intentaremos mostrar las interacciones existentes en este compone
 Como primer escenario veamos que ocurre cuando ingresa un pedido de solo bebidas Telefonico. En este caso el pedido será creado por el generador de pedidos, sin embargo las interacciones propias de la creación no se detallaran en este escenario, asi como tampoco la validación previa del cliente. Una vez que el pedido es creado, pasa al controlador de pre ingreso que lo examina para decidir si debe ir a la cocina o considerarse un pedido listo. En este caso, como solo hay bebidas, el pedido queda listo. El controlador de listos agrega el pedido a su lista de pedidos, se hace responsable del mismo y cambia su estado. 
 Al agregar el pedido a la lista notifica a su observador de que ocurrio un cambio, por ejemplo para que se repinte la lista de pedidos listos.
 
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=25cm]{./figuras/remotoBebidas.png}
+\includegraphics[height=15cm]{./figuras/remotoBebidas.png}
 \caption{Ingreso de un pedido remoto de solo bebidas}
 \end{figure}
+\end{landscape}
 
 La generación de pedido se desarrolla con mayor detalle en \ref{creacionPed} donde se continua el escenario desde la llamada a generar pedido.
 
@@ -104,11 +106,13 @@ De forma analoga al escenario anterior, supongamos que se va a ingresar un pedid
 
 En el primer caso, el controlador de ingresos se hace cargo del pedido, cambiando su estado, marcando el pedido como ingresado y agregandolo a la cola.
 
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=25cm]{./figuras/remotoComidas.png}
+\includegraphics[height=7cm]{./figuras/remotoComidas.png}
 \caption{Ingreso de un pedido remoto con comida que queda encolado para su ingreso}
 \end{figure}
+\end{landscape}
 
 En el segundo caso, como se va a hacer cargo la cocina, el controlador de ingreso no debe hacer nada cuando se regresa la llamada.
 
@@ -127,21 +131,25 @@ El controlador de entregas pone al pedido en su lista de pedidos, y se asigna co
 
 Veamos el diagrama de secuencia comenzando la misma con la llegada de un mensaje de despachar al coordinador de pedidos.
 
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=25cm]{./figuras/despacharPedidoTelefono.png}
+\includegraphics[height=11cm]{./figuras/despacharPedidoTelefono.png}
 \caption{Despacho de un pedido telefonico}
 \end{figure}
+\end{landscape}
 
 Otro escenario diferente lo constituye el despacho de un pedido de mesa. En este caso, el pedido deja la orbita del controlador de lista, para pasar al controlador de pedidos de mesa, el cual se encargara cuando se cierre la misma de asignar la forma de pago a los pedidos. Este encargado también se hace cargo de la cancelación. Ambos controladores ademas notifican a su observador de los cambios en su lista.
 
 El diagrama de secuencia es el siguiente:
 
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=25cm]{./figuras/despacharPedidoMesa.png}
+\includegraphics[height=12cm]{./figuras/despacharPedidoMesa.png}
 \caption{Despacho de un pedido de mesa}
 \end{figure}
+\end{landscape}
 
 Finalmente en el caso de un pedido de mostrador, el controlador de listos solo lo marca como terminado, ya que el pedido fue entregado y se conoce su forma de pago. Por lo tanto la secuencia es la siguiente:
 

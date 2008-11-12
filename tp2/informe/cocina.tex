@@ -164,7 +164,7 @@ Otro caso es aquel en el que uno de los maestros si esta dispuesto a comenzar la
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=10cm]{./figuras/mandanPrepararMixtoYEmpiezanPizzas.png}
+\includegraphics[height=11cm]{./figuras/mandanPrepararMixtoYEmpiezanPizzas.png}
 \caption{Solicitud de preparacion de un pedido mixto cuando el maestro pizzero esta disponible}
 \end{figure}
 
@@ -172,7 +172,7 @@ Finalmente podria ocurrir que ambos maestros esten ociosos, porque no habia ning
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=11cm]{./figuras/mandanPrepararMixtoYEmpiezanAmbos.png}
+\includegraphics[height=12cm]{./figuras/mandanPrepararMixtoYEmpiezanAmbos.png}
 \caption{Solicitud de preparacion de un pedido mixto cuando ambos maestros estan disponibles}
 \end{figure}
 
@@ -183,19 +183,23 @@ Ademas si el pedido entero termino de prepararse hay que enviarlo a cocinar, par
 
 En el siguiente diagrama modelaremos el escenario en el que terminan de prepararse pizzas de un pedido, se consiguen mas pizzas en la cola interna y se pasan al preparador
 
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=8cm]{./figuras/terminarPreparacionPizza.png}
+\includegraphics[height=13cm]{./figuras/terminarPreparacionPizza.png}
 \caption{}
 \end{figure}
+\end{landscape}
 
-Si la cola no estaba vacia, hay que buscar un pedido en la cola de ingreso. En este escenario modelamos esa alternativa.
-
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[height=8cm]{./figuras/terminarPreparacionPizzaYColaPizzeraVacia.png}
+\includegraphics[height=13cm]{./figuras/terminarPreparacionPizzaYColaPizzeraVacia.png}
 \caption{}
 \end{figure}
+\end{landscape}
+
+Si la cola no estaba vacia, hay que buscar un pedido en la cola de ingreso. En el escenario anterior modelamos esa alternativa.
 
 \subsubsection{Ingreso de pedidos al horno}
 Luego de ser preparados los pedidos pasan a traves del coordinador de cocina hacia el despachador de coccion. Este despachador es quien se encarga de manejar las colas de los hornos segun alguna politica. En particular en este trabajo consideraremos la politica normal y la politica agil, las cuales fueron debidamente especificadas en el trabajo anterior.
@@ -221,7 +225,7 @@ Otro escenario a considerar, comienza de igual manera que el anterior, pero esta
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=8cm]{./figuras/llegaCocinarYNoseEncola.png}
+\includegraphics[height=10cm]{./figuras/llegaCocinarYNoseEncola.png}
 \end{figure}
 
 Queremos notar que estos escenarios aplican también para la politica agil, ya que los pedidos que llegan pueden quedarse encolados si no hay lugar (independientemente de si son agiles o no) y por otro lado pueden entrar si hay lugar libre, pero si hay lugar libre entran porque la cola es en esencia \textit{FIFO} en estas circunstancias, es decir si hay lugar vacio y solo hay un pedido, como se busca maximizar el uso del horno, se ingresa al mismo mas alla de su condicion de chico o grande. Nada impide que mas adelante se implemente una nueva politica que trate de hacer por ejemplo mas corto primero con conocimiento futuro, de modo que, por ejemplo use una cierta probabilidad $p$ para decidir si pone al pedido recien llegado al horno o no.
@@ -268,7 +272,7 @@ Si no habia ningun pedido en la cola tampoco, no tiene nada que hacer luego de a
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=18cm]{./figuras/saleUnPedidoNormalNoTermina.png}
+\includegraphics[height=23cm]{./figuras/saleUnPedidoNormalNoTermina.png}
 \end{figure}
 
 Notar que si medioCocinar es distinto de NULL tiene al menos una parte que se puede cocinar, por ende es valida la llamada al metodo $getParteACocinar$.
@@ -304,7 +308,7 @@ En el escenario donde la politica es agil, la situación es similar, en particula
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=21cm]{./figuras/saleUnPedidoAgilNoTermina.png}
+\includegraphics[height=23cm]{./figuras/saleUnPedidoAgilNoTermina.png}
 \end{figure}
 
 \begin{algorithm}[H]
@@ -347,5 +351,5 @@ Al terminar de cocinar un pedido debe borrarse el pedido del diccionario de pedi
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=10cm]{./figuras/finDeCoccion.png}
+\includegraphics[height=11cm]{./figuras/finDeCoccion.png}
 \end{figure}

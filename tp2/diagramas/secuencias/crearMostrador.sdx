@@ -9,11 +9,11 @@ unCont:controladorStockStandard
 allInstances:list<Pedido>
 calcPrec:CalculadorDePreciosStandard
 
-cp:p=unGen.generarPedido(cliente,productos,contado,mesa)
+cp:p=unGen.generarPedido\\n(cliente,productos\\n,contado,mesa)
 unGen:True=unCont.verificarEIngresar(productos)
 unGen:fechaDeIngreso=unGen.getDateTime()
 unGen[1]:id=unGen.generarId()
-unGen[1]:p.new(id,cliente,productos,contado,fechaIngreso)
+unGen[1]:p.new(id,cliente,\\nproductos,contado,fechaIngreso)
 p:allInstances.add(p)
 *5 unGen
 Se crea un pedido de mostrador porque
@@ -31,7 +31,7 @@ unGen:calcPrec.calcularPrecio(p)]]></source>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
-<property name="glue" value="10"/>
+<property name="glue" value="0"/>
 <property name="headHeight" value="35"/>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>

@@ -29,9 +29,9 @@ estimador:hayMas?=it.hasNext()
 estimador:p=it.getNext()
 estimador:t=estimador.estimarTiempoDePreparacion(p, horno)
 estimador[1]:tiempoPreparacion += t
-estimador:t=estimador.estimarTiempoDeCoccionPizzas(p, horno)
+estimador:t=estimador.estimarTiempoDeCoccionPizzas\\n(p, horno)
 estimador[1]:tiempoCoccionPizzas += t
-estimador:t=estimador.estimarTiempoDeCoccionEmpanadas(p, horno)
+estimador:t=estimador.estimarTiempoDeCoccionEmpanadas\\n(p, horno)
 estimador[1]:tiempoCoccionEmpanadas += t
 estimador:hayMas?=it.hasNext()
 [/c]
@@ -44,8 +44,8 @@ estimador:prodXModEmpanada=fraccionador.getProductoPorModulo(tipoEmpanada)
 
 #hago la cuenta pedorra
 estimador:res = tiempoPreparacion
-estimador:res += tiempoCoccionPizzas / ( prodXModPizza * modulos )
-estimador:res += tiempoCoccionEmpanadas / ( prodXModEmpanada * modulos )
+estimador:res += tiempoCoccionPizzas /\\n ( prodXModPizza * modulos )
+estimador:res += tiempoCoccionEmpanadas /\\n ( prodXModEmpanada * modulos )
 estimador:a.res]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
@@ -56,7 +56,7 @@ estimador:a.res]]></source>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
-<property name="glue" value="10"/>
+<property name="glue" value="0"/>
 <property name="headHeight" value="35"/>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>

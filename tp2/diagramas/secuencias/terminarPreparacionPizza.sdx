@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[#!>>
 #! Se notifica que se termino de preparar una pizza
@@ -28,8 +28,8 @@ unCoordC:unDespachador.cocinarPedido(p)
 unDDPS:unDicc.borrar(p)
 [/c]
 unDDPS:proxPed=colaPizzera.next()
-unDDPS:actualizar la variable pizzeroActual
-unDDPS:productos=unDDPS.getSubpedidoPizzero(proxPed)
+unDDPS:actualizar la\\n variable pizzeroActual
+unDDPS:productos=unDDPS.getSubpedidoPizzero\\n(proxPed)
 unDDPS[1]:unPrepPizza.preparar(productos)
 unPrepPizza:unPrepPizza.notify()
 unPrepPizza:obsPrep.update()
@@ -43,7 +43,7 @@ unaGui:a.]]></source>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
-<property name="glue" value="10"/>
+<property name="glue" value="0"/>
 <property name="headHeight" value="35"/>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>
