@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <diagram>
 <source><![CDATA[a:a[p][e]
 p:pedido
@@ -15,7 +15,7 @@ p[1]:despC.cancelar(self)
 despC:repS.reponerStock(p)
 despC:p.setEstado(Cancelado)
 despC:horno=p.getHorno()
-despC: El despachador se da cuenta de \\n que el pedido esta en su horno 1
+despC: El despachador se da\\ncuenta de que el pedido\\nesta en su horno 1
 despC:modulos=despC.getModulosPorPedido(p)
 despC[1]:it=modulos.getIterator()
 despC:True=it.hasNext()
@@ -45,7 +45,7 @@ p:a.]]></source>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
-<property name="glue" value="10"/>
+<property name="glue" value="0"/>
 <property name="headHeight" value="35"/>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>

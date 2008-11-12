@@ -40,10 +40,10 @@ unRepoStock:hayMasIns?=itIns.hasNext()
 unRepoStock:hayMasProd?=itProd.hasNext()
 [/c]
 [/c]
-unRepoStock:hace notify, la GUI lo detecta
-unRepoStock:y muestra el dialogo para que se
-unRepoStock:elija lo que quiere devolver al stock
-unRepoStock:de los insumos de productos preparables]]></source>
+unRepoStock:hace notify,\\nla GUI lo detecta
+unRepoStock:y muestra el dialogo\\npara que se
+unRepoStock:elija lo que quiere\\ndevolver al stock
+unRepoStock:de los insumos de\\nproductos preparables]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
@@ -53,7 +53,7 @@ unRepoStock:de los insumos de productos preparables]]></source>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
-<property name="glue" value="10"/>
+<property name="glue" value="0"/>
 <property name="headHeight" value="35"/>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>

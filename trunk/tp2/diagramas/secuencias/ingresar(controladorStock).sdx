@@ -21,7 +21,7 @@ unContStock:cantActual=unInsumo.getCant()
 unContStock:unInsumo.setCant(cantActual-1)
 unContStock:yaDecrementados.add(unInsumo)
 --Else
-unContStock[1]:unContStock.ReestablecerStock(yaDecrementados)
+unContStock[1]:unContStock.ReestablecerStock\\n(yaDecrementados)
 unContStock[1]:yaDecrementados.delete()
 unContStock:a.False
 [/c]
@@ -37,7 +37,7 @@ unContStock:a.True]]></source>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
-<property name="glue" value="10"/>
+<property name="glue" value="0"/>
 <property name="headHeight" value="35"/>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>

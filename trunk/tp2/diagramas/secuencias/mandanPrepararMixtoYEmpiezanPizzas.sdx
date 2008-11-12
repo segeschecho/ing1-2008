@@ -23,10 +23,10 @@ unDesp:True=unDesp.esPizzero(p)
 unDesp[1]:True=unDesp.esEmpanadero(p)
 unDesp[1]:colaEmpanadera.encolar(p)
 unDesp:unDesp.setPartesEnPreparacion(p,2)
-unDesp: "Aca se marca que el pedidoPizzeroActual es p"
+unDesp: "Aca se marca que el\\n pedidoPizzeroActual es p"
 unDesp[1]:productos=unDesp.getSubpedidoPizzero(p)
 unDesp[1]:prepPizz.preparar(productos)
-prepPizz:"En esta parte se debe marcar \\nque el maestro pizzero esta ocupado"
+prepPizz:"En esta parte se debe marcar \\nque el maestro pizzero esta\\nocupado"
 unDesp[1]:p.setEstado(En Preparacion)
 unDesp:p.setResponsable(self)]]></source>
 <configuration>
@@ -38,7 +38,7 @@ unDesp:p.setResponsable(self)]]></source>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
-<property name="glue" value="10"/>
+<property name="glue" value="0"/>
 <property name="headHeight" value="35"/>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>

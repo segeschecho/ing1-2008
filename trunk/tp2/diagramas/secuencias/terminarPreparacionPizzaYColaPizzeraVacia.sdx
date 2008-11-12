@@ -34,7 +34,7 @@ unContIng:aca se hace un
 unContIng:notify y update
 unDDPS:actualizar la variable pizzeroActual
 [c:opt proxPed != NULL]
-unDDPS:a continuacion se envia a preparar
+unDDPS:a continuacion se envia\\n a preparar
 unDDPS:proxPed, similar al escenario 
 unDDPS:en que mandan a preparar
 unDDPS:un mixto y empiezan las pizzas
@@ -49,7 +49,7 @@ unaGui:a.]]></source>
 <property name="fragmentMargin" value="8"/>
 <property name="fragmentPadding" value="10"/>
 <property name="fragmentTextPadding" value="3"/>
-<property name="glue" value="10"/>
+<property name="glue" value="0"/>
 <property name="headHeight" value="35"/>
 <property name="headLabelPadding" value="5"/>
 <property name="headWidth" value="100"/>
