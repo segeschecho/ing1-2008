@@ -230,11 +230,12 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         else:
             return self.asignablePizzero(p)
         
-class Preparador(object) :
+class Preparador(Notificador) :
 
      def __init__(self,aviso):
          self.aviso=aviso
          self.ocupado=False
+         super(Preparador,self).__init__()
 
      def getOcupado(self):
          raise NotImplementedError
@@ -261,6 +262,7 @@ class PreparadorEspecializado(Preparador) :
     def preparar(self, productos) :
         self.ocupado=True
         self.productosAPreparar=productos
+        self.notificar()
         print "notificar que hay que preparar"
         #TODO: la parte del notify
 

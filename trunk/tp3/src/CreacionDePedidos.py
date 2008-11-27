@@ -1,6 +1,21 @@
 from datetime import datetime
 
-
+class Notificador(object):
+    def __init__(self):
+        self.observers=[]
+    
+    def subscribir(self,callback):
+        self.observers.append(callback)
+    
+    def desSubscribir(self,callback): 
+        self.observers.remove(callback)
+    
+    def notificar(self):
+        print "estoy notificando"
+        for each in self.observers:
+            each()
+    
+        
 class Pedido(object) :
     allInst=[]
 
@@ -186,7 +201,8 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
 	
 
         def notificarHorno(self):
-        	return None #TODO: hacer que se pida el horno por pantalla
+            print "hay que pedir el hornooooooooooo"
+            return None #TODO: hacer que se pida el horno por pantalla
 	
 
 class Horno:
@@ -437,14 +453,16 @@ class TipoProducto:
 class Insumo :
 
     allInst = []
-    
+    def __str__(self):
+        return "soy el insumo:" + self.nombre + " y mi cantidad actual es: " + str(self.cant) +" y mi cantidad critica es: " + str(self.cantCritica)
+        
     def __init__(self,cant,cantCritica, nombre):
         self.cant=cant
         self.cantCritica=cantCritica
         self.nombre=nombre
         self.__class__.allInst.append(self)
 
-    
+
     @classmethod
     def allInstances(cls):
         return cls.allInst
@@ -634,8 +652,10 @@ class Cliente :
      def getUsrweb(self) :
 	     return self.usrweb
 
-class ControladorDeStock : #antes era interface
-
+class ControladorDeStock(Notificador) : #antes era interface
+    
+    def __init__(self):
+        super(ControladorDeStock,self).__init__()
 
     def ingresar(self,producto):
         raise NotImplementedError
@@ -664,6 +684,7 @@ class ProductoInsatisfacible(Exception):
 class ControladorDeStockStandard(ControladorDeStock) :
 
     def __init__(self):
+            super(ControladorDeStockStandard,self).__init__()
             self.criticos = []
 
     def getCriticos(self) :
@@ -728,8 +749,8 @@ class ControladorDeStockStandard(ControladorDeStock) :
     
                 self.obtenerCriticos(productos)
                 if(len(self.criticos)!=0):
-                     raise NotImplementedError("aca hay que hacer un notify de prod insat")
-                                #TODO:hacer la parte de los notify
+                    self.notificar()
+                     
                         
                 
                 return True
