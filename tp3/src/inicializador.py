@@ -96,6 +96,8 @@ class Sistema:
     def getPreparadorPizzero(self):
         return self.prepPizzero
         
-        
-fi=open("datos.txt", 'rb')        
-sis = Sistema(f=fi)
+
+if __name__ == '__main__':
+            
+    fi = open("datos.txt", 'rb')        
+    sis = Sistema(f=fi)
