@@ -1,4 +1,5 @@
-from CreacionDePedidos import *
+from creacion import *
+
 class Aviso :
 
     def __init__(self,despachadorDePreparacionStandard):
