@@ -167,6 +167,7 @@ def iniciar_datos_pedido_ingreso():
     tv.set_model(ls)
     
     # Armo las columnas
+    # FIXME: esto se puede refactorear en un loop
     render_id = gtk.CellRendererText()
     col_id = gtk.TreeViewColumn ("ID", render_id, text=0)
     tv.append_column (col_id)    
@@ -192,6 +193,52 @@ def limpiar_datos_pedido_ingreso():
 
 
  # --------------------------------------------- #
+ # Funciones para detalle de clientes ---------- #
+ # ----------------------------------------------#
+
+def iniciar_lista_clientes():
+    pass
+
+def recargar_lista_clientes():
+    pass
+
+def limpiar_lista_cliente():
+    pass
+
+def formatear_datos_cliente():
+    pass
+
+def cargar_datos_cliente():
+    pass
+
+def limpiar_datos_cliente():
+    pass
+
+
+ # --------------------------------------------- #
+ # Funciones para detalle de insumo ------------ #
+ # ----------------------------------------------#
+
+def iniciar_lista_insumos():
+    pass
+
+def recargar_lista_insumos():
+    pass
+
+def limpiar_lista_insumo():
+    pass
+
+def formatear_datos_insumo():
+    pass
+
+def cargar_datos_insumo():
+    pass
+
+def limpiar_datos_insumo():
+    pass
+
+
+ # --------------------------------------------- #
  # Funciones para detalle de productos --------- #
  # ----------------------------------------------#
 
@@ -207,19 +254,20 @@ def iniciar_lista_productos():
     tv.set_model(ls)
     
     # Armo las columnas
-    render_id = gtk.CellRendererText()
-    col_id = gtk.TreeViewColumn ("Nombre", render_id, text=0)
-    tv.append_column (col_id)    
+    # FIXME: esto se puede refactorear en un loop
+    render1 = gtk.CellRendererText()
+    col1 = gtk.TreeViewColumn ("Nombre", render1, text=0)
+    tv.append_column (col1)
     
 
-    render_2id = gtk.CellRendererText()
-    col_2id = gtk.TreeViewColumn ("Tipo", render_2id, text=1)
-    tv.append_column (col_2id)   
+    render2 = gtk.CellRendererText()
+    col2 = gtk.TreeViewColumn ("Tipo", render2, text=1)
+    tv.append_column (col2)   
 
 
-    render_3id = gtk.CellRendererText()
-    col_3id = gtk.TreeViewColumn ("Precio", render_3id, text=2)
-    tv.append_column (col_3id)   
+    render3 = gtk.CellRendererText()
+    col3 = gtk.TreeViewColumn ("Precio", render3, text=2)
+    tv.append_column (col3)   
 
 def recargar_lista_productos():
     tv = widgets[LISTA_PRODUCTOS]
