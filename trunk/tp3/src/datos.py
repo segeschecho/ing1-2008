@@ -21,8 +21,22 @@ Producto4 = Producto("Pizza Napolitana",30,5.4,12.3,pizza,[bollo,insumo3])
 Producto5 = Producto("Pizza Roquefort",40,7,15.0,pizza,[bollo,insumo5])
 Producto6 = Producto("Empanada pollo",3,10,11.0,empanada,[tapa,insumo4])
 Producto7 = Producto("Empanada carne",3,11,12.0,empanada,[tapa,insumo2])
+dir1 = Direccion("Trinidad", "N/A", "tortuguitas", 123)
+dir2 = Direccion("Los alamos", "N/A", "wilde", 1465)
+dir3 = Direccion("San Martin", "2do Piso", "Capital Federal", 3988)
+dir4 = Direccion("Montaneses", "1er Piso", "Capital Federal", 345)
+dir5 = Direccion("Oliden", "N/A", "Vicente Lopez", 3433)
+dir6 = Direccion("Los Paraisos", "N/A", "Bursaco", 20)
 
-dicc = {'Insumos':Insumo.allInstances(),'Productos':Producto.allInstances(),'TiposProducto':{'pizza':pizza,'empanada':empanada,'coca':coca,'birra':birra}}
+cli1 = Cliente("Botella", 1555664488, 1, "Pepe", "hola1234", 48566633, "pepito", dir1)
+cli2 = Cliente("Martinez", 1521356684, 2, "Federico", "estudiando", 46532233, "fedefly", dir2)
+cli3 = Cliente("Gonzalez", 1523314655, 3, "Emiliano", "bartolo", 45632132, "emilio", dir3)
+cli4 = Cliente("Gonzalez", 1532169788, 4, "Sergio", "nada324", 45125398, "checho", dir4)
+cli5 = Cliente("Rinaldi", 1564659777, 5, "Nicolas", "esteee", 46633221, "elcorrector", dir5)
+cli6 = Cliente("D'arrigo", 1564521133, 6, "Sergio", "holaaa", 46632136, "jefetp", dir6)
+
+
+dicc = {'Insumos':Insumo.allInstances(),'Productos':Producto.allInstances(),'TiposProducto':{'pizza':pizza,'empanada':empanada,'coca':coca,'birra':birra}, 'Clientes':[cli1,cli2,cli3,cli4,cli5,cli6]}
 pickle.dump(dicc, open('datos.txt', 'wb'))
 
 
