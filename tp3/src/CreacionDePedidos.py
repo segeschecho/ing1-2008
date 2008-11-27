@@ -602,7 +602,7 @@ class Direccion :
 class Cliente :
 
      allInst = []
-     def Cliente(apel,celular,id, nombre,passWeb,telefono,web, dir):
+     def __init__(self,apel,celular,id, nombre,passWeb,telefono,web, dir):
         self.apellido=apel
         self.celular=celular
         self.id=id
@@ -614,7 +614,9 @@ class Cliente :
         self.__class__.allInst.append(self)
 
 	
-
+     def __str__(self):  
+         return "el cliente es:" + self.nombre + " " + self.apellido + " con Id: " +\
+                 str(self.id) + " y nombre de usuario WEB: " + self.usrweb
 	
      @classmethod
      def allInstances(cls):
@@ -754,3 +756,24 @@ class ControladorDeStockStandard(ControladorDeStock) :
                         
                 
                 return True
+
+dir1 = Direccion("Trinidad", "N/A", "tortuguitas", 123)
+dir2 = Direccion("Los alamos", "N/A", "wilde", 1465)
+dir3 = Direccion("San Martin", "2do Piso", "Capital Federal", 3988)
+dir4 = Direccion("Montaneses", "1er Piso", "Capital Federal", 345)
+dir5 = Direccion("Oliden", "N/A", "Vicente Lopez", 3433)
+dir6 = Direccion("Los Paraisos", "N/A", "Bursaco", 20)
+
+cli1 = Cliente("Botella", 1555664488, 1, "Pepe", "hola1234", 48566633, "pepito", dir1)
+cli2 = Cliente("Martinez", 1521356684, 2, "Federico", "estudiando", 46532233, "fedefly", dir2)
+cli3 = Cliente("Gonzalez", 1523314655, 3, "Emiliano", "bartolo", 45632132, "emilio", dir3)
+cli4 = Cliente("Gonzalez", 1532169788, 4, "Sergio", "nada324", 45125398, "checho", dir4)
+cli5 = Cliente("Rinaldi", 1564659777, 5, "Nicolas", "esteee", 46633221, "elcorrector", dir5)
+cli6 = Cliente("D'arrigo", 1564521133, 6, "Sergio", "holaaa", 46632136, "jefetp", dir6)
+
+print cli1
+print cli2
+print cli3
+print cli4
+print cli5
+print cli6
