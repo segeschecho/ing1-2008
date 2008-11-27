@@ -1,4 +1,5 @@
-from Inicializador import *
+from inicializador import *
+
 import pickle
 
 bollo = Insumo(30,10,"Bollo")

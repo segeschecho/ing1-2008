@@ -1,7 +1,10 @@
-from Cocina import *
-from GestionDePedidos import *
-from CreacionDePedidos import *
+
+from cocina import *
+from gestion import *
+from creacion import *
+
 import pickle
+
 class Sistema:
     def __init__(self,init=True,f=None):
         if(init):

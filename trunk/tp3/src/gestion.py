@@ -1,13 +1,13 @@
-from CreacionDePedidos import *
-class ProductosVacios(Exception):
-    
+from creacion import *
+
+class ProductosVacios(Exception):    
     def __str__(self):
-        return "excepcion de lista de productos vacia"
+        return "Lista de productos vacia"
 
 class PedidoNulo(Exception):
     
     def __str__(self):
-        return "Excepcion de Pedido nulo"
+        return "Pedido nulo"
 
 class CoordinadorDePedidos :
 
