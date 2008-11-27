@@ -7,6 +7,7 @@ import gobject
 
 from config import *
 
+from inicializador import Pizzeria
 
 ###################################################
 # Helper para widgets GTK2                        #
@@ -168,6 +169,10 @@ def limpiar_datos_pedido_ingreso():
 ###################################################
 
 if __name__ == '__main__':
+    
+    f = open("datos.pyp", "rb")
+    s = Pizzeria(f)    
+
 
     widgets = WidgetsWrapper(MAIN_WINDOW, MainHandlers)
     iniciar_lista_ingreso()

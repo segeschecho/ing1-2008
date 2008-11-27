@@ -1,3 +1,4 @@
+#!/usr/bin/python
 
 from cocina import *
 from gestion import *
@@ -5,15 +6,15 @@ from creacion import *
 
 import pickle
 
-class Sistema:
-    def __init__(self,init=True,f=None):
-        if(init):
+class Pizzeria:
+    def __init__(self, f=None):
+        if not f is None:
             dic=self.cargarDiccionario(f)
             self.cargarInsumos(dic)
             self.cargarProductos(dic)
             self.cargarTipoProducto(dic)
-            #self.cargarClientes(dic)
-        #self.cargarPedidos()
+            self.cargarClientes(dic)
+        
         #ahora vamos a armar un fraccionador
         t = {}
         t[self.pizza]=1
@@ -21,8 +22,8 @@ class Sistema:
         frPizzero =  FraccionadorDeHorno(t)
         frEmpanadero =  FraccionadorDeHorno(t)
         #armamos 2 hornos
-        hpizzero =  Horno(10,frPizzero)
-        hempanadero =  Horno(10,frEmpanadero)
+        self.hpizzero =  Horno(10,frPizzero)
+        self.hempanadero =  Horno(10,frEmpanadero)
         # armamos los avisos
         avE =  AvisoEmpanadero(None)
         avP =  AvisoPizzero(None)
@@ -49,7 +50,7 @@ class Sistema:
         #CalculadorDePrecios
         calcP =  CalculadorDePreciosStandard()
         #AsignadorDeHorno
-        asigH =  AsignadorDeHornoStandard(hpizzero,hempanadero,self.pizza,self.empanada)
+        asigH =  AsignadorDeHornoStandard(self.hpizzero,self.hempanadero,self.pizza,self.empanada)
         #EstimadorDeTiempos
         estT =  EstimadorStandard(self.pizza,self.empanada)
         #ControladorDeStock
@@ -72,7 +73,7 @@ class Sistema:
         self.birra=tipoproductos['birra']
                 
     def cargarClientes(self,dic):
-        self.Clientes=dic["clientes"]
+        self.Clientes=dic["Clientes"]
         
     def cargarDiccionario(self,f):
         dic=pickle.load(f)
@@ -99,5 +100,5 @@ class Sistema:
 
 if __name__ == '__main__':
             
-    fi = open("datos.txt", 'rb')        
+    fi = open("datos.pyp", 'rb')        
     sis = Sistema(f=fi)
