@@ -17,7 +17,7 @@ class CoordinadorDePedidos :
         self.controladorDeListos=controladorDeListos
         self.controladorDePreIngreso=controladorDePreIngreso
 
-
+   
     
     def agregarPedidoListo(self, p):
            self.controladorDeListos.agregarPedidoListo(p)
@@ -61,17 +61,19 @@ class CoordinadorDePedidos :
         self.controladorDeListos = controladorDeListos
         
     
-class ControladorDeListos :
+class ControladorDeListos(Notificador):
 
 
     def __init__(self):
            self.listos = []
+           super(ControladorDeListos,self).__init__()
 
 
     def agregarPedidoListo(self, p):
             self.listos.append(p)
+            self.notificar()
             print "notificar pedido listo"
-            #TODO: aca hay q ue avisar que hay un pedido listo nuevo
+            
 
 
 class ControladorDePreIngreso :
@@ -115,11 +117,12 @@ class ControladorDePreIngreso :
               self.coordinadorDePedidos.agregarPedidoListo(p)
           
 
-class ControladorDeIngreso(object) :
+class ControladorDeIngreso(Notificador) :
 
     def __init__(self,coordinadorDeCocina):
         self.coordinadorDeCocina=coordinadorDeCocina
         self.listaIngreso=[] 
+        super(ControladorDeIngreso,self).__init__()
 
 
     def encolarPedido(self,p):
@@ -153,6 +156,7 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
       if(not res):
           p.setEstado(Estado.Ingresado)
           self.encolarPedido(p)
+          self.notificar()
           print "Aca hay que hacer un notify de ingreso"
           #TODO: hacer la parte del observer
       
@@ -170,6 +174,7 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
             sirve=self.tieneTipo(pedActual, tp)
             if(sirve):
                 ped=pedActual
+                self.notificar()
                 print ("ACA hay que hacer un notify de prox pedido")
                 #TODO: hacer un notify
             if(ped != None):
