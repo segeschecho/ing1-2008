@@ -101,4 +101,5 @@ class Pizzeria:
 if __name__ == '__main__':
             
     fi = open("datos.pyp", 'rb')        
-    sis = Sistema(f=fi)
+    sis = Pizzeria(f=fi)
+    print Producto.allInstances()
