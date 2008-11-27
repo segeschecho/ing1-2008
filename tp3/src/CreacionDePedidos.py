@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-class Pedido :
+class Pedido(object) :
     allInst=[]
 
     def __init__( self,id, cliente, productos, formaDePago, fechaIngreso):
@@ -10,6 +10,8 @@ class Pedido :
         self.productos=productos
         self.fechaIngreso=fechaIngreso
         self.__class__.allInst.append(self)
+        self.estado=None
+        print "armando un pedido"
 	
 
 
@@ -77,17 +79,23 @@ class Pedido :
 	
 
     def __hash__(self):
-        self.id.__hash__()
+        return self.id.__hash__()
 
 	
-    def __cmp__(self,o):
-        if(isinstance(o,self.__class__)):
-            return self.id - o.id
-        else:
-            raise TypeError("error en cmp")  
+    # def __cmp__(self,o):
+        # if(o == None):
+            # return False
+        # if(isinstance(o,self.__class__)):
+            # return self.id - o.id
+        # else:
+            # raise TypeError("error en cmp")  
 
+    def __neq__(self,o):
+        return not self.__eq__(o)
     
     def __eq__(self,o):
+        if(o == None):
+            return False
         if(isinstance(o,self.__class__)):
             return self.id == o.id
         else:
@@ -95,8 +103,8 @@ class Pedido :
 
 class PedidoLocal(Pedido):
 
-	def __init__(id, cliente,productos,formaDePago, fechaIngreso):
-		super(PedidoLocal, self).__init__(self, id, cliente, productos, formaDePago, fechaIngreso)
+	def __init__(self,id, cliente,productos,formaDePago, fechaIngreso):
+		super(PedidoLocal, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
 
 class ClienteNulo(Exception):
     def __str__(self):
@@ -104,7 +112,7 @@ class ClienteNulo(Exception):
 
 class PedidoRemoto (Pedido): 
 
-	def __init__(id, cliente,productos,formaDePago,fechaIngreso):
+	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
 		if(cliente == None):
 			raise ClienteNulo
 		super(PedidoRemoto, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
@@ -157,13 +165,13 @@ class AsignadorDeHorno:
 class AsignadorDeHornoStandard (AsignadorDeHorno):
 
         def  asignarHorno( self,pedido):
-            empanadas=Fals
+            empanadas=False
             pizzas = False
             ls = pedido.getProductos()
             h = None
             for pr in ls:
-                pizzas = pizzas or pr.getTipo().equals(self.pizza)
-                empanadas = empanadas or pr.getTipo().equals(self.empanada)
+                pizzas = pizzas or pr.getTipo()==self.pizza
+                empanadas = empanadas or pr.getTipo()==self.empanada
         
             if (pizzas and empanadas):
             	h=notificarHorno()
@@ -205,7 +213,7 @@ class FraccionadorDeHorno:
 		self.prodsXModulo=prodsXModulo
 
 	def getProductosPorModulo(self,tipoProducto ):
-		return prodsXModulo[tipoProducto]
+		return self.prodsXModulo[tipoProducto]
 	
 class CalculadorDePrecios:
 
@@ -263,9 +271,9 @@ class EstimadorStandard (EstimadorDeTiempos):
 			tiempoCoccionPizzas+=self.estimarTiempoDeCoccionPizzas(p, h)
 			tiempoCoccionEmpanadas+=self.estimarTiempoDeCoccionEmpanadas(p, h)
 		
-		tiempoPreparacion+=estimarTiempoDePreparacionActual(pedido)
-		tiempoCoccionPizzas+=estimarTiempoDeCoccionPizzasActual(pedido,h)
-		tiempoCoccionEmpanadas+=estimarTiempoDeCoccionEmpanadasActual(pedido,h)
+		tiempoPreparacion+=self.estimarTiempoDePreparacionActual(pedido)
+		tiempoCoccionPizzas+=self.estimarTiempoDeCoccionPizzasActual(pedido,h)
+		tiempoCoccionEmpanadas+=self.estimarTiempoDeCoccionEmpanadasActual(pedido,h)
 		modulos = h.getCantModulos()
 		frac = h.getFraccionadorDeHorno()
 		cantEmpanadas = frac.getProductosPorModulo(self.empanada)
@@ -279,7 +287,7 @@ class EstimadorStandard (EstimadorDeTiempos):
 		ls = pedido.getProductos()
 		res= 0.0
 		for pr in ls:
-			if(pr.getTipo().equals(self.pizza)):
+			if(pr.getTipo()==self.pizza):
 				res+=pr.getTiempoCoccion()
 			
 		
@@ -290,7 +298,7 @@ class EstimadorStandard (EstimadorDeTiempos):
 		ls = pedido.getProductos()
 		res= 0.0
 		for pr in ls:
-			if(pr.getTipo().equals(self.empanada)):
+			if(pr.getTipo()==self.empanada):
 				res+=pr.getTiempoCoccion()
 		
 		return res
@@ -406,13 +414,16 @@ class TipoProducto:
         return self.preparable
 
     def __hash__(self):
-        self.nombre.__hash__()
+        return self.nombre.__hash__()
 
 
     def __cmp__(self,o):
+        if(o == None):
+            return False
         if(isinstance(o,self.__class__)):
             return self.nombre.__cmp__(o.nombre)
         else:
+            #return False
             raise TypeError("error en cmp de TipoProducto")  
 
     
@@ -421,7 +432,8 @@ class TipoProducto:
             return self.nombre == o.nombre
         else:
             raise TypeError("error en eq de TipoProducto")
-	
+    def __repr__(self):
+        return "<TipoProducto: %s, preparable: %s, cocinable: %s>"%(self.nombre,self.preparable,self.cocinable)
 class Insumo :
 
     allInst = []
@@ -462,7 +474,7 @@ class Insumo :
     def setCantCritica(self, cantCritica) :
 	    self.cantCritica = cantCritica
 	
-class GeneradorDePedidos :
+class GeneradorDePedidos(object) :
 
 
     def __init__(self, calculadorDePrecios,estimadorDeTiempos,controladorDeStock,asignadorDeHorno):
@@ -502,7 +514,7 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
 
 
     def generarPedido(self, c,productos,formaDePago,origen,mesa):
-        if(controladorDeStock.verificarEIngresar(productos)):
+        if(self.controladorDeStock.verificarEIngresar(productos)):
             d=self.getDateTime()
             ID = self.generarId()
             if(origen == "mostrador"):
@@ -511,14 +523,15 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
             elif(origen == "mesa"):
                 p= PedidoMesa(ID,c,productos,formaDePago,d,mesa)
             elif(origen == "telefono"):
-                if(c==null):
+                if(c==None):
                     raise ClienteNulo
                 p= PedidoTelefono(ID,c,productos,formaDePago,d)
             else:
                 raise OrigenDesconocido(origen)
             
             self.asignadorDeHorno.asignarHorno(p)
-            p.setTiempoEstimado(self.estimadorDeTiempos.estimarTiempo(p))
+            if p.getHorno() != None:
+                 p.setTiempoEstimado(self.estimadorDeTiempos.estimarTiempo(p))
             p.setPrecio(self.calculadorDePrecios.calcularPrecio(p))
             return p
         
@@ -713,10 +726,10 @@ class ControladorDeStockStandard(ControladorDeStock) :
                         else:
                                 yaDecrementados.append(pr)
     
-                obtenerCriticos(productos)
-                if(self.criticos.size!=0):
+                self.obtenerCriticos(productos)
+                if(len(self.criticos)!=0):
                      raise NotImplementedError("aca hay que hacer un notify de prod insat")
                                 #TODO:hacer la parte de los notify
                         
                 
-                return true
+                return True
