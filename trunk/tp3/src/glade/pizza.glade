@@ -1775,8 +1775,33 @@
 				  <property name="spacing">0</property>
 
 				  <child>
-				    <widget class="GtkDrawingArea" id="drawingarea4">
+				    <widget class="GtkScrolledWindow" id="datos_cliente">
 				      <property name="visible">True</property>
+				      <property name="can_focus">True</property>
+				      <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+				      <property name="vscrollbar_policy">GTK_POLICY_NEVER</property>
+				      <property name="shadow_type">GTK_SHADOW_IN</property>
+				      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+				      <child>
+					<widget class="GtkTextView" id="textview1">
+					  <property name="visible">True</property>
+					  <property name="can_focus">True</property>
+					  <property name="editable">True</property>
+					  <property name="overwrite">False</property>
+					  <property name="accepts_tab">True</property>
+					  <property name="justification">GTK_JUSTIFY_LEFT</property>
+					  <property name="wrap_mode">GTK_WRAP_NONE</property>
+					  <property name="cursor_visible">True</property>
+					  <property name="pixels_above_lines">0</property>
+					  <property name="pixels_below_lines">0</property>
+					  <property name="pixels_inside_wrap">0</property>
+					  <property name="left_margin">0</property>
+					  <property name="right_margin">0</property>
+					  <property name="indent">0</property>
+					  <property name="text" translatable="yes"></property>
+					</widget>
+				      </child>
 				    </widget>
 				    <packing>
 				      <property name="padding">0</property>
@@ -1991,7 +2016,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkLabel" id="label15">
+		<widget class="GtkLabel" id="lista_clientes">
 		  <property name="visible">True</property>
 		  <property name="label" translatable="yes">Clientes</property>
 		  <property name="use_underline">False</property>
@@ -2241,7 +2266,7 @@
 			  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 			  <child>
-			    <widget class="GtkTreeView" id="treeview11">
+			    <widget class="GtkTreeView" id="lista_productos">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="headers_visible">True</property>
@@ -2251,6 +2276,7 @@
 			      <property name="fixed_height_mode">False</property>
 			      <property name="hover_selection">False</property>
 			      <property name="hover_expand">False</property>
+			      <signal name="cursor_changed" handler="lista_productos_cursor_changed" last_modification_time="Thu, 27 Nov 2008 19:40:11 GMT"/>
 			    </widget>
 			  </child>
 			</widget>
@@ -2287,8 +2313,34 @@
 				  <property name="spacing">0</property>
 
 				  <child>
-				    <widget class="GtkDrawingArea" id="drawingarea8">
+				    <widget class="GtkScrolledWindow" id="scrolledwindow20">
 				      <property name="visible">True</property>
+				      <property name="can_focus">True</property>
+				      <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+				      <property name="vscrollbar_policy">GTK_POLICY_NEVER</property>
+				      <property name="shadow_type">GTK_SHADOW_IN</property>
+				      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+				      <child>
+					<widget class="GtkTextView" id="datos_producto">
+					  <property name="border_width">5</property>
+					  <property name="visible">True</property>
+					  <property name="can_focus">True</property>
+					  <property name="editable">False</property>
+					  <property name="overwrite">False</property>
+					  <property name="accepts_tab">True</property>
+					  <property name="justification">GTK_JUSTIFY_LEFT</property>
+					  <property name="wrap_mode">GTK_WRAP_NONE</property>
+					  <property name="cursor_visible">True</property>
+					  <property name="pixels_above_lines">5</property>
+					  <property name="pixels_below_lines">5</property>
+					  <property name="pixels_inside_wrap">5</property>
+					  <property name="left_margin">5</property>
+					  <property name="right_margin">5</property>
+					  <property name="indent">0</property>
+					  <property name="text" translatable="yes"></property>
+					</widget>
+				      </child>
 				    </widget>
 				    <packing>
 				      <property name="padding">0</property>
@@ -2753,7 +2805,7 @@
 			  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 			  <child>
-			    <widget class="GtkTreeView" id="treeview12">
+			    <widget class="GtkTreeView" id="lista_insumos">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="headers_visible">True</property>
