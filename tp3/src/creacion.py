@@ -18,7 +18,11 @@ class Notificador(object):
         
 class Pedido(object) :
     allInst=[]
-
+    def __setstate__(self,dict):
+      for k in dict.keys():
+            setattr(self, k,dict[k])
+      self.__class__.allInst.append(self) 
+      
     def __init__( self,id, cliente, productos, formaDePago, fechaIngreso):
         self.id=id
         self.cliente=cliente
@@ -368,7 +372,17 @@ class EstimadorStandard (EstimadorDeTiempos):
 class Producto :
 
     allInst = []
-
+    def __setstate__(self,dict):
+      for k in dict.keys():
+            setattr(self, k,dict[k])
+      # self.nombre = dict['nombre']
+      # self.insumos=dict['insumos']
+      # self.precio=['precio']
+      # self.tiempoCoccion=['tiempoCoccion']
+      # self.tiempoPreparacion=['tiempoPreparacion']
+      # self.tipoProducto=['tipoProducto']
+      self.__class__.allInst.append(self)  
+      
     def __init__(self,nombre,precio, tiempoCoccion,tiempoPreparacion,tipoProducto, insumos):
                 self.nombre =nombre
                 self.insumos=insumos
@@ -379,8 +393,12 @@ class Producto :
                 self.__class__.allInst.append(self)
 
 	
-
-	
+    def __repr__(self):
+        return "< nombre: " + self.nombre + ">"
+        
+    def __str__(self):
+        return self.nombre
+        
     @classmethod
     def allInstances(cls):
         return cls.allInst
@@ -451,7 +469,11 @@ class TipoProducto:
     def __repr__(self):
         return "<TipoProducto: %s, preparable: %s, cocinable: %s>"%(self.nombre,self.preparable,self.cocinable)
 class Insumo :
-
+    def __setstate__(self,dict):
+      self.cant=['cant']
+      self.cantCritica=['cantCritica']
+      self.nombre=['nombre']
+      self.__class__.allInst.append(self) 
     allInst = []
     def __str__(self):
         return "soy el insumo:" + self.nombre + " y mi cantidad actual es: " + str(self.cant) +" y mi cantidad critica es: " + str(self.cantCritica)
@@ -600,7 +622,11 @@ class Direccion :
 
 
 class Cliente :
-
+     def __setstate__(self,dict):
+        for k in dict.keys():
+            setattr(self, k,dict[k])
+        self.__class__.allInst.append(self) 
+        
      allInst = []
      def __init__(self,apel,celular,id, nombre,passWeb,telefono,web, dir):
         self.apellido=apel
