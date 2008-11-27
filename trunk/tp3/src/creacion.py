@@ -472,9 +472,9 @@ class TipoProducto:
         return "<TipoProducto: %s, preparable: %s, cocinable: %s>"%(self.nombre,self.preparable,self.cocinable)
 class Insumo :
     def __setstate__(self,dict):
-      self.cant=['cant']
-      self.cantCritica=['cantCritica']
-      self.nombre=['nombre']
+      self.cant=dict['cant']
+      self.cantCritica=dict['cantCritica']
+      self.nombre=dict['nombre']
       self.__class__.allInst.append(self) 
     allInst = []
     def __str__(self):
