@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Pedido :
     allInst=[]
 
@@ -81,30 +84,62 @@ class Pedido :
         if(isinstance(o,self.__class__)):
             return self.id - o.id
         else:
-            print "no son del mismo tipo comop para hacer un cmp "
-            raise  
+            raise TypeError("error en cmp")  
 
     
     def __eq__(self,o):
         if(isinstance(o,self.__class__)):
             return self.id == o.id
         else:
-            print "no son del mismo tipo como para hacer un eq"
-            raise 
-
+            raise TypeError("error en eq")
 
 class PedidoLocal(Pedido):
 
-	def PedidoLocal(id, cliente,productos,formaDePago, fechaIngreso):
+	def __init__(id, cliente,productos,formaDePago, fechaIngreso):
 		super(PedidoLocal, self).__init__(self, id, cliente, productos, formaDePago, fechaIngreso)
+
+class ClienteNulo(Exception):
+    def __str__(self):
+        return "excepcion de cliente nulo"
 
 class PedidoRemoto (Pedido): 
 
-	def PedidoRemoto(id, cliente,productos,formaDePago,fechaIngreso):
+	def __init__(id, cliente,productos,formaDePago,fechaIngreso):
+		if(cliente == None):
+			raise ClienteNulo
 		super(PedidoRemoto, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
 	
 
+class PedidoMesa(PedidoLocal) :
 
+
+    def __init__(self,id, cliente, productos,formaDePago,fechaIngreso,mesa):
+	    super(PedidoMesa,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
+	    self.mesa=mesa
+	
+	
+    
+    def getMesa(self):
+         return self.mesa
+	
+
+
+    def setFormaDePago(formaDePago):
+       self.formaDePago=formaDePago
+
+
+class PedidoMostrador(PedidoLocal) :
+
+	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
+
+		super(PedidoMostrador,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
+	
+
+class PedidoTelefono(PedidoRemoto) :
+
+	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
+
+		super(PedidoTelefono,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
 
 class AsignadorDeHorno:
 
@@ -143,7 +178,7 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
 	
 
         def notificarHorno(self):
-        	return null #TODO: hacer que se pida el horno por pantalla
+        	return None #TODO: hacer que se pida el horno por pantalla
 	
 
 class Horno:
@@ -166,7 +201,7 @@ class Horno:
 class FraccionadorDeHorno:
 
 
-	def FraccionadorDeHorno(self,prodsXModulo):
+	def __init__(self,prodsXModulo):
 		self.prodsXModulo=prodsXModulo
 
 	def getProductosPorModulo(self,tipoProducto ):
@@ -200,6 +235,7 @@ class EstimadorDeTiempos:
     def __init__(self):
           pass
     
+
     def estimarTiempo(self,pedido):
          raise NotImplementedError
 
@@ -273,21 +309,23 @@ class EstimadorStandard (EstimadorDeTiempos):
 		if(pedido.getHorno() != horno):
 			return res
 		
-		elif(pedido.getEstado()!= Estado.EnPreparacion and pedido.getEstado() != Estado.Ingresado and pedido.getEstado() != Estado.Preparado):
+		elif(pedido.getEstado()!= Estado.EnPreparacion and \
+              pedido.getEstado() != Estado.Ingresado and \
+              pedido.getEstado() != Estado.Preparado):
 			return res
 		
 		else:
 			return self.estimarTiempoDeCoccionEmpanadasActual(pedido,horno)
 		
-	
+    
 	def estimarTiempoDeCoccionPizzas(self,pedido,horno):
 		res=0.0
 		if(pedido.getHorno() != horno):
 			return res
-		
-		elif(pedido.getEstado()!= Estado.EnPreparacion and pedido.getEstado() != Estado.Ingresado and pedido.getEstado() != Estado.Preparado):
+		elif(pedido.getEstado()!= Estado.EnPreparacion and\
+                pedido.getEstado() != Estado.Ingresado and\
+                pedido.getEstado() != Estado.Preparado):
 			return res
-		
 		else:
 			return self.estimarTiempoDeCoccionPizzasActual(pedido,horno)
 		
@@ -303,6 +341,382 @@ class EstimadorStandard (EstimadorDeTiempos):
 			return self.estimarTiempoDePreparacionActual(pedido)
 		
 
-print "uhhh"
+class Producto :
+
+    allInst = []
+
+    def __init__(self,nombre,precio, tiempoCoccion,tiempoPreparacion,tipoProducto, insumos):
+                self.nombre =nombre
+                self.insumos=insumos
+                self.precio=precio
+                self.tiempoCoccion=tiempoCoccion
+                self.tiempoPreparacion=tiempoPreparacion
+                self.tipoProducto=tipoProducto
+                self.__class__.allInst.append(self)
+
+	
+
+	
+    @classmethod
+    def allInstances(cls):
+        return cls.allInst
+    
+    def getNombre(self) :
+        return self.nombre
+	
+
+    def getInsumos(self):
+        return self.insumos
+	
+
+    def getPrecio(self):
+        return self.precio
+	
+    def getPreparable(self):
+        return self.tipoProducto.getPreparable()
+	
+
+    def getTiempoCoccion(self):
+        return self.tiempoCoccion
+	
+
+    def getTiempoPreparacion(self):
+        return self.tiempoPreparacion
+	
+
+    def getTipo(self):
+	    return self.tipoProducto
 
 
+class TipoProducto:
+
+    def __init__(self,nombre, coc,prep):
+        self.nombre=nombre
+        self.cocinable=coc
+        self.preparable=prep
+
+    def getNombre(self) :
+        return self.nombre
+	
+
+    def getCocinable(self):
+        return self.cocinable
+    
+    def getPreparable(self):
+        return self.preparable
+
+    def __hash__(self):
+        self.nombre.__hash__()
+
+
+    def __cmp__(self,o):
+        if(isinstance(o,self.__class__)):
+            return self.nombre.__cmp__(o.nombre)
+        else:
+            raise TypeError("error en cmp de TipoProducto")  
+
+    
+    def __eq__(self,o):
+        if(isinstance(o,self.__class__)):
+            return self.nombre == o.nombre
+        else:
+            raise TypeError("error en eq de TipoProducto")
+	
+class Insumo :
+
+    allInst = []
+    
+    def __init__(self,cant,cantCritica, nombre):
+        self.cant=cant
+        self.cantCritica=cantCritica
+        self.nombre=nombre
+        self.__class__.allInst.append(self)
+
+    
+    @classmethod
+    def allInstances(cls):
+        return cls.allInst
+    
+    def getCant(self) :
+        return self.cant
+    
+
+    def getCantCritica(self) :
+        return self.cantCritica
+	
+
+    def setCant(self,cant):
+        self.cant = cant
+	
+
+
+
+    def getNombre(self) :
+        return self.nombre
+	
+
+    def setNombre(self, nombre) :
+        self.nombre = nombre
+	
+
+    def setCantCritica(self, cantCritica) :
+	    self.cantCritica = cantCritica
+	
+class GeneradorDePedidos :
+
+
+    def __init__(self, calculadorDePrecios,estimadorDeTiempos,controladorDeStock,asignadorDeHorno):
+        self.asignadorDeHorno=asignadorDeHorno
+        self.calculadorDePrecios=calculadorDePrecios
+        self.controladorDeStock=controladorDeStock
+        self.estimadorDeTiempos=estimadorDeTiempos
+
+
+
+    def generarId(self):
+        raise NotImplementedError
+
+    def generarPedido(self,cliente,productos,formaDePago,origen,mesa):
+        raise NotImplementedError
+
+class OrigenDesconocido(Exception):
+    def __init__(self,origen):
+        self.origen=origen
+    def __str__(self):
+	    return "excepcion de origen desconocido"+str(self.origen)
+
+class GeneradorDePedidosStandard (GeneradorDePedidos) :
+    def __init__(self,calculadorDePrecios,estimadorDeTiempos,controladorDeStock,asignadorDeHorno):
+        super(GeneradorDePedidosStandard,self).__init__(calculadorDePrecios, estimadorDeTiempos,controladorDeStock, asignadorDeHorno)
+        self.ultimoIdAsignado=0
+
+
+
+    def getDateTime(self) :
+        return datetime.now()
+
+    def generarId(self):
+        res=self.ultimoIdAsignado
+        self.ultimoIdAsignado+=1
+        return res
+
+
+    def generarPedido(self, c,productos,formaDePago,origen,mesa):
+        if(controladorDeStock.verificarEIngresar(productos)):
+            d=self.getDateTime()
+            ID = self.generarId()
+            if(origen == "mostrador"):
+                p= PedidoMostrador(ID,c,productos,formaDePago,d)
+            
+            elif(origen == "mesa"):
+                p= PedidoMesa(ID,c,productos,formaDePago,d,mesa)
+            elif(origen == "telefono"):
+                if(c==null):
+                    raise ClienteNulo
+                p= PedidoTelefono(ID,c,productos,formaDePago,d)
+            else:
+                raise OrigenDesconocido(origen)
+            
+            self.asignadorDeHorno.asignarHorno(p)
+            p.setTiempoEstimado(self.estimadorDeTiempos.estimarTiempo(p))
+            p.setPrecio(self.calculadorDePrecios.calcularPrecio(p))
+            return p
+        
+        return None
+
+
+
+class Direccion :
+
+
+    def __init__(self,calle,departamento,localidad,numero) :
+        self.Calle = calle
+        self.Departamento = departamento
+        self.Localidad = localidad
+        self.Numero = numero
+
+
+    def getCalle(self) :
+        return Calle
+
+
+    def setCalle(self, calle) :
+        self.Calle = calle
+
+
+    def getDepartamento(self) :
+        return self.Departamento
+
+
+    def setDepartamento(self,departamento) :
+        self.Departamento = departamento
+
+
+    def getLocalidad(self) :
+        return Localidad
+
+
+    def setLocalidad(self, localidad) :
+        self.Localidad = localidad
+
+
+    def getNumero(self) :
+        return self.Numero
+
+
+    def setNumero(self, numero) :
+        self.Numero = numero
+
+
+class Cliente :
+
+     allInst = []
+     def Cliente(apel,celular,id, nombre,passWeb,telefono,web, dir):
+        self.apellido=apel
+        self.celular=celular
+        self.id=id
+        self.nombre=nombre
+        self.passWeb=passWeb
+        self.telefono=telefono
+        self.usrweb=web
+        self.dir=dir
+        self.__class__.allInst.append(self)
+
+	
+
+	
+     @classmethod
+     def allInstances(cls):
+        return cls.allInst
+
+
+     def getApellido(self) :
+	     return self.apellido
+
+
+     def getNombre(self) :
+	     return self.nombre
+
+
+     def getId(self) :
+	     return self.id
+
+
+     def getPassWeb(self) :
+	     return self.passWeb
+
+
+     def getCelular(self) :
+	     return self.celular
+
+
+     def getDir(self) :
+	     return self.dir
+
+
+     def getTelefono(self) :
+	     return self.telefono
+
+
+     def getUsrweb(self) :
+	     return self.usrweb
+
+class ControladorDeStock : #antes era interface
+
+
+    def ingresar(self,producto):
+        raise NotImplementedError
+
+
+    def obtenerCriticos(self, productos):
+        raise NotImplementedError
+
+
+    def reestablecerStock(self, productos):
+        raise NotImplementedError
+
+    def reestablecerStockInsumos(self, insumos):
+        raise NotImplementedError
+    
+    def verificarEIngresar(self, productos):
+        raise NotImplementedError
+
+class ProductoInsatisfacible(Exception):
+    def __init__(self,pr):
+        self.producto=pr
+    def __str__(self):
+	           return "excepcion de producto instatisfacible"+str(self.producto)
+
+
+class ControladorDeStockStandard(ControladorDeStock) :
+
+    def __init__(self):
+            self.criticos = []
+
+    def getCriticos(self) :
+        return self.criticos
+
+
+    def ingresar(self, producto) :
+        ls = producto.getInsumos()
+        yaDeCrementados = []
+        cant=0
+        for ins in ls:
+            cant=ins.getCant()
+            if(cant > 0):
+                ins.setCant(cant-1)
+                yaDeCrementados.append(ins)
+            else:
+                reestablecerStockInsumos(yaDeCrementados)
+                return False
+            
+        
+        return True
+	
+    # arma una lista con los insumos que estaban en algun producto de los que se ingresaron y que estan
+    #ahora en stock critico
+
+    def obtenerCriticos(self, productos) :
+		   self.criticos=[]
+		   for pr in productos:
+			   ls = pr.getInsumos()
+			   for ins in ls:
+				
+				   if(ins.getCant() <= ins.getCantCritica()):
+					   criticos.append(ins)
+				
+			
+		
+
+
+    def reestablecerStock(self, productos) :
+	    for pr in productos:
+		    reestablecerStockInsumos(pr.getInsumos())
+		
+
+	
+
+    def reestablecerStockInsumos(self,insumos) :
+	    for ins in insumos:
+		    ins.setCant(ins.getCant()+1)
+		
+	
+    def verificarEIngresar(self, productos) :
+                posible=True
+                yaDecrementados = []
+                for pr in productos:
+                        posible=self.ingresar(pr)
+                        if(not posible):
+                                reestablecerStock(yaDecrementados)
+                                raise ProductoInsatisfacible(pr)
+                        
+                        else:
+                                yaDecrementados.append(pr)
+    
+                obtenerCriticos(productos)
+                if(self.criticos.size!=0):
+                     raise NotImplementedError("aca hay que hacer un notify de prod insat")
+                                #TODO:hacer la parte de los notify
+                        
+                
+                return true
