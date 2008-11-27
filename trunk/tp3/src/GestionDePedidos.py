@@ -1,3 +1,4 @@
+from CreacionDePedidos import *
 class ProductosVacios(Exception):
     
     def __str__(self):
@@ -24,9 +25,10 @@ class CoordinadorDePedidos :
 
 
     def ingresarPedido(self, c,productos,formaDePago, origen,mesa):
-         if(productos.isEmpty()):
+         if(len(productos)==0):
              raise ProductosVacios         
          p = self.generadorDePedidos.generarPedido(c, productos, formaDePago, origen,mesa)
+         print p
          if(p != None):
             self.controladorDePreIngreso.ingresar(p)
          else:
@@ -67,7 +69,7 @@ class ControladorDeListos :
 
 
     def agregarPedidoListo(self, p):
-            listos.append(p)
+            self.listos.append(p)
             print "notificar pedido listo"
             #TODO: aca hay q ue avisar que hay un pedido listo nuevo
 
@@ -98,7 +100,7 @@ class ControladorDePreIngreso :
         res= False
         for pr in productos:
             tp=pr.getTipo()
-            res=res or tp.getpreparable()
+            res=res or tp.getPreparable()
             if res:
                 break
         
@@ -106,14 +108,14 @@ class ControladorDePreIngreso :
 
 
  
-    def ingresar(p):
+    def ingresar(self,p):
         if(self.determinarPreparable(p) or self.determinarCocinable(p)):
               self.controladorDeIngreso.ingresar(p)
         else:
               self.coordinadorDePedidos.agregarPedidoListo(p)
           
 
-class ControladorDeIngreso :
+class ControladorDeIngreso(object) :
 
     def __init__(self,coordinadorDeCocina):
         self.coordinadorDeCocina=coordinadorDeCocina
