@@ -28,7 +28,6 @@ class CoordinadorDePedidos :
          if(len(productos)==0):
              raise ProductosVacios         
          p = self.generadorDePedidos.generarPedido(c, productos, formaDePago, origen,mesa)
-         print p
          if(p != None):
             self.controladorDePreIngreso.ingresar(p)
          else:

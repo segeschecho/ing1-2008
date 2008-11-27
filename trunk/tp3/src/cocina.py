@@ -73,7 +73,7 @@ class DespachadorDePreparacion(object) :
         self.prepEmpanadero=prepEmPanadero
         self.prepPizzero=prepPizzero
         self.coordinador=coordinador
-        print "me llamo"
+        
 
 
      def prepararPedido(self, p):
@@ -85,7 +85,7 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
     def __init__(self,prepPizzero, prepEmPanadero,coordinador, pizza, empanada):
         
         super(DespachadorDePreparacionStandard,self).__init__(prepPizzero,prepEmPanadero,coordinador)
-        print super(DespachadorDePreparacionStandard,self)
+        
         self.pizza=pizza
         self.empanada=empanada
         self.partesAPreparar={}
@@ -272,4 +272,4 @@ class PreparadorEspecializado(Preparador) :
         self.productosAPreparar = []
         self.aviso.avisar() 
 
-print "Cocina OK"
+
