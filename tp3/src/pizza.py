@@ -7,7 +7,10 @@ import gobject
 
 from config import *
 
-from inicializador import Pizzeria
+import inicializador
+import creacion
+import gestion
+import cocina
 
 ###################################################
 # Helper para widgets GTK2                        #
@@ -68,7 +71,7 @@ class MainHandlers:
     # ----------------------------------------------#
     
     def lista_ingreso_cursor_changed(event):
-        tv = widgets['lista_ingreso']
+        tv = widgets[LISTA_INGRESO] 
         seleccion, iterador = tv.get_selection().get_selected()
         
         if iterador is None:
@@ -76,6 +79,21 @@ class MainHandlers:
         else:
             pedido_id = seleccion.get_value(iterador, 1)
             cargar_datos_pedido_ingreso(pedido_id)
+
+
+    # --------------------------------------------- #
+    # Handlers para el dialogo de "Nuevo Pedido"    #
+    # ----------------------------------------------#
+    
+    def lista_productos_cursor_changed(event):    
+        tv = widgets[LISTA_PRODUCTOS] 
+        seleccion, iterador = tv.get_selection().get_selected()
+        
+        if iterador is None:
+            limpiar_datos_producto()
+        else:
+            nombre_producto = seleccion.get_value(iterador, 0)
+            cargar_datos_producto(nombre_producto)
 
 
     # --------------------------------------------- #
@@ -94,8 +112,12 @@ class MainHandlers:
 # Funciones auxiliares para los handlers          #
 ###################################################
 
+ # --------------------------------------------- #
+ # Funciones para la lista de pedidos ingresados #
+ # ----------------------------------------------#
+    
 def iniciar_lista_ingreso():
-    tv = widgets['lista_ingreso']
+    tv = widgets[LISTA_INGRESO]
     
     # Armo el ListStore (con los tipos de las columnas)
     ls = gtk.ListStore(gobject.TYPE_STRING,
@@ -114,7 +136,7 @@ def iniciar_lista_ingreso():
     tv.append_column (col_2id)    
 
 def recargar_lista_ingreso():
-    tv = widgets['lista_ingreso']
+    tv = widgets[LISTA_INGRESO]
     ls = tv.get_model() 
     
     for i in range(5):
@@ -123,14 +145,18 @@ def recargar_lista_ingreso():
         ls.set_value(it, 1, 2*i)
 
 def limpiar_lista_ingreso():
-    tv = widgets['lista_ingreso']
+    tv = widgets[LISTA_INGRESO]
     ls = tv.get_model() 
     ls.clear() 
 
 
+ # --------------------------------------------- #
+ # Funciones para detalle de pedido ingresado -- #
+ # ----------------------------------------------#
+
 
 def iniciar_datos_pedido_ingreso():
-    tv = widgets['datos_pedido_ingreso']
+    tv = widgets[DATOS_PEDIDO_INGRESO]
     
     # Armo el ListStore (con los tipos de las columnas)
     ls = gtk.ListStore(gobject.TYPE_STRING,
@@ -149,7 +175,7 @@ def iniciar_datos_pedido_ingreso():
     
 
 def cargar_datos_pedido_ingreso(pid):
-    tv = widgets['datos_pedido_ingreso']
+    tv = widgets[DATOS_PEDIDO_INGRESO]
     ls = tv.get_model() 
     ls.clear()  
  
@@ -158,11 +184,86 @@ def cargar_datos_pedido_ingreso(pid):
     ls.set_value(it, 1, "tito") 
 
 def limpiar_datos_pedido_ingreso():
-    tv = widgets['datos_pedido_ingreso']
+    tv = widgets[DATOS_PEDIDO_INGRESO]
     ls = tv.get_model()
     ls.clear()
 
+
+ # --------------------------------------------- #
+ # Funciones para detalle de productos --------- #
+ # ----------------------------------------------#
+
+
+def iniciar_lista_productos():
+    tv = widgets[LISTA_PRODUCTOS]
     
+    # Armo el ListStore (con los tipos de las columnas)
+    ls = gtk.ListStore(gobject.TYPE_STRING,
+                       gobject.TYPE_STRING,
+                       gobject.TYPE_INT,
+                      )
+    tv.set_model(ls)
+    
+    # Armo las columnas
+    render_id = gtk.CellRendererText()
+    col_id = gtk.TreeViewColumn ("Nombre", render_id, text=0)
+    tv.append_column (col_id)    
+    
+
+    render_2id = gtk.CellRendererText()
+    col_2id = gtk.TreeViewColumn ("Tipo", render_2id, text=1)
+    tv.append_column (col_2id)   
+
+
+    render_3id = gtk.CellRendererText()
+    col_3id = gtk.TreeViewColumn ("Precio", render_3id, text=2)
+    tv.append_column (col_3id)   
+
+def recargar_lista_productos():
+    tv = widgets[LISTA_PRODUCTOS]
+    ls = tv.get_model() 
+    ls.clear()  
+ 
+    prods = creacion.Producto.allInstances()[:]
+    prods.sort(lambda x,y: cmp(x.getTipo().getNombre(),
+                               y.getTipo().getNombre()))
+    
+    for each in prods:
+        it = ls.insert(0)
+        ls.set_value(it, 0, each.getNombre())
+        ls.set_value(it, 1, each.getTipo().getNombre())
+        ls.set_value(it, 2, each.getPrecio())
+
+
+def limpiar_lista_productos():    
+    tv = widgets[LISTA_PRODUCTOS]
+    ls = tv.get_model()
+    ls.clear()
+
+
+def cargar_datos_producto(nombre_producto):
+    tv = widgets[DATOS_PRODUCTO]
+    buf = gtk.TextBuffer()
+
+    # FIXME: refactorear este papelon
+    # busco el producto por nombre
+    prod = None
+    for each in creacion.Producto.allInstances():
+        if each.getNombre() == nombre_producto:
+            prod = each
+    if prod is None:
+        raise ValueError('No se encontró el producto!')
+
+    # FIXME: http://www.pygtk.org/pygtk2tutorial-es/sec-TextTagsAndTextTagTables.html
+    # ahí explican como hacer HTML como dios manda
+    tpl = "%s \n Detalles..." % prod.getNombre()
+    buf.set_text(tpl)
+    tv.set_buffer(buf)
+
+def limpiar_datos_producto():
+    tv = widgets[DATOS_PRODUCTO]
+    tv.get_buffer().set_text("")
+
 
 ###################################################
 # Main                                            #
@@ -171,7 +272,7 @@ def limpiar_datos_pedido_ingreso():
 if __name__ == '__main__':
     
     f = open("datos.pyp", "rb")
-    s = Pizzeria(f)    
+    pizzeria = inicializador.Pizzeria(f)    
 
 
     widgets = WidgetsWrapper(MAIN_WINDOW, MainHandlers)
@@ -179,5 +280,8 @@ if __name__ == '__main__':
     recargar_lista_ingreso()
 
     iniciar_datos_pedido_ingreso()
+
+    iniciar_lista_productos()
+    recargar_lista_productos()
 
     gtk.main()
