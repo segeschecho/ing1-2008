@@ -12,6 +12,8 @@ import creacion
 import gestion
 import cocina
 
+import humanize
+
 ###################################################
 # Helper para widgets GTK2                        #
 ###################################################
@@ -240,10 +242,28 @@ def limpiar_lista_productos():
     ls = tv.get_model()
     ls.clear()
 
+def formatear_datos_producto(prod):
+    datos = ("<b>%s</b>\n\n" + \
+             "Tipo: %s\n" + \
+             "Precio: $%s\n\n" + \
+             "Preparable: %s\n" + \
+             "Tiempo de preparación: %s \n" + \
+             "Cocinable: %s\n" + \
+             "Tiempo de cocción: %s\n\n") % (prod.getNombre(),
+                                       prod.getTipo().getNombre(),
+                                       prod.getPrecio(),
+                                       humanize.bool2hum(prod.getPreparable()),
+                                       humanize.sec2hum(prod.getTiempoPreparacion()),
+                                       humanize.bool2hum(prod.getCocinable()),
+                                       humanize.sec2hum(prod.getTiempoCoccion()))
+    
+    insumos = '\n'.join([x.getNombre() for x in prod.getInsumos()])
+    datos += "<b>Insumos</b>\n" + insumos
+    
+    return datos
 
 def cargar_datos_producto(nombre_producto):
     tv = widgets[DATOS_PRODUCTO]
-    buf = gtk.TextBuffer()
 
     # FIXME: refactorear este papelon
     # busco el producto por nombre
@@ -253,16 +273,12 @@ def cargar_datos_producto(nombre_producto):
             prod = each
     if prod is None:
         raise ValueError('No se encontró el producto!')
-
-    # FIXME: http://www.pygtk.org/pygtk2tutorial-es/sec-TextTagsAndTextTagTables.html
-    # ahí explican como hacer HTML como dios manda
-    tpl = "%s \n Detalles..." % prod.getNombre()
-    buf.set_text(tpl)
-    tv.set_buffer(buf)
+    
+    tv.set_markup(formatear_datos_producto(prod))
 
 def limpiar_datos_producto():
     tv = widgets[DATOS_PRODUCTO]
-    tv.get_buffer().set_text("")
+    tv.set_markup("")
 
 
 ###################################################
