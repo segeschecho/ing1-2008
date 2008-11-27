@@ -417,7 +417,9 @@ class Producto :
     def getPreparable(self):
         return self.tipoProducto.getPreparable()
 	
-
+    def getCocinable(self):
+        return self.tipoProducto.getCocinable()
+    
     def getTiempoCoccion(self):
         return self.tiempoCoccion
 	
