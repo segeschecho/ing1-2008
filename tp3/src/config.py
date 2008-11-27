@@ -14,6 +14,8 @@ LISTA_PRODUCTOS = 'lista_productos'
 DATOS_PEDIDO_INGRESO = 'datos_pedido_ingreso'
 LISTA_INGRESO = 'lista_ingreso'
 
-
 LISTA_INSUMOS = 'lista_insumos'
+DATOS_INSUMO = 'datos_insumo'
+
 LISTA_CLIENTES = 'lista_clientes'
+DATOS_CLIENTE = 'datos_cliente'
