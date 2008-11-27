@@ -24,25 +24,25 @@ class Sistema:
         avE =  AvisoEmpanadero(None)
         avP =  AvisoPizzero(None)
         #ahora los preparadores
-        prepPizzero=  PreparadorEspecializado(avP)
-        prepEmpanadero=  PreparadorEspecializado(avE)
+        self.prepPizzero=  PreparadorEspecializado(avP)
+        self.prepEmpanadero=  PreparadorEspecializado(avE)
         #coordinadorDeCocina
         dep=None
-        coordC =  CoordinadorDeCocina(None,None,None)
+        self.coordC =  CoordinadorDeCocina(None,None,None)
         #Despachador
-        dep =  DespachadorDePreparacionStandard(prepPizzero,prepEmpanadero,coordC,self.pizza,self.empanada)
-        coordC.setDespachadorDePreparacion(dep)
+        dep =  DespachadorDePreparacionStandard(self.prepPizzero,self.prepEmpanadero,self.coordC,self.pizza,self.empanada)
+        self.coordC.setDespachadorDePreparacion(dep)
         #controladorDeIngreso
-        contIng =  ControladorDeIngresoStandard(coordC)
-        coordC.setControladorDeIngreso(contIng)
+        self.contIng =  ControladorDeIngresoStandard(self.coordC)
+        self.coordC.setControladorDeIngreso(self.contIng)
         #controladorDelistos
-        contList =  ControladorDeListos()
+        self.contList =  ControladorDeListos()
         #CoordinadorDePedidos
-        coordP =  CoordinadorDePedidos(None,None,contList)
-        coordC.setCoordinadorDePedidos(coordP)
+        self.coordP =  CoordinadorDePedidos(None,None,self.contList)
+        self.coordC.setCoordinadorDePedidos(self.coordP)
         #controladorDePreIngreso
-        contPreIng =  ControladorDePreIngreso(coordP,contIng)
-        coordP.setControladorDePreIngreso(contPreIng)
+        contPreIng =  ControladorDePreIngreso(self.coordP,self.contIng)
+        self.coordP.setControladorDePreIngreso(contPreIng)
         #CalculadorDePrecios
         calcP =  CalculadorDePreciosStandard()
         #AsignadorDeHorno
@@ -53,7 +53,7 @@ class Sistema:
         contS =  ControladorDeStockStandard()
         #GenedarodDePedidos
         genP =  GeneradorDePedidosStandard(calcP,estT,contS,asigH)
-        coordP.setGeneradorDePedidos(genP)
+        self.coordP.setGeneradorDePedidos(genP)
    
     def cargarInsumos(self,dic):
         self.insumos =dic["Insumos"]
@@ -74,5 +74,25 @@ class Sistema:
     def cargarDiccionario(self,f):
         dic=pickle.load(f)
         return dic
+    
+    def getContIng(self):
+        return self.contIng
+    
+    def getContListos(self):
+        return self.contListos
+    
+    def getCoordC(self):
+        return self.coordC
+        
+    def getCoordP(self):
+        return self.coordP
+    
+    def getPreparadorEmpanadero(self):
+        return self.prepEmpanadero
+    
+    def getPreparadorPizzero(self):
+        return self.prepPizzero
+        
+        
 fi=open("datos.txt", 'rb')        
 sis = Sistema(f=fi)
