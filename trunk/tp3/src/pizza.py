@@ -107,6 +107,16 @@ class MainHandlers:
             nombre_insumo = seleccion.get_value(iterador, 0)
             cargar_datos_insumo(nombre_insumo)
 
+    def lista_clientes_cursor_changed(event):    
+        tv = widgets[LISTA_CLIENTES] 
+        seleccion, iterador = tv.get_selection().get_selected()
+        
+        if iterador is None:
+            limpiar_datos_cliente()
+        else:
+            nombre_cliente = seleccion.get_value(iterador, 0)
+            cargar_datos_insumo(nombre_cliente)
+
 
     # --------------------------------------------- #
     # Handlers para cerrar el programa              #
