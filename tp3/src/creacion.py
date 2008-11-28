@@ -137,10 +137,15 @@ class PedidoRemoto (Pedido):
 		super(PedidoRemoto, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
 	
 
-class PedidoMesa(PedidoLocal) :
+class PedidoDeMesaSinMesa(Exception):
+	def __str__(self):
+		return "intento de crear un pedido de mesa sin mesa asociada"
 
+class PedidoMesa(PedidoLocal):
 
     def __init__(self,id, cliente, productos,formaDePago,fechaIngreso,mesa):
+	    if mesa == None:
+		    raise PedidoDeMesaSinMesa
 	    super(PedidoMesa,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
 	    self.mesa=mesa
 	
