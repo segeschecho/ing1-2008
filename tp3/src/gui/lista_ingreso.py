@@ -5,6 +5,7 @@ import gobject
 import gtk
 
 from config import *
+import creacion
 
  # --------------------------------------------- #
  # Funciones para la lista de pedidos ingresados #

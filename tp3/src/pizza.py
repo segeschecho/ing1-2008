@@ -118,6 +118,13 @@ class MainHandlers:
 
 
     # --------------------------------------------- #
+    # Handlers para cargar y salvar estado          #
+    # --------------------------------------------- #
+    
+    
+
+
+    # --------------------------------------------- #
     # Handlers para cerrar el programa              #
     # --------------------------------------------- #
     
@@ -136,19 +143,11 @@ class MainHandlers:
 if __name__ == '__main__':
     
     f = open("datos.pyp", "rb")
-    
     pizzeria = inicializador.Pizzeria(f)
-
     widgets = WidgetsWrapper(MAIN_WINDOW, MainHandlers)
     
-    lista_ingreso.iniciar(widgets)
-    lista_ingreso.recargar(widgets)
-    lista_ingreso.iniciar_datos(widgets)
-
-    lista_productos.iniciar(widgets)
-    lista_productos.recargar(widgets)
-    
-    lista_insumos.iniciar(widgets)
-    lista_insumos.recargar(widgets)
+    from gui import general
+    general.iniciar(widgets)
+    general.recargar(widgets)
 
     gtk.main()
