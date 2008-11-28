@@ -5,7 +5,7 @@ import pickle
 bollo = Insumo(30,10,"Bollo de Pizza")
 tapa = Insumo(50,20,"Tapa de Empanada")
 insumo1 = Insumo(10,3,"Kit Muzzarella")
-insumo2 = Insumo(20,5,"Kit Empanada de Carne")
+insumo2 = Insumo(20,25,"Kit Empanada de Carne")
 insumo3 = Insumo(13,3,"Kit Napolitana")
 insumo4 = Insumo(20,10,"Kit Empanada de Pollo")
 insumo5 = Insumo(10,1,"Kit Roquefort")
