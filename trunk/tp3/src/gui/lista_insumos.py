@@ -49,7 +49,7 @@ def recargar(widgets):
         
 
 def limpiar(widgets):
-    tv = widgets[LISTA_INSUMO]
+    tv = widgets[LISTA_INSUMOS]
     ls = tv.get_model()
     ls.clear()
 
