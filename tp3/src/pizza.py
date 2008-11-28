@@ -130,20 +130,14 @@ class MainHandlers:
 
 
 ###################################################
-# Funciones auxiliares para los handlers          #
-###################################################
-
-
-
-###################################################
 # Main                                            #
 ###################################################
 
 if __name__ == '__main__':
     
     f = open("datos.pyp", "rb")
-    pizzeria = inicializador.Pizzeria(f)    
-
+    
+    pizzeria = inicializador.Pizzeria(f)
 
     widgets = WidgetsWrapper(MAIN_WINDOW, MainHandlers)
     
