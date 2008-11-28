@@ -4,15 +4,16 @@ class Notificador(object):
     def __init__(self):
         self.observers=[]
     
-    def subscribir(self,callback):
+    def suscribir(self,callback):
         self.observers.append(callback)
     
-    def desSubscribir(self,callback): 
+    def desSusscribir(self,callback): 
         self.observers.remove(callback)
     
     def notificar(self):
-        print "estoy notificando"
+        
         for each in self.observers:
+            
             each()
     
         
@@ -30,15 +31,20 @@ class Pedido(object) :
         self.fechaIngreso=fechaIngreso
         self.__class__.allInst.append(self)
         self.estado=None
-        print "armando un pedido"
+        self.precio = None
+        self.Horno = None
+        self.tiempoEstimado = None
 	
 
-
+    def getCliente(self):
+        return self.cliente
     @classmethod
     def allInstances(cls):
         return cls.allInst
 	
-	
+    def getFechaIngreso(self):
+        return self.fechaIngreso
+
     def getEstado(self) :
         return self.estado
 	
@@ -130,10 +136,11 @@ class ClienteNulo(Exception):
         return "excepcion de cliente nulo"
 
 class PedidoRemoto (Pedido): 
-
+      
 	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
 		if(cliente == None):
 			raise ClienteNulo
+                
 		super(PedidoRemoto, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
 	
 
@@ -198,7 +205,7 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
                 empanadas = empanadas or pr.getTipo()==self.empanada
         
             if (pizzas and empanadas):
-            	h=notificarHorno()
+            	h=self.notificarHorno()
         
             elif (pizzas):
             	h=self.hornoP
@@ -211,25 +218,28 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
 
         def notificarHorno(self):
             print "hay que pedir el hornooooooooooo"
-            return None #TODO: hacer que se pida el horno por pantalla
+            return self.hornoP #TODO: hacer que se pida el horno por pantalla
 	
 
 class Horno:
 
+		
 
 	def getFraccionadorDeHorno(self):
 		return self.fraccionadorDeHorno
 	
 
-	def __init__(self,cantModulos, fraccionadorDeHorno):
+	def __init__(self,cantModulos, fraccionadorDeHorno,descripcion):
 		self.cantModulos=cantModulos
 		self.fraccionadorDeHorno=fraccionadorDeHorno
-
+                self.descripcion = descripcion
 
 
 	def getCantModulos(self):
 		return self.cantModulos
 	
+        def getDescripcion(self):
+            return self.descripcion
 
 class FraccionadorDeHorno:
 
@@ -473,8 +483,10 @@ class TipoProducto:
             return self.nombre == o.nombre
         else:
             raise TypeError("error en eq de TipoProducto")
+
     def __repr__(self):
         return "<TipoProducto: %s, preparable: %s, cocinable: %s>"%(self.nombre,self.preparable,self.cocinable)
+
 class Insumo :
     def __setstate__(self,dict):
       self.cant=dict['cant']
@@ -579,6 +591,8 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
             self.asignadorDeHorno.asignarHorno(p)
             if p.getHorno() != None:
                  p.setTiempoEstimado(self.estimadorDeTiempos.estimarTiempo(p))
+            else:
+                p.setTiempoEstimado(0)
             p.setPrecio(self.calculadorDePrecios.calcularPrecio(p))
             return p
         
@@ -597,7 +611,7 @@ class Direccion :
 
 
     def getCalle(self) :
-        return Calle
+        return self.Calle
 
 
     def setCalle(self, calle) :
@@ -613,7 +627,7 @@ class Direccion :
 
 
     def getLocalidad(self) :
-        return Localidad
+        return self.Localidad
 
 
     def setLocalidad(self, localidad) :
@@ -654,6 +668,9 @@ class Cliente :
      @classmethod
      def allInstances(cls):
         return cls.allInst
+     
+     def getDireccion(self):
+        return self.dir
 
 
      def getApellido(self) :
@@ -684,7 +701,7 @@ class Cliente :
 	     return self.telefono
 
 
-     def getUsrweb(self) :
+     def getUsrWeb(self) :
 	     return self.usrweb
 
 class ControladorDeStock(Notificador) : #antes era interface
@@ -752,7 +769,7 @@ class ControladorDeStockStandard(ControladorDeStock) :
 			   for ins in ls:
 				
 				   if(ins.getCant() <= ins.getCantCritica()):
-					   criticos.append(ins)
+					   self.criticos.append(ins)
 				
 			
 		

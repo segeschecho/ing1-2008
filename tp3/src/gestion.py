@@ -25,6 +25,7 @@ class CoordinadorDePedidos :
 
 
     def ingresarPedido(self, c,productos,formaDePago, origen,mesa):
+
          if(len(productos)==0):
              raise ProductosVacios         
          p = self.generadorDePedidos.generarPedido(c, productos, formaDePago, origen,mesa)
@@ -72,7 +73,9 @@ class ControladorDeListos(Notificador):
             self.listos.append(p)
             self.notificar()
             print "notificar pedido listo"
-            
+    
+    def getListos(self):
+            return self.listos        
 
 
 class ControladorDePreIngreso :
@@ -126,7 +129,9 @@ class ControladorDeIngreso(Notificador) :
 
     def encolarPedido(self,p):
         raise NotImplementedError
-
+    
+    def getIngresados(self):
+        return self.listaIngreso
     
     def ingresar(self,p):
         raise NotImplementedError
@@ -173,15 +178,14 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
             sirve=self.tieneTipo(pedActual, tp)
             if(sirve):
                 ped=pedActual
-                self.notificar()
-                print ("ACA hay que hacer un notify de prox pedido")
-                #TODO: hacer un notify
             if(ped != None):
                 break
             
 
         if(ped != None):
            self.listaIngreso.remove(ped)
+           self.notificar()
+          
         
         return ped
 
@@ -191,7 +195,7 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
         ls = p.getProductos()
         res=False
         for pr in ls:
-            res=pr.getTipo().equals(tp)
+            res=pr.getTipo()==tp
             if(res):
                 break
         

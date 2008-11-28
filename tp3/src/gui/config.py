@@ -19,3 +19,13 @@ DATOS_INSUMO = 'datos_insumo'
 
 LISTA_CLIENTES = 'lista_clientes'
 DATOS_CLIENTE = 'datos_cliente'
+
+LISTA_LISTOS = 'lista_listos'
+
+LISTA_EMPANADERO = 'lista_empanadero'
+
+LISTA_PIZZERO = 'lista_pizzero'
+
+BOTON_PIZZAS_PREPARADAS = 'pizzas_preparadas'
+
+BOTON_EMPANADAS_PREPARADAS  = 'empanadas_preparadas'
