@@ -3,7 +3,7 @@
 
 import gobject
 import gtk
-
+import creacion
 from config import *
 
  
@@ -57,7 +57,7 @@ def limpiar(widgets):
     ls.clear()
     
 def formatear_datos(cliente):
-    datos = ("<b>%s</b>\n\n" + \
+    datos = ("<b>Cliente:</b>\n\n" + \
              "Id: %s\n" + \
              "Apellido y nombre: %s %s\n" + \
              "Teléfono: %s\n" + \
@@ -73,8 +73,10 @@ def formatear_datos(cliente):
                                        cliente.getDireccion().getLocalidad(),
                                        cliente.getDireccion().getCalle(),
                                        cliente.getDireccion().getNumero(),
+                                       cliente.getDireccion().getDepartamento(),
                                        cliente.getUsrWeb())
-    
+    datos +="\n<b>Pedidos</b>:\n"
+    datos += '\n'.join([str(p.id)+" "+p.getEstado() for p in creacion.Pedido.allInstances() if p.cliente == cliente])
     return datos
 
 def cargar_datos(widgets, id_cliente):
@@ -84,12 +86,14 @@ def cargar_datos(widgets, id_cliente):
     # busco el producto por nombre
     cliente = None
     for each in creacion.Cliente.allInstances():
-        if each.getId() == id_cliente:
+
+        if str(each.getId()) == str(id_cliente):
+
             cliente = each
-    if cliente is None:
+    if cliente == None:
         raise ValueError('No se encontró el cliente!')
     
-    tv.set_markup(formatear_datos_cliente(cliente))
+    tv.set_markup(formatear_datos(cliente))
 
 def limpiar_datos(widgets):
     tv = widgets[DATOS_CLIENTE]

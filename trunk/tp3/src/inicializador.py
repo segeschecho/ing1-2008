@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 
 from cocina import *
@@ -22,8 +23,8 @@ class Pizzeria:
         frPizzero =  FraccionadorDeHorno(t)
         frEmpanadero =  FraccionadorDeHorno(t)
         #armamos 2 hornos
-        self.hpizzero =  Horno(10,frPizzero)
-        self.hempanadero =  Horno(10,frEmpanadero)
+        self.hpizzero =  Horno(10,frPizzero,"Horno Pizzero")
+        self.hempanadero =  Horno(10,frEmpanadero,"Horno Empanadero")
         # armamos los avisos
         avE =  AvisoEmpanadero(None)
         avP =  AvisoPizzero(None)
@@ -36,6 +37,8 @@ class Pizzeria:
         #Despachador
         dep =  DespachadorDePreparacionStandard(self.prepPizzero,self.prepEmpanadero,self.coordC,self.pizza,self.empanada)
         self.coordC.setDespachadorDePreparacion(dep)
+        avE.setDestinatario(dep)
+        avP.setDestinatario(dep)
         #controladorDeIngreso
         self.contIng =  ControladorDeIngresoStandard(self.coordC)
         self.coordC.setControladorDeIngreso(self.contIng)
@@ -54,9 +57,9 @@ class Pizzeria:
         #EstimadorDeTiempos
         estT =  EstimadorStandard(self.pizza,self.empanada)
         #ControladorDeStock
-        contS =  ControladorDeStockStandard()
+        self.contS =  ControladorDeStockStandard()
         #GenedarodDePedidos
-        genP =  GeneradorDePedidosStandard(calcP,estT,contS,asigH)
+        genP =  GeneradorDePedidosStandard(calcP,estT,self.contS,asigH)
         self.coordP.setGeneradorDePedidos(genP)
    
     def cargarInsumos(self,dic):
@@ -83,7 +86,7 @@ class Pizzeria:
         return self.contIng
     
     def getContListos(self):
-        return self.contListos
+        return self.contList
     
     def getCoordC(self):
         return self.coordC
@@ -96,6 +99,9 @@ class Pizzeria:
     
     def getPreparadorPizzero(self):
         return self.prepPizzero
+    
+    def getContStock(self):
+        return self.contS
         
 
 if __name__ == '__main__':

@@ -10,9 +10,10 @@ class Aviso :
 
     def getDestinatario(self) :
         return self.destinatario
+   
 
 
-    def setDestinatario(despachadorDePreparacionStandard) :
+    def setDestinatario(self,despachadorDePreparacionStandard) :
         self.destinatario = despachadorDePreparacionStandard
 
 class AvisoEmpanadero(Aviso) :
@@ -89,8 +90,8 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         self.pizza=pizza
         self.empanada=empanada
         self.partesAPreparar={}
-        colaEmp=[]
-        colaPiz=[]
+        self.colaEmp=[]
+        self.colaPiz=[]
         self.pedidoPizzeroActual=None
         self.pedidoEmpanaderoActual=None
 
@@ -105,7 +106,7 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
                 if(not self.prepPizzero.getOcupado()):
                     self.pedidoPizzeroActual=p
                     self.prepPizzero.preparar(self.getSubpedidoPizzero(p))
-                
+                    
                 else:
                     self.colaPiz.append(p)
                 
@@ -143,24 +144,30 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
 
     def empanadasTerminadas(self):
         p = self.pedidoEmpanaderoActual
-        partes = partesAPreparar[p]
+        partes = self.partesAPreparar[p]
         partes=partes-1
         self.partesAPreparar[p] = partes
         if(partes == 0):
             self.coordinador.cocinar(p)
-            del self.partesAPreparar.remove[p]
+            del self.partesAPreparar[p]
             self.pedidoPizzeroActual=None
         
-        if(not len(colaEmp)==0):
+        if(not len(self.colaEmp)==0):
             p=self.colaEmp.pop(0)
             #colaEmp.remove(0)
         
         else:
-            p=self.coordinador.conseguirPedido(empanada)
+            p=self.coordinador.conseguirPedido(self.empanada)
         
         if(p!= None):
+            self.pedidoEmpanaderoActual = p
+            p.setEstado(Estado.EnPreparacion)
+            self.partesAPreparar[p]=1
+ 
+            if self.esPizzero(p):
+               self.partesAPreparar[p]=2
+               self.colaPiz.append(p)
             self.prepEmpanadero.preparar(self.getSubpedidoEmpanadero(p))
-        
 
     def esEmpanadero(self, p):
         ls = p.getProductos()
@@ -203,24 +210,28 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
 
     def pizzasTerminadas(self):
         p = self.pedidoPizzeroActual
-        partes =partesAPreparar[p]
+        partes =self.partesAPreparar[p]
         partes=partes-1
-        partesAPreparar[p] = partes
+        self.partesAPreparar[p] = partes
         if(partes == 0):
             self.coordinador.cocinar(p)
             del self.partesAPreparar[p]
             self.pedidoPizzeroActual=None
-        
-        if(not self.colaPiz.isEmpty()):
+        print "me llamaron aca?"
+        if(len(self.colaPiz)!=0):
             p=self.colaPiz.pop(0)
         
         else:
             p=self.coordinador.conseguirPedido(self.pizza)
         
         if(p!= None):
+            self.pedidoPizzeroActual = p
+            p.setEstado(Estado.EnPreparacion)
+            self.partesAPreparar[p]=1
+            if self.esEmpanadero(p):
+               self.colaEmp.append(p)
+               self.partesAPreparar[p]=2
             self.prepPizzero.preparar(self.getSubpedidoPizzero(p))
-        
-
 
 
 
@@ -258,18 +269,21 @@ class PreparadorEspecializado(Preparador) :
     
     def getOcupado(self) :
         return self.ocupado
-
+    
+    def getPreparar(self):
+      return self.productosAPreparar
 
     def preparar(self, productos) :
         self.ocupado=True
         self.productosAPreparar=productos
         self.notificar()
-        print "notificar que hay que preparar"
+        #print "notificar que hay que preparar"
         #TODO: la parte del notify
 
-    def terminar() :
-        self.ocupado=false
+    def terminar(self) :
+        self.ocupado=False
         self.productosAPreparar = []
+        self.notificar()
         self.aviso.avisar() 
 
 

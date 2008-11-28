@@ -36,7 +36,7 @@ cli2 = Cliente("Martinez", 1521356684, 2, "Federico", "estudiando", 46532233, "f
 cli3 = Cliente("Gonzalez", 1523314655, 3, "Emiliano", "bartolo", 45632132, "emilio", dir3)
 cli4 = Cliente("Gonzalez", 1532169788, 4, "Sergio", "nada324", 45125398, "checho", dir4)
 cli5 = Cliente("Rinaldi", 1564659777, 5, "Nicolas", "esteee", 46633221, "elcorrector", dir5)
-cli6 = Cliente("D'arrigo", 1564521133, 6, "Sergio", "holaaa", 46632136, "jefetp", dir6)
+cli6 = Cliente("D'arrigo", 1564521133, 6, "Sergio", "niato", 46632136, "jefetp", dir6)
 
 
 dicc = {'Insumos':Insumo.allInstances(),'Productos':Producto.allInstances(),'TiposProducto':{'pizza':pizza,'empanada':empanada,'coca':coca,'birra':birra}, 'Clientes':[cli1,cli2,cli3,cli4,cli5,cli6]}
