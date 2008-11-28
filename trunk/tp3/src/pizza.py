@@ -12,7 +12,7 @@ import creacion
 import gestion
 import cocina
 
-import humanize
+#import humanize
 
 ###################################################
 # Helper para widgets GTK2                        #
@@ -300,10 +300,10 @@ def formatear_datos_producto(prod):
              "Tiempo de cocción: %s\n\n") % (prod.getNombre(),
                                        prod.getTipo().getNombre(),
                                        prod.getPrecio(),
-                                       humanize.bool2hum(prod.getPreparable()),
-                                       humanize.sec2hum(prod.getTiempoPreparacion()),
-                                       humanize.bool2hum(prod.getCocinable()),
-                                       humanize.sec2hum(prod.getTiempoCoccion()))
+                                       prod.getPreparable(),#humanize.bool2hum(prod.getPreparable()),
+                                       prod.getCocinable(),#humanize.sec2hum(prod.getCocinable()),
+                                       prod.getCocinable(),#humanize.bool2hum(prod.getCocinable()),
+                                       prod.getTiempoCoccion())#humanize.sec2hum(prod.getTiempoCoccion()))
     
     insumos = '\n'.join([x.getNombre() for x in prod.getInsumos()])
     datos += "<b>Insumos</b>\n" + insumos
