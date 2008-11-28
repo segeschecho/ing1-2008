@@ -1808,7 +1808,7 @@
 			  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 			  <child>
-			    <widget class="GtkTreeView" id="treeview6">
+			    <widget class="GtkTreeView" id="lista_clientes">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="headers_visible">True</property>
@@ -1818,6 +1818,7 @@
 			      <property name="fixed_height_mode">False</property>
 			      <property name="hover_selection">False</property>
 			      <property name="hover_expand">False</property>
+			      <signal name="cursor_changed" handler="lista_clientes_cursor_changed" last_modification_time="Fri, 28 Nov 2008 02:19:17 GMT"/>
 			    </widget>
 			  </child>
 			</widget>
@@ -2084,7 +2085,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkLabel" id="lista_clientes">
+		<widget class="GtkLabel" id="label334343">
 		  <property name="visible">True</property>
 		  <property name="label" translatable="yes">Clientes</property>
 		  <property name="use_underline">False</property>
