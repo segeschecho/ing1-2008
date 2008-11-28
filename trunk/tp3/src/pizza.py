@@ -97,6 +97,16 @@ class MainHandlers:
             nombre_producto = seleccion.get_value(iterador, 0)
             cargar_datos_producto(nombre_producto)
 
+    def lista_insumos_cursor_changed(event):    
+        tv = widgets[LISTA_INSUMOS] 
+        seleccion, iterador = tv.get_selection().get_selected()
+        
+        if iterador is None:
+            limpiar_datos_insumo()
+        else:
+            nombre_insumo = seleccion.get_value(iterador, 0)
+            cargar_datos_insumo(nombre_insumo)
+
 
     # --------------------------------------------- #
     # Handlers para cerrar el programa              #
@@ -220,22 +230,73 @@ def limpiar_datos_cliente():
  # ----------------------------------------------#
 
 def iniciar_lista_insumos():
-    pass
+    tv = widgets[LISTA_INSUMOS]
+    
+    # Armo el ListStore (con los tipos de las columnas)
+    ls = gtk.ListStore(gobject.TYPE_STRING,)
+    tv.set_model(ls)
+    
+    render1 = gtk.CellRendererText()
+    col1 = gtk.TreeViewColumn ("Nombre", render1, text=0)
+    tv.append_column (col1)
+    
+
+    #render2 = gtk.CellRendererText()
+    #col2 = gtk.TreeViewColumn ("Cantidad", render2, text=1)
+    #tv.append_column (col2)   
+
+
+    #render3 = gtk.CellRendererText()
+    #col3 = gtk.TreeViewColumn ("Cantidad Critica", render3, text=2)
+    #tv.append_column (col3)  
 
 def recargar_lista_insumos():
-    pass
+    tv = widgets[LISTA_INSUMOS]
+    ls = tv.get_model() 
+    ls.clear()  
+ 
+    ins = creacion.Insumo.allInstances()[:]
+
+    for each in ins:
+        if each.getCant() < each.getCantCritica():
+        	it = ls.insert(0)
+        	ls.set_value(it, 0, each.getNombre()+"[CRITICO]")
+        else:
+                it = ls.insert(0)
+        	ls.set_value(it, 0, each.getNombre())
+        
 
 def limpiar_lista_insumo():
-    pass
+    tv = widgets[LISTA_INSUMO]
+    ls = tv.get_model()
+    ls.clear()
 
-def formatear_datos_insumo():
-    pass
+def formatear_datos_insumo(ins):
+    datos = ("<b>%s</b>\n\n" + \
+             "Cantidad en stock: %s\n" + \
+             "Cantidad critica: %s\n\n") % (ins.getNombre(),ins.getCant(),ins.getCantCritica())
+    productos = '\n'.join([x.getNombre() for x in creacion.Producto.allInstances() if ins in x.getInsumos()])
+    datos += "<b>Productos que lo usan</b>\n" + productos
+    
+    return datos
 
-def cargar_datos_insumo():
-    pass
+def cargar_datos_insumo(nombre_insumo):
+    tv = widgets[DATOS_INSUMO]
+
+    # FIXME: refactorear este papelon
+    # busco el producto por nombre
+    ins = None
+    for each in creacion.Insumo.allInstances():
+        if each.getNombre() == nombre_insumo:
+            ins = each
+    if ins is None:
+        raise ValueError('No se encontró el insumo!')
+    
+    tv.set_markup(formatear_datos_insumo(ins))
 
 def limpiar_datos_insumo():
-    pass
+    tv = widgets[DATOS_INSUMO]
+    tv.set_markup("")
 
 
  # --------------------------------------------- #
@@ -347,5 +408,8 @@ if __name__ == '__main__':
 
     iniciar_lista_productos()
     recargar_lista_productos()
+    
+    iniciar_lista_insumos()
+    recargar_lista_insumos()
 
     gtk.main()
