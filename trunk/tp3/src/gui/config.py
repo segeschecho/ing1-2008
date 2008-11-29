@@ -7,6 +7,8 @@ PROGRAM_NAME = 'Pizzas & Pizzitas 1.0'
 MAIN_WINDOW = 'main_window'
 ABOUT_WINDOW = 'acerca_de'
 NUEVO_PEDIDO_WINDOW = 'nuevo_pedido'
+ELEGIR_HORNO_WINDOW = 'elegir_horno'
+STOCK_CRITICO_WINDOW = 'insumo_critico'
 
 DATOS_PRODUCTO = 'datos_producto'
 LISTA_PRODUCTOS = 'lista_productos'
@@ -26,9 +28,6 @@ PRODUCTOS_AGREGAR = 'productos_agregar'
 LISTA_LISTOS = 'lista_listos'
 
 LISTA_EMPANADERO = 'lista_empanadero'
-
 LISTA_PIZZERO = 'lista_pizzero'
-
 BOTON_PIZZAS_PREPARADAS = 'pizzas_preparadas'
-
 BOTON_EMPANADAS_PREPARADAS  = 'empanadas_preparadas'
