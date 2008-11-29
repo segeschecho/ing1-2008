@@ -5,14 +5,16 @@ class Notificador(object):
     def __init__(self):
         self.observers=[]
     
-     """
-    @param callback: metodo que se ejecuta al hacer
-     notify
-    @type x: metodo
-    @return: void
 
-    """
     def suscribir(self,callback):
+        """
+        @param callback: metodo que se ejecuta al hacer
+         notify
+        @type callback: metodo
+        @return: void
+
+        Asocia un nuevo callback al notificador
+        """
         self.observers.append(callback)
     
     def desSusscribir(self,callback): 
