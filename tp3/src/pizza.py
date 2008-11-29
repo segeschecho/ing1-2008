@@ -150,55 +150,21 @@ class MainHandlers:
  
 
     def pizzas_preparadas_clicked(event): 
-      DistribuidorDeCallBacks.getInstancia().terminarPrepraracionPizzas()
+        distribuidor.terminarPrepraracionPizzas()
+
 
     # --------------------------------------------- #
     # Handlers para el boton de preparado pizzero   #
     # --------------------------------------------- #
- 
+
 
     def empanadas_preparadas_clicked(event): 
-      print "me apretaron"
-      DistribuidorDeCallBacks.getInstancia().terminarPreparacionEmpanadas()
+        print "me apretaron"
+        distribuidor.terminarPreparacionEmpanadas()
 
 ###################################################
 # Main                                            #
 ###################################################
-
-class DistribuidorDeCallBacks: #TODO: es un pseudosingleton para que los widgets lo puedan ver
-   instancia = None
-   def __init__(self,widgets,pizzeria):
-      if self.__class__.instancia == None:
-         self.widgets = widgets
-         self.pizzeria = pizzeria
-         self.__class__.instancia = self
-      else:
-         self = self.__class__.instancia 
-   
-   @classmethod
-   def getInstancia(cls):
-       return cls.instancia
-
-   def terminarPrepraracionPizzas(self):
-          self.pizzeria.getPreparadorPizzero().terminar()
-          
-   def terminarPreparacionEmpanadas(self):
-          self.pizzeria.getPreparadorEmpanadero().terminar()
- 
-   def modifStock(self):
-      lista_insumos.recargar(self.widgets)
-   
-   def modifListos(self):
-      lista_listos.recargar(self.widgets,self.pizzeria.getContListos())
-
-   def modifIngreso(self):
-       lista_ingreso.recargar(self.widgets,self.pizzeria.getContIng())
-  
-   def prepararEmpanadas(self):
-       lista_empanadero.recargar(self.widgets,self.pizzeria.getPreparadorEmpanadero())
-   
-   def prepararPizzas(self):
-      lista_pizzero.recargar(self.widgets,self.pizzeria.getPreparadorPizzero())
     
 if __name__ == '__main__':
     
@@ -209,19 +175,20 @@ if __name__ == '__main__':
     from gui import general
     general.iniciar(widgets)
     general.recargar(widgets)
+
+    # Conecto observers y callbacks
+    distribuidor = general.DistribuidorCallbacks(widgets,pizzeria)
+    pizzeria.getContStock().suscribir(distribuidor.modifStock)
+    pizzeria.getContListos().suscribir(distribuidor.modifListos)
+    pizzeria.getContIng().suscribir(distribuidor.modifIngreso)
+    pizzeria.getPreparadorEmpanadero().suscribir(distribuidor.prepararEmpanadas)
+    pizzeria.getPreparadorPizzero().suscribir(distribuidor.prepararPizzas)
     
-    #lista_listos.recargar(widgets,pizzeria.getContListos())
-    #lista_ingreso.recargar(widgets,pizzeria.getContIng())
-    dc = DistribuidorDeCallBacks(widgets,pizzeria)
-    pizzeria.getContStock().suscribir(dc.modifStock)
-    pizzeria.getContListos().suscribir(dc.modifListos)
-    pizzeria.getContIng().suscribir(dc.modifIngreso)
-    pizzeria.getPreparadorEmpanadero().suscribir(dc.prepararEmpanadas)
-    pizzeria.getPreparadorPizzero().suscribir(dc.prepararPizzas)
-    #harcodeo un par de pedidos para probar si va funcionando
+    # Hardcodeo un par de pedidos para probar si va funcionando
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
     #-------------------------------------------------------#
+    
     gtk.main()
     

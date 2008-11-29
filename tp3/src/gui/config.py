@@ -12,6 +12,7 @@ DATOS_PRODUCTO = 'datos_producto'
 LISTA_PRODUCTOS = 'lista_productos'
 
 DATOS_PEDIDO_INGRESO = 'datos_pedido_ingreso'
+PRODUCTOS_PEDIDO_INGRESO = 'productos_pedido_ingreso'
 LISTA_INGRESO = 'lista_ingreso'
 
 LISTA_INSUMOS = 'lista_insumos'
