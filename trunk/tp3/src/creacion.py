@@ -125,9 +125,12 @@ class Pedido(object) :
             return self.id == o.id
         else:
             raise TypeError("error en eq")
+    
+    def getDestino(self): #Esto antes no estaba
+        raise notImplementedError
 
 class PedidoLocal(Pedido):
-
+       
 	def __init__(self,id, cliente,productos,formaDePago, fechaIngreso):
 		super(PedidoLocal, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
 
@@ -136,7 +139,9 @@ class ClienteNulo(Exception):
         return "excepcion de cliente nulo"
 
 class PedidoRemoto (Pedido): 
-      
+        def getDestino(self):
+            return "Delivery"
+
 	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
 		if(cliente == None):
 			raise ClienteNulo
@@ -156,7 +161,8 @@ class PedidoMesa(PedidoLocal):
 	    super(PedidoMesa,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
 	    self.mesa=mesa
 	
-	
+    def getDestino(self):
+        return "Mesa"
     
     def getMesa(self):
          return self.mesa
@@ -172,7 +178,8 @@ class PedidoMostrador(PedidoLocal) :
 	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
 
 		super(PedidoMostrador,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
-	
+	def getDestino(self):
+            return "Mostrador"
 
 class PedidoTelefono(PedidoRemoto) :
 
@@ -568,10 +575,11 @@ class PedidoDeTelefonoConMesa(Exception):
     def __str__(self):
         return "Se paso una mesa pero se desaba un pedido telefonico\n" +\
                "La mesa es:"+self.mesa
+
 class TipoDePagoInvalido(Exception):
-    def __init__(self,tipoP,origen)
+    def __init__(self,tipoP,origen):
         self.tipoDePago=tipoP
-        self.origen=Origen
+        self.origen=origen
     def __str__(self):
         return "Se intento ingresar el siguiente tipo de pago: "+ self.tipoDePago +\
                "\n para el siguiente origen: "+self.origen
@@ -595,22 +603,22 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
     def generarPedido(self, c,productos,formaDePago,origen,mesa):
         if(self.controladorDeStock.verificarEIngresar(productos)):
             d=self.getDateTime()
-            if(origen == "mostrador")
-                if not formaDePago in ["Efectivo","Tarjeta"]:
-                    raise tipoDePagoInvalido(tipoDePago,origen)
+            if(origen == "mostrador"):
+                if not formaDePago in ["efectivo","tarjeta"]:
+                    raise TipoDePagoInvalido(formaDePago,origen)
                 if mesa != None:
                     raise PedidoDeMostradorConMesa(mesa)
                 ID = self.generarId()
                 p= PedidoMostrador(ID,c,productos,formaDePago,d)
                 
             elif(origen == "mesa"):
-                if tipoDePago != None :
-                    raise tipoDePagoInvalido(tipoDePago,origen)
+                if formaDePago != None :
+                    raise TipoDePagoInvalido(formaDePago,origen)
                 ID = self.generarId()
                 p= PedidoMesa(ID,c,productos,formaDePago,d,mesa)
             elif(origen == "telefono"):
-                if tipoDePago != "efectivo" :
-                    raise tipoDePagoInvalido(tipoDePago,origen)
+                if formaDePago != "efectivo" :
+                    raise TipoDePagoInvalido(formaDePago,origen)
                 if mesa != None:
                     raise PedidoTelefonicoConMesa(mesa)
                 if(c==None):
