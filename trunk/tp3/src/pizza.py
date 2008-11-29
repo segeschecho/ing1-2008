@@ -207,11 +207,6 @@ if __name__ == '__main__':
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
     #-------------------------------------------------------#
-   
-    class Pepe:
-        pass
-
-    hornito = WidgetsWrapper("elegir_horno", Pepe)
 
     gtk.main()
     
