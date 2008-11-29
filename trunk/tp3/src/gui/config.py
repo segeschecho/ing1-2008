@@ -21,6 +21,8 @@ DATOS_INSUMO = 'datos_insumo'
 LISTA_CLIENTES = 'lista_clientes'
 DATOS_CLIENTE = 'datos_cliente'
 
+DATOS_PEDIDO_LISTO = 'datos_pedido_listo'
+PRODUCTOS_AGREGAR = 'productos_agregar'
 LISTA_LISTOS = 'lista_listos'
 
 LISTA_EMPANADERO = 'lista_empanadero'

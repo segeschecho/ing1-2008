@@ -15,7 +15,7 @@ class DistribuidorCallbacks:
         self.widgets = widgets
         self.pizzeria = pizzeria
 
-    def terminarPrepraracionPizzas(self):
+    def terminarPreparacionPizzas(self):
         self.pizzeria.getPreparadorPizzero().terminar()
           
     def terminarPreparacionEmpanadas(self):
@@ -49,6 +49,7 @@ def iniciar(widgets):
     lista_insumos.iniciar(widgets)
     lista_clientes.iniciar(widgets)
     lista_listos.iniciar(widgets)
+    lista_listos.iniciar_datos(widgets)
     lista_empanadero.iniciar(widgets)
     lista_pizzero.iniciar(widgets)
 
