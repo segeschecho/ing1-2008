@@ -555,7 +555,27 @@ class OrigenDesconocido(Exception):
         self.origen=origen
     def __str__(self):
 	    return "excepcion de origen desconocido"+str(self.origen)
+class PedidoDeMostradorConMesa(Exception):
+    def __init__(self,mesa):
+        self.mesa=mesa
+    def __str__(self):
+        return "Se paso una mesa pero se desaba un pedido de mostrador\n" +\
+               "La mesa es:"+self.mesa
 
+class PedidoDeTelefonoConMesa(Exception):
+    def __init__(self,mesa):
+        self.mesa=mesa
+    def __str__(self):
+        return "Se paso una mesa pero se desaba un pedido telefonico\n" +\
+               "La mesa es:"+self.mesa
+class TipoDePagoInvalido(Exception):
+    def __init__(self,tipoP,origen)
+        self.tipoDePago=tipoP
+        self.origen=Origen
+    def __str__(self):
+        return "Se intento ingresar el siguiente tipo de pago: "+ self.tipoDePago +\
+               "\n para el siguiente origen: "+self.origen
+    
 class GeneradorDePedidosStandard (GeneradorDePedidos) :
     def __init__(self,calculadorDePrecios,estimadorDeTiempos,controladorDeStock,asignadorDeHorno):
         super(GeneradorDePedidosStandard,self).__init__(calculadorDePrecios, estimadorDeTiempos,controladorDeStock, asignadorDeHorno)
@@ -570,20 +590,32 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
         res=self.ultimoIdAsignado
         self.ultimoIdAsignado+=1
         return res
-
+                    
 
     def generarPedido(self, c,productos,formaDePago,origen,mesa):
         if(self.controladorDeStock.verificarEIngresar(productos)):
             d=self.getDateTime()
-            ID = self.generarId()
-            if(origen == "mostrador"):
+            if(origen == "mostrador")
+                if not formaDePago in ["Efectivo","Tarjeta"]:
+                    raise tipoDePagoInvalido(tipoDePago,origen)
+                if mesa != None:
+                    raise PedidoDeMostradorConMesa(mesa)
+                ID = self.generarId()
                 p= PedidoMostrador(ID,c,productos,formaDePago,d)
-            
+                
             elif(origen == "mesa"):
+                if tipoDePago != None :
+                    raise tipoDePagoInvalido(tipoDePago,origen)
+                ID = self.generarId()
                 p= PedidoMesa(ID,c,productos,formaDePago,d,mesa)
             elif(origen == "telefono"):
+                if tipoDePago != "efectivo" :
+                    raise tipoDePagoInvalido(tipoDePago,origen)
+                if mesa != None:
+                    raise PedidoTelefonicoConMesa(mesa)
                 if(c==None):
                     raise ClienteNulo
+                ID = self.generarId()
                 p= PedidoTelefono(ID,c,productos,formaDePago,d)
             else:
                 raise OrigenDesconocido(origen)
