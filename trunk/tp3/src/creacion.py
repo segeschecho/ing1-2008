@@ -1,9 +1,17 @@
 from datetime import datetime
 
+
 class Notificador(object):
     def __init__(self):
         self.observers=[]
     
+     """
+    @param callback: metodo que se ejecuta al hacer
+     notify
+    @type x: metodo
+    @return: void
+
+    """
     def suscribir(self,callback):
         self.observers.append(callback)
     
@@ -38,6 +46,7 @@ class Pedido(object) :
 
     def getCliente(self):
         return self.cliente
+
     @classmethod
     def allInstances(cls):
         return cls.allInst
