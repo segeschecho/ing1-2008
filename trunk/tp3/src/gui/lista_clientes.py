@@ -21,20 +21,10 @@ def iniciar(widgets):
     tv.set_model(ls)
     
     # Armo las columnas
-    # FIXME: esto se puede refactorear en un loop
-    render1 = gtk.CellRendererText()
-    col1 = gtk.TreeViewColumn ("Apellido", render1, text=0)
-    tv.append_column (col1)
-    
+    tv.append_column(gtk.TreeViewColumn("Apellido",       gtk.CellRendererText(),  text=0)                 )
+    tv.append_column(gtk.TreeViewColumn("Nombre",         gtk.CellRendererText(),  text=1)                 )
+    tv.append_column(gtk.TreeViewColumn("ID",             gtk.CellRendererText(),  text=2)                 )
 
-    render2 = gtk.CellRendererText()
-    col2 = gtk.TreeViewColumn ("Nombre", render2, text=1)
-    tv.append_column (col2)   
-
-
-    render3 = gtk.CellRendererText()
-    col3 = gtk.TreeViewColumn ("ID", render3, text=2)
-    tv.append_column (col3)   
 
 def recargar(widgets):
     tv = widgets[LISTA_CLIENTES]
@@ -57,26 +47,28 @@ def limpiar(widgets):
     ls.clear()
     
 def formatear_datos(cliente):
-    datos = ("<b>Cliente:</b>\n\n" + \
+    datos = ("<b>%s %s (%s)</b>\n\n" + \
              "Id: %s\n" + \
-             "Apellido y nombre: %s %s\n" + \
              "Teléfono: %s\n" + \
              "Celular: %s \n\n" + \
              "Localidad: %s\n" + \
              "Dirección: %s %s\n" + \
-             "Departamento: %s\n" + \
-             "Usuario web: %s\n\n") % (cliente.getId(),
+             "Departamento: %s\n" ) % (cliente.getNombre(),
                                        cliente.getApellido(),
-                                       cliente.getNombre(),
+                                       cliente.getUsrWeb(),
+                                       cliente.getId(),
                                        cliente.getTelefono(),
                                        cliente.getCelular(),
                                        cliente.getDireccion().getLocalidad(),
                                        cliente.getDireccion().getCalle(),
                                        cliente.getDireccion().getNumero(),
-                                       cliente.getDireccion().getDepartamento(),
-                                       cliente.getUsrWeb())
-    datos +="\n<b>Pedidos</b>:\n"
-    datos += '\n'.join([str(p.id)+" "+p.getEstado() for p in creacion.Pedido.allInstances() if p.cliente == cliente])
+                                       cliente.getDireccion().getDepartamento())
+    
+    pedidos = [p for p in creacion.Pedido.allInstances() if p.cliente == cliente]
+    if pedidos != []:
+        datos +="\n<b>Pedidos</b>:\n"
+        datos += '\n'.join([str(p.id)+" ("+p.getEstado()+")" for p in pedidos])
+
     return datos
 
 def cargar_datos(widgets, id_cliente):

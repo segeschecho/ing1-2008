@@ -1,14 +1,40 @@
 #!/usr/bin/env python
 #! -*- encoding: utf-8 -*-
 
-from gui import lista_ingreso
-from gui import lista_insumos
-from gui import lista_clientes
-from gui import lista_productos
-from gui import lista_ingreso
-from gui import lista_listos
-from gui import lista_empanadero
-from gui import lista_pizzero
+import lista_ingreso
+import lista_insumos
+import lista_clientes
+import lista_productos
+import lista_ingreso
+import lista_listos
+import lista_empanadero
+import lista_pizzero
+
+class DistribuidorCallbacks:
+    def __init__(self,widgets,pizzeria):
+        self.widgets = widgets
+        self.pizzeria = pizzeria
+
+    def terminarPrepraracionPizzas(self):
+        self.pizzeria.getPreparadorPizzero().terminar()
+          
+    def terminarPreparacionEmpanadas(self):
+        self.pizzeria.getPreparadorEmpanadero().terminar()
+ 
+    def modifStock(self):
+        lista_insumos.recargar(self.widgets)
+   
+    def modifListos(self):
+        lista_listos.recargar(self.widgets,self.pizzeria.getContListos())
+
+    def modifIngreso(self):
+        lista_ingreso.recargar(self.widgets,self.pizzeria.getContIng())
+  
+    def prepararEmpanadas(self):
+        lista_empanadero.recargar(self.widgets,self.pizzeria.getPreparadorEmpanadero())
+   
+    def prepararPizzas(self):
+        lista_pizzero.recargar(self.widgets,self.pizzeria.getPreparadorPizzero())
 
 
  # --------------------------------------------- #
@@ -18,7 +44,7 @@ from gui import lista_pizzero
 def iniciar(widgets):
         
     lista_ingreso.iniciar(widgets)
-    #lista_ingreso.iniciar_datos(widgets)
+    lista_ingreso.iniciar_datos(widgets)
     lista_productos.iniciar(widgets)
     lista_insumos.iniciar(widgets)
     lista_clientes.iniciar(widgets)

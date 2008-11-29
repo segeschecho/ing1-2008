@@ -5,6 +5,7 @@ import gobject
 import gtk
 
 from config import *
+import humanize
 import creacion
 
 
@@ -50,7 +51,7 @@ def limpiar(widgets):
     ls = tv.get_model()
     ls.clear()
 
-def formatear_datos_producto(prod):
+def formatear_datos(prod):
     datos = ("<b>%s</b>\n\n" + \
              "Tipo: %s\n" + \
              "Precio: $%s\n\n" + \
@@ -60,10 +61,10 @@ def formatear_datos_producto(prod):
              "Tiempo de cocción: %s\n\n") % (prod.getNombre(),
                                        prod.getTipo().getNombre(),
                                        prod.getPrecio(),
-                                       prod.getPreparable(),#humanize.bool2hum(prod.getPreparable()),
-                                       prod.getCocinable(),#humanize.sec2hum(prod.getCocinable()),
-                                       prod.getCocinable(),#humanize.bool2hum(prod.getCocinable()),
-                                       prod.getTiempoCoccion())#humanize.sec2hum(prod.getTiempoCoccion()))
+                                       humanize.bool2hum(prod.getPreparable()),
+                                       humanize.sec2hum(prod.getCocinable()),
+                                       humanize.bool2hum(prod.getCocinable()),
+                                       humanize.sec2hum(prod.getTiempoCoccion()))
     
     insumos = '\n'.join([x.getNombre() for x in prod.getInsumos()])
     datos += "<b>Insumos</b>\n" + insumos
@@ -83,7 +84,7 @@ def cargar_datos(widgets, nombre_producto):
     if prod is None:
         raise ValueError('No se encontró el producto!')
     
-    tv.set_markup(formatear_datos_producto(prod))
+    tv.set_markup(formatear_datos(prod))
 
 
 def limpiar_datos(widgets):
