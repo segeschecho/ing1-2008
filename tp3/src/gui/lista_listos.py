@@ -119,12 +119,12 @@ def formatear_datos_listo(ped):
     if ped.getDestino() == "Mesa":
         return "<b>Mesa</b>: %s" % ped.getMesa()
     elif ped.getDestino() == "Delivery":
-        return "Entregar a <b>%s %s</b>\n\n" + \
+        return ("Entregar a <b>%s %s</b>\n\n" + \
                "<b>Dirección</b>\n" + \
                "Calle: %s\n" + \
                "Número: %s\n" + \
                "Departamento: %s\n" + \
-               "Localidad: %s\n\n"  % (ped.getCliente().getNombre(),
+               "Localidad: %s\n\n")  % (ped.getCliente().getNombre(),
                                        ped.getCliente().getApellido(),
                                        ped.getCliente().getDireccion().getCalle(),
                                        ped.getCliente().getDireccion().getNumero(),

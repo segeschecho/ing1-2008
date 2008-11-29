@@ -129,7 +129,7 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         if(res):
             if(self.esEmpanadero(p)):
                 self.partesAPreparar[p]= 2
-                self.colaEmp.add(p)
+                self.colaEmp.append(p)
             
             else:
                 self.partesAPreparar[p] =1

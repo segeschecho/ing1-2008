@@ -76,7 +76,7 @@ class Pizzeria:
         self.birra=tipoproductos['birra']
                 
     def cargarClientes(self,dic):
-        self.Clientes=dic["Clientes"]
+        self.clientes=dic["Clientes"]
         
     def cargarDiccionario(self,f):
         dic=pickle.load(f)
