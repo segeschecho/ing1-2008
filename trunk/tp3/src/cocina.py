@@ -150,7 +150,7 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         if(partes == 0):
             self.coordinador.cocinar(p)
             del self.partesAPreparar[p]
-            self.pedidoPizzeroActual=None
+            self.pedidoEmpanaderoActual=None
         
         if(not len(self.colaEmp)==0):
             p=self.colaEmp.pop(0)
