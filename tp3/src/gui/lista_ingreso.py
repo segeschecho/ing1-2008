@@ -103,21 +103,11 @@ def cargar_datos(widgets, pid):
     # cargo los detalles del pedido 
     det = widgets[DATOS_PEDIDO_INGRESO]
     det.set_markup(formatear_datos_ingreso(pedido))
-
-    # FIXME: mover esto a algun lado mas piola
-    def list2bag(l):
-        b = {}
-        for e in l:
-            if e in b:
-                b[e] += 1
-            else:
-                b[e] = 1
-        return b
-
+    
     # cargo el listado de productos del pedido
     tv = widgets[PRODUCTOS_PEDIDO_INGRESO]
     ls = tv.get_model()
-    contados = list2bag([(p.getNombre(), p.getTipo().getNombre()) for p in pedido.getProductos()])
+    contados = humanize.set2bag([(p.getNombre(), p.getTipo().getNombre()) for p in pedido.getProductos()])
     
     for i in contados:     
         nombre = i[0]

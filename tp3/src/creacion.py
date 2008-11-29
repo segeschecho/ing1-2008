@@ -137,8 +137,8 @@ class Pedido(object) :
         else:
             raise TypeError("error en eq")
     
-    def getDestino(self): #Esto antes no estaba
-        raise notImplementedError
+    def getDestino(self):
+        raise NotImplementedError
 
 class PedidoLocal(Pedido):
        

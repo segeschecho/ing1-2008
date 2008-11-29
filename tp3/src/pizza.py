@@ -78,7 +78,25 @@ class MainHandlers:
             lista_ingreso.limpiar_datos(widgets)
         else:
             pedido_id = seleccion.get_value(iterador,0)
+            lista_ingreso.limpiar_datos(widgets)
             lista_ingreso.cargar_datos(widgets, pedido_id)
+
+
+    # ---------------------------------------------- #
+    # Handlers para el listado de pedidos listos     #
+    # ---------------------------------------------- #
+    
+    def lista_listos_cursor_changed(event):
+        tv = widgets[LISTA_LISTOS] 
+        seleccion, iterador = tv.get_selection().get_selected()
+        
+        if iterador is None:
+            lista_listos.limpiar_datos(widgets)
+        else:
+            pedido_id = seleccion.get_value(iterador,0)
+            lista_listos.limpiar_datos(widgets)
+            lista_listos.cargar_datos(widgets, pedido_id)
+
 
 
     # --------------------------------------------- #
@@ -150,7 +168,7 @@ class MainHandlers:
  
 
     def pizzas_preparadas_clicked(event): 
-        distribuidor.terminarPrepraracionPizzas()
+        distribuidor.terminarPreparacionPizzas()
 
 
     # --------------------------------------------- #
@@ -189,6 +207,11 @@ if __name__ == '__main__':
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
     #-------------------------------------------------------#
-    
+   
+    class Pepe:
+        pass
+
+    hornito = WidgetsWrapper("elegir_horno", Pepe)
+
     gtk.main()
     
