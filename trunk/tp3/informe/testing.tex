@@ -1,0 +1,272 @@
+\chapter{Testing}
+En este apartado presentaremos el diseño, asi como también las cuestiones propias a la implementación y realización del testing funcional sobre la funcionalidad de registro de pedidos, para los casos donde hay a lo sumo un producto comestible y un producto del tipo bebida.
+
+De acuerdo a nuestro modelo, esta funcionalidad esta encapsulada en una llamada al metodo ingresarPedido de la clase CoordinadorDePedidos.
+
+\section{Analisis de factores, categorias y choices}
+%basicamente poner las cosas de testing, hacer tablita, etc
+Los inputs directos de la funcionalidad son:
+\begin{itemize}
+\item Cliente
+\item Lista de productos
+\item Forma de pago
+\item Origen
+\item Número de mesa
+\end{itemize}
+
+Hay algunas situacione que por nuestro diseño no se pueden dar y que por lo tanto no seran tenidas en cuenta, por ejemplo que el cliente no exista, ya que para ingresar un pedido se elige un cliente de entre todos los clientes registrados, si en cambio hay que tener en cuenta el caso en el que no se eligió ningun cliente. Por otro lado la situacion con la mesa es similar, al igual que con el numero de mesa y el origen %chequear que sea asi
+A su vez podemos considerar otros elementos del sistema que modifican el comportamiento de la funcionalidad y que deben ser tenidos en cuenta:
+\begin{itemize}
+\item Preparadores ocupados o no
+\item ¿Alguna de las colas de los preparadores no esta vacia?
+\item ¿Hay pedidos en la cola de ingreso?
+\item Stock de los insumos necesarios para el pedido
+\end{itemize}
+
+A partir de esta exploración del domino de la funcion consideramos la siguiente particion en factores,categorias y choices:
+\newpage
+\pagestyle{empty}
+{
+\fancypagestyle{plain}
+    {
+    \fancyhead{}
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0.0pt}
+    } % clear header and footer of plain page because of ToC
+\begin{landscape}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Factor & Categoria & Choice & Clasificacion\tabularnewline
+\hline
+\hline 
+Origen & Valor & Mesa & \tabularnewline
+ &  & Mostrador & \tabularnewline
+ &  & Telefono & \tabularnewline
+\hline 
+Lista De Productos & Composición & 0 Productos & {[}Error]\tabularnewline
+ &  & 1 Bebida & {[}Único]{[}Property hayBebida]\tabularnewline
+ &  & 1 Comida & {[}Único]{[}Property hayComida]\tabularnewline
+ &  & 1 Bebida y 1 Comida & {[}Property hayBebidaYComida]\tabularnewline
+ & Cantidad de items de bebida & 1 & {[}Único]{[}if hayBebida or hayBebidaYComida]\tabularnewline
+ &  & > 1 & {[}if hayBebida or hayBebidaYComida]\tabularnewline
+ & Cantidad de items de comida & 1 & {[}Único] {[}if hayBebida or hayBebidaYComida]\tabularnewline
+ &  & >1 & {[}if hayComida or hayBebidaYComida]\tabularnewline
+ & Tipo de comida & Pizza & {[}if hayComida or hayBebidaYComida]\tabularnewline
+ &  & Empanada & {[}if hayComida or hayBebidaYComida]\tabularnewline
+\hline 
+Mesa & Número de mesa & Si & {[}if Mesa]\tabularnewline
+ &  & No & {[}if Mesa]{[}Error]\tabularnewline
+ &  & Si & {[}if not Mesa]{[}Error]\tabularnewline
+ &  & No & {[}if not Mesa]\tabularnewline
+\hline 
+Cliente & Valor & Nulo & {[}if not Telefono]{[}Error]\tabularnewline
+ &  & No nulo & {[}if not Telefono]{[}Único]\tabularnewline
+ &  & No nulo & {[}if Telefono]\tabularnewline
+ &  & Nulo & {[}if Telefono]{[}Error]\tabularnewline
+\hline 
+Forma De Pago & Tipo & Nula & {[}if mesa]\tabularnewline
+ &  & No Nula & {[}if mesa]{[}Error]\tabularnewline
+ &  & Nula & {[}if not mesa]{[}Error]\tabularnewline
+ &  & pertenece a {[}Tarjeta,Efectivo] & {[}if Mostrador]\tabularnewline
+ &  & Tarjeta & {[}if Telefono]{[}Error]\tabularnewline
+ &  & Efectivo & {[}if Telefono]\tabularnewline
+\hline 
+Relacion entre stock de bebida y los productos & Stock necesario vs cantActual & > cantActual & {[}Error]{[}if hayBebida or hayBebidaYComida]\tabularnewline
+ &  & = cantActual & {[}Único]{[}if hayBebida or hayBebidaYComida]\tabularnewline
+ &  & < cantActual & {[}if hayBebida or hayBebidaYComida]\tabularnewline
+\hline 
+Relacion entre stock de comida y los productos & Stock necesario vs cantActual & > cantACtual & {[}Error]{[}if hayComida or hayBebidaYComida]\tabularnewline
+ &  & = cantActual & {[}if hayComida or hayBebidaYComida]\tabularnewline
+ &  & < cantActual & {[}if hayComida or hayBebidaYComida]\tabularnewline
+\hline 
+Cola de ingreso & Cantidad de pedidos encolados & = 0 & {[}Único]\tabularnewline
+ &  & > 0 & \tabularnewline
+\hline 
+Preparador asociado al tipo de comida & Ocupado & Si & \tabularnewline
+ &  & No & \tabularnewline
+\hline 
+Preparador asociado al otro tipo de comida & Ocupado & Si & {[}Único]\tabularnewline
+ &  & No & \tabularnewline
+\hline 
+Relacion insumos productos & Cantidad & Ninguno en cantidad critica & {[}Único]{[}Property Ninguno]\tabularnewline
+ &  & Algunos (pero no todos) en cantidad critica & \tabularnewline
+ &  & Todos en cantidad critica & {[}Único]\tabularnewline
+\hline 
+ & Cantidad vs cantidad necesaria & Ninguno queda en cantidad critica & {[}if Ninguno]\tabularnewline
+ &  & Alguno queda en cantidad critica & \tabularnewline
+ &  & Todos quedan en cantidad critica & {[}Único]\tabularnewline
+\hline
+\end{tabular}
+\end{landscape}
+}
+\pagenumbering{arabic}
+\fancypagestyle{plain} {
+    \fancyhead[LO]{Gonzalez, Gonzalez, Martínez, Sainz-Trápaga}
+    \fancyhead[C]{}
+    \fancyhead[RO]{P\'agina \thepage\ de \pageref{LastPage}}
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0.4pt}
+}
+\pagestyle{plain}
+
+\subsection{Justificación}
+En primer lugar consideramos el origen, ya que según si es de mesa, mostrador o telefonico, el comportamiento de la funcionaldiad varía.
+
+El segundo factor que consideramos es la lista de productos. De esta, son varios los aspectos que nos interesan
+
+
+
+\section{Diseño de los casos de test}
+\begin{landscape}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline 
+Origen & L de Prods & L de Prods & L de Prods & L de Prods & Mesa & Cliente & Pago & Rel stock B y los prods & Rel stock C y los prods & C Ing & Prep asoc & Prep & Rel Ins prods & Rel Ins prods & Resultado\tabularnewline
+\hline
+\hline 
+Valor & Composición & Cant items B & Cant items C & Tipo de C & Nº & Valor & Tipo & nec vs actual & nec vs actual & Cant & Ocupado & Ocupado & Cant & cant vs nec & Esperado\tabularnewline
+\hline
+\hline 
+- & 0 prods & - & - & - & - & - & - & - & - & - & - & - & - & - & Excepción ProductosVacios. Se muestra mensaje informando del error.
+El pedido no queda registrado\tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & No & - & - & - & - & - & - & - & - & - & Excepcion PedidoDeMesaSinMesa. Se muestra mensaje informando del error.
+El pedido no queda registrado \tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & No Nulo & - & - & - & - & - & - & - & Excepción TipoDePagoInvalido. Se notifica del error. El pedido no
+se registra\tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & Nulo & > cantActual & - & - & - & - & - & - & Excepción ProductoInsatisfacible. Se notifica que un prod no se pudo
+satisfacer. El pedido no se registra\tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & Nulo & < cantActual & > cantActual & - & - & - & - & - & Excepción ProductoInsatisfacible. Se notifica que un prod no se pudo
+satisfacer. El pedido no se registra\tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & Nulo & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno  & Se registra un pedido de mesa, con la mesa del input, con los productos
+ingresados. Se encola al final de la cola de ingreso, en el horno
+pizzero. Se decrementan los stocks de los insumos involucrados y se
+actualiza la lista de stock para mostrar que algunos quedaron en stock
+critico. Se estiman los tiempos y se calcula el precio de acuerdo
+a lo especificado\tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & Nulo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mesa, con la mesa del input, con los productos
+ingresados. Se notifica que la pizza debe comenzar a prepararse. Se
+decrementan los stocks de los insumos involucrados y se actualiza
+la lista de stock para mostrar que algunos quedaron en stock critico.
+Se estiman los tiempos y se calcula el precio de acuerdo a lo especificado\tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Empanada & Si & Nulo & Nulo & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido de mesa, con la mesa del input, con los productos
+ingresados. Se encola al final de la cola de ingreso, en el horno
+empanadero. Se decrementan los stocks de los insumos involucrados
+y se actualiza la lista de stock para mostrar que algunos quedaron
+en stock critico. Se estiman los tiempos y se calcula el precio de
+acuerdo a lo especificado\tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Empanada & Si & Nulo & Nulo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mesa, con la mesa del input, con los productos
+ingresados. Se notifica que las empanadas debe comenzar a prepararse.
+Se decrementan los stocks de los insumos involucrados y se actualiza
+la lista de stock para mostrar que algunos quedaron en stock critico.
+Se estiman los tiempos y se calcula el precio de acuerdo a lo especificado\tabularnewline
+\hline 
+Mesa & 1 B y 1 C & > 1 & > 1  & Empanada & Si & No Nulo & Nulo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mesa, con la mesa del input, con los productos
+ingresados. Se encola al final de la cola de ingreso, en el horno
+empanadero. Se decrementan los stocks de los insumos involucrados
+y se actualiza la lista de stock para mostrar que algunos quedaron
+en stock critico. El cliente asociado es el Cliente del input. Se
+estiman los tiempos y se calcula el precio de acuerdo a lo especificado\tabularnewline
+\hline 
+Mostrador & 1 B y 1 C & >1 & >1 & Empanada & Si & - & - & - & - & - & - & - & - & - & Excepcion PedidoDeMostradorConMesa. Se muestra un mensaje de error.
+No se registra el pedido\tabularnewline
+\hline 
+Mostrador & 1 B y 1 C & > 1 & > 1  & Empanada & No & Nulo & Nulo & - & - & - & - & - & - & - & Excepcion TipoDePagoInvalido. Se muestra un mensaje informando de
+la situación. El pedido no se registra\tabularnewline
+\hline 
+Mostrador & 1 B y 1 C & > 1 & > 1  & Empanada & No & Nulo & T o F & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
+Se encola en la cola de ingreso. Se decrementan los stocks de los
+insumos involucrados y se actualiza la lista de stock para mostrar
+que algunos quedaron en stock critico. Se estiman los tiempos y se
+calcula el precio de acuerdo a lo especificado. Se asigna el horno
+empanadero. La forma de pago es la del input\tabularnewline
+\hline 
+Mostrador & 1 B y 1 C & > 1 & > 1  & Empanada & No & Nulo & T o F & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
+Se notifica que debe preparase. Se decrementan los stocks de los insumos
+involucrados y se actualiza la lista de stock para mostrar que algunos
+quedaron en stock critico. Se estiman los tiempos y se calcula el
+precio de acuerdo a lo especificado. Se asigna el horno empanadero.
+La forma de pago es la del input\tabularnewline
+\hline 
+Mostrador & 1 B y 1 C & > 1 & > 1  & Pizza & No & Nulo & T o F & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
+Se encola en la cola de ingreso. Se decrementan los stocks de los
+insumos involucrados y se actualiza la lista de stock para mostrar
+que algunos quedaron en stock critico. Se estiman los tiempos y se
+calcula el precio de acuerdo a lo especificado. Se asigna el horno
+pizzero. La forma de pago es la del input\tabularnewline
+\hline 
+Mostrador & 1 B y 1 C & > 1 & > 1  & Pizza & No & Nulo & T o F & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
+Se notifica que debe preparase. Se decrementan los stocks de los insumos
+involucrados y se actualiza la lista de stock para mostrar que algunos
+quedaron en stock critico. Se estiman los tiempos y se calcula el
+precio de acuerdo a lo especificado. Se asigna el horno pizzero. La
+forma de pago es la del input\tabularnewline
+\hline 
+Telefono & 1 B y 1 C & > 1 & >1 & Empanada & No & Nulo & - & - & - & - & - & - & - & - & Excepcion Cliente Nulo. Se notifica mediante un mensaje. El pedido
+no se registra\tabularnewline
+\hline 
+Telefono & 1 B y 1 C & > 1 & > 1  & Empanada & No & No nulo & Tarjeta & - & - & - & - & - & - & - & Excepcion TipoDePagoInvalido. Se muestra un mensaje informando la
+situación. El pedido no queda registrado\tabularnewline
+\hline 
+Telefono & 1 B y 1 C & > 1 & > 1  & Empanada & No & No nulo & Efectivo & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido telefonico, con los productos ingresados. Se
+encola en la cola de ingreso. Se decrementan los stocks de los insumos
+involucrados y se actualiza la lista de stock para mostrar que algunos
+quedaron en stock critico. Se estiman los tiempos y se calcula el
+precio de acuerdo a lo especificado. Se asigna el horno empanadero.
+La forma de pago es la del input\tabularnewline
+\hline 
+Telefono & 1 B y 1 C & > 1 & > 1  & Empanada & No & No nulo & Efectivo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
+Se notifica que debe preparase. Se decrementan los stocks de los insumos
+involucrados y se actualiza la lista de stock para mostrar que algunos
+quedaron en stock critico. Se estiman los tiempos y se calcula el
+precio de acuerdo a lo especificado. Se asigna el horno empanadero.
+La forma de pago es la del input\tabularnewline
+\hline 
+Telefono & 1 B y 1 C & > 1 & > 1  & Pizza & No & No nulo & Efectivo & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
+Se encola en la cola de ingreso. Se decrementan los stocks de los
+insumos involucrados y se actualiza la lista de stock para mostrar
+que algunos quedaron en stock critico. Se estiman los tiempos y se
+calcula el precio de acuerdo a lo especificado. Se asigna el horno
+pizzero. La forma de pago es la del input\tabularnewline
+\hline 
+Telefono & 1 B y 1 C & > 1 & > 1  & Pizza & No & No nulo & Efectivo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
+Se notifica que debe preparase. Se decrementan los stocks de los insumos
+involucrados y se actualiza la lista de stock para mostrar que algunos
+quedaron en stock critico. Se estiman los tiempos y se calcula el
+precio de acuerdo a lo especificado. Se asigna el horno pizzero. La
+forma de pago es la del input\tabularnewline
+\hline 
+Mostrador & 1 Bebida & =1 & No aplica & No aplica & No & Nulo & Tarjeta & = cantActual & No aplica & >0 & No aplica & No aplica & Algunos & Alguno & Se registra el pedido de mostrador de solo bebidas. El pedido queda
+en la cola de listos. Se decrementa el stock de la bebida. Se notifica
+que hay stocks que quedan en stock critico. No se asigna horno. La
+forma de pago es la del input. El tiempo estimado es 0. Se calcula
+el precio\tabularnewline
+\hline 
+Telefono & 1 Comida & No aplica & =1  & Pizza & No & No Nulo & Efectivo & No aplica & = cantActua & =0 & Si & Si & Algunos & Alguno & Se registra el pedido. El pedido queda en la cola de ingreso. Se decrementa
+el stock de la comida. Se notifica que hay stocks que quedan en stock
+critico. Se asigna el horno pizzero. La forma de pago es la del input.
+Se estima el tiempo y se calcula el precio\tabularnewline
+\hline
+\hline 
+Mostrador  & 1 B y 1 C & > 1  & > 1  & Empanada & No  & Nulo & Efectivo & < cantActual & < cantActual & >0 & No & Si & Ninguno & Ninguno & Se registra el pedido. Se notifica que hay que preparar las empanadas.
+Se decrementa el stock de la comida. No se notifican nuevos productos
+en stock critico. Se asigna el horno empanadero. La forma de pago
+es la del input. Se estima el tiempo y se calcula el precio.\tabularnewline
+\hline
+\hline 
+Mostrador  & 1 B y 1 C & > 1  & > 1  & Empanada & No  & Nulo & Efectivo & < cantActual & < cantActual & >0 & No & Si & Todos & Todos & Se registra el pedido. Se notifica que hay que preparar las empanadas.
+Se decrementa el stock de la comida. Se notifican productos en stock
+critico. Se asigna el horno empanadero. La forma de pago es la del
+input. Se estima el tiempo y se calcula el precio.\tabularnewline
+\hline
+\end{tabular}
+\end{landscape}
+
+\section{Realización del testing}
+%contar algo de como se hicieron los test, onda valores para las instancias, resultados, etc. se puede hacer una tabla
