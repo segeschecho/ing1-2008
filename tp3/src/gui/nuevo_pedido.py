@@ -191,21 +191,12 @@ def recalcular_total(widgets):
  # --------------------------------------------- #
 
 def iniciar_tipos(widgets):
-    cb = widgets[NUEVO_PEDIDO_TIPO]
-    
-    # Armo el ListStore
-    ls = gtk.ListStore(gobject.TYPE_STRING)
-    ls.append(["Mesa"])
-    ls.append(["Teléfono"])
-    ls.append(["Mostrador"])
-
-    cb.set_model(ls)
-    cb.set_text_column(0)
-    cb.set_active(0)
+    pass
 
 
 def recargar_tipos(widgets):
-    pass
+    cb = widgets[NUEVO_PEDIDO_TIPO]
+    cb.set_active(0)
 
 def limpiar_tipos(widgets):
     pass

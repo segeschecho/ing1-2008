@@ -83,6 +83,17 @@ class MainHandlers:
 
                 nuevo_pedido.recalcular_total(nuevop)
 
+            def tipo_pedido_changed(cb):
+                cb = nuevop[NUEVO_PEDIDO_TIPO]
+                num_mesa = nuevop[NUEVO_PEDIDO_MESA]
+
+
+                if cb.get_active_text() != "Mesa":
+                    num_mesa.set_text("")
+                    num_mesa.set_sensitive(False)
+                else:
+                    num_mesa.set_sensitive(True)
+
         
         nuevop = WidgetsWrapper(NUEVO_PEDIDO_WINDOW, NuevoPedidoHandlers)
         wnd = nuevop[NUEVO_PEDIDO_WINDOW]
