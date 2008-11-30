@@ -351,7 +351,7 @@ class EstimadorStandard (EstimadorDeTiempos):
 		ls = pedido.getProductos()
 		res= 0.0
 		for pr in ls:
-			if(pr.getTipo()==self.pizza):
+			if(pr.getTipo()==self.empanada):
 				res+=pr.getTiempoCoccion()
 			
 		
@@ -362,13 +362,15 @@ class EstimadorStandard (EstimadorDeTiempos):
 		ls = pedido.getProductos()
 		res= 0.0
 		for pr in ls:
-			if(pr.getTipo()==self.empanada):
+			if(pr.getTipo()==self.pizza):
 				res+=pr.getTiempoCoccion()
 		
 		return res
 	
 
 	def estimarTiempoDePreparacionActual(self,pedido) :
+                if pedido.getEstado() != Estado.Ingresado :
+                   return 0
 		ls = pedido.getProductos()
 		res= 0.0
 		for pr in ls:
