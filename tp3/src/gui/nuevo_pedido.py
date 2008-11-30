@@ -3,24 +3,34 @@
 
 import gobject
 import gtk
-import sets
+
 import creacion
 from config import *
 from gui.helpers import WidgetsWrapper
 
+import sets
+       
+ # --------------------------------------------- #
+ # Callback para hacer aviso de stock crítico    #
+ # --------------------------------------------- #
 
 def nuevosCriticos(contStock):
-   critic=contStock.getCriticos()
-   if critic != sets.Set([]):
-       abrir = WidgetsWrapper(STOCK_CRITICO_WINDOW)
-       for each in critic:
-          wnd = abrir[STOCK_CRITICO_WINDOW]
+   criticos = contStock.getCriticos()
+   if criticos != sets.Set([]):
+       aviso = WidgetsWrapper(STOCK_CRITICO_WINDOW)
+       for each in criticos:
+          wnd = aviso[STOCK_CRITICO_WINDOW]
           wnd.hide()
-          label = abrir['texto_critico']
-          label.set_markup("<b>Atención</b>\n\n El insumo: "+each.getNombre()+"( ID: "+str(each.getId())+") \nestá debajo del nivel crítico.\n Nivel Crítico:"+str(each.getCantCritica()))
+          label = aviso['texto_critico']
+          s = "<b>Atención</b>\n" + \
+              "\nEl insumo <b>%s</b> (ID %s)" + \
+              "\nestá por debajo del nivel crítico." + \
+              "\n\nNivel Crítico: %s" 
+          label.set_markup(s % (each.getNombre(), each.getId(), each.getCantCritica()))
           res = wnd.run()
           wnd.hide()
-       
+
+
  # --------------------------------------------- #
  # Callback para pedir hornos de un pedido       #
  # --------------------------------------------- #
@@ -30,8 +40,13 @@ def pedirHorno(HornoP,HornoE):
     wnd = abrir[ELEGIR_HORNO_WINDOW]
     wnd.hide()
     res = wnd.run()
-    wnd.hide()
     
+    # Esto previene que el usuario cierre la ventana
+    # de seleccion con la cruz en lugar de cliquear OK.
+    while res != gtk.RESPONSE_OK:
+        res = wnd.run()
+    wnd.hide()
+
     if abrir[RADIO_PIZZERO].get_active():
         return HornoP
     elif abrir[RADIO_EMPANADERO].get_active():

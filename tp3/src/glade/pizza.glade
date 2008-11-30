@@ -4812,6 +4812,7 @@ Mostrador</property>
   <property name="focus_on_map">True</property>
   <property name="urgency_hint">False</property>
   <property name="has_separator">True</property>
+  <signal name="delete_event" handler="elegir_insumo_cerrar_clicked" last_modification_time="Sun, 30 Nov 2008 18:06:29 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="vbox41">
@@ -5036,7 +5037,7 @@ para cocinar el nuevo pedido:
 
 	  <child>
 	    <widget class="GtkVBox" id="vbox44">
-	      <property name="border_width">10</property>
+	      <property name="border_width">20</property>
 	      <property name="visible">True</property>
 	      <property name="homogeneous">False</property>
 	      <property name="spacing">0</property>
@@ -5054,7 +5055,7 @@ Nivel Crítico: %s</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
 		  <property name="wrap">False</property>
 		  <property name="selectable">False</property>
-		  <property name="xalign">0.0299999993294</property>
+		  <property name="xalign">0.5</property>
 		  <property name="yalign">0.5</property>
 		  <property name="xpad">0</property>
 		  <property name="ypad">0</property>
