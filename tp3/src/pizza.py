@@ -144,6 +144,7 @@ class MainHandlers:
             print datos
             pizzeria.getCoordP().ingresarPedido(*datos)
             lista_ingreso.recargar(widgets, pizzeria.getContIng())
+            lista_insumos.recargar(widgets)
 
 
     # ---------------------------------------------- #
