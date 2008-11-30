@@ -4053,6 +4053,7 @@ Gonzalo Sainz Trápaga</property>
 			      <property name="fixed_height_mode">False</property>
 			      <property name="hover_selection">False</property>
 			      <property name="hover_expand">False</property>
+			      <signal name="row_activated" handler="items_pedido_doubleclicked" last_modification_time="Sun, 30 Nov 2008 02:26:54 GMT"/>
 			    </widget>
 			  </child>
 			</widget>
@@ -4129,6 +4130,7 @@ Gonzalo Sainz Trápaga</property>
 			      <property name="fixed_height_mode">False</property>
 			      <property name="hover_selection">False</property>
 			      <property name="hover_expand">False</property>
+			      <signal name="row_activated" handler="productos_posibles_doubleclicked" last_modification_time="Sun, 30 Nov 2008 02:09:49 GMT"/>
 			    </widget>
 			  </child>
 			</widget>
