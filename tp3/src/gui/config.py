@@ -6,7 +6,6 @@ PROGRAM_NAME = 'Pizzas & Pizzitas 1.0'
 
 MAIN_WINDOW = 'main_window'
 ABOUT_WINDOW = 'acerca_de'
-ELEGIR_HORNO_WINDOW = 'elegir_horno'
 STOCK_CRITICO_WINDOW = 'insumo_critico'
 ABRIR_WINDOW = 'elegir_archivo_abrir'
 GUARDAR_WINDOW = 'elegir_archivo_guardar'
@@ -40,3 +39,7 @@ PRODUCTOS_PEDIDO = 'productos_posibles'
 
 ERROR_WINDOW = 'error_generico'
 ERROR_MSG = 'texto_error'
+
+ELEGIR_HORNO_WINDOW = 'elegir_horno'
+RADIO_EMPANADERO = 'horno_empanadero'
+RADIO_PIZZERO = 'horno_pizzero'
