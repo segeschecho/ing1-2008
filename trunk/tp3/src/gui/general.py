@@ -45,11 +45,26 @@ class DistribuidorCallbacks:
     def nuevosCriticos(self):
         nuevo_pedido.nuevosCriticos(self.pizzeria.getContStock())
   
-    def modifHornoPizerro(self):
+    def modifHornoPizzero(self):
         lista_horno_pizzero.recargar(self.widgets,self.pizzeria.getDespachadorDeCoccion())
 
     def modifHornoEmpanadero(self):
         lista_horno_empanadero.recargar(self.widgets,self.pizzeria.getDespachadorDeCoccion())
+ 
+    def cocinarEmpanadas(self):
+        self.pizzeria.getDespachadorDeCoccion().terminarCoccionEmpanadera()
+        
+    def cocinarPizzas(self):
+        print "yo tendria q decirle al señor despachador q ya cocino las pizzas"
+        self.pizzeria.getDespachadorDeCoccion().terminarCoccionPizzera()
+    def actualizarGui(self):
+        self.modifStock()
+        self.modifListos()
+        self.modifIngreso()
+        self.modifHornoPizzero()
+        self.modifHornoEmpanadero()
+        lista_pizzero.recargar(self.widgets,self.pizzeria.getPreparadorPizzero())
+        lista_empanadero.recargar(self.widgets,self.pizzeria.getPreparadorEmpanadero())
 
  # --------------------------------------------- #
  # Funciones para iniciar y limpiar toda la GUI  #

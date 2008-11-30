@@ -61,8 +61,9 @@ class Pizzeria:
         #GenedarodDePedidos
         genP =  GeneradorDePedidosStandard(calcP,estT,self.contS,self.asigH)
         self.coordP.setGeneradorDePedidos(genP)
-        self.despachadorDeCoccion = DespachadorDeCoccionNormal(self.hpizzero,self.hempanadero)
+        self.despachadorDeCoccion = DespachadorDeCoccionNormal(self.hpizzero,self.hempanadero,self.coordC)
         self.coordC.setDespachadorDeCoccion(self.despachadorDeCoccion)
+
 
    
     def cargarInsumos(self,dic):
@@ -96,6 +97,7 @@ class Pizzeria:
         
     def getCoordP(self):
         return self.coordP
+
     def getDespachadorDeCoccion(self):
         return self.despachadorDeCoccion
 

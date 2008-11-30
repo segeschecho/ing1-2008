@@ -48,3 +48,5 @@ RADIO_PIZZERO = 'horno_pizzero'
 
 LISTA_HORNO_PIZZERO = 'horno_pizzero'
 LISTA_HORNO_EMPANADERO = 'horno_empanadero'
+COCINADO_PIZZERO = 'cocinado_pizzero'
+COCINADO_EMPANADERO = 'cocinado_empanadero'
