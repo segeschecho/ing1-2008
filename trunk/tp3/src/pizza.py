@@ -59,7 +59,24 @@ class MainHandlers:
     def nuevo_pedido_clicked(id, event):
         
         class NuevoPedidoHandlers:
-            pass
+            def productos_posibles_doubleclicked(treeview, path, view_column):
+                tv = nuevop[PRODUCTOS_PEDIDO] 
+                seleccion, iterador = tv.get_selection().get_selected()
+                
+                nombre_producto = seleccion.get_value(iterador, 0)
+                nuevo_pedido.agregar_a_pedido(nuevop, nombre_producto)
+
+            def items_pedido_posibles_doubleclicked(treeview, path, view_column):
+                tv = nuevop[ITEMS_PEDIDO]
+                ls = tv.get_model()
+                seleccion, iterador = tv.get_selection().get_selected()
+
+                cant_producto = seleccion.get_value(iterador, 2)
+                if cant_producto == 1:
+                    ls.remove(iterador)
+                else:
+                    ls.set_value(iterador, 2, cant_producto + 1)
+
         
         nuevop = WidgetsWrapper(NUEVO_PEDIDO_WINDOW, NuevoPedidoHandlers)
         wnd = nuevop[NUEVO_PEDIDO_WINDOW]

@@ -88,10 +88,72 @@ def recargar_productos(widgets):
         ls.set_value(it, 2, each.getPrecio())
 
 
-def limpiar(widgets):    
+def limpiar_productos(widgets):    
     tv = widgets[PRODUCTOS_PEDIDO]
     ls = tv.get_model()
     ls.clear()
+
+
+ # --------------------------------------------- #
+ # Funciones para los items de un pedido         #
+ # --------------------------------------------- #
+
+def iniciar_items(widgets):
+    tv = widgets[ITEMS_PEDIDO]
+    
+    # Armo el ListStore
+    ls = gtk.ListStore(gobject.TYPE_STRING,
+                       gobject.TYPE_STRING,
+                       gobject.TYPE_INT,
+                      )
+    tv.set_model(ls)
+
+    # Armo las columnas
+    tv.append_column(gtk.TreeViewColumn("Nombre",       gtk.CellRendererText(),  text=0)                 )
+    tv.append_column(gtk.TreeViewColumn("Tipo",         gtk.CellRendererText(),  text=1)                 )
+    tv.append_column(gtk.TreeViewColumn("Cantidad",     gtk.CellRendererText(),  text=2)                 )
+
+
+def recargar_items(widgets):
+    pass
+
+
+def limpiar_items(widgets):    
+    tv = widgets[ITEMS_PEDIDO]
+    ls = tv.get_model()
+    ls.clear()
+
+
+def agregar_a_pedido(widgets, nombre_producto):
+    tv = widgets[ITEMS_PEDIDO]
+
+    # FIXME: refactorear este papelon
+    # busco el producto por nombre
+    prod = None
+    for each in creacion.Producto.allInstances():
+        if each.getNombre() == nombre_producto:
+            prod = each
+            break
+    if prod is None:
+        raise ValueError('No se encontró el producto!')
+
+    # Recorro la lista actual de items del pedido
+    # y agrego el nuevo producto según corresponda.    
+    ls = tv.get_model()
+    i = ls.get_iter_first()
+    while i != None:
+        if ls.get_value(i, 0) == prod.getNombre():
+            cant = ls.get_value(i, 2)
+            ls.set_value(i, 2, cant + 1)
+            return
+        i = ls.iter_next(i)
+    
+    # Si no lo encontre en la lista, agrego una
+    # nueva fila para este producto.
+    i = ls.insert(0)
+    ls.set_value(i, 0, prod.getNombre())
+    ls.set_value(i, 1, prod.getTipo().getNombre())
+    ls.set_value(i, 2, 1)
 
 
  # --------------------------------------------- #
@@ -125,14 +187,17 @@ def limpiar_tipos(widgets):
 def iniciar(widgets):
     iniciar_clientes(widgets)
     iniciar_productos(widgets)
+    iniciar_items(widgets)
     iniciar_tipos(widgets)
 
 def recargar(widgets):
     recargar_clientes(widgets)
     recargar_productos(widgets)
+    recargar_items(widgets)
     recargar_tipos(widgets)
 
 def limpiar(widgets):
     limpiar_clientes(widgets)
     limpiar_productos(widgets)
+    limpiar_items(widgets)
     limpiar_tipos(widgets)
