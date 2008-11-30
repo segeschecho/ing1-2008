@@ -71,6 +71,7 @@ class ControladorDeListos(Notificador):
 
     def agregarPedidoListo(self, p):
             self.listos.append(p)
+            p.setEstado(Estado.Listo)
             self.notificar()
             print "notificar pedido listo"
     

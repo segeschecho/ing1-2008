@@ -228,6 +228,7 @@ class MainHandlers:
 
     def pizzas_preparadas_clicked(event): 
         distribuidor.terminarPreparacionPizzas()
+  
 
 
     # --------------------------------------------- #
@@ -260,7 +261,7 @@ if __name__ == '__main__':
     pizzeria.getContIng().suscribir(distribuidor.modifIngreso)
     pizzeria.getPreparadorEmpanadero().suscribir(distribuidor.prepararEmpanadas)
     pizzeria.getPreparadorPizzero().suscribir(distribuidor.prepararPizzas)
-    
+    pizzeria.getAsignador().asignarCallback(distribuidor.pedirHorno)
     # Hardcodeo un par de pedidos para probar si va funcionando
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.getTipo() == pizzeria.coca][0:1],None,"mesa",2)
     pizzeria.getCoordP().ingresarPedido(pizzeria.clientes[0],[x for x in pizzeria.productos if x.getTipo() == pizzeria.birra][0:1],"efectivo","telefono",None)

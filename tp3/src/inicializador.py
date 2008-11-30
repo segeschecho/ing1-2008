@@ -53,13 +53,13 @@ class Pizzeria:
         #CalculadorDePrecios
         calcP =  CalculadorDePreciosStandard()
         #AsignadorDeHorno
-        asigH =  AsignadorDeHornoStandard(self.hpizzero,self.hempanadero,self.pizza,self.empanada)
+        self.asigH =  AsignadorDeHornoStandard(self.hpizzero,self.hempanadero,self.pizza,self.empanada)
         #EstimadorDeTiempos
         estT =  EstimadorStandard(self.pizza,self.empanada)
         #ControladorDeStock
         self.contS =  ControladorDeStockStandard()
         #GenedarodDePedidos
-        genP =  GeneradorDePedidosStandard(calcP,estT,self.contS,asigH)
+        genP =  GeneradorDePedidosStandard(calcP,estT,self.contS,self.asigH)
         self.coordP.setGeneradorDePedidos(genP)
    
     def cargarInsumos(self,dic):
@@ -102,6 +102,15 @@ class Pizzeria:
     
     def getContStock(self):
         return self.contS
+    
+    def getAsignador(self):
+       return self.asigH 
+    
+    def getHornoE(self):
+	return self.hempanadero
+   
+    def getHornoP(self):
+        return self.hpizzero
         
 
 if __name__ == '__main__':

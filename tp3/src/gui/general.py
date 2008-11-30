@@ -9,6 +9,7 @@ import lista_ingreso
 import lista_listos
 import lista_empanadero
 import lista_pizzero
+import nuevo_pedido
 
 class DistribuidorCallbacks:
     def __init__(self,widgets,pizzeria):
@@ -35,6 +36,10 @@ class DistribuidorCallbacks:
    
     def prepararPizzas(self):
         lista_pizzero.recargar(self.widgets,self.pizzeria.getPreparadorPizzero())
+
+    def pedirHorno(self):
+        return nuevo_pedido.pedirHorno(self.pizzeria.getHornoP(),self.pizzeria.getHornoE())
+        
 
 
  # --------------------------------------------- #
