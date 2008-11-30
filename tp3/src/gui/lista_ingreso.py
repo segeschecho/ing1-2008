@@ -126,7 +126,7 @@ def formatear_datos_ingreso(ped):
              "Ingreso: %s\n" + \
              "Tiempo estimado: %s\n" + \
              "Precio: $%s\n") % (ped.getId(),
-                                 ped.getFechaIngreso().strftime("%d/%m @ %H:%M"),
+                                 ped.getFechaIngreso().strftime("%d/%m @ %H:%M:%S"),
                                  humanize.sec2hum(ped.getTiempoEstimado()),
                                  ped.getPrecio())
     

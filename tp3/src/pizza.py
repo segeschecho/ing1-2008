@@ -14,6 +14,8 @@ from gui import lista_ingreso
 from gui import lista_listos
 from gui import lista_empanadero
 from gui import lista_pizzero
+from gui import lista_horno_empanadero
+from gui import lista_horno_pizzero
 from gui import nuevo_pedido
 
 import inicializador
@@ -281,19 +283,21 @@ if __name__ == '__main__':
     pizzeria.getPreparadorEmpanadero().suscribir(distribuidor.prepararEmpanadas)
     pizzeria.getPreparadorPizzero().suscribir(distribuidor.prepararPizzas)
     pizzeria.getAsignador().asignarCallback(distribuidor.pedirHorno)
+    pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.modifHornoPizerro)
+    pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.modifHornoEmpanadero)
     
 
     # Hardcodeo un par de pedidos para probar si va funcionando
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.getTipo() == pizzeria.coca][0:1],None,"mesa",2)
     pizzeria.getCoordP().ingresarPedido(pizzeria.clientes[0],[x for x in pizzeria.productos if x.getTipo() == pizzeria.birra][0:1],"efectivo","telefono",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+   # pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+  #  pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+ #   pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+#    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+ #   pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+  #  pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+   # pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+    #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"tarjeta", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
 

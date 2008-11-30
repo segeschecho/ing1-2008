@@ -29,14 +29,16 @@ class AvisoPizzero(Aviso) :
 class CoordinadorDeCocina :
 
     def __init__(self,controladorDeIngreso, coordinadorDePedidos,
-                 despachadorDePreparacion):
+                 despachadorDePreparacion,despachadorDeCoccion):
         self.controladorDeIngreso=controladorDeIngreso
         self.coordinadorDePedidos=coordinadorDePedidos
         self.despachadorDePreparacion=despachadorDePreparacion
+        self.despachadorDeCoccion = despachadorDeCoccion
 
 
     def cocinar(self, p):
               p.setEstado(Estado.Preparado)
+              self.despachadorDeCoccion.cocinar(p)
               #no hace nada porque no hay que implementar la parte de la coccion
 
 
@@ -68,6 +70,10 @@ class CoordinadorDeCocina :
 
     def setDespachadorDePreparacion(self, despachadorDePreparacion) :
         self.despachadorDePreparacion = despachadorDePreparacion
+    
+    def setDespachadorDeCoccion(self, despachadorDeCoccion) :
+        self.despachadorDeCoccion = despachadorDeCoccion
+    
 
 class DespachadorDePreparacion(object) :
      def __init__(self, prepPizzero,prepEmPanadero,coordinador):
@@ -286,4 +292,33 @@ class PreparadorEspecializado(Preparador) :
         self.notificar()
         self.aviso.avisar() 
 
+class DespachadorDeCoccion(Notificador):
+    def __init__(self):
+       super(DespachadorDeCoccion,self).__init__()
+    def cocinar(self,pedido):
+        raise NotImplementedError
 
+class DespachadorDeCoccionNormal(DespachadorDeCoccion):
+    def __init__(self,hornoP,hornoE):
+       super(DespachadorDeCoccionNormal,self).__init__()
+       self.colaEmp = []
+       self.colaPizz=[]
+       self.hornoP = hornoP
+       self.hornoE = hornoE
+   
+    def cocinar(self,p):
+       if p.getHorno() == self.hornoP: 
+           self.colaPizz.append(p)
+       elif p.getHorno() == self.hornoE:
+           self.colaEmp.append(p)
+       else:
+           raise TypeError("horno indefinido: "+str(p.getHorno())+"\n el despachador tiene estos hornos:\n horno pizzero: "+\
+                           str(self.hornoP) + "\n horno empanadero:" + str(self.hornoE))
+       self.notificar()
+
+    def getColaPizz(self):
+        return self.colaPizz
+ 
+    def getColaEmp(self):
+        return self.colaEmp
+       

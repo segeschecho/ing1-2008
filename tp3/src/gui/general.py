@@ -10,6 +10,8 @@ import lista_listos
 import lista_empanadero
 import lista_pizzero
 import nuevo_pedido
+import lista_horno_pizzero
+import lista_horno_empanadero
 
 class DistribuidorCallbacks:
     def __init__(self,widgets,pizzeria):
@@ -42,6 +44,12 @@ class DistribuidorCallbacks:
         
     def nuevosCriticos(self):
         nuevo_pedido.nuevosCriticos(self.pizzeria.getContStock())
+  
+    def modifHornoPizerro(self):
+        lista_horno_pizzero.recargar(self.widgets,self.pizzeria.getDespachadorDeCoccion())
+
+    def modifHornoEmpanadero(self):
+        lista_horno_empanadero.recargar(self.widgets,self.pizzeria.getDespachadorDeCoccion())
 
  # --------------------------------------------- #
  # Funciones para iniciar y limpiar toda la GUI  #
@@ -58,7 +66,9 @@ def iniciar(widgets):
     lista_listos.iniciar_datos(widgets)
     lista_empanadero.iniciar(widgets)
     lista_pizzero.iniciar(widgets)
-
+    lista_horno_empanadero.iniciar(widgets)
+    lista_horno_pizzero.iniciar(widgets)
+ 
 def limpiar(widgets):
     lista_ingreso.limpiar(widgets)
     lista_ingreso.limpiar_datos(widgets)
@@ -69,7 +79,9 @@ def limpiar(widgets):
     lista_listos.limpiar(widgets)
     lista_empanadero.limpiar(widgets)
     lista_pizzero.limpiar(widgets)
-    
+    lista_horno_empanadero.limpiar(widgets)
+    lista_horno_pizzero.limpiar(widgets)
+
 def recargar(widgets):
     lista_ingreso.recargar(widgets)
     lista_productos.recargar(widgets)
@@ -78,3 +90,5 @@ def recargar(widgets):
     lista_listos.recargar(widgets)
     lista_empanadero.recargar(widgets)
     lista_pizzero.recargar(widgets)
+    lista_horno_empanadero.recargar(widgets)
+    lista_horno_pizzero.recargar(widgets)

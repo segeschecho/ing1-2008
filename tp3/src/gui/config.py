@@ -45,3 +45,6 @@ ERROR_MSG = 'texto_error'
 ELEGIR_HORNO_WINDOW = 'elegir_horno'
 RADIO_EMPANADERO = 'horno_empanadero'
 RADIO_PIZZERO = 'horno_pizzero'
+
+LISTA_HORNO_PIZZERO = 'horno_pizzero'
+LISTA_HORNO_EMPANADERO = 'horno_empanadero'
