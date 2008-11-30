@@ -3,12 +3,24 @@
 
 import gobject
 import gtk
-
+import sets
 import creacion
 from config import *
 from gui.helpers import WidgetsWrapper
 
 
+def nuevosCriticos(contStock):
+   critic=contStock.getCriticos()
+   if critic != sets.Set([]):
+       abrir = WidgetsWrapper(STOCK_CRITICO_WINDOW)
+       for each in critic:
+          wnd = abrir[STOCK_CRITICO_WINDOW]
+          wnd.hide()
+          label = abrir['texto_critico']
+          label.set_markup("<b>Atención</b>\n\n El insumo: "+each.getNombre()+"( ID: "+str(each.getId())+") \nestá debajo del nivel crítico.\n Nivel Crítico:"+str(each.getCantCritica()))
+          res = wnd.run()
+          wnd.hide()
+       
  # --------------------------------------------- #
  # Callback para pedir hornos de un pedido       #
  # --------------------------------------------- #

@@ -5042,7 +5042,7 @@ para cocinar el nuevo pedido:
 	      <property name="spacing">0</property>
 
 	      <child>
-		<widget class="GtkLabel" id="label334354">
+		<widget class="GtkLabel" id="texto_critico">
 		  <property name="visible">True</property>
 		  <property name="label" translatable="yes">&lt;b&gt;Atención&lt;/b&gt;
 El insumo %s
@@ -5054,7 +5054,7 @@ Nivel Crítico: %s</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
 		  <property name="wrap">False</property>
 		  <property name="selectable">False</property>
-		  <property name="xalign">0</property>
+		  <property name="xalign">0.0299999993294</property>
 		  <property name="yalign">0.5</property>
 		  <property name="xpad">0</property>
 		  <property name="ypad">0</property>

@@ -40,7 +40,8 @@ class DistribuidorCallbacks:
     def pedirHorno(self):
         return nuevo_pedido.pedirHorno(self.pizzeria.getHornoP(),self.pizzeria.getHornoE())
         
-
+    def nuevosCriticos(self):
+        nuevo_pedido.nuevosCriticos(self.pizzeria.getContStock())
 
  # --------------------------------------------- #
  # Funciones para iniciar y limpiar toda la GUI  #
