@@ -21,3 +21,15 @@ class WidgetsWrapper:
 
 
 
+###################################################
+# Helper para mostrar errores                     #
+###################################################
+
+def mostrar_error(titulo, texto):
+    error = WidgetsWrapper(ERROR_WINDOW)
+    wnd = error[ERROR_WINDOW]
+    wnd.hide()
+    error[ERROR_MSG].set_markup("<b>%s</b>\n%s" % (titulo, texto))
+    wnd.run()
+    wnd.destroy()
+
