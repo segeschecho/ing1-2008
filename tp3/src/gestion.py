@@ -158,6 +158,7 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
 
     def ingresar(self, p):
       res=self.coordinadorDeCocina.prepararPedido(p)
+      print res
       if(not res):
           p.setEstado(Estado.Ingresado)
           self.encolarPedido(p)
@@ -179,7 +180,6 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
             sirve=self.tieneTipo(pedActual, tp)
             if(sirve):
                 ped=pedActual
-            if(ped != None):
                 break
             
 
@@ -187,7 +187,7 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
            self.listaIngreso.remove(ped)
            self.notificar()
           
-        
+        print "ped:" + str(ped)
         return ped
 
 
