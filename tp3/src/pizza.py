@@ -24,6 +24,7 @@ import cocina
 #TODO: lista de pedidos preparados en cada horno (no esta implementado, hay que hacerlo filtrando)
 #TODO: resolver el tema de ver el estado, no alcanza con listar los pedidos de cada cliente, porque hay pedidos sin clientes
 #TODO: hacer que se puedan ingresar pedidos
+#TODO: deshabilitar los botones de preparar si no hay pedido que preparar
 
 
 ###################################################
@@ -263,6 +264,7 @@ if __name__ == '__main__':
     # Conecto observers y callbacks
     distribuidor = general.DistribuidorCallbacks(widgets,pizzeria)
     pizzeria.getContStock().suscribir(distribuidor.modifStock)
+    pizzeria.getContStock().suscribir(distribuidor.nuevosCriticos)
     pizzeria.getContListos().suscribir(distribuidor.modifListos)
     pizzeria.getContIng().suscribir(distribuidor.modifIngreso)
     pizzeria.getPreparadorEmpanadero().suscribir(distribuidor.prepararEmpanadas)
@@ -283,7 +285,6 @@ if __name__ == '__main__':
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"tarjeta", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
-    print [x.getId() for x in pizzeria.productos]
     
 
 

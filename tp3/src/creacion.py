@@ -2,6 +2,9 @@
 #! -*- encoding: utf-8 -*-
 
 from datetime import datetime
+import sets
+
+Set = sets.Set
 
 class Notificador(object):
     def __init__(self):
@@ -864,7 +867,7 @@ class ControladorDeStockStandard(ControladorDeStock) :
 
     def __init__(self):
             super(ControladorDeStockStandard,self).__init__()
-            self.criticos = []
+            self.criticos = Set([])
 
     def getCriticos(self) :
         return self.criticos
@@ -890,13 +893,13 @@ class ControladorDeStockStandard(ControladorDeStock) :
     #ahora en stock critico
 
     def obtenerCriticos(self, productos) :
-		   self.criticos=[]
+		   self.criticos=Set([])
 		   for pr in productos:
 			   ls = pr.getInsumos()
 			   for ins in ls:
 				
-				   if(ins.getCant() <= ins.getCantCritica()):
-					   self.criticos.append(ins)
+				   if(ins.getCant() < ins.getCantCritica()):
+					   self.criticos.add(ins)
 				
 			
 		
@@ -917,6 +920,7 @@ class ControladorDeStockStandard(ControladorDeStock) :
     def verificarEIngresar(self, productos) :
                 posible=True
                 yaDecrementados = []
+                stockAnterior = Set([x for x in Insumo.allInstances() if x.getCant() >= x.getCantCritica()])
                 for pr in productos:
                         posible=self.ingresar(pr)
                         if(not posible):
@@ -927,7 +931,7 @@ class ControladorDeStockStandard(ControladorDeStock) :
                                 yaDecrementados.append(pr)
     
                 self.obtenerCriticos(productos)
-               
+                self.criticos.intersection_update(stockAnterior)
                 self.notificar()
                      
                         
