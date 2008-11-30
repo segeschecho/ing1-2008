@@ -64,9 +64,10 @@ class MainHandlers:
                 seleccion, iterador = tv.get_selection().get_selected()
                 
                 nombre_producto = seleccion.get_value(iterador, 0)
+                print "voy a agregar %s" % nombre_producto
                 nuevo_pedido.agregar_a_pedido(nuevop, nombre_producto)
 
-            def items_pedido_posibles_doubleclicked(treeview, path, view_column):
+            def items_pedido_doubleclicked(treeview, path, view_column):
                 tv = nuevop[ITEMS_PEDIDO]
                 ls = tv.get_model()
                 seleccion, iterador = tv.get_selection().get_selected()
@@ -75,7 +76,7 @@ class MainHandlers:
                 if cant_producto == 1:
                     ls.remove(iterador)
                 else:
-                    ls.set_value(iterador, 2, cant_producto + 1)
+                    ls.set_value(iterador, 2, cant_producto - 1)
 
         
         nuevop = WidgetsWrapper(NUEVO_PEDIDO_WINDOW, NuevoPedidoHandlers)
