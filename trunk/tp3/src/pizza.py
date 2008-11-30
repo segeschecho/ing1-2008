@@ -275,6 +275,7 @@ if __name__ == '__main__':
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"tarjeta", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
+    print [x.getId() for x in pizzeria.productos]
     
     #-------------------------------------------------------#
 

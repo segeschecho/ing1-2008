@@ -427,7 +427,9 @@ class Producto :
       # self.tiempoPreparacion=['tiempoPreparacion']
       # self.tipoProducto=['tipoProducto']
       self.__class__.allInst.append(self)  
-      self.__class__.ID = len(self.__class__.allInst)
+      self.ID = self.__class__.ID
+      self.__class__.ID+=1
+
       
     def __init__(self,nombre,precio, tiempoCoccion,tiempoPreparacion,tipoProducto, insumos):
                 self.nombre =nombre
@@ -497,7 +499,9 @@ class TipoProducto:
             setattr(self, k,dict[k])
 
       self.__class__.allInst.append(self)  
-      self.__class__.ID = len(self.__class__.allInst)
+      self.ID = self.__class__.ID
+      self.__class__.ID+=1
+
     
     @classmethod
     def getPorId(cls,ID):
@@ -568,7 +572,9 @@ class Insumo :
       self.nombre=dict['nombre']
       self.ID = dict['ID']
       self.__class__.allInst.append(self) 
-      self.__class__.ID=len(self.__class__.allInst)
+      self.ID = self.__class__.ID
+      self.__class__.ID+=1
+
     allInst = []
     ID=0
     def __str__(self):
@@ -768,7 +774,10 @@ class Cliente :
         for k in dict.keys():
             setattr(self, k,dict[k])
         self.__class__.allInst.append(self) 
+        self.ID = self.__class__.ID
+        self.__class__.ID+=1
         
+     ID=0  
      allInst = []
      def __init__(self,apel,celular,id, nombre,passWeb,telefono,web, dir):
         self.apellido=apel
@@ -780,11 +789,23 @@ class Cliente :
         self.usrweb=web
         self.dir=dir
         self.__class__.allInst.append(self)
+        self.ID = self.__class__.ID
+        self.__class__.ID+=1
 
-	
+     def getId(self):
+         return self.ID
+     
+  
      def __str__(self):  
          return "el cliente es:" + self.nombre + " " + self.apellido + " con Id: " +\
                  str(self.id) + " y nombre de usuario WEB: " + self.usrweb
+
+     @classmethod
+     def getPorId(cls,ID):
+        for each in cls.allInst:
+		if each.ID == ID:
+                      return each
+        raise TypeError("ID invalido") 
 	
      @classmethod
      def allInstances(cls):
