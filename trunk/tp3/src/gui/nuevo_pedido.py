@@ -105,6 +105,7 @@ def iniciar_items(widgets):
     ls = gtk.ListStore(gobject.TYPE_STRING,
                        gobject.TYPE_STRING,
                        gobject.TYPE_INT,
+                       gobject.TYPE_FLOAT,
                       )
     tv.set_model(ls)
 
@@ -115,7 +116,7 @@ def iniciar_items(widgets):
 
 
 def recargar_items(widgets):
-    pass
+    recalcular_total(widgets)
 
 
 def limpiar_items(widgets):    
@@ -145,16 +146,32 @@ def agregar_a_pedido(widgets, nombre_producto):
         if ls.get_value(i, 0) == prod.getNombre():
             cant = ls.get_value(i, 2)
             ls.set_value(i, 2, cant + 1)
-            return
+            break
         i = ls.iter_next(i)
     
-    # Si no lo encontre en la lista, agrego una
-    # nueva fila para este producto.
-    i = ls.insert(0)
-    ls.set_value(i, 0, prod.getNombre())
-    ls.set_value(i, 1, prod.getTipo().getNombre())
-    ls.set_value(i, 2, 1)
+    if i == None:
+        # Si no lo encontre en la lista, agrego una
+        # nueva fila para este producto.
+        i = ls.insert(0)
+        ls.set_value(i, 0, prod.getNombre())
+        ls.set_value(i, 1, prod.getTipo().getNombre())
+        ls.set_value(i, 2, 1)
+        ls.set_value(i, 3, prod.getPrecio())
 
+    recalcular_total(widgets)
+
+def recalcular_total(widgets):
+    tv = widgets[ITEMS_PEDIDO]
+    ltot = widgets[TOTAL_PEDIDO]
+
+    total = 0
+    ls = tv.get_model()
+    i = ls.get_iter_first()
+    while i != None:
+        total += ls.get_value(i, 2) * ls.get_value(i, 3)
+        i = ls.iter_next(i)
+
+    ltot.set_markup("<b>Total:</b> $%s" % total)
 
  # --------------------------------------------- #
  # Funciones para los tipos de pedido            #
