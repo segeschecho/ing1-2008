@@ -93,13 +93,19 @@ class MainHandlers:
                 num_mesa = nuevop[NUEVO_PEDIDO_MESA]
                 forma_pedido = nuevop[NUEVO_PEDIDO_FORMA_PAGO]
 
-                if cb.get_active_text() != "Mesa":
+                eleccion = cb.get_active_text()
+                if eleccion != "Mesa":
                     # Deshabilito la entrada de número de mesa
                     num_mesa.set_text("")
                     num_mesa.set_sensitive(False)
+                    
                     # Habilito la entrada de forma de pago
-                    forma_pedido.set_sensitive(True)
-                    forma_pedido.set_active(0)
+                    if eleccion == "Teléfono":
+                        forma_pedido.set_sensitive(False)
+                        forma_pedido.set_active(0)
+                    elif eleccion == "Mostrador":
+                        forma_pedido.set_sensitive(True)
+                        forma_pedido.set_active(0)
                     
                 else:
                     # Habilito la entrada de número de mesa
@@ -115,9 +121,29 @@ class MainHandlers:
         wnd.hide()
         nuevo_pedido.iniciar(nuevop)
         nuevo_pedido.recargar(nuevop)
-        res=wnd.run()
-        # TODO: ingresar el pedido al sistema
+        
+        datos = None
+
+        while True:
+            res = wnd.run()
+            if res == gtk.RESPONSE_DELETE_EVENT or \
+               res == gtk.RESPONSE_CANCEL:
+                break
+            elif res == gtk.RESPONSE_OK:
+                try:
+                    datos = nuevo_pedido.validar_pedido(nuevop)
+                    break
+                except nuevo_pedido.ErrorDeValidacion:
+                    pass
+            else:
+                raise ValueError("Salida inesperada del diálogo de nuevo pedido!")
+
         wnd.hide()
+
+        if datos != None:
+            print datos
+            pizzeria.getCoordP().ingresarPedido(*datos)
+            lista_ingreso.recargar(widgets, pizzeria.getContIng())
 
 
     # ---------------------------------------------- #
