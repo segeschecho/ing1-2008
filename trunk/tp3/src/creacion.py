@@ -1,5 +1,7 @@
-from datetime import datetime
+#!/usr/bin/env python
+#! -*- encoding: utf-8 -*-
 
+from datetime import datetime
 
 class Notificador(object):
     def __init__(self):
@@ -17,104 +19,90 @@ class Notificador(object):
         """
         self.observers.append(callback)
     
-    def desSusscribir(self,callback): 
+    def desuscribir(self,callback): 
         self.observers.remove(callback)
     
     def notificar(self):
-        
         for each in self.observers:
-            
             each()
-    
+   
         
 class Pedido(object) :
-    allInst=[]
-    def __setstate__(self,dict):
-      for k in dict.keys():
-            setattr(self, k,dict[k])
-      self.__class__.allInst.append(self) 
-    
-    @classmethod
-    def getPorId(cls,ID):
-        for each in cls.allInst:
-		if each.ID == ID:
-                      return each
-        raise TypeError("ID invalido") 
-  
-    def __init__( self,id, cliente, productos, formaDePago, fechaIngreso):
-        if id in [x.getId() for x in self.__class__.allInst]:
-		raise TypeError("Ya hay un pedido con ese id")
-        self.id=id
-        self.cliente=cliente
-        self.productos=productos
-        self.fechaIngreso=fechaIngreso
-        self.__class__.allInst.append(self)
-        self.estado=None
-        self.precio = None
-        self.Horno = None
-        self.tiempoEstimado = None
-	
+    allInst=[]    
 
-    def getCliente(self):
-        return self.cliente
+
+    @classmethod
+    def getPorId(cls,id):
+        for each in cls.allInst:
+            if each.id == id:
+                return each
+        raise ValueError("ID inválido!") 
+
 
     @classmethod
     def allInstances(cls):
         return cls.allInst
+
+
+    def __init__( self,id, cliente, productos, formaDePago, fechaIngreso):
+        
+        if id in [x.getId() for x in self.__class__.allInst]:
+            raise ValueError("Ya hay un pedido con ese ID!")
+        
+        self.id = id
+        self.cliente = cliente
+        self.productos = productos
+        self.fechaIngreso = fechaIngreso
+        self.__class__.allInst.append(self)
+        self.estado = None
+        self.precio = None
+        self.horno = None
+        self.tiempoEstimado = None
+	
+    def getCliente(self):
+        return self.cliente
 	
     def getFechaIngreso(self):
         return self.fechaIngreso
 
     def getEstado(self) :
         return self.estado
-	
 
     def setEstado(self, estadoP) :
         self.estado = estadoP
-	
 
     def getFechaIngreso(self) :
         return self.fechaIngreso
-	
 
     def setFechaIngreso(self, fechaIngreso) :
         self.fechaIngreso = fechaIngreso
-	
 
     def getFormaDePago(self):
         return self.formaDePago
-	
 
     def setFormaDePago(self, formaDePago) :
         self.formaDePago = formaDePago
-	
 
     def getHorno(self) :
         return self.horno
-	
 
     def setHorno(self, horno) :
         self.horno = horno
-	
 
     def getId(self) :
         return self.id
-	
 
     def getProductos(self) :
         return self.productos
-	
 
     def setProductos(self, productos) :
          self.productos = productos
-	
 
     def setTiempoEstimado(self, tiempoEstimado) :
          self.tiempoEstimado = tiempoEstimado
 	
     def getTiempoEstimado(self) :
          return self.tiempoEstimado
-	
 
     def getPrecio(self) :
          return self.precio
@@ -123,40 +111,41 @@ class Pedido(object) :
          self.precio = precio
 	
 
+
+    def __setstate__(self,dict):
+        for k in dict.keys():
+            setattr(self, k,dict[k])
+        self.__class__.allInst.append(self)
+
     def __hash__(self):
         return self.id.__hash__()
+    
+    def __eq__(self,o):
+        if o == None:
+            return False
 
-	
-    # def __cmp__(self,o):
-        # if(o == None):
-            # return False
-        # if(isinstance(o,self.__class__)):
-            # return self.id - o.id
-        # else:
-            # raise TypeError("error en cmp")  
+        if isinstance(o,self.__class__):
+            return self.id == o.id
+        else:
+            raise TypeError("No se puede comparar con %s!" % o.__class__)
 
     def __neq__(self,o):
         return not self.__eq__(o)
-    
-    def __eq__(self,o):
-        if(o == None):
-            return False
-        if(isinstance(o,self.__class__)):
-            return self.id == o.id
-        else:
-            raise TypeError("error en eq")
-    
+
+
+
     def getDestino(self):
         raise NotImplementedError
+
+
+
 
 class PedidoLocal(Pedido):
        
 	def __init__(self,id, cliente,productos,formaDePago, fechaIngreso):
-		super(PedidoLocal, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
+		super(PedidoLocal, self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
 
-class ClienteNulo(Exception):
-    def __str__(self):
-        return "excepcion de cliente nulo"
+
 
 class PedidoRemoto (Pedido): 
         def getDestino(self):
@@ -167,54 +156,63 @@ class PedidoRemoto (Pedido):
 			raise ClienteNulo
                 
 		super(PedidoRemoto, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
-	
 
-class PedidoDeMesaSinMesa(Exception):
-	def __str__(self):
-		return "intento de crear un pedido de mesa sin mesa asociada"
+
 
 class PedidoMesa(PedidoLocal):
 
     def __init__(self,id, cliente, productos,formaDePago,fechaIngreso,mesa):
-	    if mesa == None:
-		    raise PedidoDeMesaSinMesa
-	    super(PedidoMesa,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
-	    self.mesa=mesa
+        if mesa is None:
+            raise PedidoDeMesaSinMesa
+	    
+        super(PedidoMesa,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
+        self.mesa = mesa
 	
+
     def getDestino(self):
         return "Mesa"
     
     def getMesa(self):
-         return self.mesa
-	
+        return self.mesa
 
-
+    # TODO: deberia haber un getter?
     def setFormaDePago(formaDePago):
-       self.formaDePago=formaDePago
+        self.formaDePago = formaDePago
+
 
 
 class PedidoMostrador(PedidoLocal) :
 
 	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
-
 		super(PedidoMostrador,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
+
 	def getDestino(self):
             return "Mostrador"
 
 class PedidoTelefono(PedidoRemoto) :
 
 	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
-
 		super(PedidoTelefono,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
+
+
+class ClienteNulo(Exception):
+    pass
+
+class PedidoDeMesaSinMesa(Exception):
+    pass
+
+
+
+
 
 class AsignadorDeHorno:
 
     def __init__(self,p, e,pizza, empanada ):
-          self.hornoP=p
-          self.hornoE=e
-          self.pizza=pizza
-          self.empanada=empanada
-          self.oraculoDeHorno = None
+        self.hornoP = p
+        self.hornoE = e
+        self.pizza = pizza
+        self.empanada = empanada
+        self.oraculoDeHorno = None
           
     def asignarHorno(self,pedido):
         raise NotImplementedError
@@ -223,66 +221,62 @@ class AsignadorDeHorno:
     
 class AsignadorDeHornoStandard (AsignadorDeHorno):
 
-        def  asignarHorno( self,pedido):
-            empanadas=False
-            pizzas = False
-            ls = pedido.getProductos()
-            h = None
-            for pr in ls:
-                pizzas = pizzas or pr.getTipo()==self.pizza
-                empanadas = empanadas or pr.getTipo()==self.empanada
-        
-            if (pizzas and empanadas):
-            	h=self.notificarHorno()
-        
-            elif (pizzas):
-            	h=self.hornoP
-        
-            elif(empanadas):
-                h=self.hornoE
-        
-            pedido.setHorno(h)
+    def asignarHorno(self, pedido):
+        h = None
+        empanadas = False
+        pizzas = False
+        ls = pedido.getProductos()
+        for pr in ls:
+            pizzas = pizzas or pr.getTipo() == self.pizza
+            empanadas = empanadas or pr.getTipo() == self.empanada
+    
+        if pizzas and empanadas:
+        	h = self.notificarHorno()
+        elif pizzas:
+        	h = self.hornoP
+        elif empanadas:
+            h = self.hornoE
+    
+        pedido.setHorno(h)
 	
-        def asignarCallback(self,callback):
-            self.oraculoDeHorno = callback
-        def notificarHorno(self):
-            return self.oraculoDeHorno()
-            
+    def asignarCallback(self,callback):
+        self.oraculoDeHorno = callback
+
+    def notificarHorno(self):
+        return self.oraculoDeHorno()
+        
 	
 
 class Horno:
 
-		
+    def __init__(self,cantModulos, fraccionadorDeHorno,descripcion):
+        self.cantModulos = cantModulos
+        self.fraccionadorDeHorno = fraccionadorDeHorno
+        self.descripcion = descripcion
 
-	def getFraccionadorDeHorno(self):
-		return self.fraccionadorDeHorno
+    def getFraccionadorDeHorno(self):
+        return self.fraccionadorDeHorno
+
+    def getCantModulos(self):
+        return self.cantModulos
 	
+    def getDescripcion(self):
+        return self.descripcion
 
-	def __init__(self,cantModulos, fraccionadorDeHorno,descripcion):
-		self.cantModulos=cantModulos
-		self.fraccionadorDeHorno=fraccionadorDeHorno
-                self.descripcion = descripcion
-
-
-	def getCantModulos(self):
-		return self.cantModulos
-	
-        def getDescripcion(self):
-            return self.descripcion
 
 class FraccionadorDeHorno:
 
+    def __init__(self,prodsXModulo):
+        self.prodsXModulo = prodsXModulo
 
-	def __init__(self,prodsXModulo):
-		self.prodsXModulo=prodsXModulo
+    def getProductosPorModulo(self, tipoProducto):
+        return self.prodsXModulo[tipoProducto]
 
-	def getProductosPorModulo(self,tipoProducto ):
-		return self.prodsXModulo[tipoProducto]
-	
+
+
+
+
 class CalculadorDePrecios:
-
-    def __init__(self):
-            pass
 
     def calcularPrecio(self,pedido):
             raise NotImplementedError
@@ -290,187 +284,161 @@ class CalculadorDePrecios:
 
 class CalculadorDePreciosStandard (CalculadorDePrecios):
 
-	def __init__(self):
-	    pass
-
-	def calcularPrecio(self,pedido):
-		ls = pedido.getProductos()
-		precio=0.0
-		for pr in ls:
-			precio+=pr.getPrecio()
+    def calcularPrecio(self,pedido):
+        ls = pedido.getProductos()
+        precio = 0.0
+        for pr in ls:
+            precio += pr.getPrecio()
 		
-		return precio
+        return precio
+
+
+
 
 
 class EstimadorDeTiempos: 
 
-    def __init__(self):
-          pass
-    
-
     def estimarTiempo(self,pedido):
-         raise NotImplementedError
+        raise NotImplementedError
 
 class Estado:
-    Ingresado="ingresado"
+    Ingresado="Ingresado"
     Preparado="Preparado"
     EnPreparacion="EnPreparacion" 
     Listo="Listo"
 
 class EstimadorStandard (EstimadorDeTiempos):
 
+    def __init__( self,pizza, empanada):
+        self.pizza = pizza
+        self.empanada = empanada
 
-	def __init__( self,pizza, empanada):
-		self.pizza=pizza
-		self.empanada=empanada
-
-	def estimarTiempo( self,pedido):
-		tiempoPreparacion=0.0
-		tiempoCoccionPizzas=0.0
-		tiempoCoccionEmpanadas=0.0
-		h=pedido.getHorno()
-		ls = Pedido.allInstances()
-		for p in ls:
-			tiempoPreparacion+=self.estimarTiempoDePreparacion(p)
-			tiempoCoccionPizzas+=self.estimarTiempoDeCoccionPizzas(p, h)
-			tiempoCoccionEmpanadas+=self.estimarTiempoDeCoccionEmpanadas(p, h)
+    def estimarTiempo(self,pedido):
+        tiempoPreparacion = 0.0
+        tiempoCoccionPizzas = 0.0
+        tiempoCoccionEmpanadas = 0.0
+        h = pedido.getHorno()
+        ls = Pedido.allInstances()
+        for p in ls:
+            tiempoPreparacion += self.estimarTiempoDePreparacion(p)
+            tiempoCoccionPizzas += self.estimarTiempoDeCoccionPizzas(p, h)
+            tiempoCoccionEmpanadas += self.estimarTiempoDeCoccionEmpanadas(p, h)
 		
-		tiempoPreparacion+=self.estimarTiempoDePreparacionActual(pedido)
-		tiempoCoccionPizzas+=self.estimarTiempoDeCoccionPizzasActual(pedido,h)
-		tiempoCoccionEmpanadas+=self.estimarTiempoDeCoccionEmpanadasActual(pedido,h)
-		modulos = h.getCantModulos()
-		frac = h.getFraccionadorDeHorno()
-		cantEmpanadas = frac.getProductosPorModulo(self.empanada)
-		cantPizzas = frac.getProductosPorModulo(self.pizza)
-		res = tiempoPreparacion+(tiempoCoccionPizzas/(cantPizzas*modulos))+(tiempoCoccionEmpanadas/(cantEmpanadas*modulos))
-		return res
+        tiempoPreparacion += self.estimarTiempoDePreparacionActual(pedido)
+        tiempoCoccionPizzas += self.estimarTiempoDeCoccionPizzasActual(pedido,h)
+        tiempoCoccionEmpanadas += self.estimarTiempoDeCoccionEmpanadasActual(pedido,h)
+        
+        modulos = h.getCantModulos()
+        frac = h.getFraccionadorDeHorno()
+        cantEmpanadas = frac.getProductosPorModulo(self.empanada)
+        cantPizzas = frac.getProductosPorModulo(self.pizza)
+        
+        res = tiempoPreparacion + \
+              (tiempoCoccionPizzas / (cantPizzas*modulos))+ \
+              (tiempoCoccionEmpanadas / (cantEmpanadas*modulos))
+        
+        return res
 
+
+    def estimarTiempoDeCoccionEmpanadasActual(self,pedido,h) :
+        ls = pedido.getProductos()
+        res = 0.0
+        for pr in ls:
+            if pr.getTipo() ==self.empanada:
+                res += pr.getTiempoCoccion()
+        return res
 	
 
-	def estimarTiempoDeCoccionEmpanadasActual(self,pedido,h) :
-		ls = pedido.getProductos()
-		res= 0.0
-		for pr in ls:
-			if(pr.getTipo()==self.empanada):
-				res+=pr.getTiempoCoccion()
-			
-		
-		return res
+    def estimarTiempoDeCoccionPizzasActual(self,pedido,h) :
+        ls = pedido.getProductos()
+        res = 0.0
+        for pr in ls:
+            if pr.getTipo() == self.pizza:
+                res += pr.getTiempoCoccion()
+        return res
 	
 
-	def estimarTiempoDeCoccionPizzasActual(self,pedido,h) :
-		ls = pedido.getProductos()
-		res= 0.0
-		for pr in ls:
-			if(pr.getTipo()==self.pizza):
-				res+=pr.getTiempoCoccion()
-		
-		return res
+    def estimarTiempoDePreparacionActual(self,pedido) :
+        if pedido.getEstado() != Estado.Ingresado :
+            return 0
+        ls = pedido.getProductos()
+        res = 0.0
+        for pr in ls:
+            res += pr.getTiempoPreparacion()
+        return res
 	
 
-	def estimarTiempoDePreparacionActual(self,pedido) :
-                if pedido.getEstado() != Estado.Ingresado :
-                   return 0
-		ls = pedido.getProductos()
-		res= 0.0
-		for pr in ls:
-			res+=pr.getTiempoPreparacion()
-		return res
-	
-
-	def estimarTiempoDeCoccionEmpanadas(self,pedido,  horno):
-		res=0.0
-		if(pedido.getHorno() != horno):
-			return res
+    def estimarTiempoDeCoccionEmpanadas(self,pedido,  horno):
+        res = 0.0
+        if(pedido.getHorno() != horno):
+            return res
 		
-		elif(pedido.getEstado()!= Estado.EnPreparacion and \
-              pedido.getEstado() != Estado.Ingresado and \
-              pedido.getEstado() != Estado.Preparado):
-			return res
+        elif(pedido.getEstado() != Estado.EnPreparacion and \
+             pedido.getEstado() != Estado.Ingresado and \
+             pedido.getEstado() != Estado.Preparado):
+            return res
 		
-		else:
-			return self.estimarTiempoDeCoccionEmpanadasActual(pedido,horno)
+        else:
+            return self.estimarTiempoDeCoccionEmpanadasActual(pedido,horno)
 		
     
-	def estimarTiempoDeCoccionPizzas(self,pedido,horno):
-		res=0.0
-		if(pedido.getHorno() != horno):
-			return res
-		elif(pedido.getEstado()!= Estado.EnPreparacion and\
-                pedido.getEstado() != Estado.Ingresado and\
-                pedido.getEstado() != Estado.Preparado):
-			return res
-		else:
-			return self.estimarTiempoDeCoccionPizzasActual(pedido,horno)
-		
+    def estimarTiempoDeCoccionPizzas(self,pedido,horno):
+        res = 0.0
+        if(pedido.getHorno() != horno):
+            return res
+        elif(pedido.getEstado() != Estado.EnPreparacion and \
+             pedido.getEstado() != Estado.Ingresado and \
+             pedido.getEstado() != Estado.Preparado):
+            return res
+        else:
+            return self.estimarTiempoDeCoccionPizzasActual(pedido,horno)
 	
 
-	
-	def estimarTiempoDePreparacion(self,  pedido):
-		res=0.0
-		if(pedido.getEstado()!= Estado.Ingresado):
-			return res
-		
-		else:
-			return self.estimarTiempoDePreparacionActual(pedido)
+    def estimarTiempoDePreparacion(self,  pedido):
+        res = 0.0
+        if pedido.getEstado() != Estado.Ingresado:
+            return res
+        else:
+            return self.estimarTiempoDePreparacionActual(pedido)
 		
 
 class Producto :
 
     allInst = []
-    ID=0
-    def __setstate__(self,dict):
-      for k in dict.keys():
-            setattr(self, k,dict[k])
-      # self.nombre = dict['nombre']
-      # self.insumos=dict['insumos']
-      # self.precio=['precio']
-      # self.tiempoCoccion=['tiempoCoccion']
-      # self.tiempoPreparacion=['tiempoPreparacion']
-      # self.tipoProducto=['tipoProducto']
-      self.__class__.allInst.append(self)  
-      self.ID = self.__class__.ID
-      self.__class__.ID+=1
-
+    ID = 0
       
     def __init__(self,nombre,precio, tiempoCoccion,tiempoPreparacion,tipoProducto, insumos):
-                self.nombre =nombre
-                self.insumos=insumos
-                self.precio=precio
-                self.tiempoCoccion=tiempoCoccion
-                self.tiempoPreparacion=tiempoPreparacion
-                self.tipoProducto=tipoProducto
-                self.__class__.allInst.append(self)
-                self.ID=self.__class__.ID
-                self.__class__.ID+=1
+        self.nombre = nombre
+        self.insumos = insumos
+        self.precio = precio
+        self.tiempoCoccion = tiempoCoccion
+        self.tiempoPreparacion = tiempoPreparacion
+        self.tipoProducto = tipoProducto
+        self.__class__.allInst.append(self)
+        self.ID = self.__class__.ID
+        self.__class__.ID += 1
 
-    
-    def __repr__(self):
-        return "< nombre: " + self.nombre + ">"
-        
-    def __str__(self):
-        return self.nombre
-    def getId(self):
-      return self.ID
-
+   
     @classmethod
     def getPorId(cls,ID):
         for each in cls.allInst:
-		if each.ID == ID:
-                      return each
-        raise TypeError("ID invalido") 
+            if each.ID == ID:
+                return each
+        raise ValueError("ID inválido!") 
    
     @classmethod
     def allInstances(cls):
         return cls.allInst
     
+
+    def getId(self):
+        return self.ID
+
     def getNombre(self) :
         return self.nombre
-	
 
     def getInsumos(self):
         return self.insumos
-	
 
     def getPrecio(self):
         return self.precio
@@ -482,60 +450,95 @@ class Producto :
         return self.tipoProducto.getCocinable()
     
     def getTiempoCoccion(self):
-        return self.tiempoCoccion
-	
+        return self.tiempoCoccion	
 
     def getTiempoPreparacion(self):
         return self.tiempoPreparacion
-	
 
     def getTipo(self):
-	    return self.tipoProducto
+        return self.tipoProducto
+ 
 
+    def __setstate__(self,dict):
+        for k in dict.keys():
+            setattr(self, k,dict[k])
+        
+        self.__class__.allInst.append(self)  
+        self.ID = self.__class__.ID
+        self.__class__.ID += 1
+
+   
+    def __repr__(self):
+        return "<Producto nombre: " + self.nombre + ">"
+        
+    def __str__(self):
+        return self.nombre
+ 
 
 class TipoProducto:
     allInst = []
-    ID=0
+    ID = 0
+
+    def __init__(self,nombre, coc,prep):
+        self.nombre = nombre
+        self.cocinable = coc
+        self.preparable = prep
+        self.__class__.allInst.append(self)  
+        self.id = self.__class__.ID
+        self.__class__.ID += 1
+
+
     def __setstate__(self,dict):
-      for k in dict.keys():
+        for k in dict.keys():
             setattr(self, k,dict[k])
 
-      self.__class__.allInst.append(self)  
-      self.ID = self.__class__.ID
-      self.__class__.ID+=1
+        self.__class__.allInst.append(self)  
+        self.id = self.__class__.ID
+        self.__class__.ID += 1
 
     
     @classmethod
     def getPorId(cls,ID):
         for each in cls.allInst:
-		if each.ID == ID:
-                      return each
-        raise TypeError("ID invalido") 
+            if each.id == ID:
+                return each
+        raise TypeError("ID invalido!") 
    
     @classmethod
     def allInstances(cls):
         return cls.allInst
+    
+    def __hash__(self):
+        return self.nombre.__hash__()
 
-    def __init__(self,nombre, coc,prep):
-        self.nombre=nombre
-        self.cocinable=coc
-        self.preparable=prep
-        self.__class__.allInst.append(self)  
-        self.ID = self.__class__.ID
-        self.__class__.ID+=1
+
+    def __cmp__(self,o):
+        if o == None:
+            return False
+        if isinstance(o,self.__class__):
+            return self.nombre.__cmp__(o.nombre)
+        else:
+            raise TypeError("error en cmp de TipoProducto")  
+
+    
+    def __eq__(self,o):
+        if isinstance(o,self.__class__):
+            return self.nombre == o.nombre
+        else:
+            raise TypeError("error en eq de TipoProducto")
+
+    def __neq__(self,o):
+        return not self.__eq__(o)
+
+    def __repr__(self):
+        return "<TipoProducto: %s, preparable: %s, cocinable: %s>" % (self.nombre,self.preparable,self.cocinable)
+
 
     def getNombre(self) :
         return self.nombre
 	
     def getId(self):
-      return self.ID
-
-    @classmethod
-    def getPorId(cls,ID):
-        for each in cls.allInst:
-		if each.ID == ID:
-                      return each
-        raise TypeError("ID invalido") 
+      return self.id
     
     def getCocinable(self):
         return self.cocinable
@@ -543,28 +546,8 @@ class TipoProducto:
     def getPreparable(self):
         return self.preparable
 
-    def __hash__(self):
-        return self.nombre.__hash__()
 
 
-    def __cmp__(self,o):
-        if(o == None):
-            return False
-        if(isinstance(o,self.__class__)):
-            return self.nombre.__cmp__(o.nombre)
-        else:
-            #return False
-            raise TypeError("error en cmp de TipoProducto")  
-
-    
-    def __eq__(self,o):
-        if(isinstance(o,self.__class__)):
-            return self.nombre == o.nombre
-        else:
-            raise TypeError("error en eq de TipoProducto")
-
-    def __repr__(self):
-        return "<TipoProducto: %s, preparable: %s, cocinable: %s>"%(self.nombre,self.preparable,self.cocinable)
 
 class Insumo :
      
