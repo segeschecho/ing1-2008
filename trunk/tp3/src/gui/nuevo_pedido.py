@@ -6,7 +6,9 @@ import gtk
 
 import creacion
 from config import *
+
 from gui.helpers import WidgetsWrapper
+from gui.helpers import mostrar_error
 
 import sets
        
@@ -53,7 +55,92 @@ def pedirHorno(HornoP,HornoE):
         return HornoE
     else:
         raise ValueError("Error inesperado: se esperaba uno de los 2 botones marcados")
- 
+
+
+ # --------------------------------------------- #
+ # Funciones para ingreso de nuevo pedido        #
+ # --------------------------------------------- #
+
+class ErrorDeValidacion(Exception):
+    pass
+
+
+def validar_pedido(widgets):
+    # obtengo el tipo de pedido
+    tipo_t = widgets[NUEVO_PEDIDO_TIPO].get_active_text()
+    try:
+        tipo = {"Mostrador":"mostrador",
+                "Teléfono":"telefono",
+                "Mesa":"mesa"}[tipo_t]
+    except KeyError:
+        mostrar_error("Tipo inválido", "El tipo de pedido no es válido!")
+        raise ErrorDeValidacion
+
+
+    # obtengo el numero de mesa si corresponde
+    if tipo == "mesa":
+        try:
+            mesa = int(widgets[NUEVO_PEDIDO_MESA].get_text())
+        except ValueError:
+            mostrar_error("Mesa inválida","El número de mesa no es válido!")
+            raise ErrorDeValidacion
+    else:
+        mesa = None
+            
+    # obtengo la forma de pago si corresponde
+    if tipo != "mesa":
+        try:
+            formapago_t = widgets[NUEVO_PEDIDO_FORMA_PAGO].get_active_text()
+            formapago = {"Efectivo":"efectivo",
+                         "Crédito":"tarjeta"}[formapago_t]
+        except KeyError:
+            mostrar_error("Forma de pago inválida", "La forma de pago no es válida!")
+            raise ErrorDeValidacion
+    else:
+        formapago = None
+
+    # obtengo el cliente
+    tv = widgets[CLIENTES_PEDIDO]
+    seleccion, iterador = tv.get_selection().get_selected()
+
+    if iterador is None:
+        if tipo == "telefono":
+            mostrar_error("Cliente inválido", "Debe elegir un cliente para pedidos telefónicos!")
+            raise ErrorDeValidacion
+        else:
+            cliente = None
+    else:
+        cliente = creacion.Cliente.getPorId(int(seleccion.get_value(iterador,0)))
+
+
+    # obtengo los productos
+    tv = widgets[ITEMS_PEDIDO]
+    ls = tv.get_model()
+
+    productos = []
+
+    it = ls.get_iter_first()
+
+    if it is None:
+        mostrar_error("Pedido nulo", "Debe elegir productos para poder ingresar el pedido!")
+        raise ErrorDeValidacion
+
+    while it != None:
+        prod_id = ls.get_value(it,4)
+        cant = int(ls.get_value(it,2)) 
+        prod = creacion.Producto.getPorId(prod_id)
+        for i in range(cant):
+            productos.append(prod)
+        it = ls.iter_next(it) 
+
+
+    return (cliente,
+            productos,
+            formapago,
+            tipo,
+            mesa)
+
+
  # --------------------------------------------- #
  # Funciones para lista de clientes              #
  # --------------------------------------------- #
