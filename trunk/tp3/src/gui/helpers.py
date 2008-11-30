@@ -10,10 +10,11 @@ from config import *
 ###################################################
 
 class WidgetsWrapper:
-    def __init__(self, window_name, handlers):
+    def __init__(self, window_name, handlers=None):
         self.widgets = gtk.glade.XML(GLADE_FILE, window_name)
         self.window_name = window_name
-        self.widgets.signal_autoconnect(handlers.__dict__)
+        if not handlers is None:
+            self.widgets.signal_autoconnect(handlers.__dict__)
         
     def __getitem__(self, key):
         return self.widgets.get_widget(key)
