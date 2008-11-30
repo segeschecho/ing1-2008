@@ -21,7 +21,6 @@ import creacion
 import gestion
 import cocina
 
-#TODO: pop up para pedir el horno
 #TODO: lista de pedidos preparados en cada horno (no esta implementado, hay que hacerlo filtrando)
 #TODO: resolver el tema de ver el estado, no alcanza con listar los pedidos de cada cliente, porque hay pedidos sin clientes
 #TODO: hacer que se puedan ingresar pedidos
@@ -83,10 +82,12 @@ class MainHandlers:
 
                 nuevo_pedido.recalcular_total(nuevop)
 
+            # Este handler se encarga de deshabilitar el GtkEntry donde
+            # se especifica el número de mesa si no corresponde (por ejemplo,
+            # si el pedido es delivery no tiene mesa)
             def tipo_pedido_changed(cb):
                 cb = nuevop[NUEVO_PEDIDO_TIPO]
                 num_mesa = nuevop[NUEVO_PEDIDO_MESA]
-
 
                 if cb.get_active_text() != "Mesa":
                     num_mesa.set_text("")
@@ -101,6 +102,7 @@ class MainHandlers:
         nuevo_pedido.iniciar(nuevop)
         nuevo_pedido.recargar(nuevop)
         wnd.run()
+        # TODO: ingresar el pedido al sistema
         wnd.hide()
 
 
@@ -134,7 +136,6 @@ class MainHandlers:
             pedido_id = seleccion.get_value(iterador,0)
             lista_listos.limpiar_datos(widgets)
             lista_listos.cargar_datos(widgets, pedido_id)
-
 
 
     # --------------------------------------------- #
@@ -232,24 +233,18 @@ class MainHandlers:
     def archivo_salir_clicked(event):
         gtk.main_quit()
 
-    # --------------------------------------------- #
-    # Handlers para el boton de preparado pizzero   #
-    # --------------------------------------------- #
- 
+    # ----------------------------------------------- #
+    # Handlers para los botones de fin de preparación #
+    # ----------------------------------------------- #
 
     def pizzas_preparadas_clicked(event): 
         distribuidor.terminarPreparacionPizzas()
-  
-
-
-    # --------------------------------------------- #
-    # Handlers para el boton de preparado pizzero   #
-    # --------------------------------------------- #
-
+ 
 
     def empanadas_preparadas_clicked(event): 
-        print "me apretaron"
         distribuidor.terminarPreparacionEmpanadas()
+
+
 
 ###################################################
 # Main                                            #
@@ -273,6 +268,8 @@ if __name__ == '__main__':
     pizzeria.getPreparadorEmpanadero().suscribir(distribuidor.prepararEmpanadas)
     pizzeria.getPreparadorPizzero().suscribir(distribuidor.prepararPizzas)
     pizzeria.getAsignador().asignarCallback(distribuidor.pedirHorno)
+    
+
     # Hardcodeo un par de pedidos para probar si va funcionando
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.getTipo() == pizzeria.coca][0:1],None,"mesa",2)
     pizzeria.getCoordP().ingresarPedido(pizzeria.clientes[0],[x for x in pizzeria.productos if x.getTipo() == pizzeria.birra][0:1],"efectivo","telefono",None)
@@ -288,7 +285,8 @@ if __name__ == '__main__':
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
     print [x.getId() for x in pizzeria.productos]
     
-    #-------------------------------------------------------#
 
+
+    # Loop principal
     gtk.main()
     
