@@ -14,6 +14,7 @@ from gui import lista_ingreso
 from gui import lista_listos
 from gui import lista_empanadero
 from gui import lista_pizzero
+from gui import nuevo_pedido
 
 import inicializador
 import creacion
@@ -58,12 +59,15 @@ class MainHandlers:
     def nuevo_pedido_clicked(id, event):
         
         class NuevoPedidoHandlers:
-            def nuevo_pedido_close(event):
-                nuevop[NUEVO_PEDIDO_WINDOW].hide()
-            def nuevo_pedido_response(id, event):
-                nuevop[NUEVO_PEDIDO_WINDOW].hide()
+            pass
         
         nuevop = WidgetsWrapper(NUEVO_PEDIDO_WINDOW, NuevoPedidoHandlers)
+        wnd = nuevop[NUEVO_PEDIDO_WINDOW]
+        wnd.hide()
+        nuevo_pedido.iniciar(nuevop)
+        nuevo_pedido.recargar(nuevop)
+        wnd.run()
+        wnd.hide()
 
 
     # ---------------------------------------------- #
