@@ -246,8 +246,8 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
         def asignarCallback(self,callback):
             self.oraculoDeHorno = callback
         def notificarHorno(self):
-            #return self.oraculoDeHorno()
-            return self.hornoP #TODO: hacer que se pida el horno por pantalla
+            return self.oraculoDeHorno()
+            
 	
 
 class Horno:
