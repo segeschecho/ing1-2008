@@ -6,7 +6,20 @@ import gtk
 
 import creacion
 from config import *
+from gui.helpers import WidgetsWrapper
 
+def pedirHorno(HornoP,HornoE):
+	abrir = WidgetsWrapper(ELEGIR_HORNO_WINDOW)
+        wnd = abrir[ELEGIR_HORNO_WINDOW]
+        wnd.hide()
+        res = wnd.run()
+        wnd.hide()
+        if abrir[RADIO_PIZZERO].get_active():
+            return HornoP
+        elif abrir[RADIO_EMPANADERO].get_active():
+            return HornoE
+        else:
+            raise TypeError("error inesperado, ninguno de los 2 botones marcados")
  
  # --------------------------------------------- #
  # Funciones para lista de clientes              #

@@ -33,8 +33,17 @@ class Pedido(object) :
       for k in dict.keys():
             setattr(self, k,dict[k])
       self.__class__.allInst.append(self) 
-      
+    
+    @classmethod
+    def getPorId(cls,ID):
+        for each in cls.allInst:
+		if each.ID == ID:
+                      return each
+        raise TypeError("ID invalido") 
+  
     def __init__( self,id, cliente, productos, formaDePago, fechaIngreso):
+        if id in [x.getId() for x in self.__class__.allInst]:
+		raise TypeError("Ya hay un pedido con ese id")
         self.id=id
         self.cliente=cliente
         self.productos=productos
@@ -205,6 +214,7 @@ class AsignadorDeHorno:
           self.hornoE=e
           self.pizza=pizza
           self.empanada=empanada
+          self.oraculoDeHorno = None
           
     def asignarHorno(self,pedido):
         raise NotImplementedError
@@ -233,9 +243,10 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
         
             pedido.setHorno(h)
 	
-
+        def asignarCallback(self,callback):
+            self.oraculoDeHorno = callback
         def notificarHorno(self):
-            print "hay que pedir el hornooooooooooo"
+            #return self.oraculoDeHorno()
             return self.hornoP #TODO: hacer que se pida el horno por pantalla
 	
 
@@ -304,7 +315,7 @@ class Estado:
     Ingresado="ingresado"
     Preparado="Preparado"
     EnPreparacion="EnPreparacion" 
-    
+    Listo="Listo"
 
 class EstimadorStandard (EstimadorDeTiempos):
 
@@ -405,6 +416,7 @@ class EstimadorStandard (EstimadorDeTiempos):
 class Producto :
 
     allInst = []
+    ID=0
     def __setstate__(self,dict):
       for k in dict.keys():
             setattr(self, k,dict[k])
@@ -415,6 +427,7 @@ class Producto :
       # self.tiempoPreparacion=['tiempoPreparacion']
       # self.tipoProducto=['tipoProducto']
       self.__class__.allInst.append(self)  
+      self.__class__.ID = len(self.__class__.allInst)
       
     def __init__(self,nombre,precio, tiempoCoccion,tiempoPreparacion,tipoProducto, insumos):
                 self.nombre =nombre
@@ -424,14 +437,25 @@ class Producto :
                 self.tiempoPreparacion=tiempoPreparacion
                 self.tipoProducto=tipoProducto
                 self.__class__.allInst.append(self)
+                self.ID=self.__class__.ID
+                self.__class__.ID+=1
 
-	
+    
     def __repr__(self):
         return "< nombre: " + self.nombre + ">"
         
     def __str__(self):
         return self.nombre
-        
+    def getId(self):
+      return self.ID
+
+    @classmethod
+    def getPorId(cls,ID):
+        for each in cls.allInst:
+		if each.ID == ID:
+                      return each
+        raise TypeError("ID invalido") 
+   
     @classmethod
     def allInstances(cls):
         return cls.allInst
@@ -466,16 +490,47 @@ class Producto :
 
 
 class TipoProducto:
+    allInst = []
+    ID=0
+    def __setstate__(self,dict):
+      for k in dict.keys():
+            setattr(self, k,dict[k])
+
+      self.__class__.allInst.append(self)  
+      self.__class__.ID = len(self.__class__.allInst)
+    
+    @classmethod
+    def getPorId(cls,ID):
+        for each in cls.allInst:
+		if each.ID == ID:
+                      return each
+        raise TypeError("ID invalido") 
+   
+    @classmethod
+    def allInstances(cls):
+        return cls.allInst
 
     def __init__(self,nombre, coc,prep):
         self.nombre=nombre
         self.cocinable=coc
         self.preparable=prep
+        self.__class__.allInst.append(self)  
+        self.ID = self.__class__.ID
+        self.__class__.ID+=1
 
     def getNombre(self) :
         return self.nombre
 	
+    def getId(self):
+      return self.ID
 
+    @classmethod
+    def getPorId(cls,ID):
+        for each in cls.allInst:
+		if each.ID == ID:
+                      return each
+        raise TypeError("ID invalido") 
+    
     def getCocinable(self):
         return self.cocinable
     
@@ -506,12 +561,16 @@ class TipoProducto:
         return "<TipoProducto: %s, preparable: %s, cocinable: %s>"%(self.nombre,self.preparable,self.cocinable)
 
 class Insumo :
+     
     def __setstate__(self,dict):
       self.cant=dict['cant']
       self.cantCritica=dict['cantCritica']
       self.nombre=dict['nombre']
+      self.ID = dict['ID']
       self.__class__.allInst.append(self) 
+      self.__class__.ID=len(self.__class__.allInst)
     allInst = []
+    ID=0
     def __str__(self):
         return "soy el insumo:" + self.nombre + " y mi cantidad actual es: " + str(self.cant) +" y mi cantidad critica es: " + str(self.cantCritica)
         
@@ -520,12 +579,23 @@ class Insumo :
         self.cantCritica=cantCritica
         self.nombre=nombre
         self.__class__.allInst.append(self)
+        self.ID = self.__class__.ID
+        self.__class__.ID+=1
 
-
+    def getId(self):
+       return self.ID
+  
     @classmethod
     def allInstances(cls):
         return cls.allInst
     
+    @classmethod
+    def getPorId(cls,ID):
+        for each in cls.allInst:
+		if each.ID == ID:
+                      return each
+        raise TypeError("ID invalido") 
+
     def getCant(self) :
         return self.cant
     
@@ -560,7 +630,7 @@ class GeneradorDePedidos(object) :
         self.controladorDeStock=controladorDeStock
         self.estimadorDeTiempos=estimadorDeTiempos
 
-
+    
 
     def generarId(self):
         raise NotImplementedError
@@ -851,8 +921,8 @@ class ControladorDeStockStandard(ControladorDeStock) :
                                 yaDecrementados.append(pr)
     
                 self.obtenerCriticos(productos)
-                if(len(self.criticos)!=0):
-                    self.notificar()
+               
+                self.notificar()
                      
                         
                 
