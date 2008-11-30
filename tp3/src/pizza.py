@@ -84,17 +84,28 @@ class MainHandlers:
                 nuevo_pedido.recalcular_total(nuevop)
 
             # Este handler se encarga de deshabilitar el GtkEntry donde
-            # se especifica el número de mesa si no corresponde (por ejemplo,
-            # si el pedido es delivery no tiene mesa)
+            # se especifica el número de mesa y el de forma de pago si 
+            # no corresponde (por ejemplo, si el pedido es delivery no tiene mesa)
             def tipo_pedido_changed(cb):
                 cb = nuevop[NUEVO_PEDIDO_TIPO]
                 num_mesa = nuevop[NUEVO_PEDIDO_MESA]
+                forma_pedido = nuevop[NUEVO_PEDIDO_FORMA_PAGO]
 
                 if cb.get_active_text() != "Mesa":
+                    # Deshabilito la entrada de número de mesa
                     num_mesa.set_text("")
                     num_mesa.set_sensitive(False)
+                    # Habilito la entrada de forma de pago
+                    forma_pedido.set_sensitive(True)
+                    forma_pedido.set_active(0)
+                    
                 else:
+                    # Habilito la entrada de número de mesa
                     num_mesa.set_sensitive(True)
+                    # Deshabilito la entrada de forma de pago
+                    forma_pedido.set_sensitive(False)
+                    forma_pedido.set_active(-1)
+
 
         
         nuevop = WidgetsWrapper(NUEVO_PEDIDO_WINDOW, NuevoPedidoHandlers)
@@ -285,7 +296,6 @@ if __name__ == '__main__':
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"tarjeta", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
-    
 
 
     # Loop principal
