@@ -44,38 +44,29 @@
 		<widget class="GtkMenu" id="menuitem4_menu">
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="nuevo1">
+		    <widget class="GtkImageMenuItem" id="nuevo_archivo">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-new</property>
 		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_nuevo1_activate" last_modification_time="Wed, 26 Nov 2008 14:12:50 GMT"/>
+		      <signal name="activate" handler="archivo_nuevo_clicked" last_modification_time="Sun, 30 Nov 2008 00:24:31 GMT"/>
 		    </widget>
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="abrir1">
+		    <widget class="GtkImageMenuItem" id="abrir_archivo">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-open</property>
 		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_abrir1_activate" last_modification_time="Wed, 26 Nov 2008 14:12:50 GMT"/>
+		      <signal name="activate" handler="archivo_abrir_clicked" last_modification_time="Sun, 30 Nov 2008 00:24:04 GMT"/>
 		    </widget>
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="guardar1">
-		      <property name="visible">True</property>
-		      <property name="label">gtk-save</property>
-		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_guardar1_activate" last_modification_time="Wed, 26 Nov 2008 14:12:50 GMT"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="guardar_como1">
+		    <widget class="GtkImageMenuItem" id="guardar_archivo_como">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-save-as</property>
 		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_guardar_como1_activate" last_modification_time="Wed, 26 Nov 2008 14:12:50 GMT"/>
+		      <signal name="activate" handler="archivo_guardar_como_clicked" last_modification_time="Sun, 30 Nov 2008 00:23:40 GMT"/>
 		    </widget>
 		  </child>
 
@@ -1470,7 +1461,7 @@
 				      <property name="spacing">0</property>
 
 				      <child>
-					<widget class="GtkButton" id="button50">
+					<widget class="GtkButton" id="pedido_entregado">
 					  <property name="border_width">3</property>
 					  <property name="visible">True</property>
 					  <property name="can_focus">True</property>
@@ -1743,7 +1734,7 @@
 				      <property name="spacing">0</property>
 
 				      <child>
-					<widget class="GtkButton" id="button51">
+					<widget class="GtkButton" id="facturar_pedido">
 					  <property name="border_width">4</property>
 					  <property name="visible">True</property>
 					  <property name="can_focus">True</property>
@@ -4628,7 +4619,7 @@ Gonzalo Sainz Trápaga</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
   <property name="resizable">True</property>
-  <property name="destroy_with_parent">False</property>
+  <property name="destroy_with_parent">True</property>
   <property name="decorated">True</property>
   <property name="skip_taskbar_hint">False</property>
   <property name="skip_pager_hint">False</property>

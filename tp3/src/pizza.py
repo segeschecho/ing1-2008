@@ -140,8 +140,7 @@ class MainHandlers:
         if iterador is None:
             lista_clientes.limpiar_datos(widgets)
         else:
-            nombre_cliente = seleccion.get_value(iterador, 2)
-            
+            nombre_cliente = seleccion.get_value(iterador, 2)            
             lista_clientes.cargar_datos(widgets, nombre_cliente)
 
 
@@ -149,7 +148,40 @@ class MainHandlers:
     # Handlers para cargar y salvar estado          #
     # --------------------------------------------- #
     
-    
+    def archivo_nuevo_clicked(event):
+        # TODO: cargar un sistema vacio
+        pass
+
+    def archivo_abrir_clicked(event):
+        abrir = WidgetsWrapper(ABRIR_WINDOW)
+        wnd = abrir[ABRIR_WINDOW]
+        wnd.hide()
+        res = wnd.run()
+        wnd.hide()
+        if res == gtk.RESPONSE_OK:
+            fname = wnd.get_filename()
+            # TODO: cargar el sistema desde el archivo
+        elif res == gtk.RESPONSE_CANCEL or \
+             res == gtk.RESPONSE_DELETE_EVENT:
+            return
+        else:
+            raise ValueError("Respuesta no esperada al dialogo de abrir!")
+
+
+    def archivo_guardar_como_clicked(event):
+        guardar = WidgetsWrapper(GUARDAR_WINDOW)
+        wnd = guardar[GUARDAR_WINDOW]
+        wnd.hide()
+        res = wnd.run()
+        wnd.hide()
+        if res == gtk.RESPONSE_OK:
+            fname = wnd.get_filename()
+            # TODO: guardar el sistema al archivo
+        elif res == gtk.RESPONSE_CANCEL or \
+             res == gtk.RESPONSE_DELETE_EVENT:
+            return
+        else:
+            raise ValueError("Respuesta no esperada al dialogo de guardar!")
 
 
     # --------------------------------------------- #

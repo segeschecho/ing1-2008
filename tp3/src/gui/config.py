@@ -9,6 +9,8 @@ ABOUT_WINDOW = 'acerca_de'
 NUEVO_PEDIDO_WINDOW = 'nuevo_pedido'
 ELEGIR_HORNO_WINDOW = 'elegir_horno'
 STOCK_CRITICO_WINDOW = 'insumo_critico'
+ABRIR_WINDOW = 'elegir_archivo_abrir'
+GUARDAR_WINDOW = 'elegir_archivo_guardar'
 
 DATOS_PRODUCTO = 'datos_producto'
 LISTA_PRODUCTOS = 'lista_productos'
