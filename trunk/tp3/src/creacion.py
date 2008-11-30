@@ -5,6 +5,43 @@ from datetime import datetime
 import sets
 
 Set = sets.Set
+class ErrorDeIngreso(Exception):
+    pass
+
+class ClienteNulo(ErrorDeIngreso):
+    pass
+
+class PedidoDeMesaSinMesa(ErrorDeIngreso):
+    pass
+
+class OrigenDesconocido(Exception):
+    def __init__(self,origen):
+        self.origen=origen
+    def __str__(self):
+	    return "excepcion de origen desconocido"+str(self.origen)
+
+class PedidoDeMostradorConMesa(ErrorDeIngreso):
+
+    def __str__(self):
+        return "Se paso una mesa pero se desaba un pedido de mostrador\n" +\
+               "La mesa es:"+self.mesa
+
+class PedidoDeTelefonoConMesa(ErrorDeIngreso):
+
+    def __str__(self):
+        return "Se paso una mesa pero se desaba un pedido telefonico\n" +\
+               "La mesa es:"+self.mesa
+
+class TipoDePagoInvalido(ErrorDeIngreso):
+
+    def __str__(self):
+        return "Se intento ingresar el siguiente tipo de pago: "+ self.tipoDePago +\
+               "\n para el siguiente origen: "+self.origen
+
+class ProductoInsatisfacible(ErrorDeIngreso):
+
+    def __str__(self):
+	           return "excepcion de producto instatisfacible"+str(self.producto)
 
 class Notificador(object):
     def __init__(self):
@@ -156,7 +193,7 @@ class PedidoRemoto (Pedido):
 
 	def __init__(self,id, cliente,productos,formaDePago,fechaIngreso):
 		if(cliente == None):
-			raise ClienteNulo
+			raise ClienteNulo("Los pedidos remotos deben tener un cliente asignado")
                 
 		super(PedidoRemoto, self).__init__( id, cliente, productos, formaDePago, fechaIngreso)
 
@@ -166,7 +203,7 @@ class PedidoMesa(PedidoLocal):
 
     def __init__(self,id, cliente, productos,formaDePago,fechaIngreso,mesa):
         if mesa is None:
-            raise PedidoDeMesaSinMesa
+            raise PedidoDeMesaSinMesa("Los pedidos de mesa deben tener una mesa asignade")
 	    
         super(PedidoMesa,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
         self.mesa = mesa
@@ -198,11 +235,6 @@ class PedidoTelefono(PedidoRemoto) :
 		super(PedidoTelefono,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
 
 
-class ClienteNulo(Exception):
-    pass
-
-class PedidoDeMesaSinMesa(Exception):
-    pass
 
 
 
@@ -632,32 +664,7 @@ class GeneradorDePedidos(object) :
     def generarPedido(self,cliente,productos,formaDePago,origen,mesa):
         raise NotImplementedError
 
-class OrigenDesconocido(Exception):
-    def __init__(self,origen):
-        self.origen=origen
-    def __str__(self):
-	    return "excepcion de origen desconocido"+str(self.origen)
-class PedidoDeMostradorConMesa(Exception):
-    def __init__(self,mesa):
-        self.mesa=mesa
-    def __str__(self):
-        return "Se paso una mesa pero se desaba un pedido de mostrador\n" +\
-               "La mesa es:"+self.mesa
 
-class PedidoDeTelefonoConMesa(Exception):
-    def __init__(self,mesa):
-        self.mesa=mesa
-    def __str__(self):
-        return "Se paso una mesa pero se desaba un pedido telefonico\n" +\
-               "La mesa es:"+self.mesa
-
-class TipoDePagoInvalido(Exception):
-    def __init__(self,tipoP,origen):
-        self.tipoDePago=tipoP
-        self.origen=origen
-    def __str__(self):
-        return "Se intento ingresar el siguiente tipo de pago: "+ self.tipoDePago +\
-               "\n para el siguiente origen: "+self.origen
     
 class GeneradorDePedidosStandard (GeneradorDePedidos) :
     def __init__(self,calculadorDePrecios,estimadorDeTiempos,controladorDeStock,asignadorDeHorno):
@@ -680,28 +687,28 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
             d=self.getDateTime()
             if(origen == "mostrador"):
                 if not formaDePago in ["efectivo","tarjeta"]:
-                    raise TipoDePagoInvalido(formaDePago,origen)
+                    raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 if mesa != None:
-                    raise PedidoDeMostradorConMesa(mesa)
+                    raise PedidoDeMostradorConMesa("Los pedidos de mostrador no tienen que tener una mesa asignada")
                 ID = self.generarId()
                 p= PedidoMostrador(ID,c,productos,formaDePago,d)
                 
             elif(origen == "mesa"):
                 if formaDePago != None :
-                    raise TipoDePagoInvalido(formaDePago,origen)
+                    raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 ID = self.generarId()
                 p= PedidoMesa(ID,c,productos,formaDePago,d,mesa)
             elif(origen == "telefono"):
                 if formaDePago != "efectivo" :
-                    raise TipoDePagoInvalido(formaDePago,origen)
+                    raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 if mesa != None:
-                    raise PedidoTelefonicoConMesa(mesa)
+                    raise PedidoTelefonicoConMesa("Los pedidos telefonicos no tienen que tener una mesa asignada")
                 if(c==None):
-                    raise ClienteNulo
+                    raise ClienteNulo("Los pedidos remotos deben tener un cliente asociado")
                 ID = self.generarId()
                 p= PedidoTelefono(ID,c,productos,formaDePago,d)
             else:
-                raise OrigenDesconocido(origen)
+                raise OrigenDesconocido("El origen indicado no es valido")
             
             self.asignadorDeHorno.asignarHorno(p)
             if p.getHorno() != None:
@@ -856,11 +863,7 @@ class ControladorDeStock(Notificador) : #antes era interface
     def verificarEIngresar(self, productos):
         raise NotImplementedError
 
-class ProductoInsatisfacible(Exception):
-    def __init__(self,pr):
-        self.producto=pr
-    def __str__(self):
-	           return "excepcion de producto instatisfacible"+str(self.producto)
+
 
 
 class ControladorDeStockStandard(ControladorDeStock) :
@@ -925,8 +928,7 @@ class ControladorDeStockStandard(ControladorDeStock) :
                         posible=self.ingresar(pr)
                         if(not posible):
                                 reestablecerStock(yaDecrementados)
-                                raise ProductoInsatisfacible(pr)
-                        
+                                raise ProductoInsatisfacible("No se pudo ingresar el producto: " + pr.getNombre() +"(Id: "+str(pr.getId()) + ")")
                         else:
                                 yaDecrementados.append(pr)
     

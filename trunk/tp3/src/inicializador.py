@@ -33,7 +33,7 @@ class Pizzeria:
         self.prepEmpanadero=  PreparadorEspecializado(avE)
         #coordinadorDeCocina
         dep=None
-        self.coordC =  CoordinadorDeCocina(None,None,None)
+        self.coordC =  CoordinadorDeCocina(None,None,None,None)
         #Despachador
         dep =  DespachadorDePreparacionStandard(self.prepPizzero,self.prepEmpanadero,self.coordC,self.pizza,self.empanada)
         self.coordC.setDespachadorDePreparacion(dep)
@@ -61,6 +61,9 @@ class Pizzeria:
         #GenedarodDePedidos
         genP =  GeneradorDePedidosStandard(calcP,estT,self.contS,self.asigH)
         self.coordP.setGeneradorDePedidos(genP)
+        self.despachadorDeCoccion = DespachadorDeCoccionNormal(self.hpizzero,self.hempanadero)
+        self.coordC.setDespachadorDeCoccion(self.despachadorDeCoccion)
+
    
     def cargarInsumos(self,dic):
         self.insumos =dic["Insumos"]
@@ -93,7 +96,9 @@ class Pizzeria:
         
     def getCoordP(self):
         return self.coordP
-    
+    def getDespachadorDeCoccion(self):
+        return self.despachadorDeCoccion
+
     def getPreparadorEmpanadero(self):
         return self.prepEmpanadero
     
