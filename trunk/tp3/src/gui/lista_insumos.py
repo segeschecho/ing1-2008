@@ -19,7 +19,9 @@ def iniciar(widgets):
     ls = gtk.ListStore(gobject.TYPE_STRING,
                        gobject.TYPE_INT,
                        gobject.TYPE_STRING,
-                       gobject.TYPE_INT)
+                       gobject.TYPE_INT,
+                       gobject.TYPE_INT,
+                      )
     tv.set_model(ls)
     
     # Armo las columnas
@@ -40,6 +42,7 @@ def recargar(widgets):
         ls.set_value(it, 0, each.getNombre())
         ls.set_value(it, 1, each.getCant())
         ls.set_value(it, 3, each.getCantCritica())
+        ls.set_value(it, 4, each.getId())
 
         # Si la cantidad es critica, pinto el fondo de rojo
         if each.getCant() < each.getCantCritica():

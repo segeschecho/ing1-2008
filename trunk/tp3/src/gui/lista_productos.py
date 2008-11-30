@@ -21,6 +21,7 @@ def iniciar(widgets):
     ls = gtk.ListStore(gobject.TYPE_STRING,
                        gobject.TYPE_STRING,
                        gobject.TYPE_INT,
+                       gobject.TYPE_INT,
                       )
     tv.set_model(ls)
 
@@ -44,6 +45,7 @@ def recargar(widgets):
         ls.set_value(it, 0, each.getNombre())
         ls.set_value(it, 1, each.getTipo().getNombre())
         ls.set_value(it, 2, each.getPrecio())
+        ls.set_value(it, 3, each.getId())
 
 
 def limpiar(widgets):    

@@ -8,18 +8,24 @@ import creacion
 from config import *
 from gui.helpers import WidgetsWrapper
 
+
+ # --------------------------------------------- #
+ # Callback para pedir hornos de un pedido       #
+ # --------------------------------------------- #
+
 def pedirHorno(HornoP,HornoE):
-	abrir = WidgetsWrapper(ELEGIR_HORNO_WINDOW)
-        wnd = abrir[ELEGIR_HORNO_WINDOW]
-        wnd.hide()
-        res = wnd.run()
-        wnd.hide()
-        if abrir[RADIO_PIZZERO].get_active():
-            return HornoP
-        elif abrir[RADIO_EMPANADERO].get_active():
-            return HornoE
-        else:
-            raise TypeError("error inesperado, ninguno de los 2 botones marcados")
+    abrir = WidgetsWrapper(ELEGIR_HORNO_WINDOW)
+    wnd = abrir[ELEGIR_HORNO_WINDOW]
+    wnd.hide()
+    res = wnd.run()
+    wnd.hide()
+    
+    if abrir[RADIO_PIZZERO].get_active():
+        return HornoP
+    elif abrir[RADIO_EMPANADERO].get_active():
+        return HornoE
+    else:
+        raise ValueError("Error inesperado: se esperaba uno de los 2 botones marcados")
  
  # --------------------------------------------- #
  # Funciones para lista de clientes              #
@@ -50,7 +56,7 @@ def recargar_clientes(widgets):
  
     clientes = creacion.Cliente.allInstances()[:]
     clientes.sort(lambda x,y: cmp(x.getApellido(),
-                               y.getApellido()))
+                                  y.getApellido()))
     
     for each in clientes:
         it = ls.insert(0)
@@ -76,6 +82,7 @@ def iniciar_productos(widgets):
     ls = gtk.ListStore(gobject.TYPE_STRING,
                        gobject.TYPE_STRING,
                        gobject.TYPE_INT,
+                       gobject.TYPE_INT,
                       )
     tv.set_model(ls)
 
@@ -99,6 +106,7 @@ def recargar_productos(widgets):
         ls.set_value(it, 0, each.getNombre())
         ls.set_value(it, 1, each.getTipo().getNombre())
         ls.set_value(it, 2, each.getPrecio())
+        ls.set_value(it, 3, each.getId())
 
 
 def limpiar_productos(widgets):    
@@ -119,6 +127,7 @@ def iniciar_items(widgets):
                        gobject.TYPE_STRING,
                        gobject.TYPE_INT,
                        gobject.TYPE_FLOAT,
+                       gobject.TYPE_INT,
                       )
     tv.set_model(ls)
 
@@ -170,6 +179,7 @@ def agregar_a_pedido(widgets, nombre_producto):
         ls.set_value(i, 1, prod.getTipo().getNombre())
         ls.set_value(i, 2, 1)
         ls.set_value(i, 3, prod.getPrecio())
+        ls.set_value(i, 4, prod.getId())
 
     recalcular_total(widgets)
 
@@ -186,13 +196,14 @@ def recalcular_total(widgets):
 
     ltot.set_markup("<b>Total:</b> $%s" % total)
 
+
  # --------------------------------------------- #
  # Funciones para los tipos de pedido            #
  # --------------------------------------------- #
 
+
 def iniciar_tipos(widgets):
     pass
-
 
 def recargar_tipos(widgets):
     cb = widgets[NUEVO_PEDIDO_TIPO]
