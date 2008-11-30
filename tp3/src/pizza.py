@@ -17,6 +17,7 @@ from gui import lista_pizzero
 from gui import lista_horno_empanadero
 from gui import lista_horno_pizzero
 from gui import nuevo_pedido
+import pickle
 
 import inicializador
 import creacion
@@ -240,6 +241,23 @@ class MainHandlers:
         wnd.hide()
         if res == gtk.RESPONSE_OK:
             fname = wnd.get_filename()
+            #try:
+            fi = open(fname, 'rb')
+            creacion.Pedido.reinit()
+            creacion.Insumo.reinit()
+            creacion.Producto.reinit()
+            creacion.TipoProducto.reinit()
+            creacion.Cliente.reinit()
+            pizzeria = pickle.load(fi)
+            distribuidor = general.DistribuidorCallbacks(widgets,pizzeria)
+            conectarCallbacks()
+            general.recargar(widgets)
+            distribuidor.actualizarGui()
+            #except:
+             #    pass 
+
+                
+                 
             # TODO: cargar el sistema desde el archivo
         elif res == gtk.RESPONSE_CANCEL or \
              res == gtk.RESPONSE_DELETE_EVENT:
@@ -256,7 +274,22 @@ class MainHandlers:
         wnd.hide()
         if res == gtk.RESPONSE_OK:
             fname = wnd.get_filename()
+            pizzeria.getContStock().clearObservers()
+            pizzeria.getContStock().clearObservers()
+            pizzeria.getContListos().clearObservers()
+            pizzeria.getContIng().clearObservers()
+            pizzeria.getPreparadorEmpanadero().clearObservers()
+            pizzeria.getPreparadorPizzero().clearObservers()
+            pizzeria.getAsignador().desasignarCallback()
+            pizzeria.getDespachadorDeCoccion().clearObservers()
+            pizzeria.getDespachadorDeCoccion().clearObservers()
+             #try:
+            pickle.dump(pizzeria, open(fname+".pyp", 'wb'))
+            print pizzeria
+            conectarCallbacks()
             # TODO: guardar el sistema al archivo
+            #except:
+             #   raise ValueError("El archivo no se pudo crear")
         elif res == gtk.RESPONSE_CANCEL or \
              res == gtk.RESPONSE_DELETE_EVENT:
             return
@@ -285,7 +318,23 @@ class MainHandlers:
     def empanadas_preparadas_clicked(event): 
         distribuidor.terminarPreparacionEmpanadas()
 
+    def cocinado_empanadero_clicked(event):
+        distribuidor.cocinarEmpanadas()
+    
+    def cocinado_pizzero_clicked(event):
+        print "me apretaron, pobre de mi"
+        distribuidor.cocinarPizzas()
 
+def conectarCallbacks():   
+    pizzeria.getContStock().suscribir(distribuidor.modifStock)
+    pizzeria.getContStock().suscribir(distribuidor.nuevosCriticos)
+    pizzeria.getContListos().suscribir(distribuidor.modifListos)
+    pizzeria.getContIng().suscribir(distribuidor.modifIngreso)
+    pizzeria.getPreparadorEmpanadero().suscribir(distribuidor.prepararEmpanadas)
+    pizzeria.getPreparadorPizzero().suscribir(distribuidor.prepararPizzas)
+    pizzeria.getAsignador().asignarCallback(distribuidor.pedirHorno)
+    pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.modifHornoPizzero)
+    pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.modifHornoEmpanadero)
 
 ###################################################
 # Main                                            #
@@ -300,19 +349,10 @@ if __name__ == '__main__':
     from gui import general
     general.iniciar(widgets)
     general.recargar(widgets)
-
-    # Conecto observers y callbacks
     distribuidor = general.DistribuidorCallbacks(widgets,pizzeria)
-    pizzeria.getContStock().suscribir(distribuidor.modifStock)
-    pizzeria.getContStock().suscribir(distribuidor.nuevosCriticos)
-    pizzeria.getContListos().suscribir(distribuidor.modifListos)
-    pizzeria.getContIng().suscribir(distribuidor.modifIngreso)
-    pizzeria.getPreparadorEmpanadero().suscribir(distribuidor.prepararEmpanadas)
-    pizzeria.getPreparadorPizzero().suscribir(distribuidor.prepararPizzas)
-    pizzeria.getAsignador().asignarCallback(distribuidor.pedirHorno)
-    pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.modifHornoPizerro)
-    pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.modifHornoEmpanadero)
-    
+    # Conecto observers y callbacks
+    conectarCallbacks()
+     
 
     # Hardcodeo un par de pedidos para probar si va funcionando
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.getTipo() == pizzeria.coca][0:1],None,"mesa",2)
@@ -321,11 +361,11 @@ if __name__ == '__main__':
   #  pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
  #   pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
 #    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
- #   pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"tarjeta", "mostrador",None)
+   # pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+   # pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+    #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+    #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"tarjeta", "mostrador",None)
     pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
 
 

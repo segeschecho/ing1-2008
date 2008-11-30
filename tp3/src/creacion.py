@@ -47,6 +47,8 @@ class Notificador(object):
     def __init__(self):
         self.observers=[]
     
+    def clearObservers(self):
+        self.observers=[]
 
     def suscribir(self,callback):
         """
@@ -78,11 +80,14 @@ class Pedido(object) :
                 return each
         raise ValueError("ID inválido!") 
 
-
+    
     @classmethod
     def allInstances(cls):
         return cls.allInst
 
+    @classmethod
+    def reinit(cls):
+        cls.allInst=[]
 
     def __init__( self,id, cliente, productos, formaDePago, fechaIngreso):
         
@@ -273,6 +278,9 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
 	
     def asignarCallback(self,callback):
         self.oraculoDeHorno = callback
+    
+    def desasignarCallback(self):
+        self.oraculoDeHorno = None
 
     def notificarHorno(self):
         return self.oraculoDeHorno()
@@ -450,7 +458,11 @@ class Producto :
         self.ID = self.__class__.ID
         self.__class__.ID += 1
 
-   
+    @classmethod
+    def reinit(cls):
+        cls.allInst=[]
+        cls.ID=0
+    
     @classmethod
     def getPorId(cls,ID):
         for each in cls.allInst:
@@ -510,6 +522,10 @@ class Producto :
 class TipoProducto:
     allInst = []
     ID = 0
+    @classmethod
+    def reinit(cls):
+        cls.allInst=[]
+        cls.ID=0
 
     def __init__(self,nombre, coc,prep):
         self.nombre = nombre
@@ -591,6 +607,11 @@ class Insumo :
       self.__class__.allInst.append(self) 
       self.ID = self.__class__.ID
       self.__class__.ID+=1
+
+    @classmethod
+    def reinit(cls):
+        cls.allInst=[]
+        cls.ID=0
 
     allInst = []
     ID=0
@@ -769,6 +790,11 @@ class Cliente :
         self.ID = self.__class__.ID
         self.__class__.ID+=1
         
+     @classmethod
+     def reinit(cls):
+        cls.allInst=[]
+        cls.ID=0
+
      ID=0  
      allInst = []
      def __init__(self,apel,celular,id, nombre,passWeb,telefono,web, dir):

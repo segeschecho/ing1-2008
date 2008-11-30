@@ -48,7 +48,7 @@ class CoordinadorDeCocina :
 
     
     def pedidoListo(self, p):
-        raise NotImplementedError
+        self.coordinadorDePedidos.agregarPedidoListo(p)
 
 
     def prepararPedido(self, p):
@@ -307,14 +307,17 @@ class DespachadorDeCoccion(Notificador):
        super(DespachadorDeCoccion,self).__init__()
     def cocinar(self,pedido):
         raise NotImplementedError
+    def terminarCoccionPizzera(self):
+        raise NotImplementedError
 
 class DespachadorDeCoccionNormal(DespachadorDeCoccion):
-    def __init__(self,hornoP,hornoE):
+    def __init__(self,hornoP,hornoE,coordC):
        super(DespachadorDeCoccionNormal,self).__init__()
        self.colaEmp = []
        self.colaPizz=[]
        self.hornoP = hornoP
        self.hornoE = hornoE
+       self.coordC = coordC
    
     def cocinar(self,p):
        if p.getHorno() == self.hornoP: 
@@ -331,4 +334,15 @@ class DespachadorDeCoccionNormal(DespachadorDeCoccion):
  
     def getColaEmp(self):
         return self.colaEmp
+   
+    def terminarCoccionEmpanadera(self):
+        if(len(self.colaEmp) > 0):
+            self.coordC.pedidoListo(self.colaEmp.pop(0))
+            self.notificar()
+
+    def terminarCoccionPizzera(self):
+        if(len(self.colaPizz) > 0):
+            self.coordC.pedidoListo(self.colaPizz.pop(0))
+            print "voy a notificar q cocine unas ricas pizzas"
+            self.notificar()
        
