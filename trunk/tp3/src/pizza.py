@@ -59,14 +59,17 @@ class MainHandlers:
     def nuevo_pedido_clicked(id, event):
         
         class NuevoPedidoHandlers:
+            # Cuando se hace doble clic en uno de los productos posibles,
+            # se incrementa en 1 la cantidad de este producto en el pedido.
             def productos_posibles_doubleclicked(treeview, path, view_column):
                 tv = nuevop[PRODUCTOS_PEDIDO] 
                 seleccion, iterador = tv.get_selection().get_selected()
                 
                 nombre_producto = seleccion.get_value(iterador, 0)
-                print "voy a agregar %s" % nombre_producto
                 nuevo_pedido.agregar_a_pedido(nuevop, nombre_producto)
 
+            # Cuando se hace doble clic en uno de los productos del pedido,
+            # se decrementa en 1 la cantidad de este producto en el pedido.
             def items_pedido_doubleclicked(treeview, path, view_column):
                 tv = nuevop[ITEMS_PEDIDO]
                 ls = tv.get_model()
