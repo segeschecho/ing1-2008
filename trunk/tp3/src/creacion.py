@@ -215,9 +215,6 @@ class PedidoMesa(PedidoLocal):
     def getMesa(self):
         return self.mesa
 
-    # TODO: deberia haber un getter?
-    def setFormaDePago(formaDePago):
-        self.formaDePago = formaDePago
 
 
 
