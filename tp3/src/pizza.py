@@ -81,6 +81,8 @@ class MainHandlers:
                 else:
                     ls.set_value(iterador, 2, cant_producto - 1)
 
+                nuevo_pedido.recalcular_total(nuevop)
+
         
         nuevop = WidgetsWrapper(NUEVO_PEDIDO_WINDOW, NuevoPedidoHandlers)
         wnd = nuevop[NUEVO_PEDIDO_WINDOW]

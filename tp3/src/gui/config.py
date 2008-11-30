@@ -35,6 +35,7 @@ NUEVO_PEDIDO_TIPO = 'tipo_pedido'
 NUEVO_PEDIDO_MESA = 'numero_mesa_pedido'
 CLIENTES_PEDIDO = 'clientes_pedido'
 ITEMS_PEDIDO = 'items_pedido'
+TOTAL_PEDIDO = 'total_pedido'
 PRODUCTOS_PEDIDO = 'productos_posibles'
 
 ERROR_WINDOW = 'error_generico'
