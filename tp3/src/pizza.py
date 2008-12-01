@@ -25,7 +25,7 @@ import gestion
 import cocina
 
 #TODO: #TODO: #TODO: resolver el tema de ver el estado, no alcanza con listar los pedidos de cada cliente, porque hay pedidos sin clientes
-#TODO: deshabilitar los botones de preparar si no hay pedido que preparar
+
 
 
 ###################################################
@@ -248,36 +248,42 @@ class MainHandlers:
         if res == gtk.RESPONSE_OK:
             fname = wnd.get_filename()
             
-            # TODO: agregar chequeo de excepciones al abrir
-            # (y TAMBIEN al cargar el sistema con pickle!)
-            fi = open(fname, 'rb')
+            try:
+                 fi = open(fname, 'rb')
+            except Exception, e:
+                  nuevo_pedido.mostrar_error("Error al cargar", str(e))
+                  return
+                  
 
-            # TODO: esto habria que refactorearlo como funcion
-            creacion.Pedido.reinit()
-            creacion.Insumo.reinit()
-            creacion.Producto.reinit()
-            creacion.TipoProducto.reinit()
-            creacion.Cliente.reinit()
-
+            #Hago un backup del estado actual por si hay un error al abrir el archivo
+            (backUpPedido, backUpInsumo,backUpProducto,
+            backUpTipoProducto, backUpCliente) = backUp()
             global pizzeria
             global distribuidor
-            pizzeria = pickle.load(fi)
+            backUpPizzeroa = pizzeria
+            try:
+                pizzeria = pickle.load(fi)
+            except:
+                creacion.Pedido.setAllInstances(backUpPedido)
+                creacion.Insumo.setAllInstances(backUpInsumo)
+                creacion.Producto.setAllInstances(backUpProducto)
+                creacion.TipoProducto.setAllInstances(backUpTipoProducto)
+                creacion.Cliente.setAllInstances(backUpCliente)
+                pizzeria = backUpPizzeria
             distribuidor = general.DistribuidorCallbacks(widgets,pizzeria)
             
             conectarCallbacks()
             general.recargar(widgets)
             distribuidor.actualizarGui()
 
-                
-                 
-            # TODO: cargar el sistema desde el archivo
         elif res == gtk.RESPONSE_CANCEL or \
              res == gtk.RESPONSE_DELETE_EVENT:
             return
         else:
             raise ValueError("Respuesta no esperada al dialogo de abrir!")
 
-
+    
+        
     def archivo_guardar_como_clicked(event):
         guardar = WidgetsWrapper(GUARDAR_WINDOW)
         wnd = guardar[GUARDAR_WINDOW]
@@ -289,22 +295,12 @@ class MainHandlers:
             if not fname.endswith('.pyp'):
                 fname += '.pyp'
             
-            # TODO: esto hay que refactorearlo como un metodo de pizzeria
-            pizzeria.getContStock().clearObservers()
-            pizzeria.getContStock().clearObservers()
-            pizzeria.getContListos().clearObservers()
-            pizzeria.getContIng().clearObservers()
-            pizzeria.getPreparadorEmpanadero().clearObservers()
-            pizzeria.getPreparadorPizzero().clearObservers()
-            pizzeria.getAsignador().desasignarCallback()
-            pizzeria.getDespachadorDeCoccion().clearObservers()
-            pizzeria.getDespachadorDeCoccion().clearObservers()
-            
-            # TODO: agregar chequeo de excepciones al guardar
-            # (y mostrar error cuando las haya)
-            pickle.dump(pizzeria, open(fname, 'wb'))
-            print pizzeria
-            
+            pizzeria.clearObservers()
+            try:
+                pickle.dump(pizzeria, open("fname", 'wb'))
+            except:
+                nuevo_pedido.mostrar_error("Error al cargar", str(e))
+                return
             # TODO: mover esto a general.py y pasarle los parametros
             conectarCallbacks()
 
@@ -343,18 +339,37 @@ class MainHandlers:
         print "me apretaron, pobre de mi"
         distribuidor.cocinarPizzas()
 
+    
+
+def backUp():
+            backUpPedido = creacion.Pedido.allInstances()
+            backUpInsumo = creacion.Insumo.allInstances()
+            backUpProducto= creacion.Producto.allInstances()
+            backUpTipoProducto = creacion.TipoProducto.allInstances()
+            backUpCliente = creacion.Cliente.allInstances()
+            creacion.Pedido.reinit()
+            creacion.Insumo.reinit()
+            creacion.Producto.reinit()
+            creacion.TipoProducto.reinit()
+            creacion.Cliente.reinit()    
+            return (backUpPedido,backUpInsumo,backUpProducto,backUpTipoProducto,backUpCliente)
+
 def conectarCallbacks(): 
     global pizzeria
     global distribuidor  
     pizzeria.getContStock().suscribir(distribuidor.modifStock)
     pizzeria.getContStock().suscribir(distribuidor.nuevosCriticos)
     pizzeria.getContListos().suscribir(distribuidor.modifListos)
+    pizzeria.getContListos().suscribir(distribuidor.recargarClientes)
     pizzeria.getContIng().suscribir(distribuidor.modifIngreso)
+    pizzeria.getContIng().suscribir(distribuidor.recargarClientes)
     pizzeria.getPreparadorEmpanadero().suscribir(distribuidor.prepararEmpanadas)
     pizzeria.getPreparadorPizzero().suscribir(distribuidor.prepararPizzas)
     pizzeria.getAsignador().asignarCallback(distribuidor.pedirHorno)
     pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.modifHornoPizzero)
+    pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.recargarClientes)
     pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.modifHornoEmpanadero)
+    pizzeria.getDespachadorDeCoccion().suscribir(distribuidor.recargarClientes)
 
 ###################################################
 # Main                                            #
@@ -375,8 +390,8 @@ if __name__ == '__main__':
      
 
     # Hardcodeo un par de pedidos para probar si va funcionando
-    pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.getTipo() == pizzeria.coca][0:1],None,"mesa",2)
-    pizzeria.getCoordP().ingresarPedido(pizzeria.clientes[0],[x for x in pizzeria.productos if x.getTipo() == pizzeria.birra][0:1],"efectivo","telefono",None)
+    #pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.getTipo() == pizzeria.coca][0:1],None,"mesa",2)
+    #pizzeria.getCoordP().ingresarPedido(pizzeria.clientes[0],[x for x in pizzeria.productos if x.getTipo() == pizzeria.birra][0:1],"efectivo","telefono",None)
    # pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
   #  pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
  #   pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
