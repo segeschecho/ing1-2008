@@ -24,9 +24,7 @@ import creacion
 import gestion
 import cocina
 
-#TODO: lista de pedidos preparados en cada horno (no esta implementado, hay que hacerlo filtrando)
 #TODO: #TODO: #TODO: resolver el tema de ver el estado, no alcanza con listar los pedidos de cada cliente, porque hay pedidos sin clientes
-#TODO: hacer que se puedan ingresar pedidos
 #TODO: deshabilitar los botones de preparar si no hay pedido que preparar
 
 
@@ -133,7 +131,16 @@ class MainHandlers:
             elif res == gtk.RESPONSE_OK:
                 try:
                     datos = nuevo_pedido.validar_pedido(nuevop)
+                    
+                    # intento ingresar el pedido
+                    try: 
+                        pizzeria.getCoordP().ingresarPedido(*datos)
+                    except creacion.ProductoInsatisfacible, e:
+                        nuevo_pedido.mostrar_error("Producto Insatisfacible", str(e))
+                        continue
+                    
                     break
+                
                 except nuevo_pedido.ErrorDeValidacion:
                     pass
             else:
@@ -142,11 +149,6 @@ class MainHandlers:
         wnd.hide()
 
         if datos != None:
-            print datos
-            try:
-                pizzeria.getCoordP().ingresarPedido(*datos)
-            except creacion.ProductoInsatisfacible,e:
-                nuevo_pedido.mostrar_error("Producto instatisfacible",str(e))
             lista_ingreso.recargar(widgets, pizzeria.getContIng())
             lista_insumos.recargar(widgets)
 
@@ -244,22 +246,26 @@ class MainHandlers:
         wnd.hide()
         if res == gtk.RESPONSE_OK:
             fname = wnd.get_filename()
-            #try:
+            
+            # TODO: agregar chequeo de excepciones al abrir
+            # (y TAMBIEN al cargar el sistema con pickle!)
             fi = open(fname, 'rb')
+
+            # TODO: esto habria que refactorearlo como funcion
             creacion.Pedido.reinit()
             creacion.Insumo.reinit()
             creacion.Producto.reinit()
             creacion.TipoProducto.reinit()
             creacion.Cliente.reinit()
+
             global pizzeria
-            pizzeria = pickle.load(fi)
             global distribuidor
+            pizzeria = pickle.load(fi)
             distribuidor = general.DistribuidorCallbacks(widgets,pizzeria)
+            
             conectarCallbacks()
             general.recargar(widgets)
             distribuidor.actualizarGui()
-            #except:
-             #    pass 
 
                 
                  
@@ -279,6 +285,10 @@ class MainHandlers:
         wnd.hide()
         if res == gtk.RESPONSE_OK:
             fname = wnd.get_filename()
+            if not fname.endswith('.pyp'):
+                fname += '.pyp'
+            
+            # TODO: esto hay que refactorearlo como un metodo de pizzeria
             pizzeria.getContStock().clearObservers()
             pizzeria.getContStock().clearObservers()
             pizzeria.getContListos().clearObservers()
@@ -288,13 +298,15 @@ class MainHandlers:
             pizzeria.getAsignador().desasignarCallback()
             pizzeria.getDespachadorDeCoccion().clearObservers()
             pizzeria.getDespachadorDeCoccion().clearObservers()
-             #try:
-            pickle.dump(pizzeria, open(fname+".pyp", 'wb'))
+            
+            # TODO: agregar chequeo de excepciones al guardar
+            # (y mostrar error cuando las haya)
+            pickle.dump(pizzeria, open(fname, 'wb'))
             print pizzeria
+            
+            # TODO: mover esto a general.py y pasarle los parametros
             conectarCallbacks()
-            # TODO: guardar el sistema al archivo
-            #except:
-             #   raise ValueError("El archivo no se pudo crear")
+
         elif res == gtk.RESPONSE_CANCEL or \
              res == gtk.RESPONSE_DELETE_EVENT:
             return
