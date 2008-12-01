@@ -97,6 +97,7 @@ class Pedido(object) :
         self.id = id
         self.cliente = cliente
         self.productos = productos
+        self.formaDePago = formaDePago
         self.fechaIngreso = fechaIngreso
         self.__class__.allInst.append(self)
         self.estado = None
