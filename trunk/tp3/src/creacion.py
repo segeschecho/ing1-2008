@@ -33,11 +33,7 @@ class TipoDePagoInvalido(ErrorDeIngreso):
 
 
 class ProductoInsatisfacible(ErrorDeIngreso):
-    def __init__(self,producto):
-         self.producto = producto
-
-    def __str__(self):
-	           return "No se pudo ingresar el producto:"+str(self.producto)
+   pass
 
 class Notificador(object):
     def __init__(self):
