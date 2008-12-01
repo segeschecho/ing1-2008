@@ -1,5 +1,5 @@
 from creacion import *
-
+#Excepciones varias
 class ProductosVacios(Exception):    
     def __str__(self):
         return "Lista de productos vacia"
@@ -8,6 +8,7 @@ class PedidoNulo(Exception):
     
     def __str__(self):
         return "Pedido nulo"
+
 
 class CoordinadorDePedidos :
 
@@ -23,7 +24,8 @@ class CoordinadorDePedidos :
            self.controladorDeListos.agregarPedidoListo(p)
 
 
-
+    #Recibe una solicitud de ingresar un pedido. Ordena crearlo, y ordena
+    #al controlador de pre ingreso que decida que hacer con el pedido
     def ingresarPedido(self, c,productos,formaDePago, origen,mesa):
 
          if(len(productos)==0):
@@ -35,8 +37,7 @@ class CoordinadorDePedidos :
              raise PedidoNulo
          
 
-
-
+    #getters y setters varios
     def getGeneradorDePedidos(self) :
         return self.generadorDePedidos
 
@@ -68,12 +69,11 @@ class ControladorDeListos(Notificador):
            self.listos = []
            super(ControladorDeListos,self).__init__()
 
-
+    #Encola un pedido listo y notifica a sus observadores de eso
     def agregarPedidoListo(self, p):
             self.listos.append(p)
             p.setEstado(Estado.Listo)
             self.notificar()
-            print "notificar pedido listo"
     
     def getListos(self):
             return self.listos        
@@ -85,8 +85,9 @@ class ControladorDePreIngreso :
         self.controladorDeIngreso=controladorDeIngreso
         self.coordinadorDePedidos=coordinadorDePedidos
 
-
-
+ 
+    #Toma un pedido y decide si el mismo tiene alguna parte
+    #cocinable
     def determinarCocinable(self, p):
         productos = p.getProductos()
         res= False
@@ -99,7 +100,7 @@ class ControladorDePreIngreso :
         return res
 
 
-
+    #Analogo pero para preparable
     def determinarPreparable(self, p):
         productos = p.getProductos()
         res= False
@@ -112,7 +113,7 @@ class ControladorDePreIngreso :
         return res
 
 
- 
+    #Decide si un pedido va a listos o va a la cola de ingreso
     def ingresar(self,p):
         if(self.determinarPreparable(p) or self.determinarCocinable(p)):
               self.controladorDeIngreso.ingresar(p)
@@ -155,16 +156,15 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
     def encolarPedido(self, p):
         self.listaIngreso.append(p)
 
-
+    #Intenta ingresar el pedido a la cocina, si no pued
+    #lo encola
     def ingresar(self, p):
       res=self.coordinadorDeCocina.prepararPedido(p)
-      print res
       if(not res):
           p.setEstado(Estado.Ingresado)
           self.encolarPedido(p)
           self.notificar()
-          print "Aca hay que hacer un notify de ingreso"
-          #TODO: hacer la parte del observer
+
       
 
 
@@ -172,7 +172,8 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
     def listarPedidos(self):
         return self.listaIngreso
 
-
+    #Busca en su cola si hay un pedido que contenga algun producto de tipo 
+    #tp, si lo encuentra lo devuelve
     def proximoPedido(self, tp):
         ls = self.listaIngreso
         ped=None
@@ -187,11 +188,10 @@ class ControladorDeIngresoStandard (ControladorDeIngreso) :
            self.listaIngreso.remove(ped)
            self.notificar()
           
-        print "ped:" + str(ped)
         return ped
 
 
-
+    #Permite conocer si algun producto del pedido p tiene tipo tp
     def tieneTipo(self, p, tp):
         ls = p.getProductos()
         res=False

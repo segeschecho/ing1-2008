@@ -4,6 +4,8 @@
 from datetime import datetime
 from sets import Set
 
+
+#Excepciones varias
 class ErrorDeIngreso(Exception):
     pass
 
@@ -34,6 +36,7 @@ class TipoDePagoInvalido(ErrorDeIngreso):
 class ProductoInsatisfacible(ErrorDeIngreso):
    pass
 
+#Notificador: responsable de hacer callbacks 
 class Notificador(object):
     def __init__(self):
         self.observers=[]
@@ -59,11 +62,11 @@ class Notificador(object):
         for each in self.observers:
             each()
    
-        
+#Clase base de pedidos
 class Pedido(object) :
     allInst=[]    
-
-
+   
+    #Permite obtener un pedido dado su id
     @classmethod
     def getPorId(cls,id):
         for each in cls.allInst:
@@ -71,11 +74,17 @@ class Pedido(object) :
                 return each
         raise ValueError("ID inválido!") 
 
-    
+    #Devuelve la lista con todas las instancias de Pedido
     @classmethod
     def allInstances(cls):
         return cls.allInst
 
+    #Reseta allInst
+    @classmethod
+    def setAllInstances(cls,allInst):
+         cls.allInst = allInst
+    
+    #Reinicia la lista de todas las instancias (Se usa para poder hacer un load desde archivo)
     @classmethod
     def reinit(cls):
         cls.allInst=[]
@@ -95,7 +104,8 @@ class Pedido(object) :
         self.precio = None
         self.horno = None
         self.tiempoEstimado = None
-	
+
+    #Getters y setters varios	
     def getCliente(self):
         return self.cliente
 	
@@ -147,13 +157,15 @@ class Pedido(object) :
     def setPrecio(self, precio) :
          self.precio = precio
 	
-
-
+ 
+    #Metodo que se invoca al unpicklear un pedido, nos permite ir asignando
+    #a la lista de todas las instancias
     def __setstate__(self,dict):
         for k in dict.keys():
             setattr(self, k,dict[k])
         self.__class__.allInst.append(self)
 
+    #Funciones necesarias para poder usar un diccionario de pedidos
     def __hash__(self):
         return self.id.__hash__()
     
@@ -170,13 +182,14 @@ class Pedido(object) :
         return not self.__eq__(o)
 
 
-
+    #Funcion que dice el destion, es decir si es delivery, mesa, o mostrador
+    #Pedido no la implementa, es responsabilidad de las subclases
     def getDestino(self):
         raise NotImplementedError
 
 
 
-
+#Otros sabores de pedido
 class PedidoLocal(Pedido):
        
 	def __init__(self,id, cliente,productos,formaDePago, fechaIngreso):
@@ -229,11 +242,7 @@ class PedidoTelefono(PedidoRemoto) :
 		super(PedidoTelefono,self).__init__(id, cliente, productos, formaDePago, fechaIngreso)
 
 
-
-
-
-
-
+#Responsable de asignar el horno al pedido, al momento de crearlo
 class AsignadorDeHorno:
 
     def __init__(self,p, e,pizza, empanada ):
@@ -245,9 +254,7 @@ class AsignadorDeHorno:
           
     def asignarHorno(self,pedido):
         raise NotImplementedError
-    
-
-    
+       
 class AsignadorDeHornoStandard (AsignadorDeHorno):
 
     def asignarHorno(self, pedido):
@@ -260,6 +267,7 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
             empanadas = empanadas or pr.getTipo() == self.empanada
     
         if pizzas and empanadas:
+                #Pedido Mixto, hay que pedir el horno
         	h = self.notificarHorno()
         elif pizzas:
         	h = self.hornoP
@@ -267,18 +275,18 @@ class AsignadorDeHornoStandard (AsignadorDeHorno):
             h = self.hornoE
     
         pedido.setHorno(h)
-	
+
+    #Permite que se asigne el callback para pedir el horno	
     def asignarCallback(self,callback):
         self.oraculoDeHorno = callback
     
     def desasignarCallback(self):
         self.oraculoDeHorno = None
 
+    #Ejecuta el callback para pedir el horno 
     def notificarHorno(self):
         return self.oraculoDeHorno()
         
-	
-
 class Horno:
 
     def __init__(self,cantModulos, fraccionadorDeHorno,descripcion):
@@ -304,10 +312,6 @@ class FraccionadorDeHorno:
     def getProductosPorModulo(self, tipoProducto):
         return self.prodsXModulo[tipoProducto]
 
-
-
-
-
 class CalculadorDePrecios:
 
     def calcularPrecio(self,pedido):
@@ -317,6 +321,7 @@ class CalculadorDePrecios:
 class CalculadorDePreciosStandard (CalculadorDePrecios):
 
     def calcularPrecio(self,pedido):
+        #Recorremos los productos sumando los precios
         ls = pedido.getProductos()
         precio = 0.0
         for pr in ls:
@@ -324,20 +329,18 @@ class CalculadorDePreciosStandard (CalculadorDePrecios):
 		
         return precio
 
-
-
-
-
 class EstimadorDeTiempos: 
 
     def estimarTiempo(self,pedido):
         raise NotImplementedError
 
+#Simulacion de clase enumerada
 class Estado:
     Ingresado="Ingresado"
     Preparado="Preparado"
     EnPreparacion="EnPreparacion" 
     Listo="Listo"
+
 
 class EstimadorStandard (EstimadorDeTiempos):
 
@@ -346,16 +349,19 @@ class EstimadorStandard (EstimadorDeTiempos):
         self.empanada = empanada
 
     def estimarTiempo(self,pedido):
+        #Incializamos las variables
         tiempoPreparacion = 0.0
         tiempoCoccionPizzas = 0.0
         tiempoCoccionEmpanadas = 0.0
         h = pedido.getHorno()
         ls = Pedido.allInstances()
+        #Calculamos los tiempos para todos los pedidos 
         for p in ls:
             tiempoPreparacion += self.estimarTiempoDePreparacion(p)
             tiempoCoccionPizzas += self.estimarTiempoDeCoccionPizzas(p, h)
             tiempoCoccionEmpanadas += self.estimarTiempoDeCoccionEmpanadas(p, h)
-		
+        #El pedido que se esta ingresando queda afuera ya que tiene estado None
+        #Por eso sus tiempos los calculamos aparte		
         tiempoPreparacion += self.estimarTiempoDePreparacionActual(pedido)
         tiempoCoccionPizzas += self.estimarTiempoDeCoccionPizzasActual(pedido,h)
         tiempoCoccionEmpanadas += self.estimarTiempoDeCoccionEmpanadasActual(pedido,h)
@@ -364,14 +370,14 @@ class EstimadorStandard (EstimadorDeTiempos):
         frac = h.getFraccionadorDeHorno()
         cantEmpanadas = frac.getProductosPorModulo(self.empanada)
         cantPizzas = frac.getProductosPorModulo(self.pizza)
-        
+        #Efectuamos el calculo final
         res = tiempoPreparacion + \
               (tiempoCoccionPizzas / (cantPizzas*modulos))+ \
               (tiempoCoccionEmpanadas / (cantEmpanadas*modulos))
         
         return res
 
-
+    #Estima el tiempo de coccion de las empanadas de un pedido
     def estimarTiempoDeCoccionEmpanadasActual(self,pedido,h) :
         ls = pedido.getProductos()
         res = 0.0
@@ -380,7 +386,7 @@ class EstimadorStandard (EstimadorDeTiempos):
                 res += pr.getTiempoCoccion()
         return res
 	
-
+    #Idem para las pizzas
     def estimarTiempoDeCoccionPizzasActual(self,pedido,h) :
         ls = pedido.getProductos()
         res = 0.0
@@ -389,7 +395,7 @@ class EstimadorStandard (EstimadorDeTiempos):
                 res += pr.getTiempoCoccion()
         return res
 	
-
+    #Estima el tiempo de preparacion de un pedido
     def estimarTiempoDePreparacionActual(self,pedido) :
         ls = pedido.getProductos()
         res = 0.0
@@ -397,7 +403,8 @@ class EstimadorStandard (EstimadorDeTiempos):
             res += pr.getTiempoPreparacion()
         return res
 	
-
+    #Calcula el tiempo de coccion de las empanadas que estan en el mismo horno
+    #que el pedido nuevo
     def estimarTiempoDeCoccionEmpanadas(self,pedido,  horno):
         res = 0.0
         if(pedido.getHorno() != horno):
@@ -411,7 +418,7 @@ class EstimadorStandard (EstimadorDeTiempos):
         else:
             return self.estimarTiempoDeCoccionEmpanadasActual(pedido,horno)
 		
-    
+    #Idem para las pizzas
     def estimarTiempoDeCoccionPizzas(self,pedido,horno):
         res = 0.0
         if(pedido.getHorno() != horno):
@@ -423,14 +430,14 @@ class EstimadorStandard (EstimadorDeTiempos):
         else:
             return self.estimarTiempoDeCoccionPizzasActual(pedido,horno)
 	
-
+    #Calcula el tiempo de preparación de los pedidos que estan adelante
+    #del nuevo
     def estimarTiempoDePreparacion(self,  pedido):
         res = 0.0
         if pedido.getEstado() != Estado.Ingresado or pedido.getEstado() != Estado.EnPreparacion:
             return res
         else:
             return self.estimarTiempoDePreparacionActual(pedido)
-		
 
 class Producto :
 
@@ -448,11 +455,16 @@ class Producto :
         self.ID = self.__class__.ID
         self.__class__.ID += 1
 
+    #Simil a lo que pasaba con el pedido
     @classmethod
     def reinit(cls):
         cls.allInst=[]
         cls.ID=0
     
+    @classmethod
+    def setAllInstances(cls,allInst):
+         cls.allInst = allInst
+
     @classmethod
     def getPorId(cls,ID):
         for each in cls.allInst:
@@ -464,7 +476,7 @@ class Producto :
     def allInstances(cls):
         return cls.allInst
     
-
+    #getters y setters
     def getId(self):
         return self.ID
 
@@ -510,12 +522,17 @@ class Producto :
  
 
 class TipoProducto:
+    #Misma estrategia que para productos y pedidos
     allInst = []
     ID = 0
     @classmethod
     def reinit(cls):
         cls.allInst=[]
         cls.ID=0
+    
+    @classmethod
+    def setAllInstances(cls,allInst):
+         cls.allInst = allInst
 
     def __init__(self,nombre, coc,prep):
         self.nombre = nombre
@@ -584,9 +601,6 @@ class TipoProducto:
     def getPreparable(self):
         return self.preparable
 
-
-
-
 class Insumo :
      
     def __setstate__(self,dict):
@@ -602,7 +616,11 @@ class Insumo :
     def reinit(cls):
         cls.allInst=[]
         cls.ID=0
-
+ 
+    @classmethod
+    def setAllInstances(cls,allInst):
+         cls.allInst = allInst
+    
     allInst = []
     ID=0
     def __str__(self):
@@ -654,6 +672,7 @@ class Insumo :
 
     def setCantCritica(self, cantCritica) :
 	    self.cantCritica = cantCritica
+
 	
 class GeneradorDePedidos(object) :
 
@@ -664,26 +683,27 @@ class GeneradorDePedidos(object) :
         self.controladorDeStock=controladorDeStock
         self.estimadorDeTiempos=estimadorDeTiempos
 
-    
-
+    #Metodo para generar ID de pedidos
     def generarId(self):
         raise NotImplementedError
 
+    #Crea un pedido, es un factory method
     def generarPedido(self,cliente,productos,formaDePago,origen,mesa):
         raise NotImplementedError
 
 
     
 class GeneradorDePedidosStandard (GeneradorDePedidos) :
+    
     def __init__(self,calculadorDePrecios,estimadorDeTiempos,controladorDeStock,asignadorDeHorno):
         super(GeneradorDePedidosStandard,self).__init__(calculadorDePrecios, estimadorDeTiempos,controladorDeStock, asignadorDeHorno)
         self.ultimoIdAsignado=0
 
-
-
+    #Obtiene la fecha actual para "grabarsela" al pedido
     def getDateTime(self) :
         return datetime.now()
-
+    
+    #Estrategia simple de creación de pedido
     def generarId(self):
         res=self.ultimoIdAsignado
         self.ultimoIdAsignado+=1
@@ -691,22 +711,28 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
                     
 
     def generarPedido(self, c,productos,formaDePago,origen,mesa):
+        #Primero intentamos ingresarlo, reservando los recursos
         if(self.controladorDeStock.verificarEIngresar(productos)):
             d=self.getDateTime()
+            #Decidimos a partir del origen a partir del nombre (pobre OCP y Liskov)
             if(origen == "mostrador"):
+                #Chequeamos invariantes para construir un pedido de mostrador
                 if not formaDePago in ["efectivo","tarjeta"]:
                     raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 if mesa != None:
                     raise PedidoDeMostradorConMesa("Los pedidos de mostrador no tienen que tener una mesa asignada")
                 ID = self.generarId()
                 p= PedidoMostrador(ID,c,productos,formaDePago,d)
-                
+             
             elif(origen == "mesa"):
+                #Simil con pedido de mesa
                 if formaDePago != None :
                     raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 ID = self.generarId()
                 p= PedidoMesa(ID,c,productos,formaDePago,d,mesa)
+         
             elif(origen == "telefono"):
+                #Idem para pedido telefonico
                 if formaDePago != "efectivo" :
                     raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 if mesa != None:
@@ -717,21 +743,20 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
                 p= PedidoTelefono(ID,c,productos,formaDePago,d)
             else:
                 raise OrigenDesconocido("El origen indicado no es valido")
-            
+            #Asignamos el horno
             self.asignadorDeHorno.asignarHorno(p)
             if p.getHorno() != None:
+                 #Si tiene un horno, no es de solo bebida, tiene sentido estimar el tiempo 
                  p.setTiempoEstimado(self.estimadorDeTiempos.estimarTiempo(p))
             else:
                 p.setTiempoEstimado(0)
+            #Finalmente calculamos el precio
             p.setPrecio(self.calculadorDePrecios.calcularPrecio(p))
             return p
         
         return None
 
-
-
 class Direccion :
-
 
     def __init__(self,calle,departamento,localidad,numero) :
         self.Calle = calle
@@ -773,6 +798,7 @@ class Direccion :
 
 
 class Cliente :
+     #Metodos para unpicklear
      def __setstate__(self,dict):
         for k in dict.keys():
             setattr(self, k,dict[k])
@@ -784,6 +810,10 @@ class Cliente :
      def reinit(cls):
         cls.allInst=[]
         cls.ID=0
+
+     @classmethod
+     def setAllInstances(cls,allInst):
+         cls.allInst = allInst
 
      ID=0  
      allInst = []
@@ -888,7 +918,8 @@ class ControladorDeStockStandard(ControladorDeStock) :
     def getCriticos(self) :
         return self.criticos
 
-
+    #Decide si un producto se puede ingresar o no
+    #Si no puede restauara el stock que modifico (rollback)
     def ingresar(self, producto) :
         ls = producto.getInsumos()
         yaDeCrementados = []
@@ -907,7 +938,6 @@ class ControladorDeStockStandard(ControladorDeStock) :
 	
     # arma una lista con los insumos que estaban en algun producto de los que se ingresaron y que estan
     #ahora en stock critico
-
     def obtenerCriticos(self, productos) :
 		   self.criticos=Set([])
 		   for pr in productos:
@@ -919,36 +949,39 @@ class ControladorDeStockStandard(ControladorDeStock) :
 				
 			
 		
-
-
+    #Restablece el stock de los insumo de una lista de productos
     def reestablecerStock(self, productos) :
 	    for pr in productos:
 		    self.reestablecerStockInsumos(pr.getInsumos())
-		
 
-	
-
+    #Incrementa el stock de una lista de insumos
     def reestablecerStockInsumos(self,insumos) :
 	    for ins in insumos:
 		    ins.setCant(ins.getCant()+1)
 		
-	
+    #Intenta ingresar un pedido, descontando el stock	
     def verificarEIngresar(self, productos) :
         posible = True
         yaDecrementados = []
+        #Listamos los insumos que no estaban en estado critico (en verdad es conjunto, no lista)
         stockAnterior = Set([x for x in Insumo.allInstances() if x.getCant() >= x.getCantCritica()])
         for pr in productos:
             posible = self.ingresar(pr)
-            if not posible:
+            if(not posible):
+                #Uno de los productos no se pudo satisfacer
+                #Restablecemos el stock de los que ya decrementamos, porque el pedido no se va a poder hacer
                 self.reestablecerStock(yaDecrementados)
-                raise ProductoInsatisfacible("No se pudo ingresar el producto: %s (ID %s)" % \
-                                              (pr.getNombre(),pr.getId()))
+                #Tiramos una excepcion identificando que producto no se pudo ingresar
+                raise ProductoInsatisfacible("No se pudo ingresar el producto: " + pr.getNombre() +"(Id: "+str(pr.getId()) + ")")
             else:
-               yaDecrementados.append(pr)
-       
+                yaDecrementados.append(pr)
+              
         self.obtenerCriticos(productos)
+        #Intersecamos los conjuntos para que en criticos queden los que pasaron de estado normal a critico
         self.criticos.intersection_update(stockAnterior)
+        #Avisamos a los observadores que hubo cambios en el stock
         self.notificar()
-                  
+                     
+                        
+                
         return True
-

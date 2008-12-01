@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #! -*- encoding: utf-8 -*-
-
+from config import *
 import lista_ingreso
 import lista_insumos
 import lista_clientes
@@ -59,6 +59,17 @@ class DistribuidorCallbacks:
     def cocinarPizzas(self):
         print "yo tendria q decirle al señor despachador q ya cocino las pizzas"
         self.pizzeria.getDespachadorDeCoccion().terminarCoccionPizzera()
+
+    def recargarClientes(self):
+        tv = self.widgets[LISTA_CLIENTES] 
+        seleccion, iterador = tv.get_selection().get_selected()
+        
+        if iterador is None:
+            lista_clientes.limpiar_datos(self.widgets)
+        else:
+            nombre_cliente = seleccion.get_value(iterador, 2)            
+            lista_clientes.cargar_datos(self.widgets, nombre_cliente)
+
     def actualizarGui(self):
         self.modifStock()
         self.modifListos()

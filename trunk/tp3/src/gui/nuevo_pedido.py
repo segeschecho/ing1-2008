@@ -106,6 +106,9 @@ def validar_pedido(widgets):
         except ValueError:
             mostrar_error("Mesa inválida","El número de mesa no es válido!")
             raise ErrorDeValidacion
+        except TypeError:
+            mostrar_error("Mesa inválida","El pedido de mesa debe tener una mesa asignada")
+            raise ErrorDeValidacion
     else:
         mesa = None
             

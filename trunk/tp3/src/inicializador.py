@@ -118,7 +118,17 @@ class Pizzeria:
    
     def getHornoP(self):
         return self.hpizzero
-        
+
+    def clearObservers(self):
+            self.getContStock().clearObservers()
+            self.getContStock().clearObservers()
+            self.getContListos().clearObservers()
+            self.getContIng().clearObservers()
+            self.getPreparadorEmpanadero().clearObservers()
+            self.getPreparadorPizzero().clearObservers()
+            self.getAsignador().desasignarCallback()
+            self.getDespachadorDeCoccion().clearObservers()
+            self.getDespachadorDeCoccion().clearObservers()    
 
 if __name__ == '__main__':
             

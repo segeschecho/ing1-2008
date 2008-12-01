@@ -1,5 +1,5 @@
 from creacion import *
-
+#Clase base de los avisos
 class Aviso :
 
     def __init__(self,despachadorDePreparacionStandard):
@@ -11,11 +11,10 @@ class Aviso :
     def getDestinatario(self) :
         return self.destinatario
    
-
-
     def setDestinatario(self,despachadorDePreparacionStandard) :
         self.destinatario = despachadorDePreparacionStandard
 
+#Subclases de aviso
 class AvisoEmpanadero(Aviso) :
 
       def avisar(self) :
@@ -26,6 +25,7 @@ class AvisoPizzero(Aviso) :
       def avisar(self) :
           self.destinatario.pizzasTerminadas()
 
+
 class CoordinadorDeCocina :
 
     def __init__(self,controladorDeIngreso, coordinadorDePedidos,
@@ -35,38 +35,31 @@ class CoordinadorDeCocina :
         self.despachadorDePreparacion=despachadorDePreparacion
         self.despachadorDeCoccion = despachadorDeCoccion
 
-
+    #Ordena cocinar un pedido al despachador de coccion
     def cocinar(self, p):
               p.setEstado(Estado.Preparado)
               self.despachadorDeCoccion.cocinar(p)
               #no hace nada porque no hay que implementar la parte de la coccion
 
-
+    #Pide al controlador de ingreso un pedido de tipo tp
     def conseguirPedido(self,tp):
         return self.controladorDeIngreso.proximoPedido(tp)
 
 
-    
+    #Notifica que un pedido termino de cocinarse
     def pedidoListo(self, p):
         self.coordinadorDePedidos.agregarPedidoListo(p)
 
-
+    #Pregunta al despachador si puede hacerse cargo de la preparacion de un pedido
     def prepararPedido(self, p):
         return self.despachadorDePreparacion.prepararPedido(p)
 
-
-
-
+    #getters y setters
     def setControladorDeIngreso(self, controladorDeIngreso) :
         self.controladorDeIngreso = controladorDeIngreso
 
-
-
-
     def setCoordinadorDePedidos(self, coordinadorDePedidos) :
         self.coordinadorDePedidos = coordinadorDePedidos
-
-
 
     def setDespachadorDePreparacion(self, despachadorDePreparacion) :
         self.despachadorDePreparacion = despachadorDePreparacion
@@ -101,9 +94,9 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         self.pedidoPizzeroActual=None
         self.pedidoEmpanaderoActual=None
 
-
-
-
+    #Determina si un pedido se puede asignar al preparado empanadero.
+    #De ser asi, manda preparar el pedido y averigua si el preparador pizzero tambien lo puede
+    #comenzar a preparar o lo encola (en caso de ser pizzero)
     def asignableEmpanadero(self,p):
         res=self.esEmpanadero(p) and not self.prepEmpanadero.getOcupado()
         if(res):
@@ -128,7 +121,7 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         return res
 
 
-    
+    #Similar a la anterior pero para el pizzero
     def asignablePizzero(self, p):
         
         res=self.esPizzero(p) and not self.prepPizzero.getOcupado()
@@ -145,12 +138,8 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
             p.setEstado(Estado.EnPreparacion)
         
         return res
-
-
-
-    
        
-
+    #Determina si un pedido tiene alguna empanada
     def esEmpanadero(self, p):
         ls = p.getProductos()
         for pr in ls:
@@ -159,7 +148,7 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         return False
 
 
-    
+    #Determina si un pedido tiene alguna pizza
     def esPizzero(self, p):
         ls = p.getProductos()
         for pr in ls:
@@ -167,7 +156,7 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
                 return True
         return False
 
-
+    #Obtiene las empanadas de un pedido
     def getSubpedidoEmpanadero(self, p):
         ls = p.getProductos()
         res = []
@@ -178,7 +167,7 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         
         return res
 
-
+    #Obtiene las pizzas de un pedido
     def getSubpedidoPizzero(self, p):
         ls = p.getProductos()
         res = []
@@ -189,7 +178,9 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         
         return res
 
-
+    #Da por terminada la preparacion de las pizzas del pedido pizzero actual
+    #Intenta buscar un nuevo pedido con pizzas para preparar
+    #En caso de ser necesario avisa que hay un pedido que debe cocinarse
     def pizzasTerminadas(self):
         p = self.pedidoPizzeroActual
         partes =self.partesAPreparar[p]
@@ -219,11 +210,10 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
         else:
             self.pedidoPizzeroActual = None
 
-    
+    #Da por terminada la preparacion de las empanadas. Analago a la version pizzera
     def empanadasTerminadas(self):
         p = self.pedidoEmpanaderoActual
         partes = self.partesAPreparar[p]
-        print partes
         partes=partes-1
         self.partesAPreparar[p] = partes
         if(partes == 0):
@@ -248,7 +238,8 @@ class DespachadorDePreparacionStandard(DespachadorDePreparacion) :
             self.prepEmpanadero.preparar(self.getSubpedidoEmpanadero(p))
         else:
             self.pedidoEmpanaderoActual = None
-    
+
+    #Decide si puede hacerse cargo o no de un pedido
     def prepararPedido(self, p):
         if(self.asignableEmpanadero(p)):
             return True
@@ -279,7 +270,6 @@ class PreparadorEspecializado(Preparador) :
         super(PreparadorEspecializado,self).__init__(aviso)
         self.productosAPreparar = []
 
-
     
     def getOcupado(self) :
         return self.ocupado
@@ -291,8 +281,6 @@ class PreparadorEspecializado(Preparador) :
         self.ocupado=True
         self.productosAPreparar=productos
         self.notificar()
-        #print "notificar que hay que preparar"
-        #TODO: la parte del notify
 
     def terminar(self) :
         if self.ocupado:
@@ -302,6 +290,8 @@ class PreparadorEspecializado(Preparador) :
             self.aviso.avisar() 
             self.notificar()
 
+#Version recortada del despachador, nomas almacena pedidos y los saca, solo esta para
+#que se vea bonito en la gui
 class DespachadorDeCoccion(Notificador):
     def __init__(self):
        super(DespachadorDeCoccion,self).__init__()
@@ -343,6 +333,5 @@ class DespachadorDeCoccionNormal(DespachadorDeCoccion):
     def terminarCoccionPizzera(self):
         if(len(self.colaPizz) > 0):
             self.coordC.pedidoListo(self.colaPizz.pop(0))
-            print "voy a notificar q cocine unas ricas pizzas"
             self.notificar()
        

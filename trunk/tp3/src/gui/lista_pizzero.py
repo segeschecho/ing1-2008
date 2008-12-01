@@ -38,6 +38,16 @@ def recargar(widgets,prepPiz=None):
             it = ls.insert(0)
             ls.set_value(it, 0, each.getNombre())
 
+        if prep == []:
+           bp = widgets["pizzas_preparadas"]
+           bp.set_sensitive(False)
+        else:
+           bp = widgets["pizzas_preparadas"]
+           bp.set_sensitive(True)
+ 
+    else:
+           bp = widgets["pizzas_preparadas"]
+           bp.set_sensitive(False)
 
         
 
