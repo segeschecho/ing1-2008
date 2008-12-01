@@ -28,7 +28,9 @@ class DistribuidorCallbacks:
         lista_insumos.recargar(self.widgets)
    
     def modifListos(self):
+        print "se modifico la cola de listos"
         lista_listos.recargar(self.widgets,self.pizzeria.getContListos())
+        print len(self.pizzeria.getContListos().observers)
 
     def modifIngreso(self):
         lista_ingreso.recargar(self.widgets,self.pizzeria.getContIng())
