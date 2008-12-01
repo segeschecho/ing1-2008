@@ -66,6 +66,28 @@ class ErrorDeValidacion(Exception):
 
 
 def validar_pedido(widgets):
+    
+    # obtengo los productos
+    tv = widgets[ITEMS_PEDIDO]
+    ls = tv.get_model()
+
+    productos = []
+
+    it = ls.get_iter_first()
+
+    if it is None:
+        mostrar_error("Pedido nulo", "Debe elegir productos para poder ingresar el pedido!")
+        raise ErrorDeValidacion
+
+    while it != None:
+        prod_id = ls.get_value(it,4)
+        cant = int(ls.get_value(it,2)) 
+        prod = creacion.Producto.getPorId(prod_id)
+        for i in range(cant):
+            productos.append(prod)
+        it = ls.iter_next(it) 
+    
+
     # obtengo el tipo de pedido
     tipo_t = widgets[NUEVO_PEDIDO_TIPO].get_active_text()
     try:
@@ -111,27 +133,6 @@ def validar_pedido(widgets):
             cliente = None
     else:
         cliente = creacion.Cliente.getPorId(int(seleccion.get_value(iterador,0)))
-
-
-    # obtengo los productos
-    tv = widgets[ITEMS_PEDIDO]
-    ls = tv.get_model()
-
-    productos = []
-
-    it = ls.get_iter_first()
-
-    if it is None:
-        mostrar_error("Pedido nulo", "Debe elegir productos para poder ingresar el pedido!")
-        raise ErrorDeValidacion
-
-    while it != None:
-        prod_id = ls.get_value(it,4)
-        cant = int(ls.get_value(it,2)) 
-        prod = creacion.Producto.getPorId(prod_id)
-        for i in range(cant):
-            productos.append(prod)
-        it = ls.iter_next(it) 
 
 
     return (cliente,
