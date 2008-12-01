@@ -37,13 +37,12 @@ El cliente es otro factor a tener en cuenta. Como dijimos anteriormente, no cons
 
 \subsection{Lista de productos}
 Otro factor a tener en cuenta es la lista de productos que componen al pedido. En particular una posible categoria a tener en cuenta es como esta compuesta. Por enunciado, nos limitaremos a una comida y una bebida. Entonces dentro de esta categoria consideraremos el caso donde la lista esta compuesta por 0 productos, condicion de error, una bebida, una comida o una bebida y una comida. El caso de una comida lo consideraremos como unico porque creemos que no presenta algun interese particular. Por otro lado el caso de una bebida también lo consideraremos como unico porque es un caso simple. La justificación es que creemos que el caso donde hay solo bebidas es simple de tratar, pero por una cuestión de completitud decidimos probarlo.
-
+%capaz solo bebida no es unico
 En los casos en los que hay una comida, nos va a interesar también que tipo de comida es, si pizza o empanada, ya que cada producto tiene por ejemplo su preparador asociado, etc.
 
 \subsection{Forma de pago}
 La forma de pago es un factor a tener en cuenta para los pedidos de mostrador que permiten escoger entre dos posibles: efectivo o tarjeta. Los demas origenes solo pemiten especificar una forma de pago: los de mesa, forma de pago nula (no se conoce hasta que se cierra la mesa) y los telefonicos mediante el efectivo.
 
-Este factor también se tiene en cuenta por una cuestión de completitud, ya que en verdad no creemos que sea un posible foco de bugs, pòr esta razon consideraremos el caso efectivo como unico, a fin de que no nos aumenten demasiado la cantidad de casos.
 
 \subsection{Relacion productos y stock}
 En este factor tenemos varias cosas que considerar. En primer lugar la cantidad actual de los insumos en relación con la cantidad necesaria para satisfacer al pedido. Nosotros consideraremos los casos donde todos los insumos tienen menos stock que el necesario (condición de error), algunos tienen menos stock que el necesario (condición de error), algunos tienen un valor igual al necesario (y el resto mayor o igual) como caso unico para testear el caso borde, y finalmente el caso donde todos los insumos tienen una cantidad mayor a la necesaria.
@@ -62,250 +61,163 @@ Los preparadores tienen importancia como factores, ya que son los que deciden pa
 
 Entonces en los casos en los que el pedido sea de comida, utilizando el hecho de que solo se testean los pedidos con un unico item de comida, podemos considerar como categorias el estado del preparador asociado al tipo del producto y el del preparador del otro tipo de comida. Entonces podemos considerar los valores ocupado, y libre para cada uno de ellos. El preparador del otro tipo no deberia tener mucha importancia, pero podria ocurrir por ejemplo que si el preparador correcto esta ocupado y el otro libre se realice una asignacion erronea. Por eso lo consideramos, a fin de mantener la cantidad de casos en un número manejable, lo que haremos sera tomar el caso ocupado como unico
 
-
-\newpage
-\pagestyle{empty}
-{
-\fancypagestyle{plain}
-    {
-    \fancyhead{}
-    \fancyfoot{}
-    \renewcommand{\headrulewidth}{0.0pt}
-    } % clear header and footer of plain page because of ToC
-\begin{landscape}
-\begin{tabular}{|c|c|c|c|}
-\hline 
-Factor & Categoria & Choice & Clasificacion\tabularnewline
-\hline
-\hline 
-Origen & Valor & Mesa & \tabularnewline
- &  & Mostrador & \tabularnewline
- &  & Telefono & \tabularnewline
-\hline 
-Lista De Productos & Composición & 0 Productos & {[}Error]\tabularnewline
- &  & 1 Bebida & {[}Único]{[}Property hayBebida]\tabularnewline
- &  & 1 Comida & {[}Único]{[}Property hayComida]\tabularnewline
- &  & 1 Bebida y 1 Comida & {[}Property hayBebidaYComida]\tabularnewline
- & Cantidad de items de bebida & 1 & {[}Único]{[}if hayBebida or hayBebidaYComida]\tabularnewline
- &  & > 1 & {[}if hayBebida or hayBebidaYComida]\tabularnewline
- & Cantidad de items de comida & 1 & {[}Único] {[}if hayBebida or hayBebidaYComida]\tabularnewline
- &  & >1 & {[}if hayComida or hayBebidaYComida]\tabularnewline
- & Tipo de comida & Pizza & {[}if hayComida or hayBebidaYComida]\tabularnewline
- &  & Empanada & {[}if hayComida or hayBebidaYComida]\tabularnewline
-\hline 
-Mesa & Número de mesa & Si & {[}if Mesa]\tabularnewline
- &  & No & {[}if Mesa]{[}Error]\tabularnewline
- &  & Si & {[}if not Mesa]{[}Error]\tabularnewline
- &  & No & {[}if not Mesa]\tabularnewline
-\hline 
-Cliente & Valor & Nulo & {[}if not Telefono]{[}Error]\tabularnewline
- &  & No nulo & {[}if not Telefono]{[}Único]\tabularnewline
- &  & No nulo & {[}if Telefono]\tabularnewline
- &  & Nulo & {[}if Telefono]{[}Error]\tabularnewline
-\hline 
-Forma De Pago & Tipo & Nula & {[}if mesa]\tabularnewline
- &  & No Nula & {[}if mesa]{[}Error]\tabularnewline
- &  & Nula & {[}if not mesa]{[}Error]\tabularnewline
- &  & pertenece a {[}Tarjeta,Efectivo] & {[}if Mostrador]\tabularnewline
- &  & Tarjeta & {[}if Telefono]{[}Error]\tabularnewline
- &  & Efectivo & {[}if Telefono]\tabularnewline
-\hline 
-Relacion entre stock de bebida y los productos & Stock necesario vs cantActual & > cantActual & {[}Error]{[}if hayBebida or hayBebidaYComida]\tabularnewline
- &  & = cantActual & {[}Único]{[}if hayBebida or hayBebidaYComida]\tabularnewline
- &  & < cantActual & {[}if hayBebida or hayBebidaYComida]\tabularnewline
-\hline 
-Relacion entre stock de comida y los productos & Stock necesario vs cantActual & > cantACtual & {[}Error]{[}if hayComida or hayBebidaYComida]\tabularnewline
- &  & = cantActual & {[}if hayComida or hayBebidaYComida]\tabularnewline
- &  & < cantActual & {[}if hayComida or hayBebidaYComida]\tabularnewline
-\hline 
-Cola de ingreso & Cantidad de pedidos encolados & = 0 & {[}Único]\tabularnewline
- &  & > 0 & \tabularnewline
-\hline 
-Preparador asociado al tipo de comida & Ocupado & Si & \tabularnewline
- &  & No & \tabularnewline
-\hline 
-Preparador asociado al otro tipo de comida & Ocupado & Si & {[}Único]\tabularnewline
- &  & No & \tabularnewline
-\hline 
-Relacion insumos productos & Cantidad & Ninguno en cantidad critica & {[}Único]{[}Property Ninguno]\tabularnewline
- &  & Algunos (pero no todos) en cantidad critica & \tabularnewline
- &  & Todos en cantidad critica & {[}Único]\tabularnewline
-\hline 
- & Cantidad vs cantidad necesaria & Ninguno queda en cantidad critica & {[}if Ninguno]\tabularnewline
- &  & Alguno queda en cantidad critica & \tabularnewline
- &  & Todos quedan en cantidad critica & {[}Único]\tabularnewline
-\hline
-\end{tabular}
-\end{landscape}
-}
-\pagenumbering{arabic}
-\fancypagestyle{plain} {
-    \fancyhead[LO]{Gonzalez, Gonzalez, Martínez, Sainz-Trápaga}
-    \fancyhead[C]{}
-    \fancyhead[RO]{P\'agina \thepage\ de \pageref{LastPage}}
-    \fancyfoot{}
-    \renewcommand{\headrulewidth}{0.4pt}
-}
-\pagestyle{plain}
-
-\subsection{Justificación}
-En primer lugar consideramos el origen, ya que según si es de mesa, mostrador o telefonico, el comportamiento de la funcionaldiad varía.
-
-El segundo factor que consideramos es la lista de productos. De esta, son varios los aspectos que nos interesan
-
-
-
+La tabla se encuentra adjunta a este trabajo %TODO: decidir que hacer con esto, si se trata de meter aca o se deja asi
 \section{Diseño de los casos de test}
-\begin{landscape}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline 
-Origen & L de Prods & L de Prods & L de Prods & L de Prods & Mesa & Cliente & Pago & Rel stock B y los prods & Rel stock C y los prods & C Ing & Prep asoc & Prep & Rel Ins prods & Rel Ins prods & Resultado\tabularnewline
-\hline
-\hline 
-Valor & Composición & Cant items B & Cant items C & Tipo de C & Nº & Valor & Tipo & nec vs actual & nec vs actual & Cant & Ocupado & Ocupado & Cant & cant vs nec & Esperado\tabularnewline
-\hline
-\hline 
-- & 0 prods & - & - & - & - & - & - & - & - & - & - & - & - & - & Excepción ProductosVacios. Se muestra mensaje informando del error.
-El pedido no queda registrado\tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & No & - & - & - & - & - & - & - & - & - & Excepcion PedidoDeMesaSinMesa. Se muestra mensaje informando del error.
-El pedido no queda registrado \tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & No Nulo & - & - & - & - & - & - & - & Excepción TipoDePagoInvalido. Se notifica del error. El pedido no
-se registra\tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & Nulo & > cantActual & - & - & - & - & - & - & Excepción ProductoInsatisfacible. Se notifica que un prod no se pudo
-satisfacer. El pedido no se registra\tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & Nulo & < cantActual & > cantActual & - & - & - & - & - & Excepción ProductoInsatisfacible. Se notifica que un prod no se pudo
-satisfacer. El pedido no se registra\tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & Nulo & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno  & Se registra un pedido de mesa, con la mesa del input, con los productos
-ingresados. Se encola al final de la cola de ingreso, en el horno
-pizzero. Se decrementan los stocks de los insumos involucrados y se
-actualiza la lista de stock para mostrar que algunos quedaron en stock
-critico. Se estiman los tiempos y se calcula el precio de acuerdo
-a lo especificado\tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Pizza & Si & Nulo & Nulo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mesa, con la mesa del input, con los productos
-ingresados. Se notifica que la pizza debe comenzar a prepararse. Se
-decrementan los stocks de los insumos involucrados y se actualiza
-la lista de stock para mostrar que algunos quedaron en stock critico.
-Se estiman los tiempos y se calcula el precio de acuerdo a lo especificado\tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Empanada & Si & Nulo & Nulo & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido de mesa, con la mesa del input, con los productos
-ingresados. Se encola al final de la cola de ingreso, en el horno
-empanadero. Se decrementan los stocks de los insumos involucrados
-y se actualiza la lista de stock para mostrar que algunos quedaron
-en stock critico. Se estiman los tiempos y se calcula el precio de
-acuerdo a lo especificado\tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Empanada & Si & Nulo & Nulo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mesa, con la mesa del input, con los productos
-ingresados. Se notifica que las empanadas debe comenzar a prepararse.
-Se decrementan los stocks de los insumos involucrados y se actualiza
-la lista de stock para mostrar que algunos quedaron en stock critico.
-Se estiman los tiempos y se calcula el precio de acuerdo a lo especificado\tabularnewline
-\hline 
-Mesa & 1 B y 1 C & > 1 & > 1  & Empanada & Si & No Nulo & Nulo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mesa, con la mesa del input, con los productos
-ingresados. Se encola al final de la cola de ingreso, en el horno
-empanadero. Se decrementan los stocks de los insumos involucrados
-y se actualiza la lista de stock para mostrar que algunos quedaron
-en stock critico. El cliente asociado es el Cliente del input. Se
-estiman los tiempos y se calcula el precio de acuerdo a lo especificado\tabularnewline
-\hline 
-Mostrador & 1 B y 1 C & >1 & >1 & Empanada & Si & - & - & - & - & - & - & - & - & - & Excepcion PedidoDeMostradorConMesa. Se muestra un mensaje de error.
-No se registra el pedido\tabularnewline
-\hline 
-Mostrador & 1 B y 1 C & > 1 & > 1  & Empanada & No & Nulo & Nulo & - & - & - & - & - & - & - & Excepcion TipoDePagoInvalido. Se muestra un mensaje informando de
-la situación. El pedido no se registra\tabularnewline
-\hline 
-Mostrador & 1 B y 1 C & > 1 & > 1  & Empanada & No & Nulo & T o F & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
-Se encola en la cola de ingreso. Se decrementan los stocks de los
-insumos involucrados y se actualiza la lista de stock para mostrar
-que algunos quedaron en stock critico. Se estiman los tiempos y se
-calcula el precio de acuerdo a lo especificado. Se asigna el horno
-empanadero. La forma de pago es la del input\tabularnewline
-\hline 
-Mostrador & 1 B y 1 C & > 1 & > 1  & Empanada & No & Nulo & T o F & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
-Se notifica que debe preparase. Se decrementan los stocks de los insumos
-involucrados y se actualiza la lista de stock para mostrar que algunos
-quedaron en stock critico. Se estiman los tiempos y se calcula el
-precio de acuerdo a lo especificado. Se asigna el horno empanadero.
-La forma de pago es la del input\tabularnewline
-\hline 
-Mostrador & 1 B y 1 C & > 1 & > 1  & Pizza & No & Nulo & T o F & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
-Se encola en la cola de ingreso. Se decrementan los stocks de los
-insumos involucrados y se actualiza la lista de stock para mostrar
-que algunos quedaron en stock critico. Se estiman los tiempos y se
-calcula el precio de acuerdo a lo especificado. Se asigna el horno
-pizzero. La forma de pago es la del input\tabularnewline
-\hline 
-Mostrador & 1 B y 1 C & > 1 & > 1  & Pizza & No & Nulo & T o F & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
-Se notifica que debe preparase. Se decrementan los stocks de los insumos
-involucrados y se actualiza la lista de stock para mostrar que algunos
-quedaron en stock critico. Se estiman los tiempos y se calcula el
-precio de acuerdo a lo especificado. Se asigna el horno pizzero. La
-forma de pago es la del input\tabularnewline
-\hline 
-Telefono & 1 B y 1 C & > 1 & >1 & Empanada & No & Nulo & - & - & - & - & - & - & - & - & Excepcion Cliente Nulo. Se notifica mediante un mensaje. El pedido
-no se registra\tabularnewline
-\hline 
-Telefono & 1 B y 1 C & > 1 & > 1  & Empanada & No & No nulo & Tarjeta & - & - & - & - & - & - & - & Excepcion TipoDePagoInvalido. Se muestra un mensaje informando la
-situación. El pedido no queda registrado\tabularnewline
-\hline 
-Telefono & 1 B y 1 C & > 1 & > 1  & Empanada & No & No nulo & Efectivo & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido telefonico, con los productos ingresados. Se
-encola en la cola de ingreso. Se decrementan los stocks de los insumos
-involucrados y se actualiza la lista de stock para mostrar que algunos
-quedaron en stock critico. Se estiman los tiempos y se calcula el
-precio de acuerdo a lo especificado. Se asigna el horno empanadero.
-La forma de pago es la del input\tabularnewline
-\hline 
-Telefono & 1 B y 1 C & > 1 & > 1  & Empanada & No & No nulo & Efectivo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
-Se notifica que debe preparase. Se decrementan los stocks de los insumos
-involucrados y se actualiza la lista de stock para mostrar que algunos
-quedaron en stock critico. Se estiman los tiempos y se calcula el
-precio de acuerdo a lo especificado. Se asigna el horno empanadero.
-La forma de pago es la del input\tabularnewline
-\hline 
-Telefono & 1 B y 1 C & > 1 & > 1  & Pizza & No & No nulo & Efectivo & < cantActual & < cantActual & >0 & Si & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
-Se encola en la cola de ingreso. Se decrementan los stocks de los
-insumos involucrados y se actualiza la lista de stock para mostrar
-que algunos quedaron en stock critico. Se estiman los tiempos y se
-calcula el precio de acuerdo a lo especificado. Se asigna el horno
-pizzero. La forma de pago es la del input\tabularnewline
-\hline 
-Telefono & 1 B y 1 C & > 1 & > 1  & Pizza & No & No nulo & Efectivo & < cantActual & < cantActual & >0 & No & No & Algunos & Alguno & Se registra un pedido de mostrador, con los productos ingresados.
-Se notifica que debe preparase. Se decrementan los stocks de los insumos
-involucrados y se actualiza la lista de stock para mostrar que algunos
-quedaron en stock critico. Se estiman los tiempos y se calcula el
-precio de acuerdo a lo especificado. Se asigna el horno pizzero. La
-forma de pago es la del input\tabularnewline
-\hline 
-Mostrador & 1 Bebida & =1 & No aplica & No aplica & No & Nulo & Tarjeta & = cantActual & No aplica & >0 & No aplica & No aplica & Algunos & Alguno & Se registra el pedido de mostrador de solo bebidas. El pedido queda
-en la cola de listos. Se decrementa el stock de la bebida. Se notifica
-que hay stocks que quedan en stock critico. No se asigna horno. La
-forma de pago es la del input. El tiempo estimado es 0. Se calcula
-el precio\tabularnewline
-\hline 
-Telefono & 1 Comida & No aplica & =1  & Pizza & No & No Nulo & Efectivo & No aplica & = cantActua & =0 & Si & Si & Algunos & Alguno & Se registra el pedido. El pedido queda en la cola de ingreso. Se decrementa
-el stock de la comida. Se notifica que hay stocks que quedan en stock
-critico. Se asigna el horno pizzero. La forma de pago es la del input.
-Se estima el tiempo y se calcula el precio\tabularnewline
-\hline
-\hline 
-Mostrador  & 1 B y 1 C & > 1  & > 1  & Empanada & No  & Nulo & Efectivo & < cantActual & < cantActual & >0 & No & Si & Ninguno & Ninguno & Se registra el pedido. Se notifica que hay que preparar las empanadas.
-Se decrementa el stock de la comida. No se notifican nuevos productos
-en stock critico. Se asigna el horno empanadero. La forma de pago
-es la del input. Se estima el tiempo y se calcula el precio.\tabularnewline
-\hline
-\hline 
-Mostrador  & 1 B y 1 C & > 1  & > 1  & Empanada & No  & Nulo & Efectivo & < cantActual & < cantActual & >0 & No & Si & Todos & Todos & Se registra el pedido. Se notifica que hay que preparar las empanadas.
-Se decrementa el stock de la comida. Se notifican productos en stock
-critico. Se asigna el horno empanadero. La forma de pago es la del
-input. Se estima el tiempo y se calcula el precio.\tabularnewline
-\hline
-\end{tabular}
-\end{landscape}
+De acuerdo a los factores antes identificados armamos la tabla de casos de test. La misma se encuentra adjunta a este trabajo %TODO: decidir que se hace con esto
 
 \section{Realización del testing}
 %contar algo de como se hicieron los test, onda valores para las instancias, resultados, etc. se puede hacer una tabla
+En este apartado daremos una descripción de los datos con los que probamos cada caso de test. Primero introduciremos la notación que vamos a utilizar para describir a las instancias y luego desarrollaremos las distintas instancias con las que se probraron.
+
+\subsection{Notación}
+Antes de mostrar las instancias que se utilizaron para armar las pruebas estableceremos una convencion de como indicaremos los distintos tipos de datos que vamos a usar.
+
+Para declarar un insumo utilizamos:
+
+\verb0Insumo(cantidad,cantidadCritica,nombre)0
+
+Para declarar un tipo de producto:
+
+\verb0TipoProducto(Nombre,cocinable,preparable)0
+
+Si queremos indicar un producto hacemos:
+
+\verb0Producto(nombre,precio,tiempoCoccion,tiempoPreparacion,TipoProducto,insumos)0
+
+Para un cliente usamos:
+
+\verb0Cliente(apellido,celular,id,nombre,passWeb,telefono,usrweb, direccion)0
+
+Finalmente para los pedidos usamos:
+
+\verb#PedidoMostrador(Cliente,productos,formaDePago)#\\
+\verb#PedidoMesa(Cliente,productos,mesa)#\\
+\verb#PedidoTelefono(Cliente,productos)#\\
+
+segun el origen.
+
+En general necesitamos para realizar los tests que hallan productos, insumos, clientes, etc ya cargados. Por eso, salvo que se indique lo contrario, consideraremos que la pizzeria tiene los siguientes datos:
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlslc{\#Insumo(cantidad,cantidadCritica,nombre)}\hspace*{\fill}\\
+\hlstd{bollo\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{30}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Bollo\ de\ Pizza"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{tapa\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{50}\hlstd{}\hlsym{,}\hlstd{}\hlnum{20}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Tapa\ de\ Empanada"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo1\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Muzzarella"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo2\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{50}\hlstd{}\hlsym{,}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ Carne"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo3\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{13}\hlstd{}\hlsym{,}\hlstd{}\hlnum{13}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Napolitana"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo4\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ Pollo"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo5\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Roquefort"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo6\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Quilmes"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo7\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{45}\hlstd{}\hlsym{,}\hlstd{}\hlnum{23}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Coca{-}Cola"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{Insumo8\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Iguana"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo9\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{22}\hlstd{}\hlsym{,}\hlstd{}\hlnum{23}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Pepsi"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo10\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{1}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Calabresa"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo11\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{14}\hlstd{}\hlsym{,}\hlstd{}\hlnum{20}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ humita"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo12\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ atun"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlslc{\#TipoProducto(Nombre,cocinable,preparabl)}\hspace*{\fill}\\
+\hlstd{pizza}\hlsym{=\ }\hlstd{}\hlkwd{TipoProducto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Pizza"}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{True}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{True}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{empanada}\hlsym{=\ }\hlstd{}\hlkwd{TipoProducto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Empanada"}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{True}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{True}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{coca}\hlsym{=}\hlstd{\ \ }\hlsym{}\hlstd{}\hlkwd{TipoProducto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Gaseosa"}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{False}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{False}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{cerveza}\hlsym{=\ }\hlstd{}\hlkwd{TipoProducto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Cerveza"}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{False}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{False}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlslc{\#Producto(nombre,precio,tiempoCoccion,tiempoPreparacion,TipoProducto,insumos)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlslc{\#bebidas}\hspace*{\fill}\\
+\hlstd{Bebida1\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Coca{-}Cola"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{coca}\hlsym{,{[}}\hlstd{insumo7}\hlsym{{]})\ }\hlstd{}\hlslc{\#no\ critico}\hspace*{\fill}\\
+\hlstd{Bebida2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Quilmes"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{cerveza}\hlsym{,{[}}\hlstd{insumo6}\hlsym{{]})\ }\hlstd{}\hlslc{\#al\ limite\ de\ critico}\hspace*{\fill}\\
+\hlstd{Bebida3\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Pepsi\ Cola"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{coca}\hlsym{,{[}}\hlstd{insumo8}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ critico}\hspace*{\fill}\\
+\hlstd{Bebida2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Iguana"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{cerveza}\hlsym{,{[}}\hlstd{insumo7}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ agotada}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlslc{\#pizzas}\hspace*{\fill}\\
+\hlstd{Pizza1\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Muzzarella"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10.2}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo1}\hlsym{{]})\ }\hlstd{}\hlslc{\#no\ critico}\hspace*{\fill}\\
+\hlstd{Pizza2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Napolitana"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{30}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5.4}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12.3}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo3}\hlsym{{]})\ }\hlstd{}\hlslc{\#al\ limite\ de\ critico}\hspace*{\fill}\\
+\hlstd{Pizza3\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Roquefort"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{40}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{15.0}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo5}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ critico}\hspace*{\fill}\\
+\hlstd{Pizza4\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Calabresa"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{40}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7.1}\hlstd{}\hlsym{,}\hlstd{}\hlnum{15.0}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo10}\hlsym{{]})}\hlstd{}\hlslc{\#Agotada}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlslc{\#empanadas}\hspace*{\fill}\\
+\hlstd{Empanada1\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Pollo"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11.0}\hlstd{}\hlsym{,}\hlstd{empanada}\hlsym{,{[}}\hlstd{tapa}\hlsym{,}\hlstd{insumo4}\hlsym{{]})\ }\hlstd{}\hlslc{\#No\ critico}\hspace*{\fill}\\
+\hlstd{Empanada2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Carne"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12.0}\hlstd{}\hlsym{,}\hlstd{empanada}\hlsym{,{[}}\hlstd{tapa}\hlsym{,}\hlstd{insumo2}\hlsym{{]})\ }\hlstd{}\hlslc{\#al\ limite\ de\ critico}\hspace*{\fill}\\
+\hlstd{Empanada3\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Humita"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11.0}\hlstd{}\hlsym{,}\hlstd{empanada}\hlsym{,{[}}\hlstd{tapa}\hlsym{,}\hlstd{insumo11}\hlsym{{]})\ }\hlstd{}\hlslc{\#critico}\hspace*{\fill}\\
+\hlstd{Empanada4\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Atun"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12.0}\hlstd{}\hlsym{,}\hlstd{empanada}\hlsym{,{[}}\hlstd{tapa}\hlsym{,}\hlstd{insumo12}\hlsym{{]})\ }\hlstd{}\hlslc{\#Agotada}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+dir1\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Trinidad"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"tortuguitas"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{123}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{dir2\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ alamos"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Wilde"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1465}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{dir3\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"San\ Martin"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"2do\ Piso"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Capital\ Federal"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{3988}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{dir4\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Montaneses"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"1er\ Piso"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Capital\ Federal"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{345}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{dir5\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Oliden"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Vicente\ Lopez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{3433}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{dir6\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ Paraisos"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Bursaco"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{20}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+cli1\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Sainza\ Trapaga"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1555664488}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Gonzalo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"hayQPaja"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{48566633}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"gomox"}\hlstd{}\hlsym{,\ }\hlstd{dir1}\hlsym{)}\hspace*{\fill}\\
+\hlstd{cli2\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Martinez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1521356684}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{2}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Federico"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"estudiando"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{46532233}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"fedefly"}\hlstd{}\hlsym{,\ }\hlstd{dir2}\hlsym{)}\hspace*{\fill}\\
+\hlstd{cli3\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Gonzalez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1523314655}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{3}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Emiliano"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"bartolo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{45632132}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"emilio"}\hlstd{}\hlsym{,\ }\hlstd{dir3}\hlsym{)}\hspace*{\fill}\\
+\hlstd{cli4\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Gonzalez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1532169788}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{4}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Sergio"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"lechuga"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{45125398}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"checho"}\hlstd{}\hlsym{,\ }\hlstd{dir4}\hlsym{)}\hspace*{\fill}\\
+\hlstd{cli5\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Rinaldi"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1564659777}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{5}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Nicolas"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"esteee"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{46633221}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"elcorrector"}\hlstd{}\hlsym{,\ }\hlstd{dir5}\hlsym{)}\hspace*{\fill}\\
+\hlstd{cli6\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"D'arrigo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1564521133}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{6}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Sergio"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"niato"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{46632136}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"jefetp"}\hlstd{}\hlsym{,\ }\hlstd{dir6}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+También consideremos los siguientes pedidos simples:
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlslc{\#Pedidos}\hspace*{\fill}\\
+\hlstd{PedidoPizza\ }\hlsym{=\ }\hlstd{}\hlkwd{PedidoMostrador}\hlstd{}\hlsym{(}\hlstd{}\hlkwa{None}\hlstd{}\hlsym{,\ {[}}\hlstd{pizza1}\hlsym{{]},\ }\hlstd{efectivo}\hlsym{)}\hspace*{\fill}\\
+\hlstd{PedidoEmpanada\ }\hlsym{=\ }\hlstd{}\hlkwd{PedidoMostrador}\hlstd{}\hlsym{(}\hlstd{}\hlkwa{None}\hlstd{}\hlsym{,{[}}\hlstd{Empanada1}\hlsym{{]},}\hlstd{efectivo}\hlsym{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+
+\subsection{Datos de prueba}
+
+\subsubsection{Caso de test 1}
+
+Tomamos la pizzeria comun, y como pedido a agregar consideramos:
+\verb0PedidoMesa(None,[pizza1],None)0
+
+\subsubsection{Caso de test 2}
+
+Tomamos la pizzeria comun, e ingresamos:
+\verb0PedidoTelefono(None,[pizza1],None)0
+
+\subsubsection{Caso de test 3}
+\verb0PedidoMostrador(None,[],efectivo)0
+
+\subsubsection{Caso de test 4}
+Primero agregamos pedidos para que la cola de ingreso no este vacia, ingresamo entonces:
+\verb0PedidoPizzas, PedidoPizzas0
+Luego ingresamos:
+\verb0PedidoMesa(None,[bebida1],4)
+
+\subsubsection{Caso de test 5}
+Notemos que la pizza de calabresa de la pizzeria que definimos antes tiene su kit agotado, como también
+queremos que el bollo este agotado,lo que hacemos primero es redefinir la cantidad de bollos, bajandola a 0.
+Luego hacemos:
+\verb0PedidoMostrador(None,[pizza4],efectivo)0
+
+\subsubsection{Caso de test 6}
+En este caso solo hacemos un pedido de calabresa
+\verb0PedidoMostrador(None,[pizza4],efectivo)0
+
+\subsubsection{Caso de test 7}
+Tomamos a la pizzeria y redefinimos la cantidad de tapas para que esten en cantidad critica, es decir a 9.
+Colocamos un pedido pizzero para que el preparador pizzero quede ocupado.
+Luego ingresamos:
+\verb0PedidoMostrador(cli1,[empanada3]*9+[bebida3],efectivo)0
+
+\subsubsection{Caso de test 8}
+Primero vamos a hacemos lo siguiente poemos la cantidad de bollos en 17. Ingresamos dos pedidos empanaderos para ocupar al preparador y dejar la cola no vacia.
+
+Luego ingresamos el siguiente pedido:
+\verb0PedodTelefono(cli2,[pizza1]*8+[bebida2])0
+
+
+
