@@ -143,7 +143,10 @@ class MainHandlers:
 
         if datos != None:
             print datos
-            pizzeria.getCoordP().ingresarPedido(*datos)
+            try:
+                pizzeria.getCoordP().ingresarPedido(*datos)
+            except creacion.ProductoInsatisfacible,e:
+                nuevo_pedido.mostrar_error("Producto instatisfacible",str(e))
             lista_ingreso.recargar(widgets, pizzeria.getContIng())
             lista_insumos.recargar(widgets)
 
