@@ -102,7 +102,7 @@ def validar_pedido(widgets):
     # obtengo el numero de mesa si corresponde
     if tipo == "mesa":
         try:
-            mesa = int(widgets[NUEVO_PEDIDO_MESA].get_text())
+            mesa = int(widgets[NUEVO_PEDIDO_MESA].get_active_text())
         except ValueError:
             mostrar_error("Mesa inválida","El número de mesa no es válido!")
             raise ErrorDeValidacion
