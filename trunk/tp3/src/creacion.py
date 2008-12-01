@@ -21,27 +21,23 @@ class OrigenDesconocido(Exception):
 	    return "excepcion de origen desconocido"+str(self.origen)
 
 class PedidoDeMostradorConMesa(ErrorDeIngreso):
+    pass
 
-    def __str__(self):
-        return "Se paso una mesa pero se desaba un pedido de mostrador\n" +\
-               "La mesa es:"+self.mesa
 
 class PedidoDeTelefonoConMesa(ErrorDeIngreso):
+    pass
 
-    def __str__(self):
-        return "Se paso una mesa pero se desaba un pedido telefonico\n" +\
-               "La mesa es:"+self.mesa
 
 class TipoDePagoInvalido(ErrorDeIngreso):
+    pass
 
-    def __str__(self):
-        return "Se intento ingresar el siguiente tipo de pago: "+ self.tipoDePago +\
-               "\n para el siguiente origen: "+self.origen
 
 class ProductoInsatisfacible(ErrorDeIngreso):
+    def __init__(self,producto):
+         self.producto = producto
 
     def __str__(self):
-	           return "excepcion de producto instatisfacible"+str(self.producto)
+	           return "No se pudo ingresar el producto:"+str(self.producto)
 
 class Notificador(object):
     def __init__(self):
@@ -400,8 +396,6 @@ class EstimadorStandard (EstimadorDeTiempos):
 	
 
     def estimarTiempoDePreparacionActual(self,pedido) :
-        if pedido.getEstado() != Estado.Ingresado :
-            return 0
         ls = pedido.getProductos()
         res = 0.0
         for pr in ls:
@@ -437,7 +431,7 @@ class EstimadorStandard (EstimadorDeTiempos):
 
     def estimarTiempoDePreparacion(self,  pedido):
         res = 0.0
-        if pedido.getEstado() != Estado.Ingresado:
+        if pedido.getEstado() != Estado.Ingresado or pedido.getEstado() != Estado.EnPreparacion:
             return res
         else:
             return self.estimarTiempoDePreparacionActual(pedido)
@@ -817,7 +811,7 @@ class Cliente :
   
      def __str__(self):  
          return "el cliente es:" + self.nombre + " " + self.apellido + " con Id: " +\
-                 str(self.id) + " y nombre de usuario WEB: " + self.usrweb
+                 str(self.ID) + " y nombre de usuario WEB: " + self.usrweb
 
      @classmethod
      def getPorId(cls,ID):
@@ -843,7 +837,7 @@ class Cliente :
 
 
      def getId(self) :
-	     return self.id
+	     return self.ID
 
 
      def getPassWeb(self) :
@@ -910,7 +904,7 @@ class ControladorDeStockStandard(ControladorDeStock) :
                 ins.setCant(cant-1)
                 yaDeCrementados.append(ins)
             else:
-                reestablecerStockInsumos(yaDeCrementados)
+                self.reestablecerStockInsumos(yaDeCrementados)
                 return False
             
         
@@ -934,7 +928,7 @@ class ControladorDeStockStandard(ControladorDeStock) :
 
     def reestablecerStock(self, productos) :
 	    for pr in productos:
-		    reestablecerStockInsumos(pr.getInsumos())
+		    self.reestablecerStockInsumos(pr.getInsumos())
 		
 
 	
@@ -951,7 +945,7 @@ class ControladorDeStockStandard(ControladorDeStock) :
                 for pr in productos:
                         posible=self.ingresar(pr)
                         if(not posible):
-                                reestablecerStock(yaDecrementados)
+                                self.reestablecerStock(yaDecrementados)
                                 raise ProductoInsatisfacible("No se pudo ingresar el producto: " + pr.getNombre() +"(Id: "+str(pr.getId()) + ")")
                         else:
                                 yaDecrementados.append(pr)
