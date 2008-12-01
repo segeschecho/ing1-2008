@@ -1,19 +1,113 @@
 \chapter{Cuestiones de implementación}
 \section{Lenguaje de programación}
-%por que
+A la hora de elegir el lenguaje de programación decidimos utilizar Python. En principio, dado el tipo de diseño realizado en el trabajo anterior, parece que otros lenguajes como java o C$\sharp$ se adaptan mejor. Sin embargo, ninguno de los integrantes del grupo tenia algun tipo de experiencia previa en alguno de esos dos lenguajes. Esto se notaba mucho mas, por ejemplo, a la hora de armar la GUI, lo cual hizo que nos inclinaramos por Python, lenguaje que ya habimos utilizado en otros trabajos practicos de la carrera.
+%Llenate la boca diciendo que lindo es python
 
-\subsection{Adaptación y cambios del modelo}
+\subsection{Adaptación y cambios del diseño}
+Al utilizar un lenguaje con tipado dinamico y sin interfaces ni clases abstractas, tuvimos que adaptar el diseño ya que el mismo utilizaba dichas caracteristicas. La idea principal es apegarnos lo mas fielmente posible al diseño, pero con las diferencias que utilizar Python en vez de java o c$\sharp$ nos genera
+
+A continuación comentaremos diversas cuestiones de implementación que tuvimos que considerar con la intención de respetar el diseño presentado en el trabajo anterior.
+
+\subsubsection{Clases abstractas e interfaces}
+Como dijimos anteriormente, Python no presenta clases abstractas ni interfaces. Si presenta en cambio herencia multiple. Frente a esta situación nos vimos en la necesidad de ``inventar'' algun mecanismo para definir tanto interfaces como clases abstractas. Lo que hicimos fue declarar una clase de manera comun, pero haciendo que sus metodos generen excepción por no estar implementado (NotImplementedError).
+
+A continuación presentaremos un ejemplo:
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{public\ abstract\ class\ }\hlstd{CalculadorDePrecios\ }\hlsym{\{}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{public\ abstract\ }\hlstd{}\hlkwb{float\ }\hlstd{}\hlkwd{calcularPrecio}\hlstd{}\hlsym{(}\hlstd{Pedido\ pedido}\hlsym{);}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlsym{\}}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+\hfill
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{CalculadorDePrecios}\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{calcularPrecio}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+Como vemos mantenemos los metodos, en el ejemplo hay solo uno, y no le damos implementación. Otra alternativa era utilizar pass en vez de lanzar una excepcion, pero nos parecio mas visual utilizar una excepcion.
+
+Tanto las clases abstractas como las interfaces nos permitian separar a la clase cliente de las diversas implementaciones. En un lenguaje tipado como java, es el lenguaje el que mantiene el invariante de que un cliente de una interfaz no pueda acceder a metodos que no sean los provistos por la interfaz. En cambio en Python nada impide utilizar cualquier metodo, porque no hay chequeo de tipos. Esta situación fue tenida en cuenta, por lo que evitamos totalmente que una clase cliente de una abstracción use algún metodo que no sea los provistos por dicha interface o clase abstracta.
+
+\subsubsection{Visibilidad de los atributos}
+Python tampoco presenta algun forma de limitar el acceso a atributos de un objeto. Sin embargo en el diseño se utilizaron tanto metodos como atributos privados. 
+
+Con respecto a los atributos, lo que decidimos hacer fue solo utilizar los getters y setters que las clases proveian. Y con respecto a los metodos, nuevamente es una cuestion de compromiso, si bien nada nos impedia utilizar cualquier metodo desde  cualquier clase, nos limitamos a utilizar en cada contexto aquellos metodos que la visibilidad declarada en el diseño permitia usar.
+
+Claramente, los tipos de los atributos, de los parametros de los metodos y el tipo de resultado que estos devuelven, tampoco se especifican en python, sin embargo nos limitamos a usarlos como lo plantea el diseño.
+
+\subsubsection{Observer pattern}
+En nuestro diseño se utilizó varias veces el Observer pattern. En este caso decimos apartarnos ligeramente del diseño y aprovechando la que python nos permite utilizar alto orden, aplicamos esta capacidad para realizar las notificaciones. 
+El codigo es el siguiente:
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{Notificador}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{object}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{observers}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{clearObservers}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{observers}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{suscribir}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{callback}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{observers}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{callback}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{desuscribir}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{callback}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{observers}\hlsym{.}\hlstd{}\hlkwd{remove}\hlstd{}\hlsym{(}\hlstd{callback}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{each\ }\hlkwa{in\ }\hlstd{self}\hlsym{.}\hlstd{observers}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwd{each}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+Como vemos al notificador pueden suscribirse observadores, solo en este caso los observadores son metodos que permiten realizar un mecanismo de callback. Al momento de notificar, se recorren todos los callbacks suscriptos y se invocan. Esta forma nos parece mas simple que tener que realizar un metodo update en cada observador.
+
+
+
+ 
 %clases abstractas e interfaces (mostrar ejemplos de codigo java vs codigo python)
 %visibilidad de los atributos
 %Observer
 %preguntar que funciones quiere impresas aca coqui
 %etc
+%algunas cuestion oscuras: 
+%pickle y __set_state__
+%allInstances
+%IDs
+%lista por comprension :P
+%clase enumerada
 
 \subsection{GUI}
 %q se uso, como quedo, etc
 
 \section{Análisis crítico del diseño}
 \subsection{Impacto del diseño en la implementación}
+A la hora de pasar del diseño a la implementación, consideramos que el trabajo practico anterior se mostro fructifero. Contar con el diseño nos hizo considerablemente mas facil implementar la logica de la pizzeria. 
+
+En particular, se requería la implementación de un subconjunto de las funcionalidades del sistema, y nuestro diseño se adaptó muy facilmente a esta situación, ya que lo unico que tuvimos que hacer fue excluir de la implementación a aquellos controladores que no participaban en las funcionalidades a realizar. Creemos que esto nos da una pauta de la flexibilidad del   mismo, ya que no fue practicamente necesario modificar el comportamiento de ninguna clase.
+
+Por otro lado queremos hacer notar que los diagramas de secuencia nos resultaron particularmente utiles para pasar del modelo a la implementación.
+
+%TODO: chamuyo aqui
 %decir que lindo fue mira como pudimos sacar lo q no habia q hacer
 %decir q lindo q ya lo teniamos diseñado con DS y toda la bola
 %contar que la gui es medio paty xq no sabemos mas :P

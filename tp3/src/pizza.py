@@ -25,7 +25,7 @@ import gestion
 import cocina
 
 #TODO: lista de pedidos preparados en cada horno (no esta implementado, hay que hacerlo filtrando)
-#TODO: resolver el tema de ver el estado, no alcanza con listar los pedidos de cada cliente, porque hay pedidos sin clientes
+#TODO: #TODO: #TODO: resolver el tema de ver el estado, no alcanza con listar los pedidos de cada cliente, porque hay pedidos sin clientes
 #TODO: hacer que se puedan ingresar pedidos
 #TODO: deshabilitar los botones de preparar si no hay pedido que preparar
 

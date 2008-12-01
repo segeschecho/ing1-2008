@@ -14,16 +14,55 @@ Los inputs directos de la funcionalidad son:
 \item Número de mesa
 \end{itemize}
 
-Hay algunas situacione que por nuestro diseño no se pueden dar y que por lo tanto no seran tenidas en cuenta, por ejemplo que el cliente no exista, ya que para ingresar un pedido se elige un cliente de entre todos los clientes registrados, si en cambio hay que tener en cuenta el caso en el que no se eligió ningun cliente. Por otro lado la situacion con la mesa es similar, al igual que con el numero de mesa y el origen %chequear que sea asi
+Hay algunas situaciones que por nuestra implementación no se pueden dar y que por lo tanto no seran tenidas en cuenta en las tablas a fin de que sean mas claras, por ejemplo que el cliente no exista no es algo que se tenga en cuenta, ya que para ingresar un pedido se elige un cliente de entre todos los clientes registrados, si en cambio hay que tener en cuenta el caso en el que no se eligió ningun cliente. Por ejemplo tampoco se testearan los casos donde el origen o la forma de pago sean invalidas, ya que la GUI no permite ingresar un origen distinto a los origenes validos.
+ %chequear que sea asi
 A su vez podemos considerar otros elementos del sistema que modifican el comportamiento de la funcionalidad y que deben ser tenidos en cuenta:
 \begin{itemize}
 \item Preparadores ocupados o no
-\item ¿Alguna de las colas de los preparadores no esta vacia?
 \item ¿Hay pedidos en la cola de ingreso?
 \item Stock de los insumos necesarios para el pedido
+\item Insumos con cantidad critica
 \end{itemize}
 
-A partir de esta exploración del domino de la funcion consideramos la siguiente particion en factores,categorias y choices:
+A continuación daremos una revisión de los diferentes factores, categorias y choices que tendremos en cuenta para diseñar el testing.
+
+\subsection{Origen}
+El origen es un factor a tener en cuenta, ya que según si el pedido es de mostrador, mesa o telefono, hay ciertos invariantes que se debe preservar para poder ingresar un pedido de este tipo. Por ejemplo un pedido de mesa debe tener una mesa asociada, un pedido telefonico debe tener un cliente asociado, etc. Entonces vemos que la categoria que nos importa del origen es su valor. Las choices son los distintos valores de origen: Mostrador, Mesa y Teléfono
+
+\subsection{Número de mesa}
+En el caso de que se pretenda ingresar un pedido de mesa, un factor a tener en cuenta es el número de mesa, en particular nos importa el valor, que puede ser nulo o no. Si es nulo, se debe generar un mensaje de error ya que el número es necesario. En el caso de que el pedido no sea de mesa, no lo consideraremos porque la GUI no permite ingresar un número de mesa cuando se intenta ingresar otro pedido.
+
+\subsection{Cliente}
+El cliente es otro factor a tener en cuenta. Como dijimos anteriormente, no consideraremos el caso en el que el cliente sea por ejemplo un cliente no registrado, ya que la GUI solo permite elegir a los clientes de una lista, mostrando los clientes registrados. Si consideraremos como categoria el valor del cliente en el sentido de si es nulo o no. En el caso de que el cliente sea nulo, si el pedido era telefonico, debe dar error.
+
+\subsection{Lista de productos}
+Otro factor a tener en cuenta es la lista de productos que componen al pedido. En particular una posible categoria a tener en cuenta es como esta compuesta. Por enunciado, nos limitaremos a una comida y una bebida. Entonces dentro de esta categoria consideraremos el caso donde la lista esta compuesta por 0 productos, condicion de error, una bebida, una comida o una bebida y una comida. El caso de una comida lo consideraremos como unico porque creemos que no presenta algun interese particular. Por otro lado el caso de una bebida también lo consideraremos como unico porque es un caso simple. La justificación es que creemos que el caso donde hay solo bebidas es simple de tratar, pero por una cuestión de completitud decidimos probarlo.
+
+En los casos en los que hay una comida, nos va a interesar también que tipo de comida es, si pizza o empanada, ya que cada producto tiene por ejemplo su preparador asociado, etc.
+
+\subsection{Forma de pago}
+La forma de pago es un factor a tener en cuenta para los pedidos de mostrador que permiten escoger entre dos posibles: efectivo o tarjeta. Los demas origenes solo pemiten especificar una forma de pago: los de mesa, forma de pago nula (no se conoce hasta que se cierra la mesa) y los telefonicos mediante el efectivo.
+
+Este factor también se tiene en cuenta por una cuestión de completitud, ya que en verdad no creemos que sea un posible foco de bugs, pòr esta razon consideraremos el caso efectivo como unico, a fin de que no nos aumenten demasiado la cantidad de casos.
+
+\subsection{Relacion productos y stock}
+En este factor tenemos varias cosas que considerar. En primer lugar la cantidad actual de los insumos en relación con la cantidad necesaria para satisfacer al pedido. Nosotros consideraremos los casos donde todos los insumos tienen menos stock que el necesario (condición de error), algunos tienen menos stock que el necesario (condición de error), algunos tienen un valor igual al necesario (y el resto mayor o igual) como caso unico para testear el caso borde, y finalmente el caso donde todos los insumos tienen una cantidad mayor a la necesaria.
+
+Otra categoria a tener en cuenta es la cantidad actual de los insumos necesarios en función con su cantidad critica. Consideraremos el caso donde los todos los insumos estan en condición critica, algunos estan y otros no y finalmente el caso donde ninguno esta en estado critico. El caso todos y ninguno los trataremos como unicos por dos razones principales: mantener la cantidad de casos acotado, y porque el caso algunos parece mas general y abarcativo.
+
+Una tercer categoria a tener en cuenta es si hay insumos que pasan de un estado normal a uno de stock critico, en cuyo caso de debera mostrar un mensaje informativo (notar que si ya estaban en estado critico, no se debe mostrar un mensaje).
+Podemos considerar las choices: ninguno hace esta transición, alguno la hace y el resto queda en valores mas grandes que el critico, alguno la hace, algunos quedan en valores iguales al critico y el resto en valores mas grandes, y finalmente el caso donde todos realizan la transición. Estos dos ultimos casos los consideraremos como unicos.
+%TODO:explicar un poco mas como se hace esto
+
+\subsection{Cola de ingreso}
+La cola de ingreso es también un factor a tener en cuenta. La categoria es su tamaño. Si bien mas que el tamaño, lo que importa para decidir si un pedido se encola o no es el estado del preparador, es por lo menos conveniente considerar con un caso unico cuando la cola esta vacia y separar el caso de cuando en la cola ya hay pedidos.
+
+\subsection{Preparadores}
+Los preparadores tienen importancia como factores, ya que son los que deciden para un pedido con comida si este se encola o se comienza a preparar. 
+
+Entonces en los casos en los que el pedido sea de comida, utilizando el hecho de que solo se testean los pedidos con un unico item de comida, podemos considerar como categorias el estado del preparador asociado al tipo del producto y el del preparador del otro tipo de comida. Entonces podemos considerar los valores ocupado, y libre para cada uno de ellos. El preparador del otro tipo no deberia tener mucha importancia, pero podria ocurrir por ejemplo que si el preparador correcto esta ocupado y el otro libre se realice una asignacion erronea. Por eso lo consideramos, a fin de mantener la cantidad de casos en un número manejable, lo que haremos sera tomar el caso ocupado como unico
+
+
 \newpage
 \pagestyle{empty}
 {
