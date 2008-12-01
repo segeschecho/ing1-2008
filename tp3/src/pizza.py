@@ -248,7 +248,9 @@ class MainHandlers:
             creacion.Producto.reinit()
             creacion.TipoProducto.reinit()
             creacion.Cliente.reinit()
+            global pizzeria
             pizzeria = pickle.load(fi)
+            global distribuidor
             distribuidor = general.DistribuidorCallbacks(widgets,pizzeria)
             conectarCallbacks()
             general.recargar(widgets)
@@ -325,7 +327,9 @@ class MainHandlers:
         print "me apretaron, pobre de mi"
         distribuidor.cocinarPizzas()
 
-def conectarCallbacks():   
+def conectarCallbacks(): 
+    global pizzeria
+    global distribuidor  
     pizzeria.getContStock().suscribir(distribuidor.modifStock)
     pizzeria.getContStock().suscribir(distribuidor.nuevosCriticos)
     pizzeria.getContListos().suscribir(distribuidor.modifListos)
@@ -362,11 +366,11 @@ if __name__ == '__main__':
  #   pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
 #    pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-   # pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
-   # pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+    #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
+    #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"efectivo", "mostrador",None)
     #pizzeria.getCoordP().ingresarPedido(None,pizzeria.productos,"tarjeta", "mostrador",None)
-    pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
+    #pizzeria.getCoordP().ingresarPedido(None,[x for x in pizzeria.productos if x.nombre == "Quilmes"],"efectivo", "mostrador",None)
 
 
     # Loop principal
