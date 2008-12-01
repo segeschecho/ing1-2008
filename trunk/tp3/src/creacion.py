@@ -2,9 +2,8 @@
 #! -*- encoding: utf-8 -*-
 
 from datetime import datetime
-import sets
+from sets import Set
 
-Set = sets.Set
 class ErrorDeIngreso(Exception):
     pass
 
@@ -935,22 +934,21 @@ class ControladorDeStockStandard(ControladorDeStock) :
 		
 	
     def verificarEIngresar(self, productos) :
-                posible=True
-                yaDecrementados = []
-                stockAnterior = Set([x for x in Insumo.allInstances() if x.getCant() >= x.getCantCritica()])
-                for pr in productos:
-                        posible=self.ingresar(pr)
-                        if(not posible):
-                                self.reestablecerStock(yaDecrementados)
-                                raise ProductoInsatisfacible("No se pudo ingresar el producto: " + pr.getNombre() +"(Id: "+str(pr.getId()) + ")")
-                        else:
-                                yaDecrementados.append(pr)
-    
-                self.obtenerCriticos(productos)
-                self.criticos.intersection_update(stockAnterior)
-                self.notificar()
-                     
-                        
-                
-                return True
+        posible = True
+        yaDecrementados = []
+        stockAnterior = Set([x for x in Insumo.allInstances() if x.getCant() >= x.getCantCritica()])
+        for pr in productos:
+            posible = self.ingresar(pr)
+            if not posible:
+                self.reestablecerStock(yaDecrementados)
+                raise ProductoInsatisfacible("No se pudo ingresar el producto: %s (ID %s)" % \
+                                              (pr.getNombre(),pr.getId()))
+            else:
+               yaDecrementados.append(pr)
+       
+        self.obtenerCriticos(productos)
+        self.criticos.intersection_update(stockAnterior)
+        self.notificar()
+                  
+        return True
 

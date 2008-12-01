@@ -95,8 +95,8 @@ class MainHandlers:
                 eleccion = cb.get_active_text()
                 if eleccion != "Mesa":
                     # Deshabilito la entrada de número de mesa
-                    num_mesa.set_text("")
                     num_mesa.set_sensitive(False)
+                    num_mesa.set_active(-1)
                     
                     # Habilito la entrada de forma de pago
                     if eleccion == "Teléfono":
@@ -109,6 +109,7 @@ class MainHandlers:
                 else:
                     # Habilito la entrada de número de mesa
                     num_mesa.set_sensitive(True)
+                    num_mesa.set_active(-1)
                     # Deshabilito la entrada de forma de pago
                     forma_pedido.set_sensitive(False)
                     forma_pedido.set_active(-1)
