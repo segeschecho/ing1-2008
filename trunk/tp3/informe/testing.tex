@@ -94,7 +94,9 @@ Finalmente para los pedidos usamos:
 \verb#PedidoMesa(Cliente,productos,mesa)#\\
 \verb#PedidoTelefono(Cliente,productos)#\\
 
-segun el origen.
+segun el origen. 
+
+Al utilizar la GUI de nuestra aplicación, PedidoMostrador(Cliente,productos,formaDePago) debe interpretarse como ir a la pesataña de cola de ingreso, click en ingresar nuevo pedido, elegir orgien mostrador, selecionar la forma de pago $formaDePago$, el cliente $Cliente$ de la lista (o no elegir a ninguno si se desea un cliente None) y elegir los productos de la lista de productos.
 
 En general necesitamos para realizar los tests que hallan productos, insumos, clientes, etc ya cargados. Por eso, salvo que se indique lo contrario, consideraremos que la pizzeria tiene los siguientes datos:
 
@@ -105,13 +107,13 @@ En general necesitamos para realizar los tests que hallan productos, insumos, cl
 \hlstd{bollo\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{30}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Bollo\ de\ Pizza"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{tapa\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{50}\hlstd{}\hlsym{,}\hlstd{}\hlnum{20}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Tapa\ de\ Empanada"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{insumo1\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Muzzarella"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
-\hlstd{insumo2\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{50}\hlstd{}\hlsym{,}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ Carne"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo2\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ Carne"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{insumo3\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{13}\hlstd{}\hlsym{,}\hlstd{}\hlnum{13}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Napolitana"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
-\hlstd{insumo4\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ Pollo"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo4\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{100}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ Pollo"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{insumo5\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Roquefort"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{insumo6\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Quilmes"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{insumo7\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{45}\hlstd{}\hlsym{,}\hlstd{}\hlnum{23}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Coca{-}Cola"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
-\hlstd{Insumo8\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Iguana"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{insumo8\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Iguana"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{insumo9\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{22}\hlstd{}\hlsym{,}\hlstd{}\hlnum{23}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Pepsi"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{insumo10\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{1}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Calabresa"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{insumo11\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{14}\hlstd{}\hlsym{,}\hlstd{}\hlnum{20}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ humita"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
@@ -128,8 +130,8 @@ En general necesitamos para realizar los tests que hallan productos, insumos, cl
 \hlslc{\#bebidas}\hspace*{\fill}\\
 \hlstd{Bebida1\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Coca{-}Cola"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{coca}\hlsym{,{[}}\hlstd{insumo7}\hlsym{{]})\ }\hlstd{}\hlslc{\#no\ critico}\hspace*{\fill}\\
 \hlstd{Bebida2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Quilmes"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{cerveza}\hlsym{,{[}}\hlstd{insumo6}\hlsym{{]})\ }\hlstd{}\hlslc{\#al\ limite\ de\ critico}\hspace*{\fill}\\
-\hlstd{Bebida3\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Pepsi\ Cola"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{coca}\hlsym{,{[}}\hlstd{insumo8}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ critico}\hspace*{\fill}\\
-\hlstd{Bebida2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Iguana"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{cerveza}\hlsym{,{[}}\hlstd{insumo7}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ agotada}\hspace*{\fill}\\
+\hlstd{Bebida3\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Pepsi\ Cola"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{coca}\hlsym{,{[}}\hlstd{insumo9}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ critico}\hspace*{\fill}\\
+\hlstd{Bebida2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Iguana"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{cerveza}\hlsym{,{[}}\hlstd{insumo8}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ agotada}\hspace*{\fill}\\
 \hlstd{}\hspace*{\fill}\\
 \hlslc{\#pizzas}\hspace*{\fill}\\
 \hlstd{Pizza1\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Muzzarella"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10.2}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo1}\hlsym{{]})\ }\hlstd{}\hlslc{\#no\ critico}\hspace*{\fill}\\
@@ -151,14 +153,13 @@ dir1\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Trin
 \hlstd{dir5\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Oliden"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Vicente\ Lopez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{3433}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{dir6\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ Paraisos"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Bursaco"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{20}\hlstd{}\hlsym{)}\hspace*{\fill}\\
 \hlstd{\hspace*{\fill}\\
-cli1\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Sainza\ Trapaga"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1555664488}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Gonzalo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"hayQPaja"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{48566633}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"gomox"}\hlstd{}\hlsym{,\ }\hlstd{dir1}\hlsym{)}\hspace*{\fill}\\
+cli1\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Sainz\ Trapaga"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1555664488}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Gonzalo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"hayQPaja"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{48566633}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"gomox"}\hlstd{}\hlsym{,\ }\hlstd{dir1}\hlsym{)}\hspace*{\fill}\\
 \hlstd{cli2\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Martinez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1521356684}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{2}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Federico"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"estudiando"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{46532233}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"fedefly"}\hlstd{}\hlsym{,\ }\hlstd{dir2}\hlsym{)}\hspace*{\fill}\\
 \hlstd{cli3\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Gonzalez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1523314655}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{3}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Emiliano"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"bartolo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{45632132}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"emilio"}\hlstd{}\hlsym{,\ }\hlstd{dir3}\hlsym{)}\hspace*{\fill}\\
 \hlstd{cli4\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Gonzalez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1532169788}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{4}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Sergio"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"lechuga"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{45125398}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"checho"}\hlstd{}\hlsym{,\ }\hlstd{dir4}\hlsym{)}\hspace*{\fill}\\
 \hlstd{cli5\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Rinaldi"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1564659777}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{5}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Nicolas"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"esteee"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{46633221}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"elcorrector"}\hlstd{}\hlsym{,\ }\hlstd{dir5}\hlsym{)}\hspace*{\fill}\\
 \hlstd{cli6\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"D'arrigo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1564521133}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{6}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Sergio"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"niato"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{46632136}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"jefetp"}\hlstd{}\hlsym{,\ }\hlstd{dir6}\hlsym{)}\hspace*{\fill}\\
 \hlstd{}\hspace*{\fill}\\
-\hspace*{\fill}\\
 \mbox{}
 \normalfont
 \shorthandon{"}
@@ -175,18 +176,20 @@ También consideremos los siguientes pedidos simples:
 \normalfont
 \shorthandon{"}
 
-
+De modo generico, cuando digamos un pedido pizzero o un pedido empanadero nos referimos a los pedidos arriba declarados.
 \subsection{Datos de prueba}
 
 \subsubsection{Caso de test 1}
 
 Tomamos la pizzeria comun, y como pedido a agregar consideramos:
+
 \verb0PedidoMesa(None,[pizza1],None)0
 
 \subsubsection{Caso de test 2}
 
 Tomamos la pizzeria comun, e ingresamos:
-\verb0PedidoTelefono(None,[pizza1],None)0
+
+\verb0PedidoTelefono(None,[pizza1])0
 
 \subsubsection{Caso de test 3}
 \verb0PedidoMostrador(None,[],efectivo)0
@@ -194,34 +197,306 @@ Tomamos la pizzeria comun, e ingresamos:
 \subsubsection{Caso de test 4}
 Primero agregamos pedidos para que la cola de ingreso no este vacia, ingresamo entonces:
 \verb0PedidoPizzas, PedidoPizzas0
+
 Luego ingresamos:
+
 \verb0PedidoMesa(None,[bebida1],4)0
 
 \subsubsection{Caso de test 5}
 Notemos que la pizza de calabresa de la pizzeria que definimos antes tiene su kit agotado, como también
 queremos que el bollo este agotado,lo que hacemos primero es redefinir la cantidad de bollos, bajandola a 0.
+
 Luego hacemos:
+
 \verb0PedidoMostrador(None,[pizza4],efectivo)0
 
 \subsubsection{Caso de test 6}
 En este caso solo hacemos un pedido de calabresa
+
 \verb0PedidoMostrador(None,[pizza4],efectivo)0
 
 \subsubsection{Caso de test 7}
-Tomamos a la pizzeria y redefinimos la cantidad de tapas para que esten en cantidad critica, es decir a 9.
+Tomamos a la pizzeria y redefinimos la cantidad de tapas para que esten en cantidad critica, y lo ponemos en 9. Asi al pedir 9 empanadas nos quedan 0 tapas.
 Colocamos un pedido pizzero para que el preparador pizzero quede ocupado.
+
 Luego ingresamos:
+
 \verb0PedidoMostrador(cli1,[empanada3]*9+[bebida3],efectivo)0
 
 \subsubsection{Caso de test 8}
-Primero vamos a hacemos lo siguiente poemos la cantidad de bollos en 17. Ingresamos dos pedidos empanaderos para ocupar al preparador y dejar la cola no vacia.
+Primero vamos a hacer lo siguiente: ponemos la cantidad de bollos en 17. Luego, ingresamos dos pedidos empanaderos para ocupar al preparador y dejar la cola no vacia.
 
 Luego ingresamos el siguiente pedido:
+
 \verb0PedodTelefono(cli2,[pizza1]*8+[bebida2])0
+
+\subsubsection{Caso de test 9}
+A la pizzeria normal, le cambiamos el stock de bollos a 15, y le ingresamos dos pedidosPizzeros, con lo cual dejamos la cola de ingreso con un pedido y el preparador pizzero ocupado.
+
+Luego ingresamos:
+\verb0PedidoMesa(cli2,[pizza3,pizza3,pizza3],2)0
+
+\subsubsection{Caso de test 10}
+Agregamos 2 pedidos pizzeros, luego hacemos:
+
+\verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],efectivo)0
+
+\subsubsection{Caso de test 11}
+El caso no se puede generar ya que la cola de ingreso tiene pedidos encolados pero ambos preparadores estan ociosos, con lo cual
+la pizzeria no cumple su invariante. Notar que generar esta instancia es responsabilidad de nuestra funcionalidad, ya que deben agregar pedidos.
+
+\subsubsection{Caso de test 12}
+\verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],tarjeta)0
+
+\subsubsection{Caso de test 13}
+Analogo al 11, no se puede representar.
+
+\subsubsection{Caso de test 14}
+Ingresamos 2 pedidos empanaderos a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+
+\verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo)0
+												
+\subsubsection{Caso de test 15}
+No se puede representar	
+
+\subsubsection{Caso de test 16}
+Igual al 14 pero ingresamos este pedido:
+
+\verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],tarjeta)0
+
+\subsubsection{Caso de test 17}
+No se puede representar			
+
+\subsubsection{Caso de test 18}
+Agregamos 2 pedidos pizzeros, luego hacemos:
+
+\verb0PedidoTelefono(cli3,[pizza3,pizza3,bebida2,bebida2])0							
+											
+\subsubsection{Caso de test 19}
+No se puede generar
+												
+\subsubsection{Caso de test 20}
+Ingresamos 2 pedidos empanaderos a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+
+\verb0PedidoTelefono(cli4,[empanada3,empanada3,bebida2,bebida2])0
+												
+\subsubsection{Caso de test 21}
+No se puede representar
+
+\subsubsection{Caso de test 22}
+Agregamos 2 pedidos pizzeros, luego hacemos:
+
+\verb0PedidoMesa(cli2,[pizza3,pizza3,bebida2,bebida2],5)0												
+											
+\subsubsection{Caso de test 23}
+No se puede generar
+
+\subsubsection{Caso de test 24}
+Ingresamos 2 pedidos empanaderos a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+
+\verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo)0												
+
+\subsubsection{Caso de test 25}
+No se puede generar
+		
+\subsubsection{Caso de test 26}
+Agregamos 2 pedidos pizzeros, un pedido Empanadero y luego hacemos:
+
+\verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],efectivo)0
+
+\subsubsection{Caso de test 27}
+Agregamos 2 pedidos Empanaderos y luego hacemos:
+
+\verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],efectivo)0
+
+\subsubsection{Caso de test 28}
+Agregamos 2 pedidos pizzeros y un empanadero, luego hacemos:
+
+\verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],tarjeta)0
+
+\subsubsection{Caso de test 29}
+Simil al 28, pero agregamos 2 pedidos empanaderos, el pedido a ingresar es:
+
+\verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],tarjeta)0
+
+\subsubsection{Caso de test 30}
+Ingresamos 2 pedidos empanaderos y un pizzero a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+
+\verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo])0
+												
+\subsubsection{Caso de test 31}
+idem 30, pero solo ingresamos 2 empanaderos y hacemos:
+
+\verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo])0
+
+\subsubsection{Caso de test 32}
+Ingresamos 2 pedidos empanaderos y un pizzero a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+
+\verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],tarjeta)0
+
+\subsubsection{Caso de test 33}
+Ingresamos 2 pedidos pizzeros.
+
+Luego para hacer el testing ingresamos:
+
+\verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],tarjeta)0
+
+\subsubsection{Caso de test 34}
+Agregamos 2 pedidos pizzeros y 1 empanadero, luego hacemos:
+
+\verb0PedidoTelefono(cli3,[pizza3,pizza3,bebida2,bebida2])0							
+											
+\subsubsection{Caso de test 35}
+Agregamos 2 pedidos empanaderos
+
+\verb0PedidoTelefono(cli1,[pizza3,pizza3,bebida2,bebida2])0
+												
+\subsubsection{Caso de test 36}
+Ingresamos 2 pedidos empanaderos y un pizzero a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+
+\verb0PedidoTelefono(cli4,[empanada3,empanada3,bebida2,bebida2]]0
+												
+\subsubsection{Caso de test 37}
+Ingresamos 2 pedidos pizzeros a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+
+\verb0PedidoTelefono(cli4,[empanada3,empanada3,bebida2,bebida2]]0
+
+\subsubsection{Caso de test 38}
+Agregamos 2 pedidos pizzeros y uno empanadero, luego hacemos:
+
+\verb0PedidoMesa(cli2,[pizza3,pizza3,bebida2,bebida2],5)0												
+											
+\subsubsection{Caso de test 39}
+Agregamos 2 pedidos empanaderos, luego hacemos:
+
+\verb0PedidoMesa(cli2,[pizza3,pizza3,bebida2,bebida2],14)0												
+
+\subsubsection{Caso de test 40}
+Ingresamos 2 pedidos empanaderos y uno pizzero a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+\verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo]0												
+
+\subsubsection{Caso de test 41}
+Ingresamos 2 pedidos pizzeros a la pizzeria.
+
+Luego para hacer el testing ingresamos:
+\verb0PedidoMostrador(cli3,[empanada3,empanada3,bebida2,bebida2],efectivo]0																							
+
 
 \subsection{Ejecucion de las pruebas}
 Para ejecutar los testings se puede crear las pizzarias a mano y luego utilizar el modulo pickle de python para dumpearla, y utilizando la funcionlidad de abrir que brinda nuestra gui cargar dicha instancia y luego hacer uso de la funcionalidad de ingresar pedido para observar los resultados.
 
-Por ejemplo
+Por ejemplo el siguiente script permite crear una pizzeria como la descripta anteriormente, agregandole un pedido de una empanada y la deja lista para ser cargada por la aplicacion en el archivo pizzeriaTesting.pyp\\
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlline{\ \ \ \ 1\ }\hlkwa{from\ }\hlstd{inicializador\ }\hlkwa{import\ }\hlstd{}\hlsym{{*}}\\
+\hlline{\ \ \ \ 2\ }\hlstd{}\\
+\hlline{\ \ \ \ 3\ }\hlkwa{import\ }\hlstd{pickle}\\
+\hlline{\ \ \ \ 4\ }\\
+\hlline{\ \ \ \ 5\ }\hlslc{\#Insumo(cantidad,cantidadCritica,nombre)}\\
+\hlline{\ \ \ \ 6\ }\hlstd{\\
+\hlline{\ \ \ \ 7\ }bollo\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{30}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Bollo\ de\ Pizza"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ \ 8\ }\hlstd{tapa\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{50}\hlstd{}\hlsym{,}\hlstd{}\hlnum{20}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Tapa\ de\ Empanada"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ \ 9\ }\hlstd{insumo1\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Muzzarella"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 10\ }\hlstd{insumo2\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ Carne"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 11\ }\hlstd{insumo3\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{13}\hlstd{}\hlsym{,}\hlstd{}\hlnum{13}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Napolitana"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 12\ }\hlstd{insumo4\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{100}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ Pollo"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 13\ }\hlstd{insumo5\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Roquefort"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 14\ }\hlstd{insumo6\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Quilmes"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 15\ }\hlstd{insumo7\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{45}\hlstd{}\hlsym{,}\hlstd{}\hlnum{23}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Coca{-}Cola"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 16\ }\hlstd{insumo8\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Iguana"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 17\ }\hlstd{insumo9\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{22}\hlstd{}\hlsym{,}\hlstd{}\hlnum{23}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Botella\ de\ Pepsi"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 18\ }\hlstd{insumo10\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{1}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Calabresa"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 19\ }\hlstd{insumo11\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{14}\hlstd{}\hlsym{,}\hlstd{}\hlnum{20}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ humita"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 20\ }\hlstd{insumo12\ }\hlsym{=\ }\hlstd{}\hlkwd{Insumo}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"Kit\ Empanada\ de\ atun"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 21\ }\hlstd{}\\
+\hlline{\ \ \ 22\ }\hlslc{\#TipoProducto(Nombre,cocinable,preparabl)}\\
+\hlline{\ \ \ 23\ }\hlstd{pizza}\hlsym{=\ }\hlstd{}\hlkwd{TipoProducto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Pizza"}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{True}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{True}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 24\ }\hlstd{empanada}\hlsym{=\ }\hlstd{}\hlkwd{TipoProducto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Empanada"}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{True}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{True}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 25\ }\hlstd{coca}\hlsym{=}\hlstd{\ \ }\hlsym{}\hlstd{}\hlkwd{TipoProducto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Gaseosa"}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{False}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{False}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 26\ }\hlstd{cerveza}\hlsym{=\ }\hlstd{}\hlkwd{TipoProducto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Cerveza"}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{False}\hlstd{}\hlsym{,}\hlstd{}\hlkwa{False}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 27\ }\hlstd{}\\
+\hlline{\ \ \ 28\ }\hlslc{\#Producto(nombre,precio,tiempoCoccion,tiempoPreparacion,TipoProducto,}\\
+\hlline{\ \ \ 29\ }\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ }\hlslc{insumos)}\\
+\hlline{\ \ \ 30\ }\hlstd{}\\
+\hlline{\ \ \ 31\ }\hlslc{\#bebidas}\\
+\hlline{\ \ \ 32\ }\hlstd{Bebida1\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Coca{-}Cola"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{coca}\hlsym{,{[}}\hlstd{insumo7}\hlsym{{]})\ }\hlstd{}\hlslc{\#no\ critico}\\
+\hlline{\ \ \ 33\ }\hlstd{Bebida2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Quilmes"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{cerveza}\hlsym{,{[}}\hlstd{insumo6}\hlsym{{]})\ }\hlstd{}\hlslc{\#al\ limite\ de}\\
+\hlline{\ \ \ 34\ }\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ }\hlslc{critico}\\
+\hlline{\ \ \ 35\ }\hlstd{Bebida3\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Pepsi\ Cola"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{coca}\hlsym{,{[}}\hlstd{insumo9}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ critico}\\
+\hlline{\ \ \ 36\ }\hlstd{Bebida2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Iguana"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{0.0}\hlstd{}\hlsym{,}\hlstd{cerveza}\hlsym{,{[}}\hlstd{insumo8}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ agotada}\\
+\hlline{\ \ \ 37\ }\hlstd{}\\
+\hlline{\ \ \ 38\ }\hlslc{\#pizzas}\\
+\hlline{\ \ \ 39\ }\hlstd{Pizza1\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Muzzarella"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{25}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5.0}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10.2}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo1}\hlsym{{]})\ }\hlstd{}\hlslc{\#no}\\
+\hlline{\ \ \ 40\ }\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlslc{critico}\\
+\hlline{\ \ \ 41\ }\hlstd{Pizza2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Napolitana"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{30}\hlstd{}\hlsym{,}\hlstd{}\hlnum{5.4}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12.3}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo3}\hlsym{{]})\ }\hlstd{}\hlslc{\#al}\\
+\hlline{\ \ \ 42\ }\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlslc{limite\ de\ critico}\\
+\hlline{\ \ \ 43\ }\hlstd{Pizza3\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Roquefort"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{40}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7}\hlstd{}\hlsym{,}\hlstd{}\hlnum{15.0}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo5}\hlsym{{]})\ }\hlstd{}\hlslc{\#\ critico}\\
+\hlline{\ \ \ 44\ }\hlstd{Pizza4\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Calabresa"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{40}\hlstd{}\hlsym{,}\hlstd{}\hlnum{7.1}\hlstd{}\hlsym{,}\hlstd{}\hlnum{15.0}\hlstd{}\hlsym{,}\hlstd{pizza}\hlsym{,{[}}\hlstd{bollo}\hlsym{,}\hlstd{insumo10}\hlsym{{]})}\hlstd{}\hlslc{\#Agotada}\\
+\hlline{\ \ \ 45\ }\hlstd{}\\
+\hlline{\ \ \ 46\ }\hlslc{\#empanadas}\\
+\hlline{\ \ \ 47\ }\hlstd{Empanada1\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Pollo"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11.0}\hlstd{}\hlsym{,}\hlstd{empanada}\hlsym{,{[}}\hlstd{tapa}\hlsym{,}\hlstd{insumo4}\hlsym{{]})\ }\hlstd{}\hlslc{\#No\ critico}\\
+\hlline{\ \ \ 48\ }\hlstd{Empanada2\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Carne"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12.0}\hlstd{}\hlsym{,}\hlstd{empanada}\hlsym{,{[}}\hlstd{tapa}\hlsym{,}\hlstd{insumo2}\hlsym{{]})\ }\hlstd{}\hlslc{\#al\ limite}\\
+\hlline{\ \ \ 49\ }\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{de\ critico}\\
+\hlline{\ \ \ 50\ }\hlstd{Empanada3\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Humita"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlnum{10}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11.0}\hlstd{}\hlsym{,}\hlstd{empanada}\hlsym{,{[}}\hlstd{tapa}\hlsym{,}\hlstd{insumo11}\hlsym{{]})\ }\hlstd{}\hlslc{\#critico}\\
+\hlline{\ \ \ 51\ }\hlstd{Empanada4\ }\hlsym{=\ }\hlstd{}\hlkwd{Producto}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Atun"}\hlstd{}\hlsym{,}\hlstd{}\hlnum{3}\hlstd{}\hlsym{,}\hlstd{}\hlnum{11}\hlstd{}\hlsym{,}\hlstd{}\hlnum{12.0}\hlstd{}\hlsym{,}\hlstd{empanada}\hlsym{,{[}}\hlstd{tapa}\hlsym{,}\hlstd{insumo12}\hlsym{{]})\ }\hlstd{}\hlslc{\#Agotada}\\
+\hlline{\ \ \ 52\ }\hlstd{\\
+\hlline{\ \ \ 53\ }\\
+\hlline{\ \ \ 54\ }dir1\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Trinidad"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"tortuguitas"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{123}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 55\ }\hlstd{dir2\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ alamos"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Wilde"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1465}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 56\ }\hlstd{dir3\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"San\ Martin"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"2do\ Piso"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Capital\ Federal"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{3988}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 57\ }\hlstd{dir4\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Montaneses"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"1er\ Piso"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Capital\ Federal"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{345}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 58\ }\hlstd{dir5\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Oliden"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Vicente\ Lopez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{3433}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 59\ }\hlstd{dir6\ }\hlsym{=\ }\hlstd{}\hlkwd{Direccion}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ Paraisos"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"N/A"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Bursaco"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{20}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 60\ }\hlstd{\\
+\hlline{\ \ \ 61\ }cli1\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Sainz\ Trapaga"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1555664488}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Gonzalo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"hayQPaja"}\hlstd{}\hlsym{,}\\
+\hlline{\ \ \ 62\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlnum{48566633}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"gomox"}\hlstd{}\hlsym{,\ }\hlstd{dir1}\hlsym{)}\\
+\hlline{\ \ \ 63\ }\hlstd{cli2\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Martinez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1521356684}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{2}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Federico"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"estudiando"}\hlstd{}\hlsym{,}\\
+\hlline{\ \ \ 64\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlnum{46532233}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"fedefly"}\hlstd{}\hlsym{,\ }\hlstd{dir2}\hlsym{)}\\
+\hlline{\ \ \ 65\ }\hlstd{cli3\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Gonzalez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1523314655}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{3}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Emiliano"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"bartolo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{45632132}\hlstd{}\hlsym{,}\\
+\hlline{\ \ \ 66\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlstr{"emilio"}\hlstd{}\hlsym{,\ }\hlstd{dir3}\hlsym{)}\\
+\hlline{\ \ \ 67\ }\hlstd{cli4\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Gonzalez"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1532169788}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{4}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Sergio"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"lechuga"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{45125398}\hlstd{}\hlsym{,}\\
+\hlline{\ \ \ 68\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlstr{"checho"}\hlstd{}\hlsym{,\ }\hlstd{dir4}\hlsym{)}\\
+\hlline{\ \ \ 69\ }\hlstd{cli5\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Rinaldi"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1564659777}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{5}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Nicolas"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"esteee"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{46633221}\hlstd{}\hlsym{,}\\
+\hlline{\ \ \ 70\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlstr{"elcorrector"}\hlstd{}\hlsym{,\ }\hlstd{dir5}\hlsym{)}\\
+\hlline{\ \ \ 71\ }\hlstd{cli6\ }\hlsym{=\ }\hlstd{}\hlkwd{Cliente}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Darrigo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{1564521133}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{6}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"Sergio"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"niato"}\hlstd{}\hlsym{,\ }\hlstd{}\hlnum{46632136}\hlstd{}\hlsym{,}\\
+\hlline{\ \ \ 72\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlstr{"jefetp"}\hlstd{}\hlsym{,\ }\hlstd{dir6}\hlsym{)}\\
+\hlline{\ \ \ 73\ }\hlstd{\\
+\hlline{\ \ \ 74\ }dicc\ }\hlsym{=\ \{}\hlstd{}\hlstr{``Insumos''}\hlstd{}\hlsym{:}\hlstd{Insumo}\hlsym{.}\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{(),}\hlstd{}\hlstr{``Productos''}\hlstd{}\hlsym{:}\hlstd{Producto}\hlsym{.}\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{(),}\\
+\hlline{\ \ \ 75\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlstr{``TiposProducto''}\hlstd{}\hlsym{:\{}\hlstd{}\hlstr{``pizza''}\hlstd{}\hlsym{:}\hlstd{pizza}\hlsym{,}\hlstd{}\hlstr{``empanada''}\hlstd{}\hlsym{:}\hlstd{empanada}\hlsym{,}\hlstd{}\hlstr{``coca''}\hlstd{}\hlsym{:}\hlstd{coca}\hlsym{,}\\
+\hlline{\ \ \ 76\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlstr{``birra''}\hlstd{}\hlsym{:}\hlstd{cerveza}\hlsym{\},\ }\hlstd{}\hlstr{``Clientes''}\hlstd{}\hlsym{:{[}}\hlstd{cli1}\hlsym{,}\hlstd{cli2}\hlsym{,}\hlstd{cli3}\hlsym{,}\hlstd{cli4}\hlsym{,}\hlstd{cli5}\hlsym{,}\hlstd{cli6}\hlsym{{]}\}}\\
+\hlline{\ \ \ 77\ }\hlstd{}\hlslc{\#guradamos\ el\ diccionario\ con\ los\ datos\ necesarios\ para\ cargar\ a\ la}\\
+\hlline{\ \ \ 78\ }\hlslc{pizzeria}\\
+\hlline{\ \ \ 79\ }\hlstd{\\
+\hlline{\ \ \ 80\ }pickle}\hlsym{.}\hlstd{}\hlkwd{dump}\hlstd{}\hlsym{(}\hlstd{dicc}\hlsym{,\ }\hlstd{}\hlkwb{open}\hlstd{}\hlsym{(}\hlstd{}\hlstr{``datos.pyp''}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{``wb''}\hlstd{}\hlsym{))}\\
+\hlline{\ \ \ 81\ }\hlstd{\\
+\hlline{\ \ \ 82\ }pizzeria\ }\hlsym{=\ }\hlstd{}\hlkwd{Pizzeria}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{open}\hlstd{}\hlsym{(}\hlstd{}\hlstr{``datos.pyp''}\hlstd{}\hlsym{,}\hlstd{}\hlstr{``rb''}\hlstd{}\hlsym{))}\\
+\hlline{\ \ \ 83\ }\hlstd{pizzeria}\hlsym{.}\hlstd{}\hlkwd{getCoordP}\hlstd{}\hlsym{().}\hlstd{}\hlkwd{ingresarPedido}\hlstd{}\hlsym{(}\hlstd{cli1}\hlsym{,{[}}\hlstd{Empanada1}\hlsym{{]},}\hlstd{}\hlstr{"efectivo"}\hlstd{}\hlsym{,\ }\hlstd{}\hlstr{"telefono"}\hlstd{}\hlsym{,}\\
+\hlline{\ \ \ 84\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 85\ }\hlstd{\\
+\hlline{\ \ \ 86\ }pickle}\hlsym{.}\hlstd{}\hlkwd{dump}\hlstd{}\hlsym{(}\hlstd{pizzeria}\hlsym{,}\hlstd{}\hlkwb{open}\hlstd{}\hlsym{(}\hlstd{}\hlstr{``pizzeriaTesting''}\hlstd{}\hlsym{,}\hlstd{}\hlstr{``wb''}\hlstd{}\hlsym{))}\hlstd{}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
 
+El problema de este método es que puede generar errores en este archivo que despues generen inconsistencias.
+
+Otra forma de hacerlo es utilizar la propia interfaz grafica. La aplicacion toma los datos sobre insumos,clientes,etc de el archivo datos.pyp, si uno quiere cambiar los datos pisa ese archivo de manera similar a la primera parte del ejemplo anterior.
+Luego inicia la aplicacion y mediante el boton de ingresar pedido va metiendo los pedidos necesarios para correr el caso de test con los datos dados.
 
