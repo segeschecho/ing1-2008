@@ -1,0 +1,1744 @@
+\chapter{Implementación}
+En este apartado presentaremos el codigo de la implementación de las diversas clases ordenadas por componentes, los mismos que definimos en el trabajo practio anterior.
+
+\section{Pedidos fuera de la cocina (Gestión de pedidos)}
+De este componente eliminamos algunos controladores que no tenían sentido dado el recorte de las funcionalidades del sistema que teníamos que implementar. Asi por ejemplo el controlador de entregas o el controlador de pedidos en mesa, no fueron implementados.
+
+Veamos entonces el codigo
+
+\subsection{Coordinador de pedidos}
+El coordinador de pedidos se encarga del ingreso de los pedidos al sistema, pide al generador de pedidos que arme un pedido a partir de los parametros recibidos y luego otorga al controlador de pre ingreso el control del pedido para que lo ubique en el sistema. También recibe los pedidos listos de la cocina para ser pasados al controlador de listos. 
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{CoordinadorDePedidos\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{generadorDePedidos}\hlsym{,\ }\hlstd{controladorDePreIngreso}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{controladorDeListos}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{generadorDePedidos}\hlsym{=}\hlstd{generadorDePedidos\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeListos}\hlsym{=}\hlstd{controladorDeListos\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDePreIngreso}\hlsym{=}\hlstd{controladorDePreIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{agregarPedidoListo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeListos}\hlsym{.}\hlstd{}\hlkwd{agregarPedidoListo}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Recibe\ una\ solicitud\ de\ ingresar\ un\ pedido.\ Ordena\ crearlo,\ y\ ordena}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#al\ controlador\ de\ pre\ ingreso\ que\ decida\ que\ hacer\ con\ el\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{ingresarPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,\ }\hlstd{origen}\hlsym{,}\hlstd{mesa}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{len}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)==}\hlstd{}\hlnum{0}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{ProductosVacios\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{p\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{generadorDePedidos}\hlsym{.}\hlstd{}\hlkwd{generarPedido}\hlstd{}\hlsym{(}\hlstd{c}\hlsym{,\ }\hlstd{productos}\hlsym{,\ }\hlstd{formaDePago}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{origen}\hlsym{,}\hlstd{mesa}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{p\ }\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDePreIngreso}\hlsym{.}\hlstd{}\hlkwd{ingresar}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{PedidoNulo\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#getters\ y\ setters\ varios}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getGeneradorDePedidos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{generadorDePedidos\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setGeneradorDePedidos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{generadorDePedidos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{generadorDePedidos\ }\hlsym{=\ }\hlstd{generadorDePedidos\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getControladorDePreIngreso}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{controladorDePreIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setControladorDePreIngreso}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{controladorDePreIngreso}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDePreIngreso\ }\hlsym{=\ }\hlstd{controladorDePreIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getControladorDeListos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{controladorDeListos\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setControladorDeListos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{controladorDeListos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeListos\ }\hlsym{=\ }\hlstd{controladorDeListos}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{ControladorDePreIngreso}
+
+El controlador de pre ingreso tiene por responsabilidad decidir si un pedido debe ir a la cola de ingreso o debe ir con los pedidos listos.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{ControladorDePreIngreso\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{coordinadorDePedidos}\hlsym{,}\hlstd{controladorDeIngreso}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeIngreso}\hlsym{=}\hlstd{controladorDeIngreso\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinadorDePedidos}\hlsym{=}\hlstd{coordinadorDePedidos\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Toma\ un\ pedido\ y\ decide\ si\ el\ mismo\ tiene\ alguna\ parte}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#cocinable}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{determinarCocinable}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{productos\ }\hlsym{=\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=\ }\hlstd{}\hlkwa{False}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{productos}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{tp}\hlsym{=}\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=}\hlstd{res\ }\hlkwa{or\ }\hlstd{tp}\hlsym{.}\hlstd{}\hlkwd{getCocinable}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{res}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{break}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Analogo\ pero\ para\ preparable}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{determinarPreparable}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{productos\ }\hlsym{=\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=\ }\hlstd{}\hlkwa{False}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{productos}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{tp}\hlsym{=}\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=}\hlstd{res\ }\hlkwa{or\ }\hlstd{tp}\hlsym{.}\hlstd{}\hlkwd{getPreparable}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{res}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{break}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Decide\ si\ un\ pedido\ va\ a\ listos\ o\ va\ a\ la\ cola\ de\ ingreso}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{ingresar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{determinarPreparable}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)\ }\hlstd{}\hlkwa{or\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{determinarCocinable}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeIngreso}\hlsym{.}\hlstd{}\hlkwd{ingresar}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinadorDePedidos}\hlsym{.}\hlstd{}\hlkwd{agregarPedidoListo}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{ControladorDeListos}
+El controlador de listos recibe los pedidos listos. En el diseño se encargaba ademas de despachar pedidos, pero esta funcionalidad no entra en esta implementación. De modo que solo se encarga de recibir los pedidos listos y de hacer notificaciones cuando recibe un pedido listo nuevo. Notar que este controlador debía implementar cancelador, sin embargo dado que no se contempla la cancelación de pedidos, esa funcionalidad fue quitada. Esta aclaración vale para todas las clases que tenian relación con controlador.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{ControladorDeListos}\hlstd{}\hlsym{(}\hlstd{Notificador}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{listos\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{ControladorDeListos}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Encola\ un\ pedido\ listo\ y\ notifica\ a\ sus\ observadores\ de\ eso}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{agregarPedidoListo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{listos}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setEstado}\hlstd{}\hlsym{(}\hlstd{Estado}\hlsym{.}\hlstd{Listo}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getListos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{listos}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{ControladorDeIngreso y controladorDeIngresoStandard}
+En el diseño el controlador de ingreso era la clase abstracta, cuya intención era que sus subclases se encarguen de manejar la cola de ingreso. En particular nosotros diseñamos e implementamos una subclase que es el controlador standard. El mismo recibe los pedidos e intenta mandarlos a preparar y si no puede los encola. A su vez responde peticiones por pedidos que contengan algun tipo de producto determinado. Como el controlador de ingreso ademas avisa cada vez que encola o desencola un pedido, hereda de notificador.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{ControladorDeIngreso}\hlstd{}\hlsym{(}\hlstd{Notificador}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{coordinadorDeCocina}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinadorDeCocina}\hlsym{=}\hlstd{coordinadorDeCocina\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{listaIngreso}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{ControladorDeIngreso}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{encolarPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getIngresados}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{listaIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{ingresar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{listarPedidos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{proximoPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{tp}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{ControladorDeIngresoStandard\ }\hlstd{}\hlsym{(}\hlstd{ControladorDeIngreso}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{coordinadorDeCocina}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{ControladorDeIngresoStandard}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{coordinadorDeCocina}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{encolarPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{listaIngreso}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Intenta\ ingresar\ el\ pedido\ a\ la\ cocina,\ si\ no\ pued}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#lo\ encola}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{ingresar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{res}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{coordinadorDeCocina}\hlsym{.}\hlstd{}\hlkwd{prepararPedido}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{}\hlkwa{not\ }\hlstd{res}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setEstado}\hlstd{}\hlsym{(}\hlstd{Estado}\hlsym{.}\hlstd{Ingresado}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{encolarPedido}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{listarPedidos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{listaIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Busca\ en\ su\ cola\ si\ hay\ un\ pedido\ que\ contenga\ algun\ producto\ de\ tipo}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#tp,\ si\ lo\ encuentra\ lo\ devuelve}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{proximoPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{tp}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{listaIngreso\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ped}\hlsym{=}\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pedActual\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{sirve}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{tieneTipo}\hlstd{}\hlsym{(}\hlstd{pedActual}\hlsym{,\ }\hlstd{tp}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{sirve}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ped}\hlsym{=}\hlstd{pedActual\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{break}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{ped\ }\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{listaIngreso}\hlsym{.}\hlstd{}\hlkwd{remove}\hlstd{}\hlsym{(}\hlstd{ped}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{ped\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Permite\ conocer\ si\ algun\ producto\ del\ pedido\ p\ tiene\ tipo\ tp}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{tieneTipo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{,\ }\hlstd{tp}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=}\hlstd{}\hlkwa{False}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=}\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()==}\hlstd{tp\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{res}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{break}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+
+\section{Creación de pedidos}
+Este modulo fue implementado completo ya que todas sus clases participan en la creación de nuevos pedidos.
+
+\subsection{GeneradorDePedidos y GeneradorDePedidosStandard}
+La clase abstracta generador de pedidos tiene por objetivo actuar como un factory method de pedidos. Su subclase standard es una implementación que permite generar los diferentes tipos de pedidos.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{GeneradorDePedidos}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{object}\hlstd{}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{calculadorDePrecios}\hlsym{,}\hlstd{estimadorDeTiempos}\hlsym{,}\hlstd{controladorDeStock}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{asignadorDeHorno}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{asignadorDeHorno}\hlsym{=}\hlstd{asignadorDeHorno\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{calculadorDePrecios}\hlsym{=}\hlstd{calculadorDePrecios\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{=}\hlstd{controladorDeStock\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{estimadorDeTiempos}\hlsym{=}\hlstd{estimadorDeTiempos\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Metodo\ para\ generar\ ID\ de\ pedidos}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{generarId}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Crea\ un\ pedido,\ es\ un\ factory\ method}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{generarPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{cliente}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{origen}\hlsym{,}\hlstd{mesa}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{GeneradorDePedidosStandard\ }\hlstd{}\hlsym{(}\hlstd{GeneradorDePedidos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{calculadorDePrecios}\hlsym{,}\hlstd{estimadorDeTiempos}\hlsym{,}\hlstd{controladorDeStock}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{asignadorDeHorno}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{GeneradorDePedidosStandard}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{calculadorDePrecios}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{estimadorDeTiempos}\hlsym{,}\hlstd{controladorDeStock}\hlsym{,\ }\hlstd{asignadorDeHorno}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ultimoIdAsignado}\hlsym{=}\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Obtiene\ la\ fecha\ actual\ para\ "grabarsela"\ al\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDateTime}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{datetime}\hlsym{.}\hlstd{}\hlkwd{now}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Estrategia\ simple\ de\ creación\ de\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{generarId}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{ultimoIdAsignado\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ultimoIdAsignado}\hlsym{+=}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{generarPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{origen}\hlsym{,}\hlstd{mesa}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Primero\ intentamos\ ingresarlo,\ reservando\ los\ recursos}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{verificarEIngresar}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{d}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{getDateTime}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Decidimos\ a\ partir\ del\ origen\ a\ partir\ del\ nombre\ (pobre\ OCP\ y}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{Liskov)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{origen\ }\hlsym{==\ }\hlstd{}\hlstr{"mostrador"}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Chequeamos\ invariantes\ para\ construir\ un\ pedido\ de\ mostrador}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ not\ }\hlstd{formaDePago\ }\hlkwa{in\ }\hlstd{}\hlsym{{[}}\hlstd{}\hlstr{"efectivo"}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"tarjeta"}\hlstd{}\hlsym{{]}:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{TipoDePagoInvalido}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Forma\ de\ pago\ Invalida}\hlesc{$\backslash$n}\hlstr{Se\ intento}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{asignar\ la\ forma\ de\ pago:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{formaDePago}\hlsym{)+}\hlstd{}\hlstr{"\ a\ un\ pedido\ con}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{origen:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{origen}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{mesa\ }\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{PedidoDeMostradorConMesa}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ pedidos\ de\ mostrador\ no}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{tienen\ que\ tener\ una\ mesa}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{asignada"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{generarId}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=\ }\hlstd{}\hlkwd{PedidoMostrador}\hlstd{}\hlsym{(}\hlstd{ID}\hlsym{,}\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{d}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif}\hlstd{}\hlsym{(}\hlstd{origen\ }\hlsym{==\ }\hlstd{}\hlstr{"mesa"}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Simil\ con\ pedido\ de\ mesa}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{formaDePago\ }\hlsym{!=\ }\hlstd{}\hlkwa{None\ }\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{TipoDePagoInvalido}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Forma\ de\ pago\ Invalida}\hlesc{$\backslash$n}\hlstr{Se\ intento}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{asignar\ la\ forma\ de\ pago:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{formaDePago}\hlsym{)+}\hlstd{}\hlstr{"\ a\ un\ pedido\ con}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{origen:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{origen}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{generarId}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=\ }\hlstd{}\hlkwd{PedidoMesa}\hlstd{}\hlsym{(}\hlstd{ID}\hlsym{,}\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{d}\hlsym{,}\hlstd{mesa}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif}\hlstd{}\hlsym{(}\hlstd{origen\ }\hlsym{==\ }\hlstd{}\hlstr{"telefono"}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Idem\ para\ pedido\ telefonico}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{formaDePago\ }\hlsym{!=\ }\hlstd{}\hlstr{"efectivo"}\hlstd{\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{TipoDePagoInvalido}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Forma\ de\ pago\ Invalida}\hlesc{$\backslash$n}\hlstr{Se\ intento}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{asignar\ la\ forma\ de\ pago:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{formaDePago}\hlsym{)+}\hlstd{}\hlstr{"\ a\ un\ pedido\ con}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{origen:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{origen}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{mesa\ }\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{PedidoTelefonicoConMesa}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ pedidos\ telefonicos\ no}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{tienen\ que\ tener\ una\ mesa}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{asignada"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{c}\hlsym{==}\hlstd{}\hlkwa{None}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{ClienteNulo}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ pedidos\ remotos\ deben\ tener\ un}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{cliente\ asociado"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{generarId}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=\ }\hlstd{}\hlkwd{PedidoTelefono}\hlstd{}\hlsym{(}\hlstd{ID}\hlsym{,}\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{d}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{OrigenDesconocido}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"El\ origen\ indicado\ no\ es\ valido"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Asignamos\ el\ horno}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{asignadorDeHorno}\hlsym{.}\hlstd{}\hlkwd{asignarHorno}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{()\ !=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Si\ tiene\ un\ horno,\ no\ es\ de\ solo\ bebida,\ tiene\ sentido\ estimar}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{el\ tiempo}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setTiempoEstimado}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{estimadorDeTiempos}\hlsym{.}\hlstd{}\hlkwd{estimarTiempo}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setTiempoEstimado}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Finalmente\ calculamos\ el\ precio}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setPrecio}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{calculadorDePrecios}\hlsym{.}\hlstd{}\hlkwd{calcularPrecio}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{p\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ None}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{CalculadorDePrecios y CalculadorDePreciosStandard}
+Estas clases se encargan de determinar dado un pedido que precio le coresponde.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{CalculadorDePrecios}\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{calcularPrecio}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{CalculadorDePreciosStandard\ }\hlstd{}\hlsym{(}\hlstd{CalculadorDePrecios}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{calcularPrecio}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Recorremos\ los\ productos\ sumando\ los\ precios}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{precio\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{precio\ }\hlsym{+=\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getPrecio}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{precio}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{AsignadorDeHorno y asignadorDeHornoStandard}
+Clases responsables de la asignación del horno para un pedido. El asignadorStandard tiene un metodo para asignar y desasignar un callback que es lo que le permite decidir que horno asignar a un pedido mixto. En el diseño se hablaba de que la clase debia tener un notificar que devuelva un horno, nos parecio mas sensato cambiar eso, apartandonos un poco del diseño, haciendo que solo tenga un callback ya que no va a tener a mas de un observador a quien pedirle el horno.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlslc{\#Responsable\ de\ asignar\ el\ horno\ al\ pedido,\ al\ momento\ de\ crearlo}\hspace*{\fill}\\
+\hlstd{}\hlkwa{class\ }\hlstd{AsignadorDeHorno}\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{p}\hlsym{,\ }\hlstd{e}\hlsym{,}\hlstd{pizza}\hlsym{,\ }\hlstd{empanada\ }\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{hornoP\ }\hlsym{=\ }\hlstd{p\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{hornoE\ }\hlsym{=\ }\hlstd{e\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pizza\ }\hlsym{=\ }\hlstd{pizza\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{empanada\ }\hlsym{=\ }\hlstd{empanada\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{oraculoDeHorno\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{asignarHorno}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{AsignadorDeHornoStandard\ }\hlstd{}\hlsym{(}\hlstd{AsignadorDeHorno}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{asignarHorno}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{h\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{empanadas\ }\hlsym{=\ }\hlstd{}\hlkwa{False}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{pizzas\ }\hlsym{=\ }\hlstd{}\hlkwa{False}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{pizzas\ }\hlsym{=\ }\hlstd{pizzas\ }\hlkwa{or\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()\ ==\ }\hlstd{self}\hlsym{.}\hlstd{pizza\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{empanadas\ }\hlsym{=\ }\hlstd{empanadas\ }\hlkwa{or\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()\ ==\ }\hlstd{self}\hlsym{.}\hlstd{empanada\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{pizzas\ }\hlkwa{and\ }\hlstd{empanadas}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Pedido\ Mixto,\ hay\ que\ pedir\ el\ horno}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{h\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificarHorno}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif\ }\hlstd{pizzas}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{h\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{hornoP\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif\ }\hlstd{empanadas}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{h\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{hornoE\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{setHorno}\hlstd{}\hlsym{(}\hlstd{h}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Permite\ que\ se\ asigne\ el\ callback\ para\ pedir\ el\ horno}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{asignarCallback}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{callback}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{oraculoDeHorno\ }\hlsym{=\ }\hlstd{callback\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{desasignarCallback}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{oraculoDeHorno\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Ejecuta\ el\ callback\ para\ pedir\ el\ horno}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{notificarHorno}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{oraculoDeHorno}\hlstd{}\hlsym{()}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{EstimadorDeTiempos y EstimadorStandard}
+Son las clases que se encargan de estimar el tiempo para que un pedido este listo. En particular el estimadorStandard solo considera el tiempo de preparación y de cocción, según lo planteado en el diseño.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{EstimadorDeTiempos}\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{estimarTiempo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{EstimadorStandard\ }\hlstd{}\hlsym{(}\hlstd{EstimadorDeTiempos}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(\ }\hlstd{self}\hlsym{,}\hlstd{pizza}\hlsym{,\ }\hlstd{empanada}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pizza\ }\hlsym{=\ }\hlstd{pizza\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{empanada\ }\hlsym{=\ }\hlstd{empanada\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{estimarTiempo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Incializamos\ las\ variables}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{tiempoPreparacion\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{tiempoCoccionPizzas\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{tiempoCoccionEmpanadas\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{h\ }\hlsym{=\ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{Pedido}\hlsym{.}\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Calculamos\ los\ tiempos\ para\ todos\ los\ pedidos}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{p\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{tiempoPreparacion\ }\hlsym{+=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDePreparacion}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{tiempoCoccionPizzas\ }\hlsym{+=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDeCoccionPizzas}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{,\ }\hlstd{h}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{tiempoCoccionEmpanadas\ }\hlsym{+=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDeCoccionEmpanadas}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{,\ }\hlstd{h}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#El\ pedido\ que\ se\ esta\ ingresando\ queda\ afuera\ ya\ que\ tiene\ estado\ None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Por\ eso\ sus\ tiempos\ los\ calculamos\ aparte}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{tiempoPreparacion\ }\hlsym{+=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDePreparacionActual}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{tiempoCoccionPizzas\ }\hlsym{+=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDeCoccionPizzasActual}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{,}\hlstd{h}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{tiempoCoccionEmpanadas\ }\hlsym{+=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDeCoccionEmpanadasActual}\hlstd{}\hlsym{(}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{pedido}\hlsym{,}\hlstd{h}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{modulos\ }\hlsym{=\ }\hlstd{h}\hlsym{.}\hlstd{}\hlkwd{getCantModulos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{frac\ }\hlsym{=\ }\hlstd{h}\hlsym{.}\hlstd{}\hlkwd{getFraccionadorDeHorno}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cantEmpanadas\ }\hlsym{=\ }\hlstd{frac}\hlsym{.}\hlstd{}\hlkwd{getProductosPorModulo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{empanada}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cantPizzas\ }\hlsym{=\ }\hlstd{frac}\hlsym{.}\hlstd{}\hlkwd{getProductosPorModulo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{pizza}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Efectuamos\ el\ calculo\ final}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ }\hlstd{tiempoPreparacion\ }\hlsym{+\ }\hlstd{$\backslash$\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlsym{(}\hlstd{tiempoCoccionPizzas\ }\hlsym{/\ (}\hlstd{cantPizzas}\hlsym{{*}}\hlstd{modulos}\hlsym{))+\ }\hlstd{$\backslash$\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlsym{(}\hlstd{tiempoCoccionEmpanadas\ }\hlsym{/\ (}\hlstd{cantEmpanadas}\hlsym{{*}}\hlstd{modulos}\hlsym{))}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Estima\ el\ tiempo\ de\ coccion\ de\ las\ empanadas\ de\ un\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{estimarTiempoDeCoccionEmpanadasActual}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{,}\hlstd{h}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()\ ==}\hlstd{self}\hlsym{.}\hlstd{empanada}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{+=\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTiempoCoccion}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Idem\ para\ las\ pizzas}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{estimarTiempoDeCoccionPizzasActual}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{,}\hlstd{h}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()\ ==\ }\hlstd{self}\hlsym{.}\hlstd{pizza}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{+=\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTiempoCoccion}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Estima\ el\ tiempo\ de\ preparacion\ de\ un\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{estimarTiempoDePreparacionActual}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{+=\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTiempoPreparacion}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Calcula\ el\ tiempo\ de\ coccion\ de\ las\ empanadas\ que\ estan\ en\ el\ mismo\ horno}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#que\ el\ pedido\ nuevo}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{estimarTiempoDeCoccionEmpanadas}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{,}\hlstd{\ \ }\hlsym{}\hlstd{horno}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{()\ !=\ }\hlstd{horno}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{()\ !=\ }\hlstd{Estado}\hlsym{.}\hlstd{EnPreparacion\ }\hlkwa{and\ }\hlstd{$\backslash$\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{()\ !=\ }\hlstd{Estado}\hlsym{.}\hlstd{Ingresado\ }\hlkwa{and\ }\hlstd{$\backslash$\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{()\ !=\ }\hlstd{Estado}\hlsym{.}\hlstd{Preparado}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDeCoccionEmpanadasActual}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{,}\hlstd{horno}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Idem\ para\ las\ pizzas}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{estimarTiempoDeCoccionPizzas}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{,}\hlstd{horno}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{()\ !=\ }\hlstd{horno}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{()\ !=\ }\hlstd{Estado}\hlsym{.}\hlstd{EnPreparacion\ }\hlkwa{and\ }\hlstd{$\backslash$\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{()\ !=\ }\hlstd{Estado}\hlsym{.}\hlstd{Ingresado\ }\hlkwa{and\ }\hlstd{$\backslash$\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{()\ !=\ }\hlstd{Estado}\hlsym{.}\hlstd{Preparado}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDeCoccionPizzasActual}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{,}\hlstd{horno}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Calcula\ el\ tiempo\ de\ preparación\ de\ los\ pedidos\ que\ estan\ adelante}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#del\ nuevo}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{estimarTiempoDePreparacion}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{\ \ }\hlsym{}\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ }\hlstd{}\hlnum{0.0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{()\ !=\ }\hlstd{Estado}\hlsym{.}\hlstd{Ingresado\ }\hlkwa{or\ }\hlstd{pedido}\hlsym{.}\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{()\ !=}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{Estado}\hlsym{.}\hlstd{EnPreparacion}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{estimarTiempoDePreparacionActual}\hlstd{}\hlsym{(}\hlstd{pedido}\hlsym{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{Estado}
+La clase estado era en el diseño una clase enumerada, sin embargo como dijimos anteriormente, Python no tiene clases enumeradas, por lo que tuvimos que simularla de alguna manera. La idea fue utilizar una clase con atributos estaticos, cada uno de los cuales representa a un posible estado.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlslc{\#Simulacion\ de\ clase\ enumerada}\hspace*{\fill}\\
+\hlstd{}\hlkwa{class\ }\hlstd{Estado}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{Ingresado}\hlsym{=}\hlstd{}\hlstr{"Ingresado"}\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{Preparado}\hlsym{=}\hlstd{}\hlstr{"Preparado"}\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{EnPreparacion}\hlsym{=}\hlstd{}\hlstr{"EnPreparacion"}\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{Listo}\hlsym{=}\hlstd{}\hlstr{"Listo"}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{Pedido y sus subclases}
+La clase Pedido es la que contiene la información propia de un pedido de la pizzeria. Recoredemos que la clase Pedido tenia un método estatico que daba todas las instancias. Como tuvimos la idea de agregar la funcionalidad de poder guardar y cargar una pizzeria, tuimos que hacer el método \_\_set\_state\_\_ que se encarga de cargar un pedido desde un archivo. Ademas se le agregaron los metodos de clase reinit, setAllinstances y getPorId y getDestino, para darle una interfaz mas amigable con la que la gui pudiera manejarse, sin embargo el resto de los metodos se mantuvieron. Como se menciono antes, la cancelación no se implementa, por lo cual el pedido no tiene ahora relación con un cancelador ni con un repositor de stock. Por último, a la clase Pedido se agregaron otros metodos tales como \_\_eq\_\_ que permiten que se puedan crear diccionarios de pedidos.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlslc{\#Clase\ base\ de\ pedidos}\hspace*{\fill}\\
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{Pedido}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{object}\hlstd{}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{allInst}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Permite\ obtener\ un\ pedido\ dado\ su\ id}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPorId}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{each\ }\hlkwa{in\ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{each}\hlsym{.}\hlstd{}\hlkwb{id\ }\hlstd{}\hlsym{==\ }\hlstd{}\hlkwb{id}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{each\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{ValueError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"ID\ inválido!"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Devuelve\ la\ lista\ con\ todas\ las\ instancias\ de\ Pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{cls}\hlsym{.}\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Reseta\ allInst}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setAllInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{allInst}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst\ }\hlsym{=\ }\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Reinicia\ la\ lista\ de\ todas\ las\ instancias\ (Se\ usa\ para\ poder\ hacer\ un\ load}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{desde\ archivo)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reinit}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(\ }\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,\ }\hlstd{productos}\hlsym{,\ }\hlstd{formaDePago}\hlsym{,\ }\hlstd{fechaIngreso}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{}\hlkwb{id\ }\hlstd{}\hlkwa{in\ }\hlstd{}\hlsym{{[}}\hlstd{x}\hlsym{.}\hlstd{}\hlkwd{getId}\hlstd{}\hlsym{()\ }\hlstd{}\hlkwa{for\ }\hlstd{x\ }\hlkwa{in\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{{]}:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{ValueError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Ya\ hay\ un\ pedido\ con\ ese\ ID!"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{id\ }\hlstd{}\hlsym{=\ }\hlstd{}\hlkwb{id}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cliente\ }\hlsym{=\ }\hlstd{cliente\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{productos\ }\hlsym{=\ }\hlstd{productos\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{formaDePago\ }\hlsym{=\ }\hlstd{formaDePago\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{fechaIngreso\ }\hlsym{=\ }\hlstd{fechaIngreso\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{estado\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{precio\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{horno\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{tiempoEstimado\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Getters\ y\ setters\ varios}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCliente}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{cliente\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getFechaIngreso}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{fechaIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getEstado}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{estado\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setEstado}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{estadoP}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{estado\ }\hlsym{=\ }\hlstd{estadoP\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getFechaIngreso}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{fechaIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setFechaIngreso}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{fechaIngreso}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{fechaIngreso\ }\hlsym{=\ }\hlstd{fechaIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getFormaDePago}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{formaDePago\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setFormaDePago}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{formaDePago}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{formaDePago\ }\hlsym{=\ }\hlstd{formaDePago\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{horno\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setHorno}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{horno}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{horno\ }\hlsym{=\ }\hlstd{horno\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getId}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{id}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{productos\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setProductos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{productos\ }\hlsym{=\ }\hlstd{productos\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setTiempoEstimado}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{tiempoEstimado}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{tiempoEstimado\ }\hlsym{=\ }\hlstd{tiempoEstimado\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getTiempoEstimado}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{tiempoEstimado\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPrecio}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{precio\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setPrecio}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{precio}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{precio\ }\hlsym{=\ }\hlstd{precio\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Metodo\ que\ se\ invoca\ al\ unpicklear\ un\ pedido,\ nos\ permite\ ir\ asignando}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#a\ la\ lista\ de\ todas\ las\ instancias}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore setstate\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{k\ }\hlkwa{in\ }\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{.}\hlstd{}\hlkwd{keys}\hlstd{}\hlsym{():}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{setattr}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{k}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{{[}}\hlstd{k}\hlsym{{]})}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Funciones\ necesarias\ para\ poder\ usar\ un\ diccionario\ de\ pedidos}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore hash\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{.}\hlstd{}\hlkwd{\textunderscore \textunderscore hash\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore eq\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{o}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{o\ }\hlsym{==\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ False}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{}\hlkwb{isinstance}\hlstd{}\hlsym{(}\hlstd{o}\hlsym{,}\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{id\ }\hlstd{}\hlsym{==\ }\hlstd{o}\hlsym{.}\hlstd{}\hlkwb{id}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{TypeError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"No\ se\ puede\ comparar\ con\ \%s!"}\hlstd{\ }\hlsym{\%\ }\hlstd{o}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore neq\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{o}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ not\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{\textunderscore \textunderscore eq\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{o}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Funcion\ que\ dice\ el\ destion,\ es\ decir\ si\ es\ delivery,\ mesa,\ o\ mostrador}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Pedido\ no\ la\ implementa,\ es\ responsabilidad\ de\ las\ subclases}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDestino}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlslc{\#Otros\ sabores\ de\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{PedidoLocal}\hlstd{}\hlsym{(}\hlstd{Pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,\ }\hlstd{fechaIngreso}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{PedidoLocal}\hlsym{,\ }\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,\ }\hlstd{productos}\hlsym{,\ }\hlstd{formaDePago}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{fechaIngreso}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{PedidoRemoto\ }\hlstd{}\hlsym{(}\hlstd{Pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDestino}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{}\hlstr{"Delivery"}\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{fechaIngreso}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{cliente\ }\hlsym{==\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{ClienteNulo}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ pedidos\ remotos\ deben\ tener\ un\ cliente}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{asignado"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{PedidoRemoto}\hlsym{,\ }\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(\ }\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,\ }\hlstd{productos}\hlsym{,\ }\hlstd{formaDePago}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{fechaIngreso}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{PedidoMesa}\hlstd{}\hlsym{(}\hlstd{PedidoLocal}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,\ }\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{fechaIngreso}\hlsym{,}\hlstd{mesa}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{mesa\ }\hlkwa{is\ None}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{PedidoDeMesaSinMesa}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ pedidos\ de\ mesa\ deben\ tener\ una\ mesa}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{asignade"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{PedidoMesa}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,\ }\hlstd{productos}\hlsym{,\ }\hlstd{formaDePago}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{fechaIngreso}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{mesa\ }\hlsym{=\ }\hlstd{mesa\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDestino}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{}\hlstr{"Mesa"}\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getMesa}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{mesa}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{PedidoMostrador}\hlstd{}\hlsym{(}\hlstd{PedidoLocal}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{fechaIngreso}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{PedidoMostrador}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,\ }\hlstd{productos}\hlsym{,\ }\hlstd{formaDePago}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{fechaIngreso}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDestino}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{}\hlstr{"Mostrador"}\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{PedidoTelefono}\hlstd{}\hlsym{(}\hlstd{PedidoRemoto}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{fechaIngreso}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{PedidoTelefono}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{cliente}\hlsym{,\ }\hlstd{productos}\hlsym{,\ }\hlstd{formaDePago}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{fechaIngreso}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\section{Gestión de clientes}
+Este modulo es el responsable de contener la información de los clientes. 
+%TODO: resolver el fixme que esta aca abajo :P
+%FIXME: decidir que hacer con el controlador de clientes, yo diria decir q preguntamos y nos dijeron q no nos calentemos con la busqueda y q lo hagamos simple eso
+
+\subsection{Cliente}
+La clase Cliente guarda la información de un cliente dentro del sistema
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{Cliente\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlslc{\#Metodos\ para\ unpicklear}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore setstate\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{k\ }\hlkwa{in\ }\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{.}\hlstd{}\hlkwd{keys}\hlstd{}\hlsym{():}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{setattr}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{k}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{{[}}\hlstd{k}\hlsym{{]})}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID}\hlsym{+=}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reinit}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{ID}\hlsym{=}\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setAllInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{allInst}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst\ }\hlsym{=\ }\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{ID}\hlsym{=}\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{allInst\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{apel}\hlsym{,}\hlstd{celular}\hlsym{,}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{,\ }\hlstd{nombre}\hlsym{,}\hlstd{passWeb}\hlsym{,}\hlstd{telefono}\hlsym{,}\hlstd{web}\hlsym{,\ }\hlstd{}\hlkwb{dir}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{apellido}\hlsym{=}\hlstd{apel\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{celular}\hlsym{=}\hlstd{celular\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{id}\hlstd{}\hlsym{=}\hlstd{}\hlkwb{id}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{nombre}\hlsym{=}\hlstd{nombre\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{passWeb}\hlsym{=}\hlstd{passWeb\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{telefono}\hlsym{=}\hlstd{telefono\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{usrweb}\hlsym{=}\hlstd{web\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{dir}\hlstd{}\hlsym{=}\hlstd{}\hlkwb{dir}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID}\hlsym{+=}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getId}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore str\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{}\hlstr{"el\ cliente\ es:"}\hlstd{\ }\hlsym{+\ }\hlstd{self}\hlsym{.}\hlstd{nombre\ }\hlsym{+\ }\hlstd{}\hlstr{"\ "}\hlstd{\ }\hlsym{+\ }\hlstd{self}\hlsym{.}\hlstd{apellido\ }\hlsym{+\ }\hlstd{}\hlstr{"\ con\ Id:}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstr{"}\hlstd{\ }\hlsym{+}\hlstd{$\backslash$\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{ID}\hlsym{)\ +\ }\hlstd{}\hlstr{"\ y\ nombre\ de\ usuario\ WEB:\ "}\hlstd{\ }\hlsym{+\ }\hlstd{self}\hlsym{.}\hlstd{usrweb\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPorId}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{ID}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{each\ }\hlkwa{in\ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{each}\hlsym{.}\hlstd{ID\ }\hlsym{==\ }\hlstd{ID}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{each\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{TypeError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"ID\ invalido"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{cls}\hlsym{.}\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDireccion}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{dir}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getApellido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{apellido\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getNombre}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{nombre\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getId}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPassWeb}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{passWeb\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCelular}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{celular\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDir}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{dir}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getTelefono}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{telefono\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getUsrWeb}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{usrweb}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{Dirección}
+La clase dirección permite guardar información detallada sobre la ubicación de un cliente.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{Direccion\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{calle}\hlsym{,}\hlstd{departamento}\hlsym{,}\hlstd{localidad}\hlsym{,}\hlstd{numero}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{Calle\ }\hlsym{=\ }\hlstd{calle\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{Departamento\ }\hlsym{=\ }\hlstd{departamento\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{Localidad\ }\hlsym{=\ }\hlstd{localidad\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{Numero\ }\hlsym{=\ }\hlstd{numero\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCalle}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{Calle\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setCalle}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{calle}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{Calle\ }\hlsym{=\ }\hlstd{calle\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDepartamento}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{Departamento\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setDepartamento}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{departamento}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{Departamento\ }\hlsym{=\ }\hlstd{departamento\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getLocalidad}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{Localidad\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setLocalidad}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{localidad}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{Localidad\ }\hlsym{=\ }\hlstd{localidad\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getNumero}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{Numero\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setNumero}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{numero}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{Numero\ }\hlsym{=\ }\hlstd{numero}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+
+\section{Cocina}
+La cocina es el componente que mas se vio recortado por el quite de funcionalidades a implementar. De este modulo el despachador de coción y el controlador de hornos no fueron implementado. En verdad, se implementó una versión minimal de un despachador de cocción que se encarga de encolar pedidos para que los podemos motrar en la gui y ademas se encarga de pasarselos al coordinador de cocina par que este los pase al modulo de gestion de pedidos. Sin embargo podemos considerar que no se implementó, ya que el despachador de coccion (que en el diseño era abstracto) tenia como responsabilidad controlar la cocción de los pedidos, lo cual no se hizo, el despachador implementado es mas bien un adorno que nos permite ver en la gui como un pedido atraviesa las distintas etapas para estar listo. Queremos dejar en claro que esta implementación fue hecha por cuestiones ``esteticas'' de que nos gustó la idea de ver como el pedido transita hasta estar listo, pero no porque el diseño no cerraba si no la implementabamos.
+
+\subsection{CoordinadorDeCocina}
+Esta case recibe los pedidos que pueden entrar en la cocina, asi como también obtiene pedidos del controlador de ingreso y rutea los pedidos dentro de la cocina.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{CoordinadorDeCocina\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{controladorDeIngreso}\hlsym{,\ }\hlstd{coordinadorDePedidos}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{despachadorDePreparacion}\hlsym{,}\hlstd{despachadorDeCoccion}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeIngreso}\hlsym{=}\hlstd{controladorDeIngreso\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinadorDePedidos}\hlsym{=}\hlstd{coordinadorDePedidos\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{despachadorDePreparacion}\hlsym{=}\hlstd{despachadorDePreparacion\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{despachadorDeCoccion\ }\hlsym{=\ }\hlstd{despachadorDeCoccion\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Ordena\ cocinar\ un\ pedido\ al\ despachador\ de\ coccion}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{cocinar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setEstado}\hlstd{}\hlsym{(}\hlstd{Estado}\hlsym{.}\hlstd{Preparado}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{despachadorDeCoccion}\hlsym{.}\hlstd{}\hlkwd{cocinar}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#no\ hace\ nada\ porque\ no\ hay\ que\ implementar\ la\ parte\ de\ la\ coccion}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Pide\ al\ controlador\ de\ ingreso\ un\ pedido\ de\ tipo\ tp}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{conseguirPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{tp}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{controladorDeIngreso}\hlsym{.}\hlstd{}\hlkwd{proximoPedido}\hlstd{}\hlsym{(}\hlstd{tp}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Notifica\ que\ un\ pedido\ termino\ de\ cocinarse}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{pedidoListo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinadorDePedidos}\hlsym{.}\hlstd{}\hlkwd{agregarPedidoListo}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Pregunta\ al\ despachador\ si\ puede\ hacerse\ cargo\ de\ la\ preparacion\ de\ un}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ }\hlslc{pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{prepararPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{despachadorDePreparacion}\hlsym{.}\hlstd{}\hlkwd{prepararPedido}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#getters\ y\ setters}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setControladorDeIngreso}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{controladorDeIngreso}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeIngreso\ }\hlsym{=\ }\hlstd{controladorDeIngreso\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setCoordinadorDePedidos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{coordinadorDePedidos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinadorDePedidos\ }\hlsym{=\ }\hlstd{coordinadorDePedidos\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setDespachadorDePreparacion}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{despachadorDePreparacion}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{despachadorDePreparacion\ }\hlsym{=\ }\hlstd{despachadorDePreparacion\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setDespachadorDeCoccion}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{despachadorDeCoccion}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{despachadorDeCoccion\ }\hlsym{=\ }\hlstd{despachadorDeCoccion}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{DespachadorDePreparacion y DespachadorDePreparacionStandard}
+Estas clases son responsables de la preparación de los pedidos. Queremos hacer notar que en el diseño aparecían como metodos privados del despachador standard metodos que por ejemplo solo buscaban en un diccionario. Estos metodos fueron puestos en su momento para dar mas claridad a los diagramas de secuencia, sin embargo a la hora de implementar, los reemplazamos por lo que hacian efectivamente. Este es el caso por ejemplo del metodo setPartesEnPreparacion(Pedido,int) que solo escribia en un diccionario interno que al pedido le quedaban tantas partes en preparación.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{DespachadorDePreparacion}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{object}\hlstd{}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{prepPizzero}\hlsym{,}\hlstd{prepEmPanadero}\hlsym{,}\hlstd{coordinador}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{prepEmpanadero}\hlsym{=}\hlstd{prepEmPanadero\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{prepPizzero}\hlsym{=}\hlstd{prepPizzero\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinador}\hlsym{=}\hlstd{coordinador\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{prepararPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{notImplementedError}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{DespachadorDePreparacionStandard}\hlstd{}\hlsym{(}\hlstd{DespachadorDePreparacion}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{prepPizzero}\hlsym{,\ }\hlstd{prepEmPanadero}\hlsym{,}\hlstd{coordinador}\hlsym{,\ }\hlstd{pizza}\hlsym{,\ }\hlstd{empanada}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{DespachadorDePreparacionStandard}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{prepPizzero}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{prepEmPanadero}\hlsym{,}\hlstd{coordinador}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pizza}\hlsym{=}\hlstd{pizza\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{empanada}\hlsym{=}\hlstd{empanada\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{=\{\}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaEmp}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaPiz}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoPizzeroActual}\hlsym{=}\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoEmpanaderoActual}\hlsym{=}\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Determina\ si\ un\ pedido\ se\ puede\ asignar\ al\ preparado\ empanadero.}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#De\ ser\ asi,\ manda\ preparar\ el\ pedido\ y\ averigua\ si\ el\ preparador\ pizzero}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ }\hlslc{tambien\ lo\ puede}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#comenzar\ a\ preparar\ o\ lo\ encola\ (en\ caso\ de\ ser\ pizzero)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{asignableEmpanadero}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{esEmpanadero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)\ }\hlstd{}\hlkwa{and\ not\ }\hlstd{self}\hlsym{.}\hlstd{prepEmpanadero}\hlsym{.}\hlstd{}\hlkwd{getOcupado}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{res}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{esPizzero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}=}\hlstd{}\hlnum{2}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{}\hlkwa{not\ }\hlstd{self}\hlsym{.}\hlstd{prepPizzero}\hlsym{.}\hlstd{}\hlkwd{getOcupado}\hlstd{}\hlsym{()):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoPizzeroActual}\hlsym{=}\hlstd{p\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{prepPizzero}\hlsym{.}\hlstd{}\hlkwd{preparar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{getSubpedidoPizzero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{))}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaPiz}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}=\ }\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoEmpanaderoActual}\hlsym{=}\hlstd{p\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setEstado}\hlstd{}\hlsym{(}\hlstd{Estado}\hlsym{.}\hlstd{EnPreparacion}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{prepEmpanadero}\hlsym{.}\hlstd{}\hlkwd{preparar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{getSubpedidoEmpanadero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{))}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Similar\ a\ la\ anterior\ pero\ para\ el\ pizzero}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{asignablePizzero}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{esPizzero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)\ }\hlstd{}\hlkwa{and\ not\ }\hlstd{self}\hlsym{.}\hlstd{prepPizzero}\hlsym{.}\hlstd{}\hlkwd{getOcupado}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{res}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{esEmpanadero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}=\ }\hlstd{}\hlnum{2}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaEmp}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}\ =}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoPizzeroActual}\hlsym{=}\hlstd{p\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{prepPizzero}\hlsym{.}\hlstd{}\hlkwd{preparar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{getSubpedidoPizzero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setEstado}\hlstd{}\hlsym{(}\hlstd{Estado}\hlsym{.}\hlstd{EnPreparacion}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Determina\ si\ un\ pedido\ tiene\ alguna\ empanada}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{esEmpanadero}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()\ ==\ }\hlstd{self}\hlsym{.}\hlstd{empanada}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ True}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ False}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Determina\ si\ un\ pedido\ tiene\ alguna\ pizza}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{esPizzero}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()\ ==\ }\hlstd{self}\hlsym{.}\hlstd{pizza}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ True}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ False}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Obtiene\ las\ empanadas\ de\ un\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getSubpedidoEmpanadero}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()==}\hlstd{self}\hlsym{.}\hlstd{empanada}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Obtiene\ las\ pizzas\ de\ un\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getSubpedidoPizzero}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getProductos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{res\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{()==}\hlstd{self}\hlsym{.}\hlstd{pizza}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{res}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{res\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Da\ por\ terminada\ la\ preparacion\ de\ las\ pizzas\ del\ pedido\ pizzero\ actual}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Intenta\ buscar\ un\ nuevo\ pedido\ con\ pizzas\ para\ preparar}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#En\ caso\ de\ ser\ necesario\ avisa\ que\ hay\ un\ pedido\ que\ debe\ cocinarse}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{pizzasTerminadas}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{p\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{pedidoPizzeroActual\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{partes\ }\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{partes}\hlsym{=}\hlstd{partes}\hlsym{{-}}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}\ =\ }\hlstd{partes\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{partes\ }\hlsym{==\ }\hlstd{}\hlnum{0}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinador}\hlsym{.}\hlstd{}\hlkwd{cocinar}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{del\ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoPizzeroActual}\hlsym{=}\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=}\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{len}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{colaPiz}\hlsym{)!=}\hlstd{}\hlnum{0}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{colaPiz}\hlsym{.}\hlstd{}\hlkwd{pop}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{coordinador}\hlsym{.}\hlstd{}\hlkwd{conseguirPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{pizza}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}=}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{esEmpanadero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaEmp}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}=}\hlstd{}\hlnum{2}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoPizzeroActual\ }\hlsym{=\ }\hlstd{p\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setEstado}\hlstd{}\hlsym{(}\hlstd{Estado}\hlsym{.}\hlstd{EnPreparacion}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{prepPizzero}\hlsym{.}\hlstd{}\hlkwd{preparar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{getSubpedidoPizzero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoPizzeroActual\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Da\ por\ terminada\ la\ preparacion\ de\ las\ empanadas.\ Analago\ a\ la\ version}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ }\hlslc{pizzera}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{empanadasTerminadas}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{p\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{pedidoEmpanaderoActual\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{partes\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{partes}\hlsym{=}\hlstd{partes}\hlsym{{-}}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}\ =\ }\hlstd{partes\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{partes\ }\hlsym{==\ }\hlstd{}\hlnum{0}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordinador}\hlsym{.}\hlstd{}\hlkwd{cocinar}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{del\ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoEmpanaderoActual}\hlsym{=}\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=}\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{len}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{colaEmp}\hlsym{)!=}\hlstd{}\hlnum{0}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{colaEmp}\hlsym{.}\hlstd{}\hlkwd{pop}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{coordinador}\hlsym{.}\hlstd{}\hlkwd{conseguirPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{empanada}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{p\ }\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}=}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{esPizzero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{partesAPreparar}\hlsym{{[}}\hlstd{p}\hlsym{{]}=}\hlstd{}\hlnum{2}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaPiz}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoEmpanaderoActual\ }\hlsym{=\ }\hlstd{p\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setEstado}\hlstd{}\hlsym{(}\hlstd{Estado}\hlsym{.}\hlstd{EnPreparacion}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{prepEmpanadero}\hlsym{.}\hlstd{}\hlkwd{preparar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{getSubpedidoEmpanadero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{pedidoEmpanaderoActual\ }\hlsym{=\ }\hlstd{}\hlkwa{None}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Decide\ si\ puede\ hacerse\ cargo\ o\ no\ de\ un\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{prepararPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{asignableEmpanadero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ True}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{asignablePizzero}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{Preparador y preparadorEspecializado}
+El preparador y el preparador especializado son responsables de ``mostrar'' que es lo que los maestros deben preparar, asi como también de avisar al despachador cuando la preparación terminó (aunque este aviso se hace por medio de la clase Aviso)..
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{Preparador}\hlstd{}\hlsym{(}\hlstd{Notificador}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{aviso}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{aviso}\hlsym{=}\hlstd{aviso\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ocupado}\hlsym{=}\hlstd{}\hlkwa{False}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{Preparador}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getOcupado}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{preparar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{terminar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{PreparadorEspecializado}\hlstd{}\hlsym{(}\hlstd{Preparador}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{aviso}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{PreparadorEspecializado}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{aviso}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{productosAPreparar\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getOcupado}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{ocupado\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPreparar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{productosAPreparar\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{preparar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ocupado}\hlsym{=}\hlstd{}\hlkwa{True}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{productosAPreparar}\hlsym{=}\hlstd{productos\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{terminar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{self}\hlsym{.}\hlstd{ocupado}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ocupado}\hlsym{=}\hlstd{}\hlkwa{False}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{productosAPreparar\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{aviso}\hlsym{.}\hlstd{}\hlkwd{avisar}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{Aviso}
+La clase aviso fue pensada en la etapa de diseño para permitir una comunicación especifica entre el despachador y el preparador pero sin tener que que hacer codigo diferente para cada preparador. Su función es invocar un metodo particular del despachador de preparacion standard para notificar que el preparador termino.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlslc{\#Clase\ base\ de\ los\ avisos}\hspace*{\fill}\\
+\hlstd{}\hlkwa{class\ }\hlstd{Aviso\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{despachadorDePreparacionStandard}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{destinatario\ }\hlsym{=\ }\hlstd{despachadorDePreparacionStandard\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{avisar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{notImplementedError\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDestinatario}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{destinatario\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setDestinatario}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{despachadorDePreparacionStandard}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{destinatario\ }\hlsym{=\ }\hlstd{despachadorDePreparacionStandard}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlslc{\#Subclases\ de\ aviso}\hspace*{\fill}\\
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{AvisoEmpanadero}\hlstd{}\hlsym{(}\hlstd{Aviso}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{avisar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{destinatario}\hlsym{.}\hlstd{}\hlkwd{empanadasTerminadas}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{AvisoPizzero}\hlstd{}\hlsym{(}\hlstd{Aviso}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{avisar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{destinatario}\hlsym{.}\hlstd{}\hlkwd{pizzasTerminadas}\hlstd{}\hlsym{()}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{DespachadorDeCoccion y DespachadorDeCocciónNormal}
+Como dijimos, a fin de darle una mayor completitud a la aplicación decidimos hacer una versión minimalista del despachador. El mismo solo pretende ser un ``deposito'' de pedidos a cocinar, que luego pueden ser pasados a listos.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlslc{\#Version\ recortada\ del\ despachador,\ nomas\ almacena\ pedidos\ y\ los\ saca,\ solo\ esta}\hspace*{\fill}\\
+\hlslc{para}\hspace*{\fill}\\
+\hlstd{}\hlslc{\#que\ se\ vea\ bonito\ en\ la\ gui}\hspace*{\fill}\\
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{DespachadorDeCoccion}\hlstd{}\hlsym{(}\hlstd{Notificador}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{DespachadorDeCoccion}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{cocinar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{pedido}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{terminarCoccionPizzera}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{DespachadorDeCoccionNormal}\hlstd{}\hlsym{(}\hlstd{DespachadorDeCoccion}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{hornoP}\hlsym{,}\hlstd{hornoE}\hlsym{,}\hlstd{coordC}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{DespachadorDeCoccionNormal}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaEmp\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaPizz}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{hornoP\ }\hlsym{=\ }\hlstd{hornoP\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{hornoE\ }\hlsym{=\ }\hlstd{hornoE\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordC\ }\hlsym{=\ }\hlstd{coordC\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{cocinar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{p}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{()\ ==\ }\hlstd{self}\hlsym{.}\hlstd{hornoP}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaPizz}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{()\ ==\ }\hlstd{self}\hlsym{.}\hlstd{hornoE}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{colaEmp}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{TypeError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"horno\ indefinido:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{())+}\hlstd{}\hlstr{"}\hlesc{$\backslash$n\ }\hlstr{el}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{despachador\ tiene\ estos\ hornos:}\hlesc{$\backslash$n\ }\hlstr{horno\ pizzero:\ "}\hlstd{}\hlsym{+}\hlstd{$\backslash$\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{hornoP}\hlsym{)\ +\ }\hlstd{}\hlstr{"}\hlesc{$\backslash$n\ }\hlstr{horno\ empanadero:"}\hlstd{\ }\hlsym{+\ }\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{hornoE}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getColaPizz}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{colaPizz\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getColaEmp}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{colaEmp\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{terminarCoccionEmpanadera}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{len}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{colaEmp}\hlsym{)\ $>$\ }\hlstd{}\hlnum{0}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordC}\hlsym{.}\hlstd{}\hlkwd{pedidoListo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{colaEmp}\hlsym{.}\hlstd{}\hlkwd{pop}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{terminarCoccionPizzera}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{}\hlkwb{len}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{colaPizz}\hlsym{)\ $>$\ }\hlstd{}\hlnum{0}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{coordC}\hlsym{.}\hlstd{}\hlkwd{pedidoListo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{colaPizz}\hlsym{.}\hlstd{}\hlkwd{pop}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{))}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{Horno}
+La clase Horno sirve para poder conocer la cantidad de modulos que se dispone en cada horno de la pizzería y ademas para poder realizar correctamente la estimación de tiempos. Agregamos un metodo descripcion que permite setearle una cadena que describe al horno (por ejemplo ``Horno Pizzero'')
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{Horno}\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{cantModulos}\hlsym{,\ }\hlstd{fraccionadorDeHorno}\hlsym{,}\hlstd{descripcion}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cantModulos\ }\hlsym{=\ }\hlstd{cantModulos\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{fraccionadorDeHorno\ }\hlsym{=\ }\hlstd{fraccionadorDeHorno\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{descripcion\ }\hlsym{=\ }\hlstd{descripcion\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getFraccionadorDeHorno}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{fraccionadorDeHorno\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCantModulos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{cantModulos\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getDescripcion}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{descripcion}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\section{FraccionadorDeHorno}
+El objetivo principal del fraccionador de horno era dado un pedido partirlo en partes que se puedan meter de una vez. Esta funcionalidad no nos sirve, pero ademas el fraccionador de horno se utilizaba para realizar la estimación de tiempos, por lo cual también lo implementamos, aunque no hicimos lo mismo con los metodos relativos a la parte que no entra en esta entrega.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{FraccionadorDeHorno}\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{prodsXModulo}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{prodsXModulo\ }\hlsym{=\ }\hlstd{prodsXModulo\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getProductosPorModulo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{tipoProducto}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{prodsXModulo}\hlsym{{[}}\hlstd{tipoProducto}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+
+
+
+
+\section{Gestión de stock y productos}
+Este componente es el responsable de guardar la información sobre los productos y sus diversos insumos, asi como también realizar el chequeo del stock al momento de ingresar un pedido. 
+
+\subsection{Producto}
+La clase producto, al igual que con Pedido, posee los atributos y metodos estaticos que permiten ver todas las instancias y que permiten de cierta forma un manejo mas ameno, por parte de la gui, al guardar y cargar el estado de la pizzeria.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{Producto\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{allInst\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{ID\ }\hlsym{=\ }\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{nombre}\hlsym{,}\hlstd{precio}\hlsym{,\ }\hlstd{tiempoCoccion}\hlsym{,}\hlstd{tiempoPreparacion}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{tipoProducto}\hlsym{,\ }\hlstd{insumos}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{nombre\ }\hlsym{=\ }\hlstd{nombre\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{insumos\ }\hlsym{=\ }\hlstd{insumos\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{precio\ }\hlsym{=\ }\hlstd{precio\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{tiempoCoccion\ }\hlsym{=\ }\hlstd{tiempoCoccion\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{tiempoPreparacion\ }\hlsym{=\ }\hlstd{tiempoPreparacion\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{tipoProducto\ }\hlsym{=\ }\hlstd{tipoProducto\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\ }\hlsym{+=\ }\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Simil\ a\ lo\ que\ pasaba\ con\ el\ pedido}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reinit}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{ID}\hlsym{=}\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setAllInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{allInst}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst\ }\hlsym{=\ }\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPorId}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{ID}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{each\ }\hlkwa{in\ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{each}\hlsym{.}\hlstd{ID\ }\hlsym{==\ }\hlstd{ID}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{each\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{ValueError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"ID\ inválido!"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{cls}\hlsym{.}\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#getters\ y\ setters}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getId}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getNombre}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{nombre\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getInsumos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{insumos\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPrecio}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{precio\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPreparable}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{tipoProducto}\hlsym{.}\hlstd{}\hlkwd{getPreparable}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCocinable}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{tipoProducto}\hlsym{.}\hlstd{}\hlkwd{getCocinable}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getTiempoCoccion}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{tiempoCoccion\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getTiempoPreparacion}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{tiempoPreparacion\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getTipo}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{tipoProducto\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore setstate\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{k\ }\hlkwa{in\ }\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{.}\hlstd{}\hlkwd{keys}\hlstd{}\hlsym{():}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{setattr}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{k}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{{[}}\hlstd{k}\hlsym{{]})}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\ }\hlsym{+=\ }\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore repr\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{}\hlstr{"$<$Producto\ nombre:\ "}\hlstd{\ }\hlsym{+\ }\hlstd{self}\hlsym{.}\hlstd{nombre\ }\hlsym{+\ }\hlstd{}\hlstr{"$>$"}\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore str\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{nombre}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{Tipo de producto}
+%si alguien quiere decir algo, a mi no se me ocurre :P
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{TipoProducto}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Misma\ estrategia\ que\ para\ productos\ y\ pedidos}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{allInst\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{ID\ }\hlsym{=\ }\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reinit}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{ID}\hlsym{=}\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setAllInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{allInst}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst\ }\hlsym{=\ }\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{nombre}\hlsym{,\ }\hlstd{coc}\hlsym{,}\hlstd{prep}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{nombre\ }\hlsym{=\ }\hlstd{nombre\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cocinable\ }\hlsym{=\ }\hlstd{coc\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{preparable\ }\hlsym{=\ }\hlstd{prep\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{id\ }\hlstd{}\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\ }\hlsym{+=\ }\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore setstate\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{k\ }\hlkwa{in\ }\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{.}\hlstd{}\hlkwd{keys}\hlstd{}\hlsym{():}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{setattr}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{k}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{{[}}\hlstd{k}\hlsym{{]})}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{id\ }\hlstd{}\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\ }\hlsym{+=\ }\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPorId}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{ID}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{each\ }\hlkwa{in\ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{each}\hlsym{.}\hlstd{}\hlkwb{id\ }\hlstd{}\hlsym{==\ }\hlstd{ID}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{each\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{TypeError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"ID\ invalido!"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{cls}\hlsym{.}\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore hash\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{nombre}\hlsym{.}\hlstd{}\hlkwd{\textunderscore \textunderscore hash\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore cmp\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{o}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{o\ }\hlsym{==\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ False}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{}\hlkwb{isinstance}\hlstd{}\hlsym{(}\hlstd{o}\hlsym{,}\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{nombre}\hlsym{.}\hlstd{}\hlkwd{\textunderscore \textunderscore cmp\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{o}\hlsym{.}\hlstd{nombre}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{TypeError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"error\ en\ cmp\ de\ TipoProducto"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore eq\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{o}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{}\hlkwb{isinstance}\hlstd{}\hlsym{(}\hlstd{o}\hlsym{,}\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{nombre\ }\hlsym{==\ }\hlstd{o}\hlsym{.}\hlstd{nombre\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{TypeError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"error\ en\ eq\ de\ TipoProducto"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore neq\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{o}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ not\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{\textunderscore \textunderscore eq\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{o}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore repr\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{}\hlstr{"$<$TipoProducto:\ \%s,\ preparable:\ \%s,\ cocinable:\ \%s$>$"}\hlstd{\ }\hlsym{\%\ (}\hlstd{self}\hlsym{.}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{nombre}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{preparable}\hlsym{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{cocinable}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getNombre}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{nombre\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getId}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwb{id}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCocinable}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{cocinable\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPreparable}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{preparable}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{Insumo}
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{Insumo\ }\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore setstate\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cant}\hlsym{=}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{{[}}\hlstd{}\hlstr{``cant''}\hlstd{}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cantCritica}\hlsym{=}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{{[}}\hlstd{}\hlstr{``cantCritica''}\hlstd{}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{nombre}\hlsym{=}\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{{[}}\hlstd{}\hlstr{``nombre''}\hlstd{}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ID\ }\hlsym{=\ }\hlstd{}\hlkwb{dict}\hlstd{}\hlsym{{[}}\hlstd{}\hlstr{``ID''}\hlstd{}\hlsym{{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID}\hlsym{+=}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reinit}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{={[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{ID}\hlsym{=}\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setAllInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{allInst}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ }\hlstd{cls}\hlsym{.}\hlstd{allInst\ }\hlsym{=\ }\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{allInst\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{ID}\hlsym{=}\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore str\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{}\hlstr{"soy\ el\ insumo:"}\hlstd{\ }\hlsym{+\ }\hlstd{self}\hlsym{.}\hlstd{nombre\ }\hlsym{+\ }\hlstd{}\hlstr{"\ y\ mi\ cantidad\ actual\ es:\ "}\hlstd{\ }\hlsym{+}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{cant}\hlsym{)\ +}\hlstd{}\hlstr{"\ y\ mi\ cantidad\ critica\ es:\ "}\hlstd{\ }\hlsym{+\ }\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{cantCritica}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{cant}\hlsym{,}\hlstd{cantCritica}\hlsym{,\ }\hlstd{nombre}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cant}\hlsym{=}\hlstd{cant\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cantCritica}\hlsym{=}\hlstd{cantCritica\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{nombre}\hlsym{=}\hlstd{nombre\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{allInst}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{\textunderscore \textunderscore class\textunderscore \textunderscore }\hlsym{.}\hlstd{ID}\hlsym{+=}\hlstd{}\hlnum{1}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getId}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{ID\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{cls}\hlsym{.}\hlstd{allInst\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlsym{@}\hlstd{}\hlkwb{classmethod}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getPorId}\hlstd{}\hlsym{(}\hlstd{cls}\hlsym{,}\hlstd{ID}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{each\ }\hlkwa{in\ }\hlstd{cls}\hlsym{.}\hlstd{allInst}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{each}\hlsym{.}\hlstd{ID\ }\hlsym{==\ }\hlstd{ID}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{each\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{TypeError}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"ID\ invalido"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCant}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{cant\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCantCritica}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{cantCritica\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setCant}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{cant}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cant\ }\hlsym{=\ }\hlstd{cant\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getNombre}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{nombre\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setNombre}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{nombre}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{nombre\ }\hlsym{=\ }\hlstd{nombre\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{setCantCritica}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{cantCritica}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{cantCritica\ }\hlsym{=\ }\hlstd{cantCritica}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+\subsection{ControladorDeStock y ControladorDeStockStandard}
+Estas clases son las responsables de decrementar el stock para poder ingresar un pedido, o lanzar una excepción en caso de que no se pueda satisfacer el pedido. 
+Con respecto al controlador standard decidimos hacer un cambio en el metodo verificarEIngresar, ya que según el diseño habia que notificar cada vez que de los productos que ingresabamos, alguno quedaba con insumos en estado critico, pero habia un error, ya que si el producto tenia sus insumos en estado critico, no habia que avisar, es decir solo hay que avisar cuando ocurre la transición del estado normal al critico. Si seguiamos el diagrama de secuencia del metodo según el trabajo anterior, vemos que se avisa siempre y no solo cuando ocurre la transición. Por lo tanto lo que hicimos fue modificar el método para adaptarlo a esto.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlkwa{class\ }\hlstd{}\hlkwd{ControladorDeStock}\hlstd{}\hlsym{(}\hlstd{Notificador}\hlsym{)\ :\ }\hlstd{}\hlslc{\#antes\ era\ interface}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{ControladorDeStock}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{ingresar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{producto}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{obtenerCriticos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reestablecerStock}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reestablecerStockInsumos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{insumos}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{verificarEIngresar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwc{NotImplementedError}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlkwa{class\ }\hlstd{}\hlkwd{ControladorDeStockStandard}\hlstd{}\hlsym{(}\hlstd{ControladorDeStock}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{(}\hlstd{self}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwb{super}\hlstd{}\hlsym{(}\hlstd{ControladorDeStockStandard}\hlsym{,}\hlstd{self}\hlsym{).}\hlstd{}\hlkwd{\textunderscore \textunderscore init\textunderscore \textunderscore }\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{criticos\ }\hlsym{=\ }\hlstd{}\hlkwd{Set}\hlstd{}\hlsym{({[}{]})}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{getCriticos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{self}\hlsym{.}\hlstd{criticos\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Decide\ si\ un\ producto\ se\ puede\ ingresar\ o\ no}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Si\ no\ puede\ restauara\ el\ stock\ que\ modifico\ (rollback)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{ingresar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{producto}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{producto}\hlsym{.}\hlstd{}\hlkwd{getInsumos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{yaDeCrementados\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{cant}\hlsym{=}\hlstd{}\hlnum{0}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{ins\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{cant}\hlsym{=}\hlstd{ins}\hlsym{.}\hlstd{}\hlkwd{getCant}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{cant\ }\hlsym{$>$\ }\hlstd{}\hlnum{0}\hlstd{}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ins}\hlsym{.}\hlstd{}\hlkwd{setCant}\hlstd{}\hlsym{(}\hlstd{cant}\hlsym{{-}}\hlstd{}\hlnum{1}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{yaDeCrementados}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{ins}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{reestablecerStockInsumos}\hlstd{}\hlsym{(}\hlstd{yaDeCrementados}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ False}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ True}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#\ arma\ una\ lista\ con\ los\ insumos\ que\ estaban\ en\ algun\ producto\ de\ los\ que\ se}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ }\hlslc{ingresaron\ y\ que\ estan}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#ahora\ en\ stock\ critico}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{obtenerCriticos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{criticos}\hlsym{=}\hlstd{}\hlkwd{Set}\hlstd{}\hlsym{({[}{]})}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{productos}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ls\ }\hlsym{=\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getInsumos}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{ins\ }\hlkwa{in\ }\hlstd{ls}\hlsym{:}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{ins}\hlsym{.}\hlstd{}\hlkwd{getCant}\hlstd{}\hlsym{()\ $<$\ }\hlstd{ins}\hlsym{.}\hlstd{}\hlkwd{getCantCritica}\hlstd{}\hlsym{()):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{criticos}\hlsym{.}\hlstd{}\hlkwd{add}\hlstd{}\hlsym{(}\hlstd{ins}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Restablece\ el\ stock\ de\ los\ insumo\ de\ una\ lista\ de\ productos}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reestablecerStock}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{productos}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{reestablecerStockInsumos}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getInsumos}\hlstd{}\hlsym{())}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Incrementa\ el\ stock\ de\ una\ lista\ de\ insumos}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{reestablecerStockInsumos}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,}\hlstd{insumos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{ins\ }\hlkwa{in\ }\hlstd{insumos}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ins}\hlsym{.}\hlstd{}\hlkwd{setCant}\hlstd{}\hlsym{(}\hlstd{ins}\hlsym{.}\hlstd{}\hlkwd{getCant}\hlstd{}\hlsym{()+}\hlstd{}\hlnum{1}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlslc{\#Intenta\ ingresar\ un\ pedido,\ descontando\ el\ stock}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{def\ }\hlstd{}\hlkwd{verificarEIngresar}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{productos}\hlsym{)\ :}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{posible\ }\hlsym{=\ }\hlstd{}\hlkwa{True}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{yaDecrementados\ }\hlsym{=\ {[}{]}}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Listamos\ los\ insumos\ que\ no\ estaban\ en\ estado\ critico\ (en\ verdad\ es}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{conjunto,\ no}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{lista)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{stockAnterior\ }\hlsym{=\ }\hlstd{}\hlkwd{Set}\hlstd{}\hlsym{({[}}\hlstd{x\ }\hlkwa{for\ }\hlstd{x\ }\hlkwa{in\ }\hlstd{Insumo}\hlsym{.}\hlstd{}\hlkwd{allInstances}\hlstd{}\hlsym{()\ }\hlstd{}\hlkwa{if\ }\hlstd{x}\hlsym{.}\hlstd{}\hlkwd{getCant}\hlstd{}\hlsym{()\ $>$=}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{x}\hlsym{.}\hlstd{}\hlkwd{getCantCritica}\hlstd{}\hlsym{(){]})}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{productos}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{posible\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{ingresar}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{}\hlkwa{not\ }\hlstd{posible}\hlsym{):}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Uno\ de\ los\ productos\ no\ se\ pudo\ satisfacer}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Restablecemos\ el\ stock\ de\ los\ que\ ya\ decrementamos,\ porque\ el}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{pedido\ no\ se\ va\ a\ poder\ hacer}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{reestablecerStock}\hlstd{}\hlsym{(}\hlstd{yaDecrementados}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Tiramos\ una\ excepcion\ identificando\ que\ producto\ no\ se\ pudo}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{ingresar}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{ProductoInsatisfacible}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"No\ se\ pudo\ ingresar\ el\ producto:\ "}\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlsym{+\ }\hlstd{pr}\hlsym{.}\hlstd{}\hlkwd{getNombre}\hlstd{}\hlsym{()\ +}\hlstd{}\hlstr{"(Id:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{.}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwd{getId}\hlstd{}\hlsym{())\ +\ }\hlstd{}\hlstr{")"}\hlstd{}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{yaDecrementados}\hlsym{.}\hlstd{}\hlkwd{append}\hlstd{}\hlsym{(}\hlstd{pr}\hlsym{)}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{obtenerCriticos}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Intersecamos\ los\ conjuntos\ para\ que\ en\ criticos\ queden\ los\ que\ pasaron}\hspace*{\fill}\\
+\hlslc{}\hlstd{\ \ \ \ \ \ \ \ }\hlslc{de\ estado\ normal\ a\ critico}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{criticos}\hlsym{.}\hlstd{}\hlkwd{intersection\textunderscore update}\hlstd{}\hlsym{(}\hlstd{stockAnterior}\hlsym{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Avisamos\ a\ los\ observadores\ que\ hubo\ cambios\ en\ el\ stock}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{notificar}\hlstd{}\hlsym{()}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hspace*{\fill}\\
+}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ True}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
