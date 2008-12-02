@@ -10,7 +10,7 @@ from gui import lista_ingreso
 from gui import lista_insumos
 from gui import lista_clientes
 from gui import lista_productos
-from gui import lista_ingreso
+from gui import lista_todos
 from gui import lista_listos
 from gui import lista_empanadero
 from gui import lista_pizzero
@@ -169,6 +169,22 @@ class MainHandlers:
             lista_ingreso.limpiar_datos(widgets)
             lista_ingreso.cargar_datos(widgets, pedido_id)
 
+
+    # -------------------------------------------------------- #
+    # Handlers para el listado de ingreso de todos los pedidos #
+    # -------------------------------------------------------- #
+
+
+    def lista_todos_cursor_changed(event):
+        tv = widgets[LISTA_TODOS] 
+        seleccion, iterador = tv.get_selection().get_selected()
+        
+        if iterador is None:
+            lista_todos.limpiar_datos(widgets)
+        else:
+            pedido_id = seleccion.get_value(iterador,0)
+            lista_todos.limpiar_datos(widgets)
+            lista_todos.cargar_datos(widgets, pedido_id)
 
     # ---------------------------------------------- #
     # Handlers para el listado de pedidos listos     #
