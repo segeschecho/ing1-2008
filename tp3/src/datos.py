@@ -60,10 +60,12 @@ cli4 = Cliente("Gonzalez", 1532169788, 4, "Sergio", "lechuga", 45125398, "checho
 cli5 = Cliente("Rinaldi", 1564659777, 5, "Nicolas", "esteee", 46633221, "elcorrector", dir5)
 cli6 = Cliente("D'arrigo", 1564521133, 6, "Sergio", "niato", 46632136, "jefetp", dir6)
 
-
-
-
 dicc = {'Insumos':Insumo.allInstances(),'Productos':Producto.allInstances(),'TiposProducto':{'pizza':pizza,'empanada':empanada,'coca':coca,'birra':cerveza}, 'Clientes':[cli1,cli2,cli3,cli4,cli5,cli6]}
+#guradamos el diccionario con los datos necesarios para cargar a la pizzeria
+
 pickle.dump(dicc, open('datos.pyp', 'wb'))
 
+pizzeria = Pizzeria(open('datos.pyp','rb'))
+pizzeria.getCoordP().ingresarPedido(cli1,[Empanada1],"efectivo", "telefono",None)
 
+pickle.dump(pizzeria,open('pizzeriaTesting','wb'))
