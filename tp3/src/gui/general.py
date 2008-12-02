@@ -42,10 +42,11 @@ class DistribuidorCallbacks:
   
     def prepararEmpanadas(self):
         lista_empanadero.recargar(self.widgets,self.pizzeria.getPreparadorEmpanadero())
-
+        lista_todos.recargar(self.widgets)
    
     def prepararPizzas(self):
         lista_pizzero.recargar(self.widgets,self.pizzeria.getPreparadorPizzero())
+        lista_todos.recargar(self.widgets)
 
     def pedirHorno(self):
         return nuevo_pedido.pedirHorno(self.pizzeria.getHornoP(),self.pizzeria.getHornoE())
