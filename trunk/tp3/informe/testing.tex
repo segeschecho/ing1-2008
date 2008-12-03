@@ -1,11 +1,17 @@
 \chapter{Testing}
-En este apartado presentaremos el diseño, asi como también las cuestiones propias a la implementación y realización del testing funcional sobre la funcionalidad de registro de pedidos, para los casos donde hay a lo sumo un producto comestible y un producto del tipo bebida.
 
-De acuerdo a nuestro modelo, esta funcionalidad esta encapsulada en una llamada al metodo ingresarPedido de la clase CoordinadorDePedidos.
+En este apartado presentaremos el diseño y las cuestiones propias a la implementación y 
+realización del testing funcional de aceptación sobre la funcionalidad de ingreso de nuevos
+pedidos al sistema. Como fuera indicado en el enunciado, nos restringiremos a casos donde hay 
+a lo sumo un producto comestible y un producto del tipo bebida.
 
-\section{Analisis de factores, categorias y choices}
-%basicamente poner las cosas de testing, hacer tablita, etc
-Los inputs directos de la funcionalidad son:
+De acuerdo a nuestro modelo, esta funcionalidad está encapsulada en una llamada al método 
+\verb0ingresarPedido()0 de la clase \verb0CoordinadorDePedidos0.
+
+\section{Análisis de factores, categorías y \textit{choices}}
+
+Los \textit{inputs} directos de la funcionalidad son:
+
 \begin{itemize}
 \item Cliente
 \item Lista de productos
@@ -14,63 +20,133 @@ Los inputs directos de la funcionalidad son:
 \item Número de mesa
 \end{itemize}
 
-Hay algunas situaciones que por nuestra implementación no se pueden dar y que por lo tanto no seran tenidas en cuenta en las tablas a fin de que sean mas claras, por ejemplo que el cliente no exista no es algo que se tenga en cuenta, ya que para ingresar un pedido se elige un cliente de entre todos los clientes registrados, si en cambio hay que tener en cuenta el caso en el que no se eligió ningun cliente. Por ejemplo tampoco se testearan los casos donde el origen o la forma de pago sean invalidas, ya que la GUI no permite ingresar un origen distinto a los origenes validos.
- %chequear que sea asi
-A su vez podemos considerar otros elementos del sistema que modifican el comportamiento de la funcionalidad y que deben ser tenidos en cuenta:
+Existen algunas situaciones que, por nuestra implementación, no se pueden dar y que por lo tanto 
+no serán tenidas en cuenta en las tablas a fin de que sean más claras. Por ejemplo, el hecho
+de que el cliente ingresado no exista no será tenido en cuenta ya que la única forma en que el
+usuario puede ingresar un cliente es seleccionarlo de una lista, en la que todos los clientes
+son válidos. El único caso particular en esa situación es recibir un cliente nulo, que corresponde
+a cuando el usuario no seleccionó ningún cliente de la lista. De la misma manera, tampoco se
+testearán casos donde el origen del pedido o su forma de pago sean inválidos (tanto solos como
+combinados), puesto que la GUI garantiza que dichas elecciones sean válidas restringiendo lo
+que puede hacer el usuario.
+
+A su vez,  podemos considerar otros elementos del sistema que modifican el comportamiento de 
+la funcionalidad y que deben ser tenidos en cuenta:
+
 \begin{itemize}
 \item Preparadores ocupados o no
 \item ¿Hay pedidos en la cola de ingreso?
 \item Stock de los insumos necesarios para el pedido
-\item Insumos con cantidad critica
+\item Insumos con cantidad crítica
 \end{itemize}
 
-A continuación daremos una revisión de los diferentes factores, categorias y choices que tendremos en cuenta para diseñar el testing.
+A continuación daremos una revisión de los diferentes factores, categorias y \textit{choices} 
+que tendremos en cuenta para diseñar el testing.
 
 \subsection{Origen}
-El origen es un factor a tener en cuenta, ya que según si el pedido es de mostrador, mesa o telefono, hay ciertos invariantes que se debe preservar para poder ingresar un pedido de este tipo. Por ejemplo un pedido de mesa debe tener una mesa asociada, un pedido telefonico debe tener un cliente asociado, etc. Entonces vemos que la categoria que nos importa del origen es su valor. Las choices son los distintos valores de origen: Mostrador, Mesa y Teléfono
+
+El origen es un factor a tener en cuenta, ya que según si el pedido es de mostrador, mesa o teléfono,
+hay ciertos invariantes que se deben preservar para poder ingresar un pedido de este tipo. Por ejemplo, 
+un pedido de mesa debe tener una mesa asociada, un pedido telefónico debe tener un cliente asociado, etc. 
+Entonces vemos que la categoria que nos importa del origen es su \textbf{valor}. Los \textit{choices} son 
+los distintos valores de origen: \textbf{Mostrador}, \textbf{Mesa} y \textbf{Teléfono}.
 
 \subsection{Número de mesa}
-En el caso de que se pretenda ingresar un pedido de mesa, un factor a tener en cuenta es el número de mesa, en particular nos importa el valor, que puede ser nulo o no. Si es nulo, se debe generar un mensaje de error ya que el número es necesario. En el caso de que el pedido no sea de mesa, no lo consideraremos porque la GUI no permite ingresar un número de mesa cuando se intenta ingresar otro pedido.
+
+En el caso de que se pretenda ingresar un pedido de mesa, un factor a tener en cuenta es el número de mesa, y
+en particular nos interesa su \textbf{valor}, que puede ser \textbf{nulo} o \textbf{no}. Si es nulo, se debe 
+generar un mensaje de error ya que el número es necesario. En el caso de que el pedido no sea de mesa, no lo 
+consideraremos porque la GUI no permite ingresar un número de mesa cuando se intenta ingresar otro pedido.
 
 \subsection{Cliente}
-El cliente es otro factor a tener en cuenta. Como dijimos anteriormente, no consideraremos el caso en el que el cliente sea por ejemplo un cliente no registrado, ya que la GUI solo permite elegir a los clientes de una lista, mostrando los clientes registrados. Si consideraremos como categoria el valor del cliente en el sentido de si es nulo o no. En el caso de que el cliente sea nulo, si el pedido era telefonico, debe dar error.
+
+El cliente es otro factor a tener en cuenta. Como dijimos anteriormente, no consideraremos el caso en 
+el que el cliente sea por ejemplo un cliente no registrado, ya que la GUI solo permite elegir a los 
+clientes de una lista, mostrando allí únicamente a los clientes registrados. Consideraremos como 
+categoría el \textbf{valor} del cliente en el sentido de si \textbf{es nulo} o \textbf{no}. En el 
+caso en que el cliente sea nulo, si el pedido era telefónico, el sistema debe dar un error.
 
 \subsection{Lista de productos}
-Otro factor a tener en cuenta es la lista de productos que componen al pedido. En particular una posible categoria a tener en cuenta es como esta compuesta. Por enunciado, nos limitaremos a una comida y una bebida. Entonces dentro de esta categoria consideraremos el caso donde la lista esta compuesta por 0 productos, condicion de error, una bebida, una comida o una bebida y una comida. El caso de una comida lo consideraremos como unico porque creemos que no presenta algun interese particular. Por otro lado el caso de una bebida también lo consideraremos como unico porque es un caso simple. La justificación es que creemos que el caso donde hay solo bebidas es simple de tratar, pero por una cuestión de completitud decidimos probarlo.
-%capaz solo bebida no es unico
-En los casos en los que hay una comida, nos va a interesar también que tipo de comida es, si pizza o empanada, ya que cada producto tiene por ejemplo su preparador asociado, etc.
+
+Otro factor a tener en cuenta es la lista de productos que componen al pedido. En particular, una 
+posible categoría a tener en cuenta es \textbf{cómo está compuesta}. Por enunciado, nos limitaremos 
+a una comida y una bebida. Entonces, dentro de esta categoría consideraremos el caso donde la lista 
+está compuesta por \textbf{0 productos} (condición de error) , \textbf{una bebida}, \textbf{una comida} 
+o \textbf{una bebida y una comida}. El caso de una comida lo consideraremos como único porque 
+creemos que no presenta un interés particular. Por otro lado, el caso de una bebida también lo 
+consideraremos como único porque es un caso simple. La justificación es que creemos que el caso 
+donde hay solo bebidas es simple de tratar, pero por una cuestión de completitud decidimos probarlo.
+% TODO: capaz solo bebida no es unico <- verificar
+En los casos en los que hay una comida, nos va a interesar también qué \textbf{tipo de comida} es, 
+si \textbf{pizza} o \textbf{empanada}, ya que cada producto tiene, por ejemplo, su preparador asociado.
 
 \subsection{Forma de pago}
-La forma de pago es un factor a tener en cuenta para los pedidos de mostrador que permiten escoger entre dos posibles: efectivo o tarjeta. Los demas origenes solo pemiten especificar una forma de pago: los de mesa, forma de pago nula (no se conoce hasta que se cierra la mesa) y los telefonicos mediante el efectivo.
 
+La forma de pago es un factor a tener en cuenta para los pedidos de mostrador que permiten escoger 
+entre dos posibles: \textbf{efectivo} o \textbf{tarjeta}. Los demás orígenes solo pemiten especificar 
+una única forma de pago: los de mesa, forma de pago nula (no se conoce hasta que se cierra la mesa) 
+y los telefónicos solo permiten el uso de efectivo.
 
-\subsection{Relacion productos y stock}
-En este factor tenemos varias cosas que considerar. En primer lugar la cantidad actual de los insumos en relación con la cantidad necesaria para satisfacer al pedido. Nosotros consideraremos los casos donde todos los insumos tienen menos stock que el necesario (condición de error), algunos tienen menos stock que el necesario (condición de error), algunos tienen un valor igual al necesario (y el resto mayor o igual) como caso unico para testear el caso borde, y finalmente el caso donde todos los insumos tienen una cantidad mayor a la necesaria.
+\subsection{Relación productos y stock}
 
-Otra categoria a tener en cuenta es la cantidad actual de los insumos necesarios en función con su cantidad critica. Consideraremos el caso donde los todos los insumos estan en condición critica, algunos estan y otros no y finalmente el caso donde ninguno esta en estado critico. El caso todos y ninguno los trataremos como unicos por dos razones principales: mantener la cantidad de casos acotado, y porque el caso algunos parece mas general y abarcativo.
+En este factor tenemos varias cosas que considerar. En primer lugar la \textbf{cantidad actual de los 
+insumos en relación con la cantidad necesaria para satisfacer al pedido}. Nosotros consideraremos 
+los casos donde \textbf{todos los insumos tienen menos stock que el necesario} (condición de error),
+\textbf{algunos tienen menos stock que el necesario} (condición de error), \textbf{algunos tienen un 
+valor igual al necesario} (y el resto mayor o igual) como caso único para testear el caso borde, y 
+finalmente el caso donde \textbf{todos los insumos tienen una cantidad mayor a la necesaria}.
 
-Una tercer categoria a tener en cuenta es si hay insumos que pasan de un estado normal a uno de stock critico, en cuyo caso de debera mostrar un mensaje informativo (notar que si ya estaban en estado critico, no se debe mostrar un mensaje).
-Podemos considerar las choices: ninguno hace esta transición, alguno la hace y el resto queda en valores mas grandes que el critico, alguno la hace, algunos quedan en valores iguales al critico y el resto en valores mas grandes, y finalmente el caso donde todos realizan la transición. Estos dos ultimos casos los consideraremos como unicos.
-%TODO:explicar un poco mas como se hace esto
+Otra categoría a tener en cuenta es la \textbf{cantidad actual de los insumos necesarios en función de
+su cantidad crítica}. Consideraremos el caso donde \textbf{todos los insumos están en condición critica}, 
+ \textbf{algunos están y otros no}, y finalmente el caso donde \textbf{ninguno está en estado crítico}. 
+ Los casos \textit{todos} y \textit{ninguno} los trataremos como únicos para mantener acotada la
+ cantidad total de casos, y porque el caso intermedio parece más general y abarcativo.
+
+Una tercera categoria a tener en cuenta es si \textbf{hay insumos que pasan de un estado normal a 
+uno de stock crítico}, en cuyo caso de deberá mostrar un mensaje informativo (notar que si ya 
+estaban en estado crítico, esto no debe ocurrir). Podemos considerar las \textit{choices}: \textbf{ninguno}
+hace esta transición, \textbf{alguno la hace y el resto queda en valores más grandes que el crítico}, 
+\textbf{alguno la hace, algunos quedan en valores iguales al crítico y el resto en valores mas grandes}, 
+y finalmente el caso donde \textbf{todos realizan la transición}. Estos dos últimos casos los consideraremos 
+como únicos.
+%TODO: explicar un poco mas como se hace esto <- fede ?
 
 \subsection{Cola de ingreso}
-La cola de ingreso es también un factor a tener en cuenta. La categoria es su tamaño. Si bien mas que el tamaño, lo que importa para decidir si un pedido se encola o no es el estado del preparador, es por lo menos conveniente considerar con un caso unico cuando la cola esta vacia y separar el caso de cuando en la cola ya hay pedidos.
+
+La cola de ingreso es también un factor a tener en cuenta. La categoria es su \textbf{tamaño}. Si bien más 
+que el tamaño, lo que importa para decidir si un pedido se encola o no es el estado del preparador, es por 
+lo menos conveniente considerar con un caso único cuando \textbf{la cola esta vacía} y separar el caso en que 
+ \textbf{la cola ya tenía pedidos}.
 
 \subsection{Preparadores}
-Los preparadores tienen importancia como factores, ya que son los que deciden para un pedido con comida si este se encola o se comienza a preparar. 
 
-Entonces en los casos en los que el pedido sea de comida, utilizando el hecho de que solo se testean los pedidos con un unico item de comida, podemos considerar como categorias el estado del preparador asociado al tipo del producto y el del preparador del otro tipo de comida. Entonces podemos considerar los valores ocupado, y libre para cada uno de ellos. El preparador del otro tipo no deberia tener mucha importancia, pero podria ocurrir por ejemplo que si el preparador correcto esta ocupado y el otro libre se realice una asignacion erronea. Por eso lo consideramos, a fin de mantener la cantidad de casos en un número manejable, lo que haremos sera tomar el caso ocupado como unico
+Los preparadores tienen importancia como factores, ya que son los que deciden para un pedido con comida 
+si este se encola o se comienza a preparar. Entonces, en los casos en los que el pedido sea de comida, y 
+utilizando el hecho de que solo se testean los pedidos con un único item de comida, podemos considerar 
+como categorias el \textbf{estado del preparador asociado al tipo del producto} y el del \textbf{preparador 
+del otro tipo de comida}. Entonces, podemos considerar los valores \textbf{ocupado} y \textbf{libre} para 
+cada uno de ellos. El preparador del otro tipo no debería tener mucha importancia, pero podría ocurrir por 
+ejemplo que si el preparador correcto está ocupado y el otro libre se realice una asignacion errónea. Por esta
+razón lo consideramos, pero a fines de mantener la cantidad de casos en un número manejable, lo que haremos 
+será tomar el caso ocupado como único.
 
-La tabla se encuentra adjunta a este trabajo. %TODO: decidir que hacer con esto, si se trata de meter aca o se deja asi
 \section{Diseño de los casos de test}
-De acuerdo a los factores antes identificados armamos la tabla de casos de test. La misma se encuentra adjunta a este trabajo. %TODO: decidir que se hace con esto
+
+De acuerdo a los factores antes identificados armamos la tabla de casos de test. La misma, junto
+con la tabla de factores, categorías y elecciones descripta en la sección anterior se encuentran adjuntas
+a este trabajo.
+%TODO: decidir que se hace con esto
 
 \section{Realización del testing}
-%contar algo de como se hicieron los test, onda valores para las instancias, resultados, etc. se puede hacer una tabla
-En este apartado daremos una descripción de los datos con los que probamos cada caso de test. Primero introduciremos la notación que vamos a utilizar para describir a las instancias y luego desarrollaremos las distintas instancias con las que se probraron.
+
+En este apartado daremos una descripción de los datos con los que probamos cada caso de test. Primero 
+introduciremos la notación que vamos a utilizar para describir a las instancias y luego desarrollaremos 
+las distintas instancias con las que se probaron.
 
 \subsection{Notación}
-Antes de mostrar las instancias que se utilizaron para armar las pruebas estableceremos una convencion de como indicaremos los distintos tipos de datos que vamos a usar.
+
+Antes de mostrar las instancias que se utilizaron para armar las pruebas estableceremos una convención
+de como indicaremos los distintos tipos de datos que vamos a usar.
 
 Para declarar un insumo utilizamos:
 
@@ -88,17 +164,19 @@ Para un cliente usamos:
 
 \verb0Cliente(apellido,celular,id,nombre,passWeb,telefono,usrweb, direccion)0
 
-Finalmente para los pedidos usamos:
+Finalmente para los pedidos usamos, según su origen:
 
 \verb#PedidoMostrador(Cliente,productos,formaDePago)#\\
 \verb#PedidoMesa(Cliente,productos,mesa)#\\
 \verb#PedidoTelefono(Cliente,productos)#\\
 
-segun el origen. 
+Al utilizar la GUI de nuestra aplicación, \verb0PedidoMostrador(Cliente,productos,formaDePago)0 debe 
+interpretarse como ir a la pestaña de Cola de Ingreso, clickear en Ingresar Nuevo Pedido, elegir el origen
+``mostrador'', selecionar la forma de pago $formaDePago$, el cliente $Cliente$ de la lista (o no elegir 
+a ninguno si se desea un cliente \textit{None}) y elegir los productos correspondientes de la lista de productos.
 
-Al utilizar la GUI de nuestra aplicación, PedidoMostrador(Cliente,productos,formaDePago) debe interpretarse como ir a la pesataña de cola de ingreso, click en ingresar nuevo pedido, elegir orgien mostrador, selecionar la forma de pago $formaDePago$, el cliente $Cliente$ de la lista (o no elegir a ninguno si se desea un cliente None) y elegir los productos de la lista de productos.
-
-En general necesitamos para realizar los tests que hallan productos, insumos, clientes, etc ya cargados. Por eso, salvo que se indique lo contrario, consideraremos que la pizzeria tiene los siguientes datos:
+En general necesitamos para realizar los tests que hayan productos, insumos, clientes y otros datos precargados. 
+Por eso, salvo que se indique lo contrario, consideraremos que la pizzería tiene los siguientes datos:
 
 \noindent
 \ttfamily
@@ -176,26 +254,30 @@ También consideremos los siguientes pedidos simples:
 \normalfont
 \shorthandon{"}
 
-De modo generico, cuando digamos un pedido pizzero o un pedido empanadero nos referimos a los pedidos arriba declarados.
+De modo generico, cuando digamos un pedido pizzero o un pedido empanadero nos referimos a 
+los pedidos arriba declarados.
+
 \subsection{Datos de prueba}
 
 \subsubsection{Caso de test 1}
 
-Tomamos la pizzeria comun, y como pedido a agregar consideramos:
+Tomamos la pizzería común, y como pedido a agregar consideramos:
 
 \verb0PedidoMesa(None,[pizza1],None)0
 
 \subsubsection{Caso de test 2}
 
-Tomamos la pizzeria comun, e ingresamos:
+Tomamos la pizzeria común, e ingresamos:
 
 \verb0PedidoTelefono(None,[pizza1])0
 
 \subsubsection{Caso de test 3}
+
 \verb0PedidoMostrador(None,[],efectivo)0
 
 \subsubsection{Caso de test 4}
-Primero agregamos pedidos para que la cola de ingreso no este vacia, ingresamo entonces:
+
+Primero agregamos pedidos para que la cola de ingreso no esté vacía, ingresamos entonces:
 \verb0PedidoPizzas, PedidoPizzas0
 
 Luego ingresamos:
@@ -203,20 +285,24 @@ Luego ingresamos:
 \verb0PedidoMesa(None,[bebida1],4)0
 
 \subsubsection{Caso de test 5}
-Notemos que la pizza de calabresa de la pizzeria que definimos antes tiene su kit agotado, como también
-queremos que el bollo este agotado,lo que hacemos primero es redefinir la cantidad de bollos, bajandola a 0.
+Notemos que la pizza de calabresa de la pizzería que definimos antes tiene su kit agotado, como también
+queremos que el bollo esté agotado, lo que hacemos primero es redefinir la cantidad de bollos, bajándola a 0.
 
 Luego hacemos:
 
 \verb0PedidoMostrador(None,[pizza4],efectivo)0
 
 \subsubsection{Caso de test 6}
-En este caso solo hacemos un pedido de calabresa
+
+En este caso solo hacemos un pedido de calabresa:
 
 \verb0PedidoMostrador(None,[pizza4],efectivo)0
 
 \subsubsection{Caso de test 7}
-Tomamos a la pizzeria y redefinimos la cantidad de tapas para que esten en cantidad critica, y lo ponemos en 9. Asi al pedir 9 empanadas nos quedan 0 tapas.
+
+Tomamos a la pizzería y redefinimos la cantidad de tapas para que estén en cantidad crítica, y lo ponemos en 9. 
+Así al pedir 9 empanadas nos quedarán 0 tapas.
+
 Colocamos un pedido pizzero para que el preparador pizzero quede ocupado.
 
 Luego ingresamos:
@@ -224,42 +310,50 @@ Luego ingresamos:
 \verb0PedidoMostrador(cli1,[empanada3]*9+[bebida3],tarjeta)0
 
 \subsubsection{Caso de test 8}
-Primero vamos a hacer lo siguiente: ponemos la cantidad de bollos en 17. Luego, ingresamos dos pedidos empanaderos para ocupar al preparador y dejar la cola no vacia.
+
+Primero vamos a hacer lo siguiente: ponemos la cantidad de bollos en 17. Luego, ingresamos dos pedidos empanaderos 
+para ocupar al preparador y dejar la cola no vacía.
 
 Luego ingresamos el siguiente pedido:
 
 \verb0PedodTelefono(cli2,[pizza1]*8+[bebida2])0
 
 \subsubsection{Caso de test 9}
-A la pizzeria normal, le cambiamos el stock de bollos a 15, y le ingresamos dos pedidosPizzeros, con lo cual dejamos la cola de ingreso con un pedido y el preparador pizzero ocupado.
+
+A la pizzería normal, le cambiamos el stock de bollos a 15, y le ingresamos dos 
+pedidosPizzeros, con lo cual dejamos la cola de ingreso con un pedido y el preparador 
+pizzero ocupado.
 
 Luego ingresamos:
 \verb0PedidoMesa(cli2,[pizza3,pizza3,pizza3],2)0
 
 \subsubsection{Caso de test 10}
+
 Agregamos 2 pedidos pizzeros, luego hacemos:
 
 \verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],efectivo)0
 
 \subsubsection{Caso de test 11}
-El caso no se puede generar ya que la cola de ingreso tiene pedidos encolados pero ambos preparadores estan ociosos, con lo cual
-la pizzeria no cumple su invariante. Notar que generar esta instancia es responsabilidad de nuestra funcionalidad, ya que deben agregar pedidos.
+
+El caso no se puede generar ya que la cola de ingreso tiene pedidos encolados pero ambos 
+preparadores estan ociosos, con lo cual la pizzería no cumple su invariante. Notar que generar 
+esta instancia es responsabilidad de nuestra funcionalidad, ya que se deben agregar pedidos.
 
 \subsubsection{Caso de test 12}
 \verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],tarjeta)0
 
 \subsubsection{Caso de test 13}
-Analogo al 11, no se puede representar.
+Análogo al 11, no se puede representar.
 
 \subsubsection{Caso de test 14}
-Ingresamos 2 pedidos empanaderos a la pizzeria.
+Ingresamos 2 pedidos empanaderos a la pizzería.
 
 Luego para hacer el testing ingresamos:
 
 \verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo)0
 												
 \subsubsection{Caso de test 15}
-No se puede representar	
+No se puede representar.
 
 \subsubsection{Caso de test 16}
 Igual al 14 pero ingresamos este pedido:
@@ -267,7 +361,7 @@ Igual al 14 pero ingresamos este pedido:
 \verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],tarjeta)0
 
 \subsubsection{Caso de test 17}
-No se puede representar			
+No se puede representar.		
 
 \subsubsection{Caso de test 18}
 Agregamos 2 pedidos pizzeros, luego hacemos:
@@ -275,17 +369,17 @@ Agregamos 2 pedidos pizzeros, luego hacemos:
 \verb0PedidoTelefono(cli3,[pizza3,pizza3,bebida2,bebida2])0							
 											
 \subsubsection{Caso de test 19}
-No se puede generar
+No se puede generar.
 												
 \subsubsection{Caso de test 20}
-Ingresamos 2 pedidos empanaderos a la pizzeria.
+Ingresamos 2 pedidos empanaderos a la pizzería.
 
 Luego para hacer el testing ingresamos:
 
 \verb0PedidoTelefono(cli4,[empanada3,empanada3,bebida2,bebida2])0
 												
 \subsubsection{Caso de test 21}
-No se puede representar
+No se puede representar.
 
 \subsubsection{Caso de test 22}
 Agregamos 2 pedidos pizzeros, luego hacemos:
@@ -293,17 +387,17 @@ Agregamos 2 pedidos pizzeros, luego hacemos:
 \verb0PedidoMesa(cli2,[pizza3,pizza3,bebida2,bebida2],5)0												
 											
 \subsubsection{Caso de test 23}
-No se puede generar
+No se puede generar.
 
 \subsubsection{Caso de test 24}
-Ingresamos 2 pedidos empanaderos a la pizzeria.
+Ingresamos 2 pedidos empanaderos a la pizzería.
 
 Luego para hacer el testing ingresamos:
 
 \verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo)0												
 
 \subsubsection{Caso de test 25}
-No se puede generar
+No se puede generar.
 		
 \subsubsection{Caso de test 26}
 Agregamos 2 pedidos pizzeros, un pedido Empanadero y luego hacemos:
@@ -321,24 +415,24 @@ Agregamos 2 pedidos pizzeros y un empanadero, luego hacemos:
 \verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],tarjeta)0
 
 \subsubsection{Caso de test 29}
-Simil al 28, pero agregamos 2 pedidos empanaderos, el pedido a ingresar es:
+Similar al 28, pero agregamos 2 pedidos empanaderos, el pedido a ingresar es:
 
 \verb0PedidoMostrador(cli3,[pizza3,pizza3,bebida2,bebida2],tarjeta)0
 
 \subsubsection{Caso de test 30}
-Ingresamos 2 pedidos empanaderos y un pizzero a la pizzeria.
+Ingresamos 2 pedidos empanaderos y uno pizzero a la pizzería.
 
 Luego para hacer el testing ingresamos:
 
 \verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo])0
 												
 \subsubsection{Caso de test 31}
-idem 30, pero solo ingresamos 2 empanaderos y hacemos:
+Idem al caso 30, pero solo ingresamos 2 empanaderos y hacemos:
 
 \verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo])0
 
 \subsubsection{Caso de test 32}
-Ingresamos 2 pedidos empanaderos y un pizzero a la pizzeria.
+Ingresamos 2 pedidos empanaderos y uno pizzero a la pizzería.
 
 Luego para hacer el testing ingresamos:
 
@@ -357,19 +451,19 @@ Agregamos 2 pedidos pizzeros y 1 empanadero, luego hacemos:
 \verb0PedidoTelefono(cli3,[pizza3,pizza3,bebida2,bebida2])0							
 											
 \subsubsection{Caso de test 35}
-Agregamos 2 pedidos empanaderos
+Agregamos 2 pedidos empanaderos, luego hacemos:
 
 \verb0PedidoTelefono(cli1,[pizza3,pizza3,bebida2,bebida2])0
 												
 \subsubsection{Caso de test 36}
-Ingresamos 2 pedidos empanaderos y un pizzero a la pizzeria.
+Ingresamos 2 pedidos empanaderos y uno pizzero a la pizzería.
 
 Luego para hacer el testing ingresamos:
 
 \verb0PedidoTelefono(cli4,[empanada3,empanada3,bebida2,bebida2]]0
 												
 \subsubsection{Caso de test 37}
-Ingresamos 2 pedidos pizzeros a la pizzeria.
+Ingresamos 2 pedidos pizzeros a la pizzería.
 
 Luego para hacer el testing ingresamos:
 
@@ -386,22 +480,28 @@ Agregamos 2 pedidos empanaderos, luego hacemos:
 \verb0PedidoMesa(cli2,[pizza3,pizza3,bebida2,bebida2],14)0												
 
 \subsubsection{Caso de test 40}
-Ingresamos 2 pedidos empanaderos y uno pizzero a la pizzeria.
+Ingresamos 2 pedidos empanaderos y uno pizzero a la pizzería.
 
 Luego para hacer el testing ingresamos:
 \verb0PedidoMostrador(cli4,[empanada3,empanada3,bebida2,bebida2],efectivo]0												
 
 \subsubsection{Caso de test 41}
-Ingresamos 2 pedidos pizzeros a la pizzeria.
+Ingresamos 2 pedidos pizzeros a la pizzería.
 
 Luego para hacer el testing ingresamos:
 \verb0PedidoMostrador(cli3,[empanada3,empanada3,bebida2,bebida2],efectivo]0																							
 
 
-\subsection{Ejecucion de las pruebas}
-Para ejecutar los testings se puede crear las pizzarias a mano y luego utilizar el modulo pickle de python para dumpearla, y utilizando la funcionlidad de abrir que brinda nuestra gui cargar dicha instancia y luego hacer uso de la funcionalidad de ingresar pedido para observar los resultados.
+\subsection{Ejecución de las pruebas}
 
-Por ejemplo el siguiente script permite crear una pizzeria como la descripta anteriormente, agregandole un pedido de una empanada y la deja lista para ser cargada por la aplicacion en el archivo pizzeriaTesting.pyp\\
+Para ejecutar los tests se pueden crear las pizzerías a mano y luego utilizar el modulo 
+\textit{pickle} de Python para \textit{dumpearlas}, y utilizando la funcionalidad de Abrir 
+que brinda nuestra GUI cargar dicha instancia y luego hacer uso de la funcionalidad de Ingresar
+Pedido para observar los resultados.
+
+Por ejemplo, el siguiente script permite crear una pizzería como la descripta anteriormente, 
+agregándole un pedido de una empanada y la deja lista para ser cargada por la aplicación en el 
+archivo \verb0pizzeriaTesting.pyp0.\\
 \noindent
 \ttfamily
 \shorthandoff{"}
@@ -495,8 +595,10 @@ Por ejemplo el siguiente script permite crear una pizzeria como la descripta ant
 \normalfont
 \shorthandon{"}
 
-El problema de este método es que puede generar errores en este archivo que despues generen inconsistencias.
+El problema de este método es que puede generar errores en este archivo que después generen inconsistencias.
 
-Otra forma de hacerlo es utilizar la propia interfaz grafica. La aplicacion toma los datos sobre insumos,clientes,etc de el archivo datos.pyp, si uno quiere cambiar los datos pisa ese archivo de manera similar a la primera parte del ejemplo anterior.
-Luego inicia la aplicacion y mediante el boton de ingresar pedido va metiendo los pedidos necesarios para correr el caso de test con los datos dados.
+Otra forma de hacerlo es utilizar la propia interfaz gráfica. La aplicacion toma los datos sobre insumos, 
+clientes y demás del archivo \verb0datos.pyp0. Si uno quiere cambiar los datos, pisa ese archivo de manera 
+similar a la primera parte del ejemplo anterior. Luego inicia la aplicación y mediante el botón de Ingresar 
+Pedido va metiendo los pedidos necesarios para correr el caso de test con los datos dados.
 
