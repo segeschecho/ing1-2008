@@ -61,9 +61,9 @@ Los preparadores tienen importancia como factores, ya que son los que deciden pa
 
 Entonces en los casos en los que el pedido sea de comida, utilizando el hecho de que solo se testean los pedidos con un unico item de comida, podemos considerar como categorias el estado del preparador asociado al tipo del producto y el del preparador del otro tipo de comida. Entonces podemos considerar los valores ocupado, y libre para cada uno de ellos. El preparador del otro tipo no deberia tener mucha importancia, pero podria ocurrir por ejemplo que si el preparador correcto esta ocupado y el otro libre se realice una asignacion erronea. Por eso lo consideramos, a fin de mantener la cantidad de casos en un número manejable, lo que haremos sera tomar el caso ocupado como unico
 
-La tabla se encuentra adjunta a este trabajo %TODO: decidir que hacer con esto, si se trata de meter aca o se deja asi
+La tabla se encuentra adjunta a este trabajo. %TODO: decidir que hacer con esto, si se trata de meter aca o se deja asi
 \section{Diseño de los casos de test}
-De acuerdo a los factores antes identificados armamos la tabla de casos de test. La misma se encuentra adjunta a este trabajo %TODO: decidir que se hace con esto
+De acuerdo a los factores antes identificados armamos la tabla de casos de test. La misma se encuentra adjunta a este trabajo. %TODO: decidir que se hace con esto
 
 \section{Realización del testing}
 %contar algo de como se hicieron los test, onda valores para las instancias, resultados, etc. se puede hacer una tabla
@@ -221,7 +221,7 @@ Colocamos un pedido pizzero para que el preparador pizzero quede ocupado.
 
 Luego ingresamos:
 
-\verb0PedidoMostrador(cli1,[empanada3]*9+[bebida3],efectivo)0
+\verb0PedidoMostrador(cli1,[empanada3]*9+[bebida3],tarjeta)0
 
 \subsubsection{Caso de test 8}
 Primero vamos a hacer lo siguiente: ponemos la cantidad de bollos en 17. Luego, ingresamos dos pedidos empanaderos para ocupar al preparador y dejar la cola no vacia.
