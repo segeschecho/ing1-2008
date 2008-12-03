@@ -45,15 +45,6 @@
 		<widget class="GtkMenu" id="menuitem4_menu">
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="nuevo_archivo">
-		      <property name="visible">True</property>
-		      <property name="label">gtk-new</property>
-		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="archivo_nuevo_clicked" last_modification_time="Sun, 30 Nov 2008 00:24:31 GMT"/>
-		    </widget>
-		  </child>
-
-		  <child>
 		    <widget class="GtkImageMenuItem" id="abrir_archivo">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-open</property>
