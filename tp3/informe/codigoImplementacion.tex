@@ -1,13 +1,21 @@
 \chapter{Implementación}
-En este apartado presentaremos el codigo de la implementación de las diversas clases ordenadas por componentes, los mismos que definimos en el trabajo practio anterior.
+
+En este apartado presentaremos el código de la implementación de las diversas 
+clases ordenadas por componentes, análogamente a como fuera presentado en el 
+trabajo práctico anterior.
 
 \section{Pedidos fuera de la cocina (Gestión de pedidos)}
-De este componente eliminamos algunos controladores que no tenían sentido dado el recorte de las funcionalidades del sistema que teníamos que implementar. Asi por ejemplo el controlador de entregas o el controlador de pedidos en mesa, no fueron implementados.
 
-Veamos entonces el codigo
+De este componente eliminamos algunos controladores que no tenían sentido dado el 
+recorte de las funcionalidades del sistema que teníamos que implementar. Así, por ejemplo, 
+el controlador de entregas o el controlador de pedidos en mesa no fueron implementados.
 
 \subsection{Coordinador de pedidos}
-El coordinador de pedidos se encarga del ingreso de los pedidos al sistema, pide al generador de pedidos que arme un pedido a partir de los parametros recibidos y luego otorga al controlador de pre ingreso el control del pedido para que lo ubique en el sistema. También recibe los pedidos listos de la cocina para ser pasados al controlador de listos. 
+
+El coordinador de pedidos se encarga del ingreso de los pedidos al sistema. Le pide al 
+Generador de Pedidos que arme un pedido a partir de los parámetros recibidos y luego otorga 
+al Controlador de Preingreso el control del pedido para que lo ubique en el sistema. También 
+recibe los pedidos listos de la cocina para ser pasados al Controlador de Listos. 
 
 \noindent
 \ttfamily
@@ -67,9 +75,10 @@ El coordinador de pedidos se encarga del ingreso de los pedidos al sistema, pide
 \normalfont
 \shorthandon{"}
 
-\subsection{ControladorDePreIngreso}
+\subsection{Controlador de Preingreso}
 
-El controlador de pre ingreso tiene por responsabilidad decidir si un pedido debe ir a la cola de ingreso o debe ir con los pedidos listos.
+El Controlador de Preingreso tiene por responsabilidad decidir si un pedido debe ir a 
+la cola de ingreso o debe ir directamente a la cola de los pedidos listos.
 
 \noindent
 \ttfamily
@@ -118,8 +127,13 @@ El controlador de pre ingreso tiene por responsabilidad decidir si un pedido deb
 \normalfont
 \shorthandon{"}
 
-\subsection{ControladorDeListos}
-El controlador de listos recibe los pedidos listos. En el diseño se encargaba ademas de despachar pedidos, pero esta funcionalidad no entra en esta implementación. De modo que solo se encarga de recibir los pedidos listos y de hacer notificaciones cuando recibe un pedido listo nuevo. Notar que este controlador debía implementar cancelador, sin embargo dado que no se contempla la cancelación de pedidos, esa funcionalidad fue quitada. Esta aclaración vale para todas las clases que tenian relación con controlador.
+\subsection{Controlador de Listos}
+El Controlador de Listos recibe los pedidos listos. En el diseño presentado se encargaba 
+además de despachar pedidos, pero esta funcionalidad no entra en esta implementación. Por ende,
+solo se encarga de recibir los pedidos listos y de enviar notificaciones cuando recibe un nuevo
+pedido en este estado. En el diseño, este controlador implementaba la interfaz Cancelador, pero 
+dado que no se contempla la cancelación de pedidos en este trabajo, esa funcionalidad fue quitada. 
+Esta misma aclaración vale para todas las clases que debían implementar dicha interfaz.
 
 \noindent
 \ttfamily
@@ -143,8 +157,15 @@ El controlador de listos recibe los pedidos listos. En el diseño se encargaba ad
 \normalfont
 \shorthandon{"}
 
-\subsection{ControladorDeIngreso y controladorDeIngresoStandard}
-En el diseño el controlador de ingreso era la clase abstracta, cuya intención era que sus subclases se encarguen de manejar la cola de ingreso. En particular nosotros diseñamos e implementamos una subclase que es el controlador standard. El mismo recibe los pedidos e intenta mandarlos a preparar y si no puede los encola. A su vez responde peticiones por pedidos que contengan algun tipo de producto determinado. Como el controlador de ingreso ademas avisa cada vez que encola o desencola un pedido, hereda de notificador.
+\subsection{Controlador de Ingreso y Controlador de Ingreso Standard}
+
+En el diseño el Controlador de Ingreso era la clase abstracta, cuya intención era que 
+sus subclases se encarguen de manejar la cola de ingreso. En particular, nosotros diseñamos e 
+implementamos una única subclase que es el Controlador Standard, y que implementa la política
+de ingreso definida en la especificación. El mismo recibe los pedidos e intenta mandarlos a preparar,
+o en caso de no lograrlo, los encola. A su vez, responde peticiones por pedidos que contengan algún 
+tipo de producto determinado. Como el Controlador de Ingreso además avisa cada vez que encola o desencola 
+un pedido, hereda de Notificador, con una semántica propia de Interfaz.
 
 \noindent
 \ttfamily
@@ -235,11 +256,16 @@ En el diseño el controlador de ingreso era la clase abstracta, cuya intención er
 \shorthandon{"}
 
 
-\section{Creación de pedidos}
-Este modulo fue implementado completo ya que todas sus clases participan en la creación de nuevos pedidos.
+\section{Creación de Pedidos}
 
-\subsection{GeneradorDePedidos y GeneradorDePedidosStandard}
-La clase abstracta generador de pedidos tiene por objetivo actuar como un factory method de pedidos. Su subclase standard es una implementación que permite generar los diferentes tipos de pedidos.
+Este modulo fue implementado por completo ya que todas sus clases participan en 
+la creación de nuevos pedidos, que era la funcionalidad a implementar.
+
+\subsection{Generador de Pedidos y Generador de Pedidos Standard}
+
+La clase abstracta Generador de Pedidos tiene por objetivo actuar como un 
+\textit{factory method} de instancias de Pedido. Su subclase Standard es una 
+implementación que permite generar los diferentes tipos de pedidos.
 
 \noindent
 \ttfamily
@@ -348,8 +374,12 @@ La clase abstracta generador de pedidos tiene por objetivo actuar como un factor
 \normalfont
 \shorthandon{"}
 
-\subsection{CalculadorDePrecios y CalculadorDePreciosStandard}
-Estas clases se encargan de determinar dado un pedido que precio le coresponde.
+\subsection{Calculador de Precios y Calculador de Precios Standard}
+
+Estas clases se encargan de determinar, dado un pedido, qué precio le corresponde.
+Si bien no tienen razón de ser con la especificación actual, estas clases aparecen en el
+sistema para permitir la implementación de futuras promociones como se evaluó prudente
+en la especificación.
 
 \noindent
 \ttfamily
@@ -374,8 +404,15 @@ Estas clases se encargan de determinar dado un pedido que precio le coresponde.
 \normalfont
 \shorthandon{"}
 
-\subsection{AsignadorDeHorno y asignadorDeHornoStandard}
-Clases responsables de la asignación del horno para un pedido. El asignadorStandard tiene un metodo para asignar y desasignar un callback que es lo que le permite decidir que horno asignar a un pedido mixto. En el diseño se hablaba de que la clase debia tener un notificar que devuelva un horno, nos parecio mas sensato cambiar eso, apartandonos un poco del diseño, haciendo que solo tenga un callback ya que no va a tener a mas de un observador a quien pedirle el horno.
+\subsection{Asignador de Horno y Asignador de Horno Standard}
+
+Estas clases son responsables de la asignación del horno para un pedido. El Asignador 
+Standard tiene un método para asignar y desasignar un \textit{callback} que le permite 
+decidir qué horno asignar a un pedido mixto mediante una consulta al encargado de pedidos. 
+En el diseño se hablaba de que la clase debía tener un \textit{observer} con un valor de
+retorno en lugar de \verb0void0, pero nos pareció más sensato cambiar ese comportamiento
+y apartarnos un poco del diseño utilizando un \textit{callback} convencional, dado que no
+habrá múltiples objetos que puedan recibir este pedido de determinar el horno.
 
 \noindent
 \ttfamily
@@ -428,8 +465,11 @@ Clases responsables de la asignación del horno para un pedido. El asignadorStand
 \normalfont
 \shorthandon{"}
 
-\subsection{EstimadorDeTiempos y EstimadorStandard}
-Son las clases que se encargan de estimar el tiempo para que un pedido este listo. En particular el estimadorStandard solo considera el tiempo de preparación y de cocción, según lo planteado en el diseño.
+\subsection{Estimador de Tiempos y Estimador Standard}
+
+Estas son las clases que se encargan de estimar el tiempo para que un pedido 
+esté listo. En particular, el Estimador Standard solo considera el tiempo de preparación 
+y de cocción, según lo planteado en el diseño.
 
 \noindent
 \ttfamily
@@ -542,7 +582,10 @@ Son las clases que se encargan de estimar el tiempo para que un pedido este list
 \shorthandon{"}
 
 \subsection{Estado}
-La clase estado era en el diseño una clase enumerada, sin embargo como dijimos anteriormente, Python no tiene clases enumeradas, por lo que tuvimos que simularla de alguna manera. La idea fue utilizar una clase con atributos estaticos, cada uno de los cuales representa a un posible estado.
+
+La clase estado era en el diseño una clase enumerada. Python no cuenta con tipos enumerados,
+por lo que lo simulamos utilizando una clase convencional con atributos estáticos para
+representar cada uno de los estados.
 
 \noindent
 \ttfamily
@@ -558,7 +601,18 @@ La clase estado era en el diseño una clase enumerada, sin embargo como dijimos a
 \shorthandon{"}
 
 \subsection{Pedido y sus subclases}
-La clase Pedido es la que contiene la información propia de un pedido de la pizzeria. Recoredemos que la clase Pedido tenia un método estatico que daba todas las instancias. Como tuvimos la idea de agregar la funcionalidad de poder guardar y cargar una pizzeria, tuimos que hacer el método \_\_set\_state\_\_ que se encarga de cargar un pedido desde un archivo. Ademas se le agregaron los metodos de clase reinit, setAllinstances y getPorId y getDestino, para darle una interfaz mas amigable con la que la gui pudiera manejarse, sin embargo el resto de los metodos se mantuvieron. Como se menciono antes, la cancelación no se implementa, por lo cual el pedido no tiene ahora relación con un cancelador ni con un repositor de stock. Por último, a la clase Pedido se agregaron otros metodos tales como \_\_eq\_\_ que permiten que se puedan crear diccionarios de pedidos.
+
+La clase Pedido es la que contiene la información propia de un pedido de la pizzería. 
+Recordemos que la clase Pedido tenía, al igual que todas las demás clases de datos, un método
+estático que devolvía todas las instancias. Como tuvimos la idea de agregar la funcionalidad 
+de poder guardar y cargar una pizzería, tuvimos que implementar el método \_\_set\_state\_\_ que 
+se encarga de cargar un pedido desde un archivo. Además, se le agregaron los métodos de clase 
+\verb0reinit0, \verb0setAllinstances0, \verb0getPorId0 y \verb0getDestino0 para darle una interfaz 
+más amigable con la que la GUI pudiera interactuar. Sin embargo, el resto de los métodos se 
+mantuvieron. Como se mencionó anteriormente, la cancelación no se implementa, por lo cual el 
+pedido no tiene ahora relación con un Cancelador ni con un Repositor de Stock. Por último, 
+a la clase Pedido se le agregaron otros metodos cómodos tales como \_\_eq\_\_ y \_\_hash\_\_,
+que permiten entre otras cosas que se puedan crear diccionarios utilizando los pedidos como claves.
 
 \noindent
 \ttfamily
@@ -755,12 +809,16 @@ La clase Pedido es la que contiene la información propia de un pedido de la pizz
 \shorthandon{"}
 
 \section{Gestión de clientes}
-Este modulo es el responsable de contener la información de los clientes. 
-%TODO: resolver el fixme que esta aca abajo :P
-%FIXME: decidir que hacer con el controlador de clientes, yo diria decir q preguntamos y nos dijeron q no nos calentemos con la busqueda y q lo hagamos simple eso
+
+Este módulo es el responsable de contener la información de los clientes. 
+% TODO: resolver el fixme que esta aca abajo :P
+% FIXME: decidir que hacer con el controlador de clientes, yo diria decir q preguntamos y nos dijeron q no nos calentemos con la busqueda y q lo hagamos simple eso
 
 \subsection{Cliente}
-La clase Cliente guarda la información de un cliente dentro del sistema
+
+La clase Cliente guarda la información de un cliente dentro del sistema, junto
+con toda su información relacionada tal como nombre de usuario web, 
+información de contacto y otros datos.
 
 \noindent
 \ttfamily
@@ -859,7 +917,8 @@ La clase Cliente guarda la información de un cliente dentro del sistema
 \shorthandon{"}
 
 \subsection{Dirección}
-La clase dirección permite guardar información detallada sobre la ubicación de un cliente.
+
+La clase Dirección permite guardar información detallada sobre la ubicación de un cliente.
 
 \noindent
 \ttfamily
@@ -909,10 +968,29 @@ La clase dirección permite guardar información detallada sobre la ubicación de u
 
 
 \section{Cocina}
-La cocina es el componente que mas se vio recortado por el quite de funcionalidades a implementar. De este modulo el despachador de coción y el controlador de hornos no fueron implementado. En verdad, se implementó una versión minimal de un despachador de cocción que se encarga de encolar pedidos para que los podemos motrar en la gui y ademas se encarga de pasarselos al coordinador de cocina par que este los pase al modulo de gestion de pedidos. Sin embargo podemos considerar que no se implementó, ya que el despachador de coccion (que en el diseño era abstracto) tenia como responsabilidad controlar la cocción de los pedidos, lo cual no se hizo, el despachador implementado es mas bien un adorno que nos permite ver en la gui como un pedido atraviesa las distintas etapas para estar listo. Queremos dejar en claro que esta implementación fue hecha por cuestiones ``esteticas'' de que nos gustó la idea de ver como el pedido transita hasta estar listo, pero no porque el diseño no cerraba si no la implementabamos.
 
-\subsection{CoordinadorDeCocina}
-Esta case recibe los pedidos que pueden entrar en la cocina, asi como también obtiene pedidos del controlador de ingreso y rutea los pedidos dentro de la cocina.
+La cocina es el componente que más recortes sufrió producto de la implementación
+parcial que debimos llevar a cabo. De este módulo, el Despachador de Cocción y el 
+Controlador de Hornos no fueron implementados de la forma diseñada. En su lugar,
+se implementó una versión minimal (\textit{stub}) de un Despachador de Cocción que 
+se encarga de encolar pedidos para que los podemos motrar en la GUI y es capaz de 
+pasárselos al Coordinador de Cocina para que este los pase al módulo de gestión de 
+hornos, siempre respetando la interfaz diseñada. Sin embargo, podemos considerar 
+que no se implementó, ya que el Despachador de Coccion (que en el diseño era abstracto) 
+tenía como responsabilidad controlar la cocción de los pedidos (funcionalidad que no se
+implementó) y el despachador implementado no es más que un reemplazo que nos permite 
+observar en la GUI como un pedido atraviesa las distintas etapas para estar listo. 
+
+Queremos dejar en claro que esta implementación fue hecha por cuestiones esencialmente
+``estéticas'', dado que nos pareció bueno observar como el pedido transita las distintas
+etapas hasta estar listo. Más allá de esto, no era necesaria su implementación para realizar
+el código pedido.
+
+
+\subsection{Coordinador de Cocina}
+
+Esta clase recibe los pedidos que pueden entrar en la cocina, así como también obtiene 
+pedidos del Controlador de Ingreso y rutea los pedidos dentro de la cocina.
 
 \noindent
 \ttfamily
@@ -962,8 +1040,15 @@ Esta case recibe los pedidos que pueden entrar en la cocina, asi como también ob
 \normalfont
 \shorthandon{"}
 
-\subsection{DespachadorDePreparacion y DespachadorDePreparacionStandard}
-Estas clases son responsables de la preparación de los pedidos. Queremos hacer notar que en el diseño aparecían como metodos privados del despachador standard metodos que por ejemplo solo buscaban en un diccionario. Estos metodos fueron puestos en su momento para dar mas claridad a los diagramas de secuencia, sin embargo a la hora de implementar, los reemplazamos por lo que hacian efectivamente. Este es el caso por ejemplo del metodo setPartesEnPreparacion(Pedido,int) que solo escribia en un diccionario interno que al pedido le quedaban tantas partes en preparación.
+\subsection{Despachador de Preparacion y Despachador de Preparacion Standard}
+
+Estas clases son responsables de la preparación de los pedidos. Queremos hacer notar 
+que en el diseño aparecían como métodos privados del Despachador Standard algunos métodos
+que realizaban tareas triviales (como por ejemplo, buscar en un diccionario). Estos métodos
+se incluyeron en su momento para facilitar la comprensión de los diagramas de secuencia, pero
+a la hora de implementar no resultaron necesarios y agregaban ruido inútil a nuestras clases,
+por lo que fueron obviados. Este es el caso, por ejemplo, del método \verb0setPartesEnPreparacion(Pedido p,int n)0,
+que solo escribía en un diccionario interno que al pedido le quedaban $n$ partes en preparación.
 
 \noindent
 \ttfamily
@@ -1153,8 +1238,12 @@ Estas clases son responsables de la preparación de los pedidos. Queremos hacer n
 \normalfont
 \shorthandon{"}
 
-\subsection{Preparador y preparadorEspecializado}
-El preparador y el preparador especializado son responsables de ``mostrar'' que es lo que los maestros deben preparar, asi como también de avisar al despachador cuando la preparación terminó (aunque este aviso se hace por medio de la clase Aviso)..
+\subsection{Preparador y Preparador Especializado}
+
+El Preparador y el Preparador Especializado son responsables de ``mostrar'' 
+qué es lo que los maestros deben preparar, así como también de avisar al 
+Despachador cuando la preparación terminó (aunque este aviso se hace, técnicamente,
+por medio de la clase Aviso).
 
 \noindent
 \ttfamily
@@ -1206,7 +1295,12 @@ El preparador y el preparador especializado son responsables de ``mostrar'' que 
 \shorthandon{"}
 
 \subsection{Aviso}
-La clase aviso fue pensada en la etapa de diseño para permitir una comunicación especifica entre el despachador y el preparador pero sin tener que que hacer codigo diferente para cada preparador. Su función es invocar un metodo particular del despachador de preparacion standard para notificar que el preparador termino.
+
+La clase Aviso fue pensada en la etapa de diseño para permitir una comunicación 
+especifica entre el Despachador y el Preparador sin necesidad de implementar
+código diferente para cada Preparador. Su función es invocar a un método particular
+del Despachador de Preparación standard para notificarloe que el Preparador
+terminó su tarea.
 
 \noindent
 \ttfamily
@@ -1240,8 +1334,11 @@ La clase aviso fue pensada en la etapa de diseño para permitir una comunicación 
 \normalfont
 \shorthandon{"}
 
-\subsection{DespachadorDeCoccion y DespachadorDeCocciónNormal}
-Como dijimos, a fin de darle una mayor completitud a la aplicación decidimos hacer una versión minimalista del despachador. El mismo solo pretende ser un ``deposito'' de pedidos a cocinar, que luego pueden ser pasados a listos.
+\subsection{Despachador de Coccion y Despachador deCocción Normal}
+
+A fin de darle una mayor completitud a la aplicación, decidimos hacer una versión 
+minimalista del despachador. El mismo solo pretende ser un ``depósito'' de pedidos 
+a cocinar, que luego pueden ser pasados a la cola de listos.
 
 \noindent
 \ttfamily
@@ -1304,7 +1401,12 @@ Como dijimos, a fin de darle una mayor completitud a la aplicación decidimos hac
 \shorthandon{"}
 
 \subsection{Horno}
-La clase Horno sirve para poder conocer la cantidad de modulos que se dispone en cada horno de la pizzería y ademas para poder realizar correctamente la estimación de tiempos. Agregamos un metodo descripcion que permite setearle una cadena que describe al horno (por ejemplo ``Horno Pizzero'')
+
+La clase Horno sirve para poder conocer la cantidad de módulos de los que dispone
+ cada horno de la pizzería, y para poder realizar correctamente la estimación de tiempos
+en función de dicha capacidad. Agregamos un método \verb0getDescripcion0 que permite
+asignarle a una instancia una etiqueta de texto para fines de identificación (por ejemplo 
+``Horno Pizzero'').
 
 \noindent
 \ttfamily
@@ -1328,8 +1430,14 @@ La clase Horno sirve para poder conocer la cantidad de modulos que se dispone en
 \normalfont
 \shorthandon{"}
 
-\section{FraccionadorDeHorno}
-El objetivo principal del fraccionador de horno era dado un pedido partirlo en partes que se puedan meter de una vez. Esta funcionalidad no nos sirve, pero ademas el fraccionador de horno se utilizaba para realizar la estimación de tiempos, por lo cual también lo implementamos, aunque no hicimos lo mismo con los metodos relativos a la parte que no entra en esta entrega.
+\section{Fraccionador de Horno}
+
+El objetivo principal del Fraccionador de Horno era, dado un pedido, partirlo en partes
+ que se puedan meter de una vez en un módulo del horno seleccionado. Esta funcionalidad 
+no fue necesaria puesto que la cocción de los pedidos no fue implementada. Por otra parte,
+el Fraccionador también sirve para la estimación de tiempos, razón por la cual fue implementado,
+aunque no fueron necesarios los métodos que no eran relativos a este aspecto.
+
 
 \noindent
 \ttfamily
@@ -1349,13 +1457,16 @@ El objetivo principal del fraccionador de horno era dado un pedido partirlo en p
 
 
 
-
-
 \section{Gestión de stock y productos}
-Este componente es el responsable de guardar la información sobre los productos y sus diversos insumos, asi como también realizar el chequeo del stock al momento de ingresar un pedido. 
+
+Este componente es el responsable de guardar la información sobre los productos 
+y sus diversos insumos, así como de realizar el chequeo del stock al momento de 
+ingresar un pedido. 
 
 \subsection{Producto}
-La clase producto, al igual que con Pedido, posee los atributos y metodos estaticos que permiten ver todas las instancias y que permiten de cierta forma un manejo mas ameno, por parte de la gui, al guardar y cargar el estado de la pizzeria.
+La clase Producto, al igual que Pedido, posee los atributos y métodos estaticos que 
+permiten ver todas las instancias y que permiten un manejo más ameno de las mismas 
+por parte de la GUI al guardar y cargar el estado de la pizzería.
 
 \noindent
 \ttfamily
@@ -1446,7 +1557,12 @@ La clase producto, al igual que con Pedido, posee los atributos y metodos estati
 \shorthandon{"}
 
 \subsection{Tipo de producto}
-%si alguien quiere decir algo, a mi no se me ocurre :P
+
+Esta clase se utiliza para representar categorías de productos que tienen
+características similares. En la implementación actual, solo existen Pizzas,
+Gaseosas, Pizzas o Empanadas, pero se agregó esta flexibilidad para una posible
+extensión futura del sistema.
+
 \noindent
 \ttfamily
 \shorthandoff{"}
@@ -1540,6 +1656,11 @@ La clase producto, al igual que con Pedido, posee los atributos y metodos estati
 
 \subsection{Insumo}
 
+La clase Insumo es la base del control de stock, ya que es la que
+contiene la información de disponibilidad de insumos. Dado un Producto,
+este se encuentra relacionado con uno o más Insumos, que a su vez tienen
+asociada la cantidad de los mismos que se encuentra en stock.
+
 \noindent
 \ttfamily
 \shorthandoff{"}
@@ -1621,9 +1742,18 @@ La clase producto, al igual que con Pedido, posee los atributos y metodos estati
 \normalfont
 \shorthandon{"}
 
-\subsection{ControladorDeStock y ControladorDeStockStandard}
-Estas clases son las responsables de decrementar el stock para poder ingresar un pedido, o lanzar una excepción en caso de que no se pueda satisfacer el pedido. 
-Con respecto al controlador standard decidimos hacer un cambio en el metodo verificarEIngresar, ya que según el diseño habia que notificar cada vez que de los productos que ingresabamos, alguno quedaba con insumos en estado critico, pero habia un error, ya que si el producto tenia sus insumos en estado critico, no habia que avisar, es decir solo hay que avisar cuando ocurre la transición del estado normal al critico. Si seguiamos el diagrama de secuencia del metodo según el trabajo anterior, vemos que se avisa siempre y no solo cuando ocurre la transición. Por lo tanto lo que hicimos fue modificar el método para adaptarlo a esto.
+\subsection{Controlador de Stock y Controlador de Stock Standard}
+
+Estas clases son las responsables de decrementar el stock al momento de ingresar un 
+pedido, o lanzar una excepción en caso de que no se puedan satisfacer desde el stock
+los insumos necesarios para la preparación del mismo.
+
+Con respecto al Controlador Standard, decidimos hacer un cambio en el método 
+verificarEIngresar, ya que según el diseño había que notificar cada vez que, de 
+los productos que ingresábamos, alguno quedaba con insumos en estado crítico. Sin
+embargo, esto produce una notificación cuando uno de los insumos ya se encontraba en
+estado crítico, lo cual no es necesario. El método fue adaptado para que la notificación
+se produzca únicamente cuando un insumo cambia de estado normal a estado crítico.
 
 \noindent
 \ttfamily

@@ -1,15 +1,96 @@
 \chapter{Cuestiones de implementación}
+
 \section{Lenguaje de programación}
-A la hora de elegir el lenguaje de programación decidimos utilizar Python. En principio, dado el tipo de diseño realizado en el trabajo anterior, parece que otros lenguajes como java o C$\sharp$ se adaptan mejor. Sin embargo, ninguno de los integrantes del grupo tenia algun tipo de experiencia previa en alguno de esos dos lenguajes. Esto se notaba mucho mas, por ejemplo, a la hora de armar la GUI, lo cual hizo que nos inclinaramos por Python, lenguaje que ya habimos utilizado en otros trabajos practicos de la carrera.
-%Llenate la boca diciendo que lindo es python
+A la hora de elegir el lenguaje de programación optamos por utilizar Python. En principio, y 
+dado el tipo de diseño realizado en el trabajo anterior, la opción natural parece utilizar un
+lenguaje fuertemente tipado con \textit{garbage collection} y algún tipo de asistente para
+la creación de interfaces gráficas. De esta manera, Java o C\# aparecen como candidatos
+principales.
 
-\subsection{Adaptación y cambios del diseño}
-Al utilizar un lenguaje con tipado dinamico y sin interfaces ni clases abstractas, tuvimos que adaptar el diseño ya que el mismo utilizaba dichas caracteristicas. La idea principal es apegarnos lo mas fielmente posible al diseño, pero con las diferencias que utilizar Python en vez de java o c$\sharp$ nos genera
+Sin embargo, ninguno de los integrantes del grupo tiene experiencia extensiva con estos
+lenguajes, lo cual sumado a la falta de experiencia con interfases gráficas constituye un
+problema a la hora de desarrollar el sistema en un tiempo tan acotado. En cambio, ya habíamos
+utilizado Python en varias ocasiones para trabajos prácticos de otras materias y teníamos
+alguna experiencia con el toolkit gráfico GTK+.
 
-A continuación comentaremos diversas cuestiones de implementación que tuvimos que considerar con la intención de respetar el diseño presentado en el trabajo anterior.
+Por esta razón, realizamos el desarrollo utilizando Python 2.5 y PyGTK (los \textit{bindings}
+de GTK+ para Python) en su versión 2.12. Para el desarrollo de la interfaz utilizamos Glade 2,
+un programa para diseño de interfaces gráficas en GTK+ que exporta un archivo XML (que luego
+es cargado por el propio sistema). Estas herramientas son 100\% Open Source y por su simplicidad
+nos permitiero desarrollar de forma muy veloz el software requerido.
+
+\subsection{Particularidades del lenguaje}
+
+Python utiliza tipado dinámico, es fuertemente orientado a objetos y tiene herencia múltiple.
+Además, el lenguaje propone una cantidad importante de \textit{azúcar sintáctico}, incluyendo
+listas por comprensión, funciones anónimas, sobrecarga de operadores y \textit{properties}.
+
+Si bien el lenguaje no fuerza correctitud de tipos (puesto que no se declaran los tipos de
+parámetros ni variables), todas las librerías estándar funcionan de forma razonable respecto
+de los tipos de datos. Por ejemplo, concatenar un entero y un string produce una excepción,
+a diferencia de otros lenguajes de \textit{scripting} con tipado débil. Toda validación de
+este tipo se produce en tiempo de ejecución.
+
+Además, no existe en Python la diferenciación entre métodos y atributos públicos o privados,
+si bien existe una diferencia a nivel nominal que permite distinguir privados de públicos 
+(a pesar de que ambos se comporten efectivamente como públicos).
+La filosofía detrás de estas decisiones deja en manos del programador la libertad de usar
+el código con responsabilidad. De la misma manera, respecto de los tipos se utiliza
+\textit{duck typing}, un precepto basado en la idea de que si algo se comporta como
+es esperado, entonces su tipo no tiene importancia (``If it walks like a duck and quacks 
+like a duck, I would call it a duck''). En esencia, la idea es idéntica a la noción
+de interfaces en lenguajes tipados estáticamente.
+
+Por último, Python se compila a \textit{bytecode} intermedio para una máquina virtual específica.
+La implementación más popular (CPython) compila y interpreta el código en un único paso,
+haciendo innecesario el paso de compilación, acelerando así el proceso de desarrollo.
+
+\subsection{Interfaz Gráfica de Usuario}
+
+Existen tres posibles elecciones para librerías gráficas en Python. Se trata de PyGTK,
+PyQT y wxPython, ambas tres multiplataforma y de libre disponibilidad. La decisión
+de utilizar PyGTK estuvo determinada por la existencia de la herramienta de diseño (Glade)
+que permitió construir las interfases muy rápidamente.
+
+Por otra parte, la interfaz en GTK se integra perfectamente en el escritorio Gnome que
+utiliza la distribución de Linux más popular (Ubuntu), logrando así una coherencia con
+el resto del sistema que nos pareció deseable para que sea más agradable para los
+usuarios.
+
+Construimos un módulo de código con todas las funciones relacionadas con la GUI
+(agrupadas por categorías de uso) que a su vez son llamadas por los \textit{handlers}
+de las señales que envía la GUI a partir de los eventos que produce el usuario. Este
+paradigma sencillo nos permitió programar la interfaz gráfica sin dificultades a pesar
+de nuestra escasa experiencia en el área.
+
+PyGTK está instalado por defecto en Ubuntu 8 ya que es utilizado por numerosas
+aplicaciones del sistema. Sin embargo, también es posible utilizar el programa
+en Windows instalando las librerías necesarias. Las instrucciones para tal fin
+están disponibles en el sitio web de PyGTK.
+
+% TODO: que onda, ponemos algo más de como instalar en win?
+
+\section{Adaptación y cambios del diseño}
+
+En función de las características anteriormente descriptas, fue necesario adaptar el diseño
+ya que el lenguaje y las presunciones utilizadas para diseñar eran propias de un lenguaje
+fuertemente tipado con declaraciones explícitas de métodos y clases abstractas, interfaces y
+diferenciación entre público y privado.
+
+A continuación se detallan los cambios que fueron realizados en la implementación para
+adaptarla al lenguaje elegido para trabajar. Si bien en muchos casos algunas complicaciones
+de diseño resultaban innecesarias, decidimos conservar el diseño original para minimizar
+los cambios. Es el caso, por ejemplo, del uso de \textit{setters} y \textit{getters}, que
+si bien resultaba redundante (en Python todos los atributos son públicos y se cuenta con
+\textit{properties}), fue mantenido por consistencia con el diseño.
 
 \subsubsection{Clases abstractas e interfaces}
-Como dijimos anteriormente, Python no presenta clases abstractas ni interfaces. Si presenta en cambio herencia multiple. Frente a esta situación nos vimos en la necesidad de ``inventar'' algun mecanismo para definir tanto interfaces como clases abstractas. Lo que hicimos fue declarar una clase de manera comun, pero haciendo que sus metodos generen excepción por no estar implementado (NotImplementedError).
+
+Python no tiene la noción de clase abstracta ni de interfaz. En cambio, Python tiene
+herencia múltiple. Para las clases abstractas utilizamos herencia convencional, proporcionando
+implementaciones \textit{stub} de los métodos abstractos que lanzan una excepción al ser
+llamados. Esto fuerza a que se sobrecarguen los métodos en las clases hijas para evitar
+esta situación. La excepción utilizada para tal fin es \verb0NotImplementedError0.
 
 A continuación presentaremos un ejemplo:
 
@@ -40,20 +121,42 @@ A continuación presentaremos un ejemplo:
 \normalfont
 \shorthandon{"}
 
-Como vemos mantenemos los metodos, en el ejemplo hay solo uno, y no le damos implementación. Otra alternativa era utilizar pass en vez de lanzar una excepcion, pero nos parecio mas visual utilizar una excepcion.
+Como puede verse, mantenemos los métodos declarados en la clase abstracta y no le damos
+una implementación más que el lanzamiento de la excepción. En lugar de esto, el \textit{stub}
+podría no haber emitido ningún error, pero la elección realizada permite detectar un método
+no sobrecargado en caso de olvidarlo en la clase hija.
 
-Tanto las clases abstractas como las interfaces nos permitian separar a la clase cliente de las diversas implementaciones. En un lenguaje tipado como java, es el lenguaje el que mantiene el invariante de que un cliente de una interfaz no pueda acceder a metodos que no sean los provistos por la interfaz. En cambio en Python nada impide utilizar cualquier metodo, porque no hay chequeo de tipos. Esta situación fue tenida en cuenta, por lo que evitamos totalmente que una clase cliente de una abstracción use algún metodo que no sea los provistos por dicha interface o clase abstracta.
+Por otra parte, si bien las nociones de interfaz y clase abstracta nos servían de abstracción
+para los usuarios de las mismas (permitiendo declarar una clase genérica en lugar de una
+concreta), Python no tiene un mecanismo para forzar que el usuario de una abstracción
+no utilice los métodos que no son parte de la abstracción (esto es, que un cliente utilice
+métodos que no son propios de la interfaz). Sin embargo, nos apegamos al diseño y evitamos
+a conciencia la utilización de métodos o atributos que no fueran propios de la abstracción
+declarada en el diseño.
 
 \subsubsection{Visibilidad de los atributos}
-Python tampoco presenta algun forma de limitar el acceso a atributos de un objeto. Sin embargo en el diseño se utilizaron tanto metodos como atributos privados. 
 
-Con respecto a los atributos, lo que decidimos hacer fue solo utilizar los getters y setters que las clases proveian. Y con respecto a los metodos, nuevamente es una cuestion de compromiso, si bien nada nos impedia utilizar cualquier metodo desde  cualquier clase, nos limitamos a utilizar en cada contexto aquellos metodos que la visibilidad declarada en el diseño permitia usar.
+Python no tiene la noción de atributos o métodos privados más allá de una convención
+en el nombrado de los métodos. Sin embargo, se respetó el uso de las interfaces que habían
+sido declaradas en el documento de diseño. Esto eso, no se emplearon métodos que no
+estaban disponibles por no ser parte de la interfaz en el contexto diseñado.
+Del mismo modo, en el caso de los atributos,
+se utilizaron los \textit{getters} y \textit{setters} como se había declarado en el
+diseño a pesar de que éstos no tienen utilidad práctica en Python.
 
-Claramente, los tipos de los atributos, de los parametros de los metodos y el tipo de resultado que estos devuelven, tampoco se especifican en python, sin embargo nos limitamos a usarlos como lo plantea el diseño.
+Los tipos de parámetros y retorno, si bien no se especifican en Python, fueron
+respetados según fueran concebidos al momento de diseñar.
 
-\subsubsection{Observer pattern}
-En nuestro diseño se utilizó varias veces el Observer pattern. En este caso decimos apartarnos ligeramente del diseño y aprovechando la que python nos permite utilizar alto orden, aplicamos esta capacidad para realizar las notificaciones. 
-El codigo es el siguiente:
+\subsubsection{Patrón Observer y Callbacks}
+
+Las implementaciones en Java o C\# de los patrones de diseño que utilizan \textit{callbacks}
+recurren al uso de \textit{functors} para lidiar con la limitación de que dichos lenguajes
+no tratan a las funciones como objetos de primer orden, y por tanto éstas no pueden
+ser pasadas como parámetros. Como Python no tiene esta limitación, cosas como el patrón
+Observer se ven simplificadas en parte, mediante el paso ya no de un objeto con un método
+\verb0notify()0 sino de una función que será ejecutada cuando deba producirse la notificación.
+
+El código que resulta de esta diferencia es el siguiente:
 
 \noindent
 \ttfamily
@@ -79,38 +182,98 @@ El codigo es el siguiente:
 \normalfont
 \shorthandon{"}
 
-Como vemos al notificador pueden suscribirse observadores, solo en este caso los observadores son metodos que permiten realizar un mecanismo de callback. Al momento de notificar, se recorren todos los callbacks suscriptos y se invocan. Esta forma nos parece mas simple que tener que realizar un metodo update en cada observador.
+El patrón permanece intacto: al notificador pueden suscribirse observadores varios, que no
+son más que \textit{callables} que se invocan al momento de producirse la notificación. Como
+en Python tanto funciones como métodos pueden ser \textit{callables}, esto nos evita
+tener que declarar un objeto especial para esta finalidad.
 
+\subsubsection{Métodos estáticos}
 
+Python permite tener métodos estáticos mediante el \textit{decorator} \verb0classmethod0. A su
+vez, los atributos que se declaran directamente dentro de la clase (y no como atributos
+del objeto \verb0self0) son atributos estáticos que son propios de la clase y no de
+cada una de las instancias.
 
- 
-%clases abstractas e interfaces (mostrar ejemplos de codigo java vs codigo python)
-%visibilidad de los atributos
-%Observer
-%preguntar que funciones quiere impresas aca coqui
-%etc
-%algunas cuestion oscuras: 
-%pickle y __set_state__
-%allInstances
-%IDs
-%lista por comprension :P
-%clase enumerada
+Como habíamos especificado en el diseño, las clases que representan datos de la pizzería
+contarían con un método \verb0allInstances()0 que permite a los clientes obtener un
+listado de todas las instancias de esa clase. Implementamos esto utilizando un 
+atributo estático de tipo secuencia a la que se agregan las instancias nuevas cuando
+se construyen.
 
-\subsection{GUI}
-%q se uso, como quedo, etc
+A su vez, utilizamos un segundo atributo estático \verb0ID0 que sirve de registro
+para generar identificadores únicos a cada instancia. Estos identificadores, si bien
+no eran propios de todas las clases en el diseño presentado anteriormente, se agregaron
+en todas las clases de datos para permitir identificar rápidamente y sin ambiguedades
+a una instancia, sobre todo en el contexto de la GUI.
+
+\subsubsection{Persistencia en disco}
+
+Python cuenta con el módulo \verb0pickle0 que se utiliza para serializar objetos, lo
+cual permite a continuación almacenarlos en el disco rígido para conservarlos entre
+ejecuciones sucesivas de la aplicación.
+
+Si bien todos los tipos básicos que ofrece el lenguaje son serializables utilizando
+este módulo, para que un objeto instanciado a partir de una clase creada por nosotros
+sea serializable es necesario definir el método \verb0__set_state__()0, que se ocupa
+de restaurar un objeto a partir de su representación serializada. Estas funciones
+funcionan en forma recursiva y son capaces de restaurar así todos los objetos creados
+por el sistema. Este mecanismo se usa para proveer la funcionalidad de guardar y
+restaurar el estado de la pizzería desde la GUI.
+
+Lo único que no se mantiene tras resguardar el estado son los identificadores únicos
+de las instancias. Estos se generan nuevamente al restaurar el sistema, y puesto que
+solo tienen utilidad dentro del propio sistema, esta modificación no produce ningún
+problema.
 
 \section{Análisis crítico del diseño}
+
 \subsection{Impacto del diseño en la implementación}
-A la hora de pasar del diseño a la implementación, consideramos que el trabajo practico anterior se mostro fructifero. Contar con el diseño nos hizo considerablemente mas facil implementar la logica de la pizzeria. 
 
-En particular, se requería la implementación de un subconjunto de las funcionalidades del sistema, y nuestro diseño se adaptó muy facilmente a esta situación, ya que lo unico que tuvimos que hacer fue excluir de la implementación a aquellos controladores que no participaban en las funcionalidades a realizar. Creemos que esto nos da una pauta de la flexibilidad del   mismo, ya que no fue practicamente necesario modificar el comportamiento de ninguna clase.
+La implementación a presentar solo abarca un subconjunto de las funcionalidades
+diseñadas anteriormente. Sin embargo, y a pesar de esto, nuestro diseño se mostró
+flexible y desacoplado, permitiéndonos fácilmente implementar solo las secciones
+requeridas.
 
-Por otro lado queremos hacer notar que los diagramas de secuencia nos resultaron particularmente utiles para pasar del modelo a la implementación.
+En particular, fue suficiente con dejar de lado los fragmentos que no eran necesarios
+e implementar el resto. No sufrimos prácticamente ninguna dificultad al pasar
+del diseño al código, lo cual refleja la efectividad del trabajo realizado
+anteriormente.
 
-%TODO: chamuyo aqui
-%decir que lindo fue mira como pudimos sacar lo q no habia q hacer
-%decir q lindo q ya lo teniamos diseñado con DS y toda la bola
-%contar que la gui es medio paty xq no sabemos mas :P
+Los diagramas de secuencia resultaron una documentación útil al momento de implementar.
+Sin embargo, consideramos que su utilidad más crítica estuvo en permitirnos validar
+el diseño en la fase anterior, y asegurarnos de la consistencia del mismo en los
+escenarios planteados. Una vez logrado esto, la implementación en sí resultó sencilla
+dado que las funcionalidades requeridas eran relativamente simples.
+
+En general la experiencia con el diseño realizado fue positiva. La mayor complicación
+que tuvimos en cuanto a la implementación del \textit{backend} del sistema, que
+era la parte diseñada, residió en como mantener las equivalencias entre el
+sistema diseñado para tipos estáticos y el lenguaje dinámico que finalmente adoptamos.
+
+Finalmente, y dado que el desarrollo fue rápido, logramos implementar más
+funcionalidades de las que eran estrictamente requeridas con poco esfuerzo adicional.
+Si bien la parte más compleja del sistema (el manejo de hornos y de las políticas
+de prioridad en los mismos), dada la naturaleza desacoplada del sistema pudimos
+reemplazarla por un \textit{stub} que permita utilizar el sistema sin
+esta funcionalidad (limitándose únicamente a indicar cuando un pedido fue
+cocinado).
 
 \subsection{Posibles mejoras}
-%la gui para empezar, en general la implementacion anda bien y es flexible
+
+Dado que pudimos trabajar correctamente con el diseño realizado, no surgen
+necesariamente muchas mejoras a realizar. Es posible que el diseño resulte
+excesivo para la magnitud del proyecto a atacar. En algunos casos, se permitió
+flexibilidad que puede llegar a ser excesiva dado el uso que se le podría dar
+a este sistema. Sin embargo, si se pensara en comercializar el software para
+su uso en otros comercios similares, la flexibilidad podría ser de gran utilidad
+para la personalización del sistema a las necesidades de distintos clientes.
+
+Por último, la dificultad mayor que tuvimos que enfrentar en el desarrollo
+fue toda la parte referente a la interfaz gráfica. Esto se debió en su mayor
+parte a nuestra escasa experiencia en este tipo de desarrollos. Esencialmente,
+tuvimos que lidiar con la forma de organizar el código alrededor de las librerías
+gráficas, y en segunda instancia con el manejo de los \textit{observers} y su
+relación con los refrescos de pantallas del sistema. Sin duda la sincronización
+entre los eventos y el redibujado de las listas y otros elementos de la GUI
+sería un punto a atacar si hubiera que mejorar el sistema para su uso futuro.
+
