@@ -349,7 +349,6 @@ class MainHandlers:
         distribuidor.cocinarEmpanadas()
     
     def cocinado_pizzero_clicked(event):
-        print "me apretaron, pobre de mi"
         distribuidor.cocinarPizzas()
 
     

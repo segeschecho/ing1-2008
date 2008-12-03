@@ -54,7 +54,6 @@ def recargar(widgets):
         
 
 def limpiar(widgets):
-    print LISTA_TODOS
     tv = widgets[LISTA_TODOS]
     ls = tv.get_model() 
     ls.clear() 
@@ -65,10 +64,7 @@ def limpiar(widgets):
  # --------------------------------------------- #
 
 def limpiar_datos(widgets):
-    print PRODUCTOS_PEDIDO_TODOS
     tv = widgets[PRODUCTOS_PEDIDO_TODOS]
-    print tv
-    print tv.get_model()
     tv.get_model().clear()
     det = widgets[DATOS_PEDIDO_TODOS]
     det.set_markup("")

@@ -111,10 +111,10 @@ class Pizzeria:
         return self.contS
     
     def getAsignador(self):
-       return self.asigH 
+        return self.asigH 
     
     def getHornoE(self):
-	return self.hempanadero
+        return self.hempanadero
    
     def getHornoP(self):
         return self.hpizzero
@@ -134,4 +134,3 @@ if __name__ == '__main__':
             
     fi = open("datos.pyp", 'rb')        
     sis = Pizzeria(f=fi)
-    print Producto.allInstances()
