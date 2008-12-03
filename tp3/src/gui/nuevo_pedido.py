@@ -135,10 +135,7 @@ def validar_pedido(widgets):
         else:
             cliente = None
     else:
-        print "el id es:" + str(seleccion.get_value(iterador,0))
         cliente = creacion.Cliente.getPorId(int(seleccion.get_value(iterador,0)))
-        print cliente
-        print  creacion.Cliente.getPorId(5)
 
     return (cliente,
             productos,
