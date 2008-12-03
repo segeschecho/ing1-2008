@@ -1,2 +1,43 @@
 \chapter{Conclusiones}
-%sanata
+
+El trabajo de implementación nos permitió observar la utilidad de un diseño
+detallado preparado de antemano. Salvo pequeñas (y en general muy sutiles) diferencias,
+el pasaje a la implementación fue bastante mecánico a partir del diseño que
+habíamos producido anteriormente. 
+
+En cierta manera, la realización de un diseño
+extensivo y profundo de todo el sistema se asemeja a realizar un prototipo del
+mismo. Sin embargo, las herramientas utilizadas (UML) tienen tanto ventajas como
+desventajas respecto de la realización de un verdadero prototipo en un lenguaje de
+muy alto nivel. Por un lado, la mayor facilidad de visualización que tienen los
+diagramas sobre el código fuente lo hacen más apto para un cierto tipo de 
+comprensión. Por otra parte, la nula disponibilidad de herramientas de colaboración
+y versionado para trabajar sobre UML (en comparación con un lenguaje de programación
+tradicional) hacen que el trabajo sea más complicado, lento e inamovible. Por último
+si bien la utilización de diagramas de secuencia permite verificar que el diseño
+sea razonable, un prototipo funcional es una garantía más fuerte. De cualquier modo
+pareciera que hay lugar para ambas técnicas en el desarrollo de un software complejo.
+
+Durante la fase de desarrollo pudimos comprobar la calidad de nuestro diseño,
+aunque tuvimos que lidiar con su complejidad lo que produjo una cantidad importante
+de clases y módulos. Toda la operatoria diseñada cerraba a medida que se fue
+programando, y el bajo acoplamiento logrado entre los módulos permitió excluir las
+partes que no eran de interés para la implementación, así como reemplazar otras por
+\textit{stubs} con el objeto de observar mejor el funcionamiento del sistema.
+
+Utilizar Python fue sin duda una buena elección que nos facilitó mucho el trabajo,
+pudiendo ponernos a trabajar desde el primer momento en vez de invertir mucho
+tiempo en familiarizarnos con un nuevo ámbito de trabajo con la complejidad que
+caracteriza a una plataforma como Java. Sin duda este tipo de desarrollos, en
+poco tiempo y cuya correctitud no es crítica, así como el tamaño del equipo es
+reducido, se benefician ampliamente del uso de este tipo de lenguajes. El código
+producido es más compacto y legible con los beneficios de mantenibilidad que eso
+conlleva.
+
+Respecto del testing, podemos decir que nos sirvió para adquirir un grado de
+confianza alto en la correctitud del sistema implementado. Si bien es posible que
+para la vida real un testing de las características planteadas para una funcionalidad
+tan trivial sea excesivo, lo cierto es que permite chequear en un buen grado que
+el sistema funciona como es de esperarse. En la medida que los sistemas escalan, se
+puede intentar mantener el nivel de exhaustividad del testing recurriendo a herramientas
+de testing automatizado como *Unit o Selenium.
