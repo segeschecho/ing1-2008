@@ -811,8 +811,17 @@ que permiten entre otras cosas que se puedan crear diccionarios utilizando los p
 \section{Gestión de clientes}
 
 Este módulo es el responsable de contener la información de los clientes. 
-% TODO: resolver el fixme que esta aca abajo :P
-% FIXME: decidir que hacer con el controlador de clientes, yo diria decir q preguntamos y nos dijeron q no nos calentemos con la busqueda y q lo hagamos simple eso
+
+El Controlador de Clientes fue eliminado por simplicidad. En la implementación
+propuesta, esta clase tenía esencialmente la responsabilidad de validar la existencia
+de clientes a partir de datos proporcionados por el mismo. Por ejemplo, un cliente
+telefónico indicaría al Encargado de Pedidos algunos de sus datos de contacto
+(como su nombre o su dirección) y el Encargado utilizaría esta funcionalidad
+para obtener a los clientes que reúnen esas características. En la práctica, sin
+embargo, es perfectamente viable que el cliente se sirva de funcionalidades de
+la GUI para realizar esta búsqueda a partir de los datos mostrados en las columnas
+de la tabla de clientes. Por lo tanto, resulta suficiente con el método \verb0allInstances()0
+convencional.
 
 \subsection{Cliente}
 
