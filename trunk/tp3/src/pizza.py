@@ -24,9 +24,6 @@ import creacion
 import gestion
 import cocina
 
-#TODO: #TODO: #TODO: resolver el tema de ver el estado, no alcanza con listar los pedidos de cada cliente, porque hay pedidos sin clientes
-
-
 
 ###################################################
 # Handlers                                        #
