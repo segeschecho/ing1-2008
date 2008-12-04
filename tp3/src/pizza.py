@@ -310,7 +310,7 @@ class MainHandlers:
             
             pizzeria.clearObservers()
             try:
-                pickle.dump(pizzeria, open("fname", 'wb'))
+                pickle.dump(pizzeria, open(fname, 'wb'))
             except:
                 nuevo_pedido.mostrar_error("Error al cargar", str(e))
                 return
