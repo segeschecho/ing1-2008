@@ -45,7 +45,10 @@ def recargar(widgets):
             ls.set_value(it, 0, each.getId())
             ls.set_value(it, 1, "$%s" % each.getPrecio())
             ls.set_value(it, 2, humanize.sec2hum(each.getTiempoEstimado()))
-            ls.set_value(it, 3, each.getHorno().getDescripcion())
+            if each.getHorno() != None:
+                ls.set_value(it, 3, each.getHorno().getDescripcion())
+            else:
+                ls.set_value(it, 3, "-")
             ls.set_value(it, 4, each.getFechaIngreso().strftime("%H:%M"))
             ls.set_value(it, 5, each.getFechaIngreso().strftime("%d/%m"))
 
