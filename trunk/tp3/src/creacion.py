@@ -718,15 +718,18 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
             if(origen == "mostrador"):
                 #Chequeamos invariantes para construir un pedido de mostrador
                 if not formaDePago in ["efectivo","tarjeta"]:
+	            self.controladorDeStock.reponerStock(productos)
                     raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 if mesa != None:
-                    raise PedidoDeMostradorConMesa("Los pedidos de mostrador no tienen que tener una mesa asignada")
+                    self.controladorDeStock.reponerStock(productos)
+		    raise PedidoDeMostradorConMesa("Los pedidos de mostrador no tienen que tener una mesa asignada")
                 ID = self.generarId()
                 p= PedidoMostrador(ID,c,productos,formaDePago,d)
              
             elif(origen == "mesa"):
                 #Simil con pedido de mesa
                 if formaDePago != None :
+		    self.controladorDeStock.reponerStock(productos)
                     raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 ID = self.generarId()
                 p= PedidoMesa(ID,c,productos,formaDePago,d,mesa)
@@ -734,14 +737,18 @@ class GeneradorDePedidosStandard (GeneradorDePedidos) :
             elif(origen == "telefono"):
                 #Idem para pedido telefonico
                 if formaDePago != "efectivo" :
+		    self.controladorDeStock.reponerStock(productos)
                     raise TipoDePagoInvalido("Forma de pago Invalida\nSe intento asignar la forma de pago: "+str(formaDePago)+" a un pedido con origen: "+str(origen))
                 if mesa != None:
+		    self.controladorDeStock.reponerStock(productos)
                     raise PedidoTelefonicoConMesa("Los pedidos telefonicos no tienen que tener una mesa asignada")
                 if(c==None):
+		    self.controladorDeStock.reponerStock(productos)
                     raise ClienteNulo("Los pedidos remotos deben tener un cliente asociado")
                 ID = self.generarId()
                 p= PedidoTelefono(ID,c,productos,formaDePago,d)
             else:
+		self.controladorDeStock.reponerStock(productos)
                 raise OrigenDesconocido("El origen indicado no es valido")
             #Asignamos el horno
             self.asignadorDeHorno.asignarHorno(p)
@@ -985,3 +992,10 @@ class ControladorDeStockStandard(ControladorDeStock) :
                         
                 
         return True
+	
+	def reponerStock(productos):
+              print "me llame"
+              for pr in productos:
+		      for ins pr.getInsumos():
+			     ins.setCant(ins.getCant() + 1)
+ 
