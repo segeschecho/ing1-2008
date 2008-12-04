@@ -273,7 +273,7 @@ class MainHandlers:
             backUpTipoProducto, backUpCliente) = backUp()
             global pizzeria
             global distribuidor
-            backUpPizzeroa = pizzeria
+            backUpPizzeria = pizzeria
             try:
                 pizzeria = pickle.load(fi)
             except:
