@@ -1,0 +1,162 @@
+\documentclass[a4paper]{report}
+
+%%---------------------------------------------------------------------------%%
+%%	SECCION usepackage																											 %%	
+%%---------------------------------------------------------------------------%%
+\usepackage{amsmath, amsthm}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{caratula}
+\usepackage{a4wide}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+% \usepackage{moreverb}
+\usepackage{graphicx} % Para el logo magico!
+\usepackage{capt-of}
+\usepackage{afterpage}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[latin1]{inputenc}
+\usepackage{subfigure}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{amsfonts}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{tabularx}
+\usepackage{ifthen}
+\usepackage{highlight}
+
+%%---------------------------------------------------------------------------%%
+%%	SECCION opciones																												 %%	
+%%---------------------------------------------------------------------------%%
+\parskip    = 11 pt
+\headheight	= 13.1pt
+\pagestyle	{fancy}
+\definecolor{orange}{rgb}{1,0.5,0}
+
+\addtolength{\headwidth}{1.0in}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{0.7in}
+%%---------------------------------------------------------------------------%%
+%%	SECCION document	 %%	
+%%---------------------------------------------------------------------------%%
+\begin{document}
+
+
+\chapter*{Fe de erratas}
+
+A continuación se detallan algunos errores que fueron descubiertos posteriormente al envío del trabajo por mail. Los errores de código están corregidos en el código del CD, y las tablas de testing que se entregan son correctas también, pero el código fuente impreso corresponde a la versión entregada por mail.
+
+\section*{Errores en el backend}
+En el método \verb0verificarEIngresar0 propuesto en el trabajo práctico de diseño existía un error. El mismo fue corregido posteriormente a la entrega del trabajo. El bug no fue descubierto con los tests puesto que en la implementación, la GUI realiza una validación adicional (además de la que realiza el \textit{backend}). Desde un punto de vista de aceptación, el programa era correcto. Hubiera sido necesario realizar tests de unidad para descubrir ese error puesto que la interfase errónea no se exporta directamente. Sin embargo, nos pareció correcto infomar de esto y modificarlo para que quede correcto.
+
+\noindent
+\ttfamily
+\shorthandoff{"}
+\hlstd{}\hlline{\ \ \ \ 1\ }\hlkwa{def\ }\hlstd{}\hlkwd{generarPedido}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{,\ }\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{origen}\hlsym{,}\hlstd{mesa}\hlsym{):}\\
+\hlline{\ \ \ \ 2\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Primero\ intentamos\ ingresarlo,\ reservando\ los\ recursos}\\
+\hlline{\ \ \ \ 3\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{verificarEIngresar}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)):}\\
+\hlline{\ \ \ \ 4\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{d}\hlsym{=}\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{getDateTime}\hlstd{}\hlsym{()}\\
+\hlline{\ \ \ \ 5\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Decidimos\ a\ partir\ del\ origen\ a\ partir\ del\ nombre\ (pobre\ OCP\ y}\\
+\hlline{\ \ \ \ 6\ }\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{Liskov)}\\
+\hlline{\ \ \ \ 7\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{origen\ }\hlsym{==\ }\hlstd{}\hlstr{"mostrador"}\hlstd{}\hlsym{):}\\
+\hlline{\ \ \ \ 8\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Chequeamos\ invariantes\ para\ construir\ un\ pedido\ de}\\
+\hlline{\ \ \ \ 9\ }\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{mostrador}\\
+\hlline{\ \ \ 10\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ not\ }\hlstd{formaDePago\ }\hlkwa{in\ }\hlstd{}\hlsym{{[}}\hlstd{}\hlstr{"efectivo"}\hlstd{}\hlsym{,}\hlstd{}\hlstr{"tarjeta"}\hlstd{}\hlsym{{]}:}\\
+\hlline{\ \ \ 11\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{reponerStock}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)}\\
+\hlline{\ \ \ 12\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{TipoDePagoInvalido}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Forma\ de\ pago\ Invalida}\hlesc{$\backslash$n}\hlstr{Se}\\
+\hlline{\ \ \ 13\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{intento\ asignar\ la\ forma\ de}\\
+\hlline{\ \ \ 14\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{pago:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{formaDePago}\hlsym{)+}\hlstd{}\hlstr{"\ a}\\
+\hlline{\ \ \ 15\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{un\ pedido\ con\ origen:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\\
+\hlline{\ \ \ 16\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{origen}\hlsym{))}\\
+\hlline{\ \ \ 17\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{mesa\ }\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\\
+\hlline{\ \ \ 18\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{reponerStock}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)}\\
+\hlline{\ \ \ 19\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{PedidoDeMostradorConMesa}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ pedidos\ de\ mostrador\ no}\\
+\hlline{\ \ \ 20\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{tienen\ que\ tener\ una\ mesa}\\
+\hlline{\ \ \ 21\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{asignada"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 22\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{generarId}\hlstd{}\hlsym{()}\\
+\hlline{\ \ \ 23\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=\ }\hlstd{}\hlkwd{PedidoMostrador}\hlstd{}\hlsym{(}\hlstd{ID}\hlsym{,}\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{d}\hlsym{)}\\
+\hlline{\ \ \ 24\ }\hlstd{\\
+\hlline{\ \ \ 25\ }}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif}\hlstd{}\hlsym{(}\hlstd{origen\ }\hlsym{==\ }\hlstd{}\hlstr{"mesa"}\hlstd{}\hlsym{):}\\
+\hlline{\ \ \ 26\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Simil\ con\ pedido\ de\ mesa}\\
+\hlline{\ \ \ 27\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{formaDePago\ }\hlsym{!=\ }\hlstd{}\hlkwa{None\ }\hlstd{}\hlsym{:}\\
+\hlline{\ \ \ 28\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{reponerStock}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)}\\
+\hlline{\ \ \ 29\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{TipoDePagoInvalido}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Forma\ de\ pago\ Invalida}\hlesc{$\backslash$n}\hlstr{Se}\\
+\hlline{\ \ \ 30\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{intento\ asignar\ la\ forma\ de}\\
+\hlline{\ \ \ 31\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{pago:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{formaDePago}\hlsym{)+}\hlstd{}\hlstr{"\ a}\\
+\hlline{\ \ \ 32\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{un\ pedido\ con\ origen:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\\
+\hlline{\ \ \ 33\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{origen}\hlsym{))}\\
+\hlline{\ \ \ 34\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{generarId}\hlstd{}\hlsym{()}\\
+\hlline{\ \ \ 35\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=\ }\hlstd{}\hlkwd{PedidoMesa}\hlstd{}\hlsym{(}\hlstd{ID}\hlsym{,}\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{d}\hlsym{,}\hlstd{mesa}\hlsym{)}\\
+\hlline{\ \ \ 36\ }\hlstd{\\
+\hlline{\ \ \ 37\ }}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{elif}\hlstd{}\hlsym{(}\hlstd{origen\ }\hlsym{==\ }\hlstd{}\hlstr{"telefono"}\hlstd{}\hlsym{):}\\
+\hlline{\ \ \ 38\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Idem\ para\ pedido\ telefonico}\\
+\hlline{\ \ \ 39\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{formaDePago\ }\hlsym{!=\ }\hlstd{}\hlstr{"efectivo"}\hlstd{\ }\hlsym{:}\\
+\hlline{\ \ \ 40\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{reponerStock}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)}\\
+\hlline{\ \ \ 41\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{TipoDePagoInvalido}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Forma\ de\ pago\ Invalida}\hlesc{$\backslash$n}\hlstr{Se}\\
+\hlline{\ \ \ 42\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{intento\ asignar\ la\ forma\ de}\\
+\hlline{\ \ \ 43\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{pago:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\hlstd{formaDePago}\hlsym{)+}\hlstd{}\hlstr{"\ a}\\
+\hlline{\ \ \ 44\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{un\ pedido\ con\ origen:\ "}\hlstd{}\hlsym{+}\hlstd{}\hlkwb{str}\hlstd{}\hlsym{(}\\
+\hlline{\ \ \ 45\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{origen}\hlsym{))}\\
+\hlline{\ \ \ 46\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{mesa\ }\hlsym{!=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\\
+\hlline{\ \ \ 47\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{reponerStock}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)}\\
+\hlline{\ \ \ 48\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{PedidoTelefonicoConMesa}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ pedidos\ telefonicos}\\
+\hlline{\ \ \ 49\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{no\ tienen\ que\ tener\ una}\\
+\hlline{\ \ \ 50\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{mesa\ asignada"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 51\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlsym{(}\hlstd{c}\hlsym{==}\hlstd{}\hlkwa{None}\hlstd{}\hlsym{):}\\
+\hlline{\ \ \ 52\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{reponerStock}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)}\\
+\hlline{\ \ \ 53\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{ClienteNulo}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"Los\ pedidos\ remotos\ deben\ tener\ un}\\
+\hlline{\ \ \ 54\ }\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{cliente\ asociado"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 55\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ID\ }\hlsym{=\ }\hlstd{self}\hlsym{.}\hlstd{}\hlkwd{generarId}\hlstd{}\hlsym{()}\\
+\hlline{\ \ \ 56\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{=\ }\hlstd{}\hlkwd{PedidoTelefono}\hlstd{}\hlsym{(}\hlstd{ID}\hlsym{,}\hlstd{c}\hlsym{,}\hlstd{productos}\hlsym{,}\hlstd{formaDePago}\hlsym{,}\hlstd{d}\hlsym{)}\\
+\hlline{\ \ \ 57\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\\
+\hlline{\ \ \ 58\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{controladorDeStock}\hlsym{.}\hlstd{}\hlkwd{reponerStock}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{)}\\
+\hlline{\ \ \ 59\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{raise\ }\hlstd{}\hlkwd{OrigenDesconocido}\hlstd{}\hlsym{(}\hlstd{}\hlstr{"El\ origen\ indicado\ no\ es\ valido"}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 60\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Asignamos\ el\ horno}\\
+\hlline{\ \ \ 61\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{self}\hlsym{.}\hlstd{asignadorDeHorno}\hlsym{.}\hlstd{}\hlkwd{asignarHorno}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{)}\\
+\hlline{\ \ \ 62\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{if\ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{getHorno}\hlstd{}\hlsym{()\ !=\ }\hlstd{}\hlkwa{None}\hlstd{}\hlsym{:}\\
+\hlline{\ \ \ 63\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Si\ tiene\ un\ horno,\ no\ es\ de\ solo\ bebida,\ tiene\ sentido}\\
+\hlline{\ \ \ 64\ }\hlslc{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlslc{estimar\ el\ tiempo}\\
+\hlline{\ \ \ 65\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setTiempoEstimado}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{estimadorDeTiempos}\hlsym{.}\hlstd{}\hlkwd{estimarTiempo}\hlstd{}\hlsym{(}\\
+\hlline{\ \ \ 66\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{))}\\
+\hlline{\ \ \ 67\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{else}\hlstd{}\hlsym{:}\\
+\hlline{\ \ \ 68\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setTiempoEstimado}\hlstd{}\hlsym{(}\hlstd{}\hlnum{0}\hlstd{}\hlsym{)}\\
+\hlline{\ \ \ 69\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlslc{\#Finalmente\ calculamos\ el\ precio}\\
+\hlline{\ \ \ 70\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{p}\hlsym{.}\hlstd{}\hlkwd{setPrecio}\hlstd{}\hlsym{(}\hlstd{self}\hlsym{.}\hlstd{calculadorDePrecios}\hlsym{.}\hlstd{}\hlkwd{calcularPrecio}\hlstd{}\hlsym{(}\hlstd{p}\hlsym{))}\\
+\hlline{\ \ \ 71\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{p\\
+\hlline{\ \ \ 72\ }\\
+\hlline{\ \ \ 73\ }}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{return\ None}\\
+\hlline{\ \ \ 74\ }\hlstd{}\\
+\hlline{\ \ \ 75\ }\hlkwa{def\ }\hlstd{}\hlkwd{reponerStock}\hlstd{}\hlsym{(}\hlstd{productos}\hlsym{):}\\
+\hlline{\ \ \ 76\ }\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{pr\ }\hlkwa{in\ }\hlstd{productos}\hlsym{:}\\
+\hlline{\ \ \ 77\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{ins\ pr}\hlsym{.}\hlstd{}\hlkwd{getInsumos}\hlstd{}\hlsym{():}\\
+\hlline{\ \ \ 78\ }\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{ins}\hlsym{.}\hlstd{}\hlkwd{setCant}\hlstd{}\hlsym{(}\hlstd{ins}\hlsym{.}\hlstd{}\hlkwd{getCant}\hlstd{}\hlsym{()\ +\ }\hlstd{}\hlnum{1}\hlstd{}\hlsym{)}\hlstd{}\\
+\mbox{}
+\normalfont
+\shorthandon{"}
+
+La segunda función es propia del Controlador de Stock, y es la que no había sido diseñada. Se encarga de reponer el stock cuando se produce un error de validación posterior al ingreso del pedido.
+
+
+\section*{Errores en la GUI}
+
+Se corrigió un bug que se producía cuando se intentaba observar el detalle de un pedido sin horno, en el que no se verificaba correctamente, al intentar mostrar el horno, que el pedido tuviera efectivamente un horno vinculado (puesto que hay pedidos que no necesitan uno).
+
+Se corrigió un problema de alineación en el detalle de pedido (en la pantalla de estado de pedidos).
+
+\section*{Errores en el testing}
+
+Algunas filas de la tabla de testing presentaban problemas que fueron corregidos (las tablas que se entregan impresas están corregidas). En todos los casos lo que fue modificado fue el resultado esperado.
+\begin{itemize}
+\item Fila 27
+\item Fila 29
+\item Fila 33
+\end{itemize}
+
+En la página 43 del informe, donde dice "Se agregan dos pedidos empanaderos" debería decir "Se agregan dos pedidos pizzeros".
+
+\end{document}
