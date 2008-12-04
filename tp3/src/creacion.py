@@ -993,9 +993,9 @@ class ControladorDeStockStandard(ControladorDeStock) :
                 
         return True
 	
-	def reponerStock(productos):
-              print "me llame"
-              for pr in productos:
-		      for ins pr.getInsumos():
-			     ins.setCant(ins.getCant() + 1)
+    def reponerStock(self, productos):
+        print "me llame"
+        for pr in productos:
+            for ins in pr.getInsumos():
+                ins.setCant(ins.getCant() + 1)
  
