@@ -370,11 +370,11 @@ class EstimadorStandard (EstimadorDeTiempos):
         frac = h.getFraccionadorDeHorno()
         cantEmpanadas = frac.getProductosPorModulo(self.empanada)
         cantPizzas = frac.getProductosPorModulo(self.pizza)
+        
         #Efectuamos el calculo final
         res = tiempoPreparacion + \
               (tiempoCoccionPizzas / (cantPizzas*modulos))+ \
               (tiempoCoccionEmpanadas / (cantEmpanadas*modulos))
-        
         return res
 
     #Estima el tiempo de coccion de las empanadas de un pedido
@@ -434,7 +434,7 @@ class EstimadorStandard (EstimadorDeTiempos):
     #del nuevo
     def estimarTiempoDePreparacion(self,  pedido):
         res = 0.0
-        if pedido.getEstado() != Estado.Ingresado or pedido.getEstado() != Estado.EnPreparacion:
+        if pedido.getEstado() != Estado.Ingresado and pedido.getEstado() != Estado.EnPreparacion:
             return res
         else:
             return self.estimarTiempoDePreparacionActual(pedido)
@@ -994,7 +994,6 @@ class ControladorDeStockStandard(ControladorDeStock) :
         return True
 	
     def reponerStock(self, productos):
-        print "me llame"
         for pr in productos:
             for ins in pr.getInsumos():
                 ins.setCant(ins.getCant() + 1)
