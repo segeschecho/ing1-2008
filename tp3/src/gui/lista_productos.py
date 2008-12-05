@@ -64,7 +64,7 @@ def formatear_datos(prod):
                                        prod.getTipo().getNombre(),
                                        prod.getPrecio(),
                                        humanize.bool2hum(prod.getPreparable()),
-                                       humanize.sec2hum(prod.getCocinable()),
+                                       humanize.sec2hum(prod.getTiempoPreparacion()),
                                        humanize.bool2hum(prod.getCocinable()),
                                        humanize.sec2hum(prod.getTiempoCoccion()))
     
